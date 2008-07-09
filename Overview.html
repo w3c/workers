@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- when publishing, change bits marked ZZZ -->
+
+<html lang=en-US-x-Hixie>
+ <head>
+  <title>Web Workers</title>
+  <link href="http://www.w3.org/StyleSheets/TR/%57%33%43-ED" rel=stylesheet
+  type="text/css">
+  <!-- ZZZ ED vs WD -->
+
+ <body>
+  <div class=head>
+   <p><a href="http://www.w3.org/"><img alt=W3C height=48
+    src="http://www.w3.org/Icons/w3c_home" width=72></a></p>
+
+   <h1 id=web-workers>Web Workers</h1>
+
+   <h2 class="no-num no-toc" id=an-accompaniment>An accompaniment
+    specification for HTML5</h2>
+
+   <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
+    Draft <!--ZZZ--> 9 July 2008</h2>
+
+   <dl><!-- ZZZ: update the month/day
+    <dt>This Version:</dt>
+    <dd><a href="http://www.w3.org/TR/2008/WD-workers-20080101/">http://www.w3.org/TR/2008/WD-workers-20080101/</a></dd>
+ :ZZZ -->
+
+    <dt>Latest Published Version:
+
+    <dd><a
+     href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a>
+
+    <dt>Latest Editor's Draft:
+
+    <dd><a
+     href="http://dev.w3.org/html5/workers/">http://dev.w3.org/html5/workers/</a></dd>
+    <!-- ZZZ: add the new version after it has shipped -->
+
+    <dt>Previous Versions:
+
+    <dd><a
+     href="http://www.w3.org/TR/2008/WD-workers-20080101/">http://www.w3.org/TR/2008/WD-workers-20080101/</a>
+     <!-- :ZZZ -->
+
+    <dt>Editors:
+
+    <dd><a href="mailto:ian@hixie.ch">Ian Hickson</a>, Google, Inc.
+   </dl>
+
+   <p class=copyright><a
+    href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+    &#169; 2008 <a href="http://www.w3.org/"><abbr title="World Wide Web
+    Consortium">W3C</abbr></a><sup>&#174;</sup> (<a
+    href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of
+    Technology">MIT</abbr></a>, <a href="http://www.ercim.org/"><abbr
+    title="European Research Consortium for Informatics and
+    Mathematics">ERCIM</abbr></a>, <a
+    href="http://www.keio.ac.jp/">Keio</a>), All Rights Reserved. W3C <a
+    href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+    <a
+    href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a>
+    and <a
+    href="http://www.w3.org/Consortium/Legal/copyright-documents">document
+    use</a> rules apply.</p>
+   <!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+   
+   <p class="alt copyright">The <a
+    href="http://www.whatwg.org/specs/web-workers/current-work/">WHATWG
+    version</a> of this specification is available under a more permissive
+    license.</p>
+   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+   </div>
+
+  <hr>
+
+  <h2 class="no-num no-toc" id=abstract>Abstract</h2>
+
+  <p>This specification defines an API that allows Web application authors to
+   spawn background workers running scripts in parallel to their main page.
+   This allows for thread-like operation with message-passing as the
+   coordination mechanism.
+
+  <h2 class="no-num no-toc" id=status>Status of this document</h2>
+  <!-- intro boilerplate (required) -->
+
+  <p><em>This section describes the status of this document at the time of
+   its publication. Other documents may supersede this document. A list of
+   current W3C publications and the most recently formally published revision
+   of this technical report can be found in the <a
+   href="http://www.w3.org/TR/">W3C technical reports index</a> at
+   http://www.w3.org/TR/.</em></p>
+  <!-- where to send feedback (required) -->
+
+  <p>If you wish to make comments regarding this document, please send them
+   to <a
+   href="mailto:public-html-comments@w3.org">public-html-comments@w3.org</a>
+   (<a
+   href="mailto:public-html-comments-request@w3.org?subject=subscribe">subscribe</a>,
+   <a
+   href="http://lists.w3.org/Archives/Public/public-html-comments/">archives</a>)
+   <!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING SENTENCE TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+   or <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a> (<a
+   href="http://lists.whatwg.org/listinfo.cgi/whatwg-whatwg.org">subscribe</a>,
+   <a
+   href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/">archives</a>).
+   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING SENTENCE TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+   All feedback is welcome.</p>
+  <!-- stability (required) -->
+
+  <p>Implementors should be aware that this specification is not stable.
+   <strong>Implementors who are not taking part in the discussions are likely
+   to find the specification changing out from under them in incompatible
+   ways.</strong> Vendors interested in implementing this specification
+   before it eventually reaches the Candidate Recommendation stage should
+   join the aforementioned mailing lists and take part in the discussions.</p>
+  <!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+  <!-- version history or list of changes (required) -->
+
+  <p>The latest stable version of the editor's draft of this specification is
+   always available on <a
+   href="http://dev.w3.org/html5/workers/Overview.html">the W3C CVS
+   server</a> and in the <a href="http://svn.whatwg.org/webworkers/">WHATWG
+   Subversion repository</a>. The latest editor's working copy (which may
+   contain unfinished text in the process of being prepared) is available <a
+   href="http://www.whatwg.org/specs/web-workers/current-work/">on the WHATWG
+   site</a>. Detailed change history can be obtained from the following
+   locations:</p>
+  <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+  <!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING LIST TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+
+  <ul>
+   <li>Twitter messages (non-editorial changes only): <a
+    href="http://twitter.com/WHATWG">http://twitter.com/WHATWG</a>
+
+   <li>Interactive Web interface: <a
+    href="http://html5.org/tools/web-workers-tracker">http://html5.org/tools/web-workers-tracker</a>
+
+   <li>Commit-Watchers mailing list: <a
+    href="http://lists.whatwg.org/listinfo.cgi/commit-watchers-whatwg.org">http://lists.whatwg.org/listinfo.cgi/commit-watchers-whatwg.org</a>
+
+   <li>Subversion interface: <a
+    href="http://svn.whatwg.org/webworkers/">http://svn.whatwg.org/webworkers/</a>
+
+   <li>CVS log: <a
+    href="http://dev.w3.org/cvsweb/html5/workers/Overview.html">http://dev.w3.org/cvsweb/html5/workers/Overview.html</a>
+  </ul>
+  <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING LIST TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+  <!-- status of document, group responsible (required) -->
+
+  <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
+   the W3C working group responsible for this specification's progress along
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 9 July
+   2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
+  <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+  <!-- relationship to other work (required) -->
+
+  <p>This specification is also being produced by the <a
+   href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
+   identical from the table of contents onwards.</p>
+  <!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+  <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+  <!-- context and rationale (required) -->
+
+  <p>This specification is intended to specify a part of the Web platform
+   closely related to HTML5. It is defined in a separate document primarily
+   to ease the cognitive load on reviewers.</p>
+  <!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
+  <!-- required patent boilerplate -->
+
+  <p>This document was produced by a group operating under the <a
+   href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February
+   2004 W3C Patent Policy</a>. W3C maintains a <a
+   href="http://www.w3.org/2004/01/pp-impl/40318/status"
+   rel=disclosure>public list of any patent disclosures</a> made in
+   connection with the deliverables of the group; that page also includes
+   instructions for disclosing a patent. An individual who has actual
+   knowledge of a patent which the individual believes contains <a
+   href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+   Claim(s)</a> must disclose the information in accordance with <a
+   href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+   6 of the W3C Patent Policy</a>.
+
+  <h2 class="no-num no-toc" id=contents>Table of contents</h2>
+  <!--begin-toc-->
+
+  <ul class=toc>
+   <li><a href="#introduction"><span class=secno>1. </span>Introduction</a>
+    <ul class=toc>
+     <li><a href="#background"><span class=secno>1.1 </span>Background</a>
+
+     <li><a href="#scope"><span class=secno>1.2 </span>Scope</a>
+
+     <li><a href="#relationships"><span class=secno>1.3 </span>Relationships
+      to other specifications</a>
+      <ul class=toc>
+       <li><a href="#relationship"><span class=secno>1.3.1
+        </span>Relationship to HTML5</a>
+
+       <li><a href="#relationship0"><span class=secno>1.3.2
+        </span>Relationship to ECMAScript</a>
+      </ul>
+
+     <li><a href="#conformance"><span class=secno>1.4 </span>Conformance
+      requirements</a>
+      <ul class=toc>
+       <li><a href="#dependencies"><span class=secno>1.4.1
+        </span>Dependencies</a>
+      </ul>
+
+     <li><a href="#terminology"><span class=secno>1.5 </span>Terminology</a>
+    </ul>
+
+   <li class=no-num><a href="#references">References</a>
+
+   <li class=no-num><a href="#acknowledgements">Acknowledgements</a>
+  </ul>
+  <!--end-toc-->
+
+  <hr>
+
+  <h2 id=introduction><span class=secno>1. </span>Introduction</h2>
+
+  <h3 id=background><span class=secno>1.1 </span>Background</h3>
+
+  <p><em>This section is non-normative.</em>
+
+  <h3 id=scope><span class=secno>1.2 </span>Scope</h3>
+
+  <p><em>This section is non-normative.</em>
+
+  <h3 id=relationships><span class=secno>1.3 </span>Relationships to other
+   specifications</h3>
+
+  <h4 id=relationship><span class=secno>1.3.1 </span>Relationship to HTML5</h4>
+
+  <p><em>This section is non-normative.</em>
+
+  <h4 id=relationship0><span class=secno>1.3.2 </span>Relationship to
+   ECMAScript</h4>
+
+  <p><em>This section is non-normative.</em>
+
+  <h3 id=conformance><span class=secno>1.4 </span>Conformance requirements</h3>
+
+  <p>All diagrams, examples, and notes in this specification are
+   non-normative, as are all sections explicitly marked non-normative.
+   Everything else in this specification is normative.
+
+  <p>The key words "MUST", "MUST NOT", "REQUIRED", <!--"SHALL", "SHALL
+  NOT",-->
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in the
+   normative parts of this document are to be interpreted as described in
+   RFC2119. For readability, these words do not appear in all uppercase
+   letters in this specification. <a href="#refsRFC2119">[RFC2119]</a></p>
+  <!-- XXX but they should be
+  marked up -->
+
+  <p>Requirements phrased in the imperative as part of algorithms (such as
+   "strip any leading space characters" or "return false and abort these
+   steps") are to be interpreted with the meaning of the key word ("must",
+   "should", "may", etc) used in introducing the algorithm.
+
+  <p>Some conformance requirements are phrased as requirements on attributes,
+   methods or objects. Such requirements are to be interpreted as
+   requirements on user agents.
+
+  <p>Conformance requirements phrased as algorithms or specific steps may be
+   implemented in any manner, so long as the end result is equivalent. (In
+   particular, the algorithms defined in this specification are intended to
+   be easy to follow, and not intended to be performant.)
+
+  <p>The only conformance class defined by this specification is user agents.
+
+  <p>User agents may impose implementation-specific limits on otherwise
+   unconstrained inputs, e.g. to prevent denial of service attacks, to guard
+   against running out of memory, or to work around platform-specific
+   limitations.
+
+  <h4 id=dependencies><span class=secno>1.4.1 </span>Dependencies</h4>
+
+  <p>This specification relies on several other underlying specifications.
+
+  <dl>
+   <dt>HTML5
+
+   <dd>
+    <p>Many fundamental concepts from HTML5 are used by this specification.
+     <a href="#refsHTML5">[HTML5]</a></p>
+
+   <dt>ECMAScript
+
+   <dd>
+    <p>This specification is intended to be used with JavaScript as the
+     scripting language. <a href="#refsJS">[JS]</a></p>
+
+   <dt>WebIDL
+
+   <dd>
+    <p>The IDL blocks in this specification use the semantics of the WebIDL
+     specification. <a href="#refsWebIDL">[WebIDL]</a></p>
+  </dl>
+
+  <h3 id=terminology><span class=secno>1.5 </span>Terminology</h3>
+
+  <p>For simplicity, terms such as <em>shown</em>, <em>displayed</em>, and
+   <em>visible</em> might sometimes be used when referring to the way a
+   document is rendered to the user. These terms are not meant to imply a
+   visual medium; they must be considered to apply to other media in
+   equivalent ways.
+
+  <p>The construction "a <code>Foo</code> object", where <code>Foo</code> is
+   actually an interface, is sometimes used instead of the more accurate "an
+   object implementing the interface <code>Foo</code>".
+
+  <p>The term DOM is used to refer to the API set made available to scripts
+   in Web applications, and does not necessarily imply the existence of an
+   actual <code>Document</code> object or of any other <code>Node</code>
+   objects as defined in the DOM Core specifications. <a
+   href="#refsDOM3CORE">[DOM3CORE]</a>
+
+  <p>A DOM attribute is said to be <em>getting</em> when its value is being
+   retrieved (e.g. by author script), and is said to be <em>setting</em> when
+   a new value is assigned to it.
+
+  <p>If a DOM object is said to be <dfn id=live>live</dfn>, then that means
+   that any attributes returning that object must always return the same
+   object (not a new object each time), and the attributes and methods on
+   that object must operate on the actual underlying data, not a snapshot of
+   the data.
+
+  <h2 class=no-num id=references>References</h2>
+
+  <p class=big-issue>This section will be written in a future
+   draft.<!--XXX-->
+
+  <h2 class=no-num id=acknowledgements>Acknowledgements</h2>
+  <!-- ACKS -->
+
+  <p>Thanks to Maciej Stachowiak and Mike Smith for their useful and
+   substantial comments.
