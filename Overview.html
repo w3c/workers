@@ -376,6 +376,7 @@
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=windowworker>WindowWorker</dfn> {
+  readonly attribute boolean <a href="#name" title=dom-windowworker-name>name</a>;
   readonly attribute boolean <a href="#closing" title=dom-windowworker-closing>closing</a>;
 };</pre>
 
@@ -385,6 +386,11 @@
    <code>WindowTimers</code> and <code><a
    href="#windowworkercreators">WindowWorkerCreators</a></code> interfaces)
    and the <code>EventTarget</code> interface.
+
+  <p>The <dfn id=name title=dom-windowworker-name><code>name</code></dfn>
+   attribute must return the value it was assigned when the <code><a
+   href="#windowworker">WindowWorker</a></code> object was created by the "<a
+   href="#run-a">run a worker</a>" algorithm.
 
   <p>The <dfn id=closing
    title=dom-windowworker-closing><code>closing</code></dfn> attribute must
@@ -401,16 +407,22 @@
 
   <h3 id=processing><span class=secno>2.3 </span>Processing model</h3>
 
-  <p>When a user agent is to <dfn id=run-a>run a worker</dfn> for a script
-   <var title="">script</var> and a browsing context <var title="">owner
-   browsing context</var> and a <code>Document</code> <var title="">owner
-   document</var>, it must run the following steps in a completely separate
-   and parallel execution environment:
+  <p>When a user agent is to <dfn id=run-a>run a worker</dfn> named <var
+   title="">name</var> for a script <var title="">script</var>, a browsing
+   context <var title="">owner browsing context</var> and a
+   <code>Document</code> <var title="">owner document</var>, it must run the
+   following steps in a completely separate and parallel execution
+   environment:
 
   <ol>
    <li>
     <p>Create a new <code><a href="#windowworker">WindowWorker</a></code>
      object, <var title="">window</var>.</p>
+
+   <li>
+    <p>Set the <code title=dom-windowworker-name><a
+     href="#name">name</a></code> attribute of <var title="">window</var> to
+     the value of <var title="">name</var>.</p>
 
    <li>
     <p>Let <var title="">script</var>'s <span>script execution context</span>
