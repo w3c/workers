@@ -408,13 +408,31 @@
   <h3 id=processing><span class=secno>2.3 </span>Processing model</h3>
 
   <p>When a user agent is to <dfn id=run-a>run a worker</dfn> named <var
-   title="">name</var> for a script <var title="">script</var>, a browsing
-   context <var title="">owner browsing context</var> and a
-   <code>Document</code> <var title="">owner document</var>, it must run the
-   following steps in a completely separate and parallel execution
-   environment:
+   title="">name</var> for a script with <span>URL</span> <var
+   title="">url</var>, a browsing context <var title="">owner browsing
+   context</var> and a <code>Document</code> <var title="">owner
+   document</var>, it must run the following steps in a completely separate
+   and parallel execution environment:
 
   <ol>
+   <li>
+    <p>Attempt to <span>fetch</span><!-- XXX --> the resource identified by
+     <var title="">url</var>.</p>
+
+    <p>If the attempt fails, then abort these steps and invoke the <a
+     href="#worker0" title="worker creation failed">error handling steps</a>
+     defined by the algorithm that called this one.</p>
+
+    <p>If the attempt succeeds, then let <var title="">script</var> be the
+     resource that was obtained.</p>
+
+    <p class=note>As with <code>script</code> elements, the MIME type of the
+     script is ignored. Unlike with <code>script</code> elements, there is no
+     way to override the type. It's always assumed to be JavaScript.</p>
+    <!-- XXX people will complain about
+    this. I guess we might want to examine the MIME type... -->
+    
+
    <li>
     <p>Create a new <code><a href="#windowworker">WindowWorker</a></code>
      object, <var title="">window</var>.</p>
@@ -438,7 +456,19 @@
      be <var title="">owner document</var>.</p>
 
    <li>
-    <p>Run <var title="">script</var> until it returns.</p>
+    <p>Invoke the <a href="#worker" title="worker creation succeeded">success
+     steps</a> defined by the algorithm that called this one. (This will fire
+     add an event to the <a href="#queue">queue of events</a>.)</p>
+
+   <li>
+    <p>Run <var title="">script</var> until it either returns, fails to catch
+     an exception, or gets prematurely aborted by the "<a href="#kill-a">kill
+     a worker</a>" algorithm below.</p>
+
+    <p class=note>If the script gets aborted by the "<a href="#kill-a">kill a
+     worker</a>" algorithm, then that same algorithm will cause there to only
+     be a single event in the <a href="#queue">queue of events</a> at the
+     next step, namely the <code title=message-unload>unload</code> event.</p>
 
    <li>
     <p><i>Event loop</i>: Wait until there is an event in the <a
@@ -448,7 +478,9 @@
    <li>
     <p>Dispatch the oldest event or callback in the <a href="#queue">queue of
      events</a>. Events must be targetted at the <code><a
-     href="#windowworker">WindowWorker</a></code> object.</p>
+     href="#windowworker">WindowWorker</a></code> object. The handling of
+     this event or the execution of this callback might get prematurely
+     aborted by the "<a href="#kill-a">kill a worker</a>" algorithm below.</p>
 
    <li>
     <p>If there are any more events in the <a href="#queue">queue of
@@ -520,6 +552,9 @@
    href="#windowworkercreators">WindowWorkerCreators</a></code> interface.
 
   <p class=big-issue>...
+
+  <p class=big-issue><dfn id=worker>worker creation succeeded</dfn>, <dfn
+   id=worker0>worker creation failed</dfn>
 
   <h2 class=no-num id=references>References</h2>
 
