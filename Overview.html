@@ -209,6 +209,10 @@
     </ul>
 
    <li><a href="#creating"><span class=secno>3. </span>Creating workers</a>
+    <ul class=toc>
+     <li><a href="#the-windowworkercreators"><span class=secno>3.1 </span>The
+      <code>WindowWorkerCreators</code> interface</a>
+    </ul>
 
    <li class=no-num><a href="#references">References</a>
 
@@ -378,8 +382,9 @@
   <p>Objects that implement the <code><a
    href="#windowworker">WindowWorker</a></code> interface must also implement
    the <code>Window</code> interface (and thus also the
-   <code>WindowTimers</code> interface) and the <code>EventTarget</code>
-   interface.
+   <code>WindowTimers</code> and <code><a
+   href="#windowworkercreators">WindowWorkerCreators</a></code> interfaces)
+   and the <code>EventTarget</code> interface.
 
   <p>The <dfn id=closing
    title=dom-windowworker-closing><code>closing</code></dfn> attribute must
@@ -488,6 +493,19 @@
   </ol>
 
   <h2 id=creating><span class=secno>3. </span>Creating workers</h2>
+
+  <h3 id=the-windowworkercreators><span class=secno>3.1 </span>The <code><a
+   href="#windowworkercreators">WindowWorkerCreators</a></code> interface</h3>
+
+  <pre
+   class=idl>[NoInterfaceObject] interface <dfn id=windowworkercreators>WindowWorkerCreators</dfn> {
+  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createWorker>createWorker</span>(in DOMString scriptURI);
+  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker</span>(in DOMString name, in DOMString scriptURI);
+};</pre>
+
+  <p>Objects that implement the <code>Window</code> interface must also
+   implement the <code><a
+   href="#windowworkercreators">WindowWorkerCreators</a></code> interface.
 
   <p class=big-issue>...
 
