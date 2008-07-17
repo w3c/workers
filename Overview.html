@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->16 July 2008</h2>
+    Draft <!--ZZZ-->17 July 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 16
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 17
    July 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -378,6 +378,7 @@
    class=idl>[NoInterfaceObject] interface <dfn id=windowworker>WindowWorker</dfn> {
   readonly attribute boolean <a href="#name" title=dom-windowworker-name>name</a>;
   readonly attribute boolean <a href="#closing" title=dom-windowworker-closing>closing</a>;
+  void <a href="#close" title=dom-windowworker-close>close</a>();
 };</pre>
 
   <p>Objects that implement the <code><a
@@ -404,6 +405,19 @@
    empty.
 
   <p>An event in the queue can be a DOM event or a timeout callback.
+
+  <p>All asynchronous callbacks and events that would be called or dispatched
+   in the worker must be added to the worker's queue, with the "<a
+   href="#run-a">run a worker</a>" processing model below taking care of
+   actually calling the callbacks or dispatching the events.
+
+  <p>Once the <code><a href="#windowworker">WindowWorker</a></code>'s <code
+   title=dom-windowworker-closing><a href="#closing">closing</a></code>
+   attribute is set to true, the queue must discard anything else that would
+   be added to it. Effectively, once the <code
+   title=dom-windowworker-closing><a href="#closing">closing</a></code>
+   attribute is true, timers stop firing, notifications for all pending
+   asynchronous operations are dropped, etc.
 
   <h3 id=processing><span class=secno>2.3 </span>Processing model</h3>
 
@@ -477,10 +491,9 @@
 
    <li>
     <p>Dispatch the oldest event or callback in the <a href="#queue">queue of
-     events</a>. Events must be targetted at the <code><a
-     href="#windowworker">WindowWorker</a></code> object. The handling of
-     this event or the execution of this callback might get prematurely
-     aborted by the "<a href="#kill-a">kill a worker</a>" algorithm below.</p>
+     events</a>. The handling of this event or the execution of this callback
+     might get prematurely aborted by the "<a href="#kill-a">kill a
+     worker</a>" algorithm below.</p>
 
    <li>
     <p>If there are any more events in the <a href="#queue">queue of
@@ -492,7 +505,7 @@
    <li>
     <p class=big-issue>timers, intervals, XMLHttpRequests, database
      transactions, etc, must be killed; ports must be deactivated and
-     unentangled</p>
+     unentangled (do not send unload)</p>
   </ol>
 
   <hr>
@@ -503,19 +516,25 @@
 
   <ol>
    <li>
+    <p>Create an <code>Event</code> object with the event name <code
+     title=event-unload>unload</code>, which does not bubble and is not
+     cancelable, and add it to the worker's <code><a
+     href="#windowworker">WindowWorker</a></code> object's <a
+     href="#queue">queue of events</a>, targetted at the <code><a
+     href="#windowworker">WindowWorker</a></code> object itself.
+
+   <li>
     <p>Set the worker's <code><a href="#windowworker">WindowWorker</a></code>
      object's <code title=dom-windowworker-closing><a
      href="#closing">closing</a></code> attribute to true.
 
    <li>
-    <p>Create an <code>Event</code> object with the event name <code
-     title=event-unload>unload</code>, which does not bubble and is not
-     cancelable, and add it to the worker's <code><a
-     href="#windowworker">WindowWorker</a></code> object's <a
-     href="#queue">queue of events</a>.
-
-   <li>
-    <p>Wait a user-agent-defined amount of time.
+    <p>Wait a user-agent-defined amount of time. If the "<a href="#run-a">run
+     a worker</a>" processing model defined above immediately starts running
+     event listeners registered for <code title=event-unload>unload</code>
+     event, this time should not be zero &mdash; the idea is that the <code
+     title=event-unload>unload</code> event can be used to clean up when
+     shutting down unexpectedly.
 
    <li>
     <p>If there are any events in the <a href="#queue">queue of events</a>
@@ -534,6 +553,53 @@
     <p>Abort the script currently running in the worker (if any script is
      running, then it will be a handler for the <code
      title=event-unload>unload</code> event).
+  </ol>
+
+  <hr>
+
+  <p>When a script invokes the <dfn id=close
+   title=dom-windowworker-close><code>close()</code></dfn> method on a
+   <code><a href="#windowworker">WindowWorker</a></code> object, the user
+   agent must run the following steps:
+
+  <ol>
+   <li>
+    <p>Create an <code>Event</code> object with the event name <code
+     title=event-unload>unload</code>, which does not bubble and is not
+     cancelable, and add it to the <code><a
+     href="#windowworker">WindowWorker</a></code> object's <a
+     href="#queue">queue of events</a>, targetted at the <code><a
+     href="#windowworker">WindowWorker</a></code> object itself.
+
+   <li>
+    <p>Set the worker's <code><a href="#windowworker">WindowWorker</a></code>
+     object's <code title=dom-windowworker-closing><a
+     href="#closing">closing</a></code> attribute to true.
+
+   <li>
+    <p>For each <code>MessagePort</code> object that is entangled with
+     another port and that has one (but only one) port whose <code
+     title=dom-messageport-ownerWindow>ownerWindow</code> is the <code><a
+     href="#windowworker">WindowWorker</a></code> object on which the method
+     was invoked, run the following substeps:</p>
+
+    <ol>
+     <li>
+      <p>Unentangle the two ports.
+
+     <li>
+      <p>Set both ports' <code title=dom-messageport-active>active</code>
+       attribute to false.
+
+     <li>
+      <p>At the next available opportunity, after any scripts have finished
+       executing<!-- XXX queue -->, <span>fire a simple event</span> called
+       <code title=event-unload>unload</code> at the other port (the one
+       whose <code title=dom-messageport-ownerWindow>ownerWindow</code> is
+       not the <code><a href="#windowworker">WindowWorker</a></code> object
+       on which the <code title=dom-windowworker-close><a
+       href="#close">close()</a></code> method was called).
+    </ol>
   </ol>
 
   <h2 id=creating><span class=secno>3. </span>Creating workers</h2>
