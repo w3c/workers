@@ -488,6 +488,48 @@
    objects that are in events pending in the <a href="#queue">queue of
    events</a>.
 
+  <hr>
+
+  <p>A worker is said to be a <dfn id=front-line>front-line worker</dfn> if
+   at least one of the <a href="#the-workers0">the worker's ports</a> has an
+   entangled <code>MessagePort</code> whose <code
+   title=dom-MessagePort-ownerWindow>ownerWindow</code> is a
+   <code>WindowBrowsingContext</code> object.
+
+  <p>A worker is said to be a <dfn id=needed>needed worker</dfn> if either:
+
+  <ul>
+   <li>it is a <a href="#front-line">front-line worker</a>, or
+
+   <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
+    an entangled <code>MessagePort</code> whose <code
+    title=dom-MessagePort-ownerWindow>ownerWindow</code> is a <code><a
+    href="#windowworker">WindowWorker</a></code> object that is itself a <a
+    href="#needed">needed worker</a>.
+  </ul>
+
+  <hr>
+
+  <p>A worker is said to be an <dfn id=active>active front-line worker</dfn>
+   if at least one of the <a href="#the-workers0">the worker's ports</a> has
+   both an <code title=dom-MessagePort-active>active</code> attribute whose
+   value is true and an entangled <code>MessagePort</code> whose <code
+   title=dom-MessagePort-ownerWindow>ownerWindow</code> is a
+   <code>WindowBrowsingContext</code> object.
+
+  <p>A worker is said to be an <dfn id=active0>active needed worker</dfn> if
+   either:
+
+  <ul>
+   <li>it is an <a href="#active">active front-line worker</a>, or
+
+   <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
+    an entangled <code>MessagePort</code> whose <code
+    title=dom-MessagePort-ownerWindow>ownerWindow</code> is a <code><a
+    href="#windowworker">WindowWorker</a></code> object that is itself an <a
+    href="#active0">active needed worker</a>.
+  </ul>
+
   <h3 id=processing><span class=secno>2.5 </span>Processing model</h3>
 
   <p>When a user agent is to <dfn id=run-a>run a worker</dfn> named <var
@@ -546,29 +588,32 @@
    <li>
     <p>Invoke the <a href="#success" title="worker creation
      succeeded">success steps</a> defined by the algorithm that called this
-     one. (This will add an event to the <a href="#queue">queue of
-     events</a>.)</p>
+     one.</p>
+
+    <p class=note>This will usually add an event to the <a
+     href="#queue">queue of events</a>. If it does, that event will have a
+     <code>MessagePort</code> and thus the list of <a
+     href="#the-workers0">the worker's ports</a> will not be empty. If it
+     doesn't, then the next step will set the <var title="">window</var>
+     object's <code title=dom-WindowWorker-closing><a
+     href="#closing">closing</a></code> attribute to true.</p>
+
+   <li>
+    <p>Start monitoring <var title="">worker</var>, such that as soon as the
+     worker stops being a <a href="#needed">needed worker</a>, the <var
+     title="">window</var> object's <code title=dom-WindowWorker-closing><a
+     href="#closing">closing</a></code> attribute is set to true.</p>
 
    <li>
     <p>Start monitoring <var title="">worker</var>, such that whenever the
      <var title="">window</var> object's <code
      title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
-     attribute is false and all <a href="#the-workers0">the worker's
-     ports</a> have their <code title=dom-MessagePort-active>active</code>
-     attributes set to false, the user agent suspends execution of script in
-     that worker until such time as either the <code
+     attribute is false and the worker is not an <a href="#active0">active
+     needed worker</a>, the user agent suspends execution of script in that
+     worker until such time as either the <code
      title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
-     attribute switches to true or one of the <code>MessagePort</code>
-     objects in the list of <a href="#the-workers0">the worker's ports</a>
-     has an <code title=dom-MessagePort-active>active</code> attribute with
-     the value true.</p>
-
-   <li>
-    <p>Start monitoring <var title="">worker</var>, such that as soon as the
-     list of <a href="#the-workers0">the worker's ports</a> becomes empty,
-     the <var title="">window</var> object's <code
-     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
-     attribute is set to true.</p>
+     attribute switches to true or the worker becomes an <a
+     href="#active0">active needed worker</a>.</p>
 
    <li>
     <p>Run <var title="">script</var> until it either returns, fails to catch
