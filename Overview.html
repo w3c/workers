@@ -202,16 +202,19 @@
      <li><a href="#the-windowworker"><span class=secno>2.1 </span>The
       <code>WindowWorker</code> interface</a>
 
-     <li><a href="#the-queue"><span class=secno>2.2 </span>The queue of
+     <li><a href="#base-urls"><span class=secno>2.2 </span>Base URLs and
+      origins of workers</a>
+
+     <li><a href="#the-queue"><span class=secno>2.3 </span>The queue of
       events</a>
 
-     <li><a href="#the-workers"><span class=secno>2.3 </span>The worker's
+     <li><a href="#the-workers"><span class=secno>2.4 </span>The worker's
       ports</a>
 
-     <li><a href="#processing"><span class=secno>2.4 </span>Processing
+     <li><a href="#processing"><span class=secno>2.5 </span>Processing
       model</a>
 
-     <li><a href="#creating"><span class=secno>2.5 </span>Creating
+     <li><a href="#creating"><span class=secno>2.6 </span>Creating
       workers</a>
     </ul>
 
@@ -434,7 +437,21 @@
      href="#windowworker">WindowWorker</a></code> object.
   </dl>
 
-  <h3 id=the-queue><span class=secno>2.2 </span>The queue of events</h3>
+  <h3 id=base-urls><span class=secno>2.2 </span>Base URLs and origins of
+   workers</h3>
+
+  <p>The <span>base URL</span> of a <span>URL</span> passed to an API in a
+   worker is the <span>absolute URL</span> given by the value of the <a
+   href="#url" title=dom-WindowWorker-URL>URL attribute of the worker's
+   <code>WindowWorker</code> object.</a>
+
+  <p>The <span>origin</span> and <span>effective script origin</span> of
+   scripts running in workers are both the <span>origin</span> of the
+   <span>absolute URL</span> given by the value of the <a href="#url"
+   title=dom-WindowWorker-URL>URL attribute of the worker's
+   <code>WindowWorker</code> object.</a>
+
+  <h3 id=the-queue><span class=secno>2.3 </span>The queue of events</h3>
 
   <p>Each <code><a href="#windowworker">WindowWorker</a></code> object is
    asssociated with a <dfn id=queue>queue of events</dfn>, which is initially
@@ -455,7 +472,7 @@
    attribute is true, timers stop firing, notifications for all pending
    asynchronous operations are dropped, etc.
 
-  <h3 id=the-workers><span class=secno>2.3 </span>The worker's ports</h3>
+  <h3 id=the-workers><span class=secno>2.4 </span>The worker's ports</h3>
 
   <p>Workers communicate with other workers and with <span title="browsing
    context">browsing contexts</span> through <span title="channel
@@ -471,7 +488,7 @@
    objects that are in events pending in the <a href="#queue">queue of
    events</a>.
 
-  <h3 id=processing><span class=secno>2.4 </span>Processing model</h3>
+  <h3 id=processing><span class=secno>2.5 </span>Processing model</h3>
 
   <p>When a user agent is to <dfn id=run-a>run a worker</dfn> named <var
    title="">name</var> for a script with <span>URL</span> <var
@@ -741,7 +758,7 @@
     </ol>
   </ol>
 
-  <h3 id=creating><span class=secno>2.5 </span>Creating workers</h3>
+  <h3 id=creating><span class=secno>2.6 </span>Creating workers</h3>
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=windowworkercreators>WindowWorkerCreators</dfn> {
