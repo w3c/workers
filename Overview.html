@@ -411,8 +411,8 @@
 
   <p>The <dfn id=closing
    title=dom-WindowWorker-closing><code>closing</code></dfn> attribute must
-   return false until the "<a href="#kill-a">kill a worker</a>" processing
-   model defined below sets it to false.
+   return false until it is set to true by one of the algorithms in the
+   processing model section below.
 
   <p>The following are the <span>event handler DOM attributes</span> that
    must be supported by objects implementing the <code><a
@@ -560,22 +560,22 @@
 
    <li>
     <p>Create a new <code><a href="#windowworker">WindowWorker</a></code>
-     object, <var title="">window</var>.</p>
+     object, <var title="">worker</var>.</p>
 
    <li>
     <p>Set the <code title=dom-WindowWorker-URL><a href="#url">URL</a></code>
-     attribute of <var title="">window</var> to the value of <var
+     attribute of <var title="">worker</var> to the value of <var
      title="">url</var>.</p>
 
    <li>
     <p>Set the <code title=dom-WindowWorker-name><a
-     href="#name">name</a></code> attribute of <var title="">window</var> to
+     href="#name">name</a></code> attribute of <var title="">worker</var> to
      the value of <var title="">name</var>.</p>
 
    <li>
     <p>Let <var title="">script</var>'s <span>script execution context</span>
      (and thus also <span>global object</span>) be <var
-     title="">window</var>.</p>
+     title="">worker</var>.</p>
 
    <li>
     <p>Let <var title="">script</var>'s <span>script browsing context</span>
@@ -594,19 +594,19 @@
      href="#queue">queue of events</a>. If it does, that event will have a
      <code>MessagePort</code> and thus the list of <a
      href="#the-workers0">the worker's ports</a> will not be empty. If it
-     doesn't, then the next step will set the <var title="">window</var>
+     doesn't, then the next step will set the <var title="">worker</var>
      object's <code title=dom-WindowWorker-closing><a
      href="#closing">closing</a></code> attribute to true.</p>
 
    <li>
     <p>Start monitoring <var title="">worker</var>, such that as soon as the
      worker stops being a <a href="#needed">needed worker</a>, the <var
-     title="">window</var> object's <code title=dom-WindowWorker-closing><a
+     title="">worker</var> object's <code title=dom-WindowWorker-closing><a
      href="#closing">closing</a></code> attribute is set to true.</p>
 
    <li>
     <p>Start monitoring <var title="">worker</var>, such that whenever the
-     <var title="">window</var> object's <code
+     <var title="">worker</var> object's <code
      title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute is false and the worker is not an <a href="#active0">active
      needed worker</a>, the user agent suspends execution of script in that
@@ -630,7 +630,7 @@
    <li>
     <p><i>Event loop</i>: Wait until either there is an event in the <a
      href="#queue">queue of events</a> associated with <var
-     title="">window</var> or the <var title="">window</var> object's <code
+     title="">worker</var> or the <var title="">worker</var> object's <code
      title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute is set to true.</p>
 
@@ -642,7 +642,7 @@
 
    <li>
     <p>If there are any more events in the <a href="#queue">queue of
-     events</a> or if the <var title="">window</var> object's <code
+     events</a> or if the <var title="">worker</var> object's <code
      title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute is set to false, then jump back to the step above labeled
      <i>event loop</i>.</p>
@@ -699,6 +699,13 @@
      running, then it will be a handler for the <code
      title=event-unload>unload</code> event).
   </ol>
+
+  <p>User agents may invoke the "<a href="#kill-a">kill a worker</a>"
+   processing model on a worker at any time, e.g. in response to user
+   requests, in response to CPU quota management, or when a worker stops
+   being a <a href="#needed">needed worker</a> if the worker continues
+   executing even after its <code title=dom-WindowWorker-closing><a
+   href="#closing">closing</a></code> attribute was set to true.
 
   <hr>
 
