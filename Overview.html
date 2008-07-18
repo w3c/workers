@@ -390,7 +390,7 @@
   void <a href="#close" title=dom-WindowWorker-close>close</a>();
 
   // event handler attributes
-           attribute <span>EventListener</span> <a href="#onattach" title=handler-WindowWorker-onattach>onattach</a>;
+           attribute <span>EventListener</span> <a href="#onconnect" title=handler-WindowWorker-onconnect>onconnect</a>;
            attribute <span>EventListener</span> <a href="#onunload" title=handler-WindowWorker-onunload>onunload</a>;
 };</pre>
 
@@ -419,12 +419,12 @@
    href="#windowworker">WindowWorker</a></code> interface:
 
   <dl>
-   <dt><dfn id=onattach
-    title=handler-WindowWorker-onattach><code>onattach</code></dfn>
+   <dt><dfn id=onconnect
+    title=handler-WindowWorker-onconnect><code>onconnect</code></dfn>
 
    <dd>
     <p>Must be invoked whenever a <code
-     title=event-WindowWorker-attach>attach</code> event is targeted at or
+     title=event-WindowWorker-connect>connect</code> event is targeted at or
      bubbles through the <code><a
      href="#windowworker">WindowWorker</a></code> object.
 
@@ -906,8 +906,8 @@
       <p>Return that port.
 
      <li>
-      <p>Asynchronously, <a href="#attach" title="attach to a
-       worker">attach</a> to this preexisting worker, with the newly created
+      <p>Asynchronously, <a href="#connect" title="connect to a
+       worker">connect</a> to this preexisting worker, with the newly created
        port.
     </ol>
 
@@ -944,9 +944,9 @@
      document</var>.</p>
 
     <p>If that algorithm invokes the steps for <dfn id=success title="worker
-     creation succeeded">success steps</dfn>, then <a href="#attach"
-     title="attach to a worker">attach</a> to this new worker, with the newly
-     created port.</p>
+     creation succeeded">success steps</dfn>, then <a href="#connect"
+     title="connect to a worker">connect</a> to this new worker, with the
+     newly created port.</p>
 
     <p>Otherwise, if the <dfn id=worker>worker creation failed</dfn>, then at
      the next available opportunity, after any scripts have finished
@@ -956,7 +956,7 @@
 
   <hr>
 
-  <p>The steps to <dfn id=attach>attach to a worker</dfn> given a
+  <p>The steps to <dfn id=connect>connect to a worker</dfn> given a
    <code>MessagePort</code> object <var title="">port</var> are as follows:
 
   <ol>
@@ -988,7 +988,7 @@
 
    <li>
     <p>Create an event that uses the <code>MessageEvent</code> interface,
-     with the name <code title=event-attach>attach</code>, which does not
+     with the name <code title=event-connect>connect</code>, which does not
      bubble, is cancelable, has no default action, has a <code
      title=dom-MessageEvent-data>data</code> attribute whose value is the
      empty string and has a <code
@@ -1076,8 +1076,8 @@
   <h2 class=no-num id=acknowledgements>Acknowledgements</h2>
   <!-- ACKS -->
 
-  <p>Thanks to Maciej Stachowiak and Mike Smith for their useful and
-   substantial comments.
+  <p>Thanks to Maciej Stachowiak, Philip Taylor, and Mike Smith for their
+   useful and substantial comments.
 
   <p>Huge thanks to the whole Gears team, who pioneered this technology and
    whose experience has been a huge influence on this specification.
