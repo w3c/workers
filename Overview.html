@@ -383,6 +383,7 @@
   readonly attribute DOMString <a href="#url" title=dom-WindowWorker-URL>URL</a>;
   readonly attribute DOMString <a href="#name" title=dom-WindowWorker-name>name</a>;
   readonly attribute boolean <a href="#closing" title=dom-WindowWorker-closing>closing</a>;
+  boolean <a href="#import" title=dom-WindowWorker-import>import</a>(in DOMString url);
   void <a href="#close" title=dom-WindowWorker-close>close</a>();
 
   // event handler attributes
@@ -635,6 +636,62 @@
     <p>Abort the script currently running in the worker (if any script is
      running, then it will be a handler for the <code
      title=event-unload>unload</code> event).
+  </ol>
+
+  <hr>
+
+  <p>When a script invokes the <dfn id=import
+   title=dom-WindowWorker-import><code>import(<var
+   title="">url</var>)</code></dfn> method on a <code><a
+   href="#windowworker">WindowWorker</a></code> object, the user agent must
+   run the following steps:
+
+  <ol>
+   <li>
+    <p><span title="resolve a url">Resolve</span> the <var title="">url</var>
+     argument.
+
+   <li>
+    <p>If this fails, throw a <code>SYNTAX_ERR</code> exception.
+
+   <li>
+    <p>If the <span>origin</span> of the resulting <span>absolute URL</span>
+     is not the <span title="same origin">same</span> as the origin of the
+     script that invoked the method, then throw a <span>security
+     exception</span>.
+
+   <li>
+    <p>Attempt to <span>fetch</span><!-- XXX --> the resource identified by
+     the resulting <span>absolute URL</span>.</p>
+
+    <p>If the attempt fails, return false and abort these steps.</p>
+
+    <p>If the attempt succeeds, then let <var title="">script</var> be the
+     resource that was obtained.</p>
+
+    <p class=note>As with the initial script, the script here is always
+     assumed to be JavaScript, regardless of the MIME type.</p>
+    <!-- XXX -->
+
+   <li>
+    <p>Let <var title="">script</var>'s <span>script execution
+     context</span>, <span>script browsing context</span>, and <span>script
+     document context</span> be the same as for the script that was executed
+     by the <a href="#run-a">run a worker</a> processing model for this
+     worker.</p>
+
+   <li>
+    <p>Run <var title="">script</var> until it either returns, fails to catch
+     an exception, or gets prematurely aborted by the "<a href="#kill-a">kill
+     a worker</a>" algorithm below.</p>
+
+    <p>If an exception was raised or if the script was prematurely aborted,
+     then abort these steps, letting the exception or aborting continue to be
+     processed by the script that called the <code
+     title=dom-WindowWorker-import><a href="#import">import()</a></code>
+     method.</p>
+
+    <p>Otherwise, return true.</p>
   </ol>
 
   <hr>
@@ -919,7 +976,6 @@
    <!-- XXX a way to set cookies on the URL for the script -->
    <!-- XXX the navigator object, for UA sniffing (?) -->
    <!-- XXX
-  void include(in DOMString url);
   void log(in DOMString s); // log to console
 -->
   </ul>
