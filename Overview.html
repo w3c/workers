@@ -994,6 +994,27 @@
 
   <h2 id=apis-available><span class=secno>3. </span>APIs available to workers</h2>
 
+  <p>There must be no interface objects and constructors available in the
+   global scope of scripts whose <span>script execution context</span> is a
+   <code><a href="#windowworker">WindowWorker</a></code> object except for
+   the following:
+
+  <ul>
+   <li>
+    <p><code>XMLHttpRequest</code> and all interface objects and constructors
+     defined by the XMLHttpRequest specifications, except that the
+     <span>document response entity body</span> must always be null. <a
+     href="#refsXHR">[XHR]</a>
+
+   <li>
+    <p>The <code>WebSocket</code> interface object and constructor.
+
+   <li>
+    <p>The <code>MessageChannel</code> interface object and constructor.
+  </ul>
+
+  <hr>
+
   <p>Objects that implement the <code><a
    href="#windowworker">WindowWorker</a></code> interface must also implement
    the following interfaces:
@@ -1013,34 +1034,32 @@
    <li>The <code>EventTarget</code> interface.
   </ul>
 
-  <p>There must be no interface objects and constructors available in the
-   global scope of scripts whose <span>script execution context</span> is a
-   <code><a href="#windowworker">WindowWorker</a></code> object except for
-   the following:
+  <div class=note>
+   <p>The following APIs are available in workers due to their being defined
+    on the <code>Window</code> object or one of the interfaces that are
+    required to be implemented by objects implementing that interface:</p>
 
-  <ul>
-   <li>
-    <p><code>XMLHttpRequest</code> and all interface objects and constructors
-     defined by the XMLHttpRequest specifications, except that the
-     <span>document response entity body</span> must always be null. <a
-     href="#refsXHR">[XHR]</a>
+   <ul>
+    <li>The <code title=dom-showNotification>showNotification()</code> APIs.
 
-   <li>
-    <p>The <code>WebSocket</code> interface object and constructor.
+    <li>The <code title=dom-localStorage>localStorage</code> object and
+     related name/value pair storage APIs.
 
-   <li>
-    <p>The <code>MessageChannel</code> interface object and constructor.
-   </li>
-   <!-- XXX showNotification() -->
-   <!-- XXX ApplicationCache -->
-   <!-- XXX globalStorage -->
-   <!-- XXX openDatabase() -->
-   <!-- XXX a way to set cookies on the URL for the script -->
-   <!-- XXX the navigator object, for UA sniffing (?) -->
-   <!-- XXX
-  void log(in DOMString s); // log to console
--->
-  </ul>
+    <li>The <code title=dom-openDatabase>openDatabase()</code> method and the
+     related SQL database API.
+   </ul>
+  </div>
+
+  <p class=big-issue>Need to define a sync database API.</p>
+  <!-- XXX ApplicationCache -->
+  <!-- XXX a way to set cookies on the URL for the script -->
+  <!-- XXX the navigator object, for UA sniffing (?) -->
+  <!-- XXX void log(in DOMString s); // log to console -->
+
+  <hr>
+
+  <p>The DOM APIs (<code>Node</code> objects, <code>Document</code> objects,
+   etc) are not available to workers in this version of this specification.
 
   <h2 class=no-num id=references>References</h2>
 
