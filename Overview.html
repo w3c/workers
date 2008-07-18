@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->17 July 2008</h2>
+    Draft <!--ZZZ-->18 July 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 17
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 18
    July 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -204,7 +204,10 @@
      <li><a href="#the-queue"><span class=secno>2.2 </span>The queue of
       events</a>
 
-     <li><a href="#processing"><span class=secno>2.3 </span>Processing
+     <li><a href="#the-workers"><span class=secno>2.3 </span>The worker's
+      ports</a>
+
+     <li><a href="#processing"><span class=secno>2.4 </span>Processing
       model</a>
     </ul>
 
@@ -376,9 +379,14 @@
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=windowworker>WindowWorker</dfn> {
-  readonly attribute boolean <a href="#name" title=dom-windowworker-name>name</a>;
+  readonly attribute DOMString <a href="#url" title=dom-windowworker-URL>URL</a>;
+  readonly attribute DOMString <a href="#name" title=dom-windowworker-name>name</a>;
   readonly attribute boolean <a href="#closing" title=dom-windowworker-closing>closing</a>;
   void <a href="#close" title=dom-windowworker-close>close</a>();
+
+  // event handler attributes
+           attribute <span>EventListener</span> <a href="#onattach" title=handler-windowworker-onattach>onattach</a>;
+           attribute <span>EventListener</span> <a href="#onunload" title=handler-windowworker-onunload>onunload</a>;
 };</pre>
 
   <p>Objects that implement the <code><a
@@ -388,15 +396,48 @@
    href="#windowworkercreators">WindowWorkerCreators</a></code> interfaces)
    and the <code>EventTarget</code> interface.
 
+  <p>The <dfn id=url title=dom-windowworker-URL><code>URL</code></dfn>
+   attribute must return the value it was assigned when the <code><a
+   href="#windowworker">WindowWorker</a></code> object was created by the "<a
+   href="#run-a">run a worker</a>" algorithm. It gives the <span>absolute
+   URL</span> of the script that was used to initialize the worker.
+
   <p>The <dfn id=name title=dom-windowworker-name><code>name</code></dfn>
    attribute must return the value it was assigned when the <code><a
    href="#windowworker">WindowWorker</a></code> object was created by the "<a
-   href="#run-a">run a worker</a>" algorithm.
+   href="#run-a">run a worker</a>" algorithm. If it has a value that isn't
+   the empty string, its value represents the name that can be used to obtain
+   a reference to the worker using the <code
+   title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker()</code>
+   method.
 
   <p>The <dfn id=closing
    title=dom-windowworker-closing><code>closing</code></dfn> attribute must
    return false until the "<a href="#kill-a">kill a worker</a>" processing
    model defined below sets it to false.
+
+  <p>The following are the <span>event handler DOM attributes</span> that
+   must be supported by objects implementing the <code><a
+   href="#windowworker">WindowWorker</a></code> interface:
+
+  <dl>
+   <dt><dfn id=onattach
+    title=handler-windowworker-onattach><code>onattach</code></dfn>
+
+   <dd>
+    <p>Must be invoked whenever a <code
+     title=event-windowworker-attach>attach</code> event is targeted at or
+     bubbles through the <code><a
+     href="#windowworker">WindowWorker</a></code> object.
+
+   <dt><dfn id=onunload
+    title=handler-windowworker-onunload><code>onunload</code></dfn>
+
+   <dd>
+    <p>Must be invoked whenever a <code title=event-unload>unload</code>
+     event is targeted at or bubbles through the <code><a
+     href="#windowworker">WindowWorker</a></code> object.
+  </dl>
 
   <h3 id=the-queue><span class=secno>2.2 </span>The queue of events</h3>
 
@@ -419,7 +460,23 @@
    attribute is true, timers stop firing, notifications for all pending
    asynchronous operations are dropped, etc.
 
-  <h3 id=processing><span class=secno>2.3 </span>Processing model</h3>
+  <h3 id=the-workers><span class=secno>2.3 </span>The worker's ports</h3>
+
+  <p>Workers communicate with other workers and with <span title="browsing
+   context">browsing contexts</span> through <span title="channel
+   messaging">message channels</span> and their <code>MessagePort</code>
+   objects.
+
+  <p>Each <code><a href="#windowworker">WindowWorker</a></code> <var
+   title="">worker</var> has a list of <dfn id=the-workers0>the worker's
+   ports</dfn>, which consists of all the <code>MessagePort</code> objects
+   that are entangled with another port and that have one (but only one) port
+   whose <code title=dom-MessagePort-ownerWindow>ownerWindow</code> is <var
+   title="">worker</var>. This list includes all the <code>MessagePort</code>
+   objects that are in events pending in the <a href="#queue">queue of
+   events</a>.
+
+  <h3 id=processing><span class=secno>2.4 </span>Processing model</h3>
 
   <p>When a user agent is to <dfn id=run-a>run a worker</dfn> named <var
    title="">name</var> for a script with <span>URL</span> <var
@@ -434,7 +491,7 @@
      <var title="">url</var>.</p>
 
     <p>If the attempt fails, then abort these steps and invoke the <a
-     href="#worker0" title="worker creation failed">error handling steps</a>
+     href="#worker" title="worker creation failed">error handling steps</a>
      defined by the algorithm that called this one.</p>
 
     <p>If the attempt succeeds, then let <var title="">script</var> be the
@@ -450,6 +507,11 @@
    <li>
     <p>Create a new <code><a href="#windowworker">WindowWorker</a></code>
      object, <var title="">window</var>.</p>
+
+   <li>
+    <p>Set the <code title=dom-windowworker-URL><a href="#url">URL</a></code>
+     attribute of <var title="">window</var> to the value of <var
+     title="">url</var>.</p>
 
    <li>
     <p>Set the <code title=dom-windowworker-name><a
@@ -470,9 +532,31 @@
      be <var title="">owner document</var>.</p>
 
    <li>
-    <p>Invoke the <a href="#worker" title="worker creation succeeded">success
-     steps</a> defined by the algorithm that called this one. (This will fire
-     add an event to the <a href="#queue">queue of events</a>.)</p>
+    <p>Invoke the <a href="#success" title="worker creation
+     succeeded">success steps</a> defined by the algorithm that called this
+     one. (This will add an event to the <a href="#queue">queue of
+     events</a>.)</p>
+
+   <li>
+    <p>Start monitoring <var title="">worker</var>, such that whenever the
+     <var title="">window</var> object's <code
+     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     attribute is false and all <a href="#the-workers0">the worker's
+     ports</a> have their <code title=dom-MessagePort-active>active</code>
+     attributes set to false, the user agent suspends execution of script in
+     that worker until such time as either the <code
+     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     attribute switches to true or one of the <code>MessagePort</code>
+     objects in the list of <a href="#the-workers0">the worker's ports</a>
+     has an <code title=dom-MessagePort-active>active</code> attribute with
+     the value true.</p>
+
+   <li>
+    <p>Start monitoring <var title="">worker</var>, such that as soon as the
+     list of <a href="#the-workers0">the worker's ports</a> becomes empty,
+     the <var title="">window</var> object's <code
+     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     attribute is set to true.</p>
 
    <li>
     <p>Run <var title="">script</var> until it either returns, fails to catch
@@ -482,17 +566,21 @@
     <p class=note>If the script gets aborted by the "<a href="#kill-a">kill a
      worker</a>" algorithm, then that same algorithm will cause there to only
      be a single event in the <a href="#queue">queue of events</a> at the
-     next step, namely the <code title=message-unload>unload</code> event.</p>
+     next step, namely the <code title=message-unload>unload</code> event.
+     However, if the event is ignored then it will become true as soon as
+     that port is garbage collected.</p>
 
    <li>
-    <p><i>Event loop</i>: Wait until there is an event in the <a
+    <p><i>Event loop</i>: Wait until either there is an event in the <a
      href="#queue">queue of events</a> associated with <var
-     title="">window</var>.</p>
+     title="">window</var> or the <var title="">window</var> object's <code
+     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     attribute is set to true.</p>
 
    <li>
     <p>Dispatch the oldest event or callback in the <a href="#queue">queue of
-     events</a>. The handling of this event or the execution of this callback
-     might get prematurely aborted by the "<a href="#kill-a">kill a
+     events</a>, if any. The handling of this event or the execution of this
+     callback might get prematurely aborted by the "<a href="#kill-a">kill a
      worker</a>" algorithm below.</p>
 
    <li>
@@ -579,7 +667,7 @@
    <li>
     <p>For each <code>MessagePort</code> object that is entangled with
      another port and that has one (but only one) port whose <code
-     title=dom-messageport-ownerWindow>ownerWindow</code> is the <code><a
+     title=dom-MessagePort-ownerWindow>ownerWindow</code> is the <code><a
      href="#windowworker">WindowWorker</a></code> object on which the method
      was invoked, run the following substeps:</p>
 
@@ -588,14 +676,14 @@
       <p>Unentangle the two ports.
 
      <li>
-      <p>Set both ports' <code title=dom-messageport-active>active</code>
+      <p>Set both ports' <code title=dom-MessagePort-active>active</code>
        attribute to false.
 
      <li>
       <p>At the next available opportunity, after any scripts have finished
        executing<!-- XXX queue -->, <span>fire a simple event</span> called
        <code title=event-unload>unload</code> at the other port (the one
-       whose <code title=dom-messageport-ownerWindow>ownerWindow</code> is
+       whose <code title=dom-MessagePort-ownerWindow>ownerWindow</code> is
        not the <code><a href="#windowworker">WindowWorker</a></code> object
        on which the <code title=dom-windowworker-close><a
        href="#close">close()</a></code> method was called).
@@ -609,18 +697,190 @@
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=windowworkercreators>WindowWorkerCreators</dfn> {
-  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createWorker>createWorker</span>(in DOMString scriptURI);
-  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker</span>(in DOMString name, in DOMString scriptURI);
+  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createWorker>createWorker</span>(in DOMString scriptURL);
+  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker</span>(in DOMString name, in DOMString scriptURL);
 };</pre>
 
   <p>Objects that implement the <code>Window</code> interface must also
    implement the <code><a
    href="#windowworkercreators">WindowWorkerCreators</a></code> interface.
 
-  <p class=big-issue>...
+  <hr>
 
-  <p class=big-issue><dfn id=worker>worker creation succeeded</dfn>, <dfn
-   id=worker0>worker creation failed</dfn>
+  <p>When the <code
+   title=dom-WindowWorkerCreators-createWorker>createWorker(<var
+   title="">scriptURL</var>)</code> method is invoked, the user agent must
+   run the following steps:
+
+  <ol>
+   <li>
+    <p><span title="resolve a url">Resolve</span> the <var
+     title="">scriptURL</var> argument.
+
+   <li>
+    <p>If this fails, throw a <code>SYNTAX_ERR</code> exception.
+
+   <li>
+    <p>If the <span>origin</span> of the resulting <span>absolute URL</span>
+     is not the <span title="same origin">same</span> as the origin of the
+     script that invoked the method, then throw a <span>security
+     exception</span>.
+
+   <li>
+    <p><a href="#create">Create a worker</a> from the resulting
+     <span>absolute URL</span> whose name is the empty string.
+
+   <li>
+    <p>Return the <code>MessagePort</code> object returned from the <a
+     href="#create">create a worker</a> algorithm.
+  </ol>
+
+  <hr>
+
+  <p>When the <code
+   title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker(<var
+   title="">name</var>, <var title="">scriptURL</var>)</code> method is
+   invoked, the user agent must run the following steps:
+
+  <ol>
+   <li>
+    <p><span title="resolve a url">Resolve</span> the <var
+     title="">scriptURL</var> argument.
+
+   <li>
+    <p>If this fails, throw a <code>SYNTAX_ERR</code> exception.
+
+   <li>
+    <p>If the <span>origin</span> of the resulting <span>absolute URL</span>
+     is not the <span title="same origin">same</span> as the origin of the
+     script that invoked the method, then throw a <span>security
+     exception</span>.
+
+   <li>
+    <p>If the <var title="">name</var> argument is the empty string, <a
+     href="#create">create a worker</a> from the resulting <span>absolute
+     URL</span>, whose name is the empty string, and return the
+     <code>MessagePort</code> object returned from the <a
+     href="#create">create a worker</a> algorithm. Then, abort these steps.
+
+   <li>
+    <p>If there exists a worker whose <code title=dom-windowworker-closing><a
+     href="#closing">closing</a></code> attribute is false, whose <code
+     title=dom-windowworker-name><a href="#name">name</a></code> attribute is
+     exactly equal to the <var title="">name</var> argument, and whose <code
+     title=dom-windowworker-URL><a href="#url">URL</a></code> attribute has
+     the <span>same origin</span> as the resulting <span>absolute URL</span>,
+     then run these substeps:</p>
+
+    <ol>
+     <li>
+      <p>If that worker's <code title=dom-windowworker-URL><a
+       href="#url">URL</a></code> attribute is not exactly equal to the
+       resulting <span>absolute URL</span>, then throw a
+       <code>URL_MISMATCH_ERR</code> exception and abort these steps. <span
+       class=big-issue>code 19</span>
+
+     <li>
+      <p><span>Create a new <code>MessagePort</code> object</span> owned by
+       the <span>script execution context</span> of the script that invoked
+       the method.
+
+     <li>
+      <p>Return that port.
+
+     <li>
+      <p>Asynchronously, <a href="#attach" title="attach to a
+       worker">attach</a> to this preexisting worker, with the newly created
+       port.
+    </ol>
+
+    <p>Otherwise, <a href="#create">create a worker</a> from the resulting
+     <span>absolute URL</span>, whose name is the value of the <var
+     title="">name</var> argument, and return the <code>MessagePort</code>
+     object returned from the <a href="#create">create a worker</a>
+     algorithm.</p>
+  </ol>
+
+  <hr>
+
+  <p>The steps to <dfn id=create>create a worker</dfn> from a
+   <span>URL</span> <var title="">url</var> and whose name is <var
+   title="">name</var>, in the context of a method call, are as follows:
+
+  <ol>
+   <li>
+    <p><span>Create a new <code>MessagePort</code> object</span> owned by the
+     <span>script execution context</span> of the script that invoked the
+     method.
+
+   <li>
+    <p>Return that port.
+
+   <li>
+    <p>In a parallel execution context (i.e. a separate thread or process or
+     equivalent construct), <a href="#run-a">run a worker</a> named <var
+     title="">name</var> for the script with <span>URL</span> <var
+     title="">url</var>, with the <span>script browsing context</span> of the
+     script that invoked the method as the <var title="">owner browsing
+     context</var> and with the <span>script document context</span> of the
+     script that invoked the method as the <var title="">owner
+     document</var>.</p>
+
+    <p>If that algorithm invokes the steps for <dfn id=success title="worker
+     creation succeeded">success steps</dfn>, then <a href="#attach"
+     title="attach to a worker">attach</a> to this new worker, with the newly
+     created port.</p>
+
+    <p>Otherwise, if the <dfn id=worker>worker creation failed</dfn>, then at
+     the next available opportunity, after any scripts have finished
+     executing<!-- XXX queue -->, <span>fire a simple event</span> called
+     <code title=event-error>error</code> at the newly created port.</p>
+  </ol>
+
+  <hr>
+
+  <p>The steps to <dfn id=attach>attach to a worker</dfn> given a
+   <code>MessagePort</code> object <var title="">port</var> are as follows:
+
+  <ol>
+   <li>
+    <p>If <var title="">port</var> would have been garbage collected, or if
+     the <span>active document</span> of the <code
+     title=dom-MessagePort-ownerWindow>ownerWindow</code> of <var
+     title="">port</var> is no longer the same <code>Document</code> object
+     as when <var title="">port</var> was created, then do nothing. Abort
+     these steps. If the worker was just created, it'll get killed
+     immediately.</p>
+
+   <li>
+    <p><span>Create a new <code>MessagePort</code> object</span> owned by the
+     <code><a href="#windowworker">WindowWorker</a></code> of the worker.
+
+   <li>
+    <p><span>Entangle</span> this newly created port and the port <var
+     title="">port</var> that was passed to these steps.
+
+   <li>
+    <p>Set the <code title=dom-MessagePort-active>active</code> attribute of
+     both ports to true.
+
+   <li>
+    <p>At the next available opportunity, after any scripts have finished
+     executing<!-- XXX queue -->, <span>fire a simple event</span> called
+     <code title=event-load>load</code> at <var title="">port</var>.
+
+   <li>
+    <p>Create an event that uses the <code>MessageEvent</code> interface,
+     with the name <code title=event-attach>attach</code>, which does not
+     bubble, is cancelable, has no default action, has a <code
+     title=dom-MessageEvent-data>data</code> attribute whose value is the
+     empty string and has a <code
+     title=dom-MessageEvent-messagePort>messagePort</code> attribute whose
+     value is the newly created port, and add it to the worker's <code><a
+     href="#windowworker">WindowWorker</a></code> object's <a
+     href="#queue">queue of events</a>, targetted at the <code><a
+     href="#windowworker">WindowWorker</a></code> object itself.
+  </ol>
 
   <h2 class=no-num id=references>References</h2>
 
