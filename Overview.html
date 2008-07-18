@@ -379,14 +379,14 @@
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=windowworker>WindowWorker</dfn> {
-  readonly attribute DOMString <a href="#url" title=dom-windowworker-URL>URL</a>;
-  readonly attribute DOMString <a href="#name" title=dom-windowworker-name>name</a>;
-  readonly attribute boolean <a href="#closing" title=dom-windowworker-closing>closing</a>;
-  void <a href="#close" title=dom-windowworker-close>close</a>();
+  readonly attribute DOMString <a href="#url" title=dom-WindowWorker-URL>URL</a>;
+  readonly attribute DOMString <a href="#name" title=dom-WindowWorker-name>name</a>;
+  readonly attribute boolean <a href="#closing" title=dom-WindowWorker-closing>closing</a>;
+  void <a href="#close" title=dom-WindowWorker-close>close</a>();
 
   // event handler attributes
-           attribute <span>EventListener</span> <a href="#onattach" title=handler-windowworker-onattach>onattach</a>;
-           attribute <span>EventListener</span> <a href="#onunload" title=handler-windowworker-onunload>onunload</a>;
+           attribute <span>EventListener</span> <a href="#onattach" title=handler-WindowWorker-onattach>onattach</a>;
+           attribute <span>EventListener</span> <a href="#onunload" title=handler-WindowWorker-onunload>onunload</a>;
 };</pre>
 
   <p>Objects that implement the <code><a
@@ -396,13 +396,13 @@
    href="#windowworkercreators">WindowWorkerCreators</a></code> interfaces)
    and the <code>EventTarget</code> interface.
 
-  <p>The <dfn id=url title=dom-windowworker-URL><code>URL</code></dfn>
+  <p>The <dfn id=url title=dom-WindowWorker-URL><code>URL</code></dfn>
    attribute must return the value it was assigned when the <code><a
    href="#windowworker">WindowWorker</a></code> object was created by the "<a
    href="#run-a">run a worker</a>" algorithm. It gives the <span>absolute
    URL</span> of the script that was used to initialize the worker.
 
-  <p>The <dfn id=name title=dom-windowworker-name><code>name</code></dfn>
+  <p>The <dfn id=name title=dom-WindowWorker-name><code>name</code></dfn>
    attribute must return the value it was assigned when the <code><a
    href="#windowworker">WindowWorker</a></code> object was created by the "<a
    href="#run-a">run a worker</a>" algorithm. If it has a value that isn't
@@ -412,7 +412,7 @@
    method.
 
   <p>The <dfn id=closing
-   title=dom-windowworker-closing><code>closing</code></dfn> attribute must
+   title=dom-WindowWorker-closing><code>closing</code></dfn> attribute must
    return false until the "<a href="#kill-a">kill a worker</a>" processing
    model defined below sets it to false.
 
@@ -422,16 +422,16 @@
 
   <dl>
    <dt><dfn id=onattach
-    title=handler-windowworker-onattach><code>onattach</code></dfn>
+    title=handler-WindowWorker-onattach><code>onattach</code></dfn>
 
    <dd>
     <p>Must be invoked whenever a <code
-     title=event-windowworker-attach>attach</code> event is targeted at or
+     title=event-WindowWorker-attach>attach</code> event is targeted at or
      bubbles through the <code><a
      href="#windowworker">WindowWorker</a></code> object.
 
    <dt><dfn id=onunload
-    title=handler-windowworker-onunload><code>onunload</code></dfn>
+    title=handler-WindowWorker-onunload><code>onunload</code></dfn>
 
    <dd>
     <p>Must be invoked whenever a <code title=event-unload>unload</code>
@@ -453,10 +453,10 @@
    actually calling the callbacks or dispatching the events.
 
   <p>Once the <code><a href="#windowworker">WindowWorker</a></code>'s <code
-   title=dom-windowworker-closing><a href="#closing">closing</a></code>
+   title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
    attribute is set to true, the queue must discard anything else that would
    be added to it. Effectively, once the <code
-   title=dom-windowworker-closing><a href="#closing">closing</a></code>
+   title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
    attribute is true, timers stop firing, notifications for all pending
    asynchronous operations are dropped, etc.
 
@@ -509,12 +509,12 @@
      object, <var title="">window</var>.</p>
 
    <li>
-    <p>Set the <code title=dom-windowworker-URL><a href="#url">URL</a></code>
+    <p>Set the <code title=dom-WindowWorker-URL><a href="#url">URL</a></code>
      attribute of <var title="">window</var> to the value of <var
      title="">url</var>.</p>
 
    <li>
-    <p>Set the <code title=dom-windowworker-name><a
+    <p>Set the <code title=dom-WindowWorker-name><a
      href="#name">name</a></code> attribute of <var title="">window</var> to
      the value of <var title="">name</var>.</p>
 
@@ -540,12 +540,12 @@
    <li>
     <p>Start monitoring <var title="">worker</var>, such that whenever the
      <var title="">window</var> object's <code
-     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute is false and all <a href="#the-workers0">the worker's
      ports</a> have their <code title=dom-MessagePort-active>active</code>
      attributes set to false, the user agent suspends execution of script in
      that worker until such time as either the <code
-     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute switches to true or one of the <code>MessagePort</code>
      objects in the list of <a href="#the-workers0">the worker's ports</a>
      has an <code title=dom-MessagePort-active>active</code> attribute with
@@ -555,7 +555,7 @@
     <p>Start monitoring <var title="">worker</var>, such that as soon as the
      list of <a href="#the-workers0">the worker's ports</a> becomes empty,
      the <var title="">window</var> object's <code
-     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute is set to true.</p>
 
    <li>
@@ -574,7 +574,7 @@
     <p><i>Event loop</i>: Wait until either there is an event in the <a
      href="#queue">queue of events</a> associated with <var
      title="">window</var> or the <var title="">window</var> object's <code
-     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute is set to true.</p>
 
    <li>
@@ -586,7 +586,7 @@
    <li>
     <p>If there are any more events in the <a href="#queue">queue of
      events</a> or if the <var title="">window</var> object's <code
-     title=dom-windowworker-closing><a href="#closing">closing</a></code>
+     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
      attribute is set to false, then jump back to the step above labeled
      <i>event loop</i>.</p>
 
@@ -613,7 +613,7 @@
 
    <li>
     <p>Set the worker's <code><a href="#windowworker">WindowWorker</a></code>
-     object's <code title=dom-windowworker-closing><a
+     object's <code title=dom-WindowWorker-closing><a
      href="#closing">closing</a></code> attribute to true.
 
    <li>
@@ -646,7 +646,7 @@
   <hr>
 
   <p>When a script invokes the <dfn id=close
-   title=dom-windowworker-close><code>close()</code></dfn> method on a
+   title=dom-WindowWorker-close><code>close()</code></dfn> method on a
    <code><a href="#windowworker">WindowWorker</a></code> object, the user
    agent must run the following steps:
 
@@ -661,7 +661,7 @@
 
    <li>
     <p>Set the worker's <code><a href="#windowworker">WindowWorker</a></code>
-     object's <code title=dom-windowworker-closing><a
+     object's <code title=dom-WindowWorker-closing><a
      href="#closing">closing</a></code> attribute to true.
 
    <li>
@@ -685,7 +685,7 @@
        <code title=event-unload>unload</code> at the other port (the one
        whose <code title=dom-MessagePort-ownerWindow>ownerWindow</code> is
        not the <code><a href="#windowworker">WindowWorker</a></code> object
-       on which the <code title=dom-windowworker-close><a
+       on which the <code title=dom-WindowWorker-close><a
        href="#close">close()</a></code> method was called).
     </ol>
   </ol>
@@ -764,17 +764,17 @@
      href="#create">create a worker</a> algorithm. Then, abort these steps.
 
    <li>
-    <p>If there exists a worker whose <code title=dom-windowworker-closing><a
+    <p>If there exists a worker whose <code title=dom-WindowWorker-closing><a
      href="#closing">closing</a></code> attribute is false, whose <code
-     title=dom-windowworker-name><a href="#name">name</a></code> attribute is
+     title=dom-WindowWorker-name><a href="#name">name</a></code> attribute is
      exactly equal to the <var title="">name</var> argument, and whose <code
-     title=dom-windowworker-URL><a href="#url">URL</a></code> attribute has
+     title=dom-WindowWorker-URL><a href="#url">URL</a></code> attribute has
      the <span>same origin</span> as the resulting <span>absolute URL</span>,
      then run these substeps:</p>
 
     <ol>
      <li>
-      <p>If that worker's <code title=dom-windowworker-URL><a
+      <p>If that worker's <code title=dom-WindowWorker-URL><a
        href="#url">URL</a></code> attribute is not exactly equal to the
        resulting <span>absolute URL</span>, then throw a
        <code>URL_MISMATCH_ERR</code> exception and abort these steps. <span
