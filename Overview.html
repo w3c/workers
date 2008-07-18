@@ -408,8 +408,8 @@
    href="#run-a">run a worker</a>" algorithm. If it has a value that isn't
    the empty string, its value represents the name that can be used to obtain
    a reference to the worker using the <code
-   title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker()</code>
-   method.
+   title=dom-WindowWorkerCreators-createNamedWorker><a
+   href="#createnamedworker">createNamedWorker()</a></code> method.
 
   <p>The <dfn id=closing
    title=dom-WindowWorker-closing><code>closing</code></dfn> attribute must
@@ -697,8 +697,8 @@
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=windowworkercreators>WindowWorkerCreators</dfn> {
-  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createWorker>createWorker</span>(in DOMString scriptURL);
-  <span>MessagePort</span> <span title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker</span>(in DOMString name, in DOMString scriptURL);
+  <span>MessagePort</span> <a href="#createworker" title=dom-WindowWorkerCreators-createWorker>createWorker</a>(in DOMString scriptURL);
+  <span>MessagePort</span> <a href="#createnamedworker" title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker</a>(in DOMString name, in DOMString scriptURL);
 };</pre>
 
   <p>Objects that implement the <code>Window</code> interface must also
@@ -707,10 +707,10 @@
 
   <hr>
 
-  <p>When the <code
-   title=dom-WindowWorkerCreators-createWorker>createWorker(<var
-   title="">scriptURL</var>)</code> method is invoked, the user agent must
-   run the following steps:
+  <p>When the <dfn id=createworker
+   title=dom-WindowWorkerCreators-createWorker><code>createWorker(<var
+   title="">scriptURL</var>)</code></dfn> method is invoked, the user agent
+   must run the following steps:
 
   <ol>
    <li>
@@ -737,9 +737,9 @@
 
   <hr>
 
-  <p>When the <code
-   title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker(<var
-   title="">name</var>, <var title="">scriptURL</var>)</code> method is
+  <p>When the <dfn id=createnamedworker
+   title=dom-WindowWorkerCreators-createNamedWorker><code>createNamedWorker(<var
+   title="">name</var>, <var title="">scriptURL</var>)</code></dfn> method is
    invoked, the user agent must run the following steps:
 
   <ol>
