@@ -196,7 +196,8 @@
      <li><a href="#terminology"><span class=secno>1.4 </span>Terminology</a>
     </ul>
 
-   <li><a href="#inside"><span class=secno>2. </span>Inside workers</a>
+   <li><a href="#infrastructure"><span class=secno>2.
+    </span>Infrastructure</a>
     <ul class=toc>
      <li><a href="#the-windowworker"><span class=secno>2.1 </span>The
       <code>WindowWorker</code> interface</a>
@@ -209,13 +210,13 @@
 
      <li><a href="#processing"><span class=secno>2.4 </span>Processing
       model</a>
+
+     <li><a href="#creating"><span class=secno>2.5 </span>Creating
+      workers</a>
     </ul>
 
-   <li><a href="#creating"><span class=secno>3. </span>Creating workers</a>
-    <ul class=toc>
-     <li><a href="#the-windowworkercreators"><span class=secno>3.1 </span>The
-      <code>WindowWorkerCreators</code> interface</a>
-    </ul>
+   <li><a href="#apis-available"><span class=secno>3. </span>APIs available
+    to workers</a>
 
    <li class=no-num><a href="#references">References</a>
 
@@ -372,7 +373,7 @@
    that object must operate on the actual underlying data, not a snapshot of
    the data.
 
-  <h2 id=inside><span class=secno>2. </span>Inside workers</h2>
+  <h2 id=infrastructure><span class=secno>2. </span>Infrastructure</h2>
 
   <h3 id=the-windowworker><span class=secno>2.1 </span>The <code><a
    href="#windowworker">WindowWorker</a></code> interface</h3>
@@ -388,13 +389,6 @@
            attribute <span>EventListener</span> <a href="#onattach" title=handler-WindowWorker-onattach>onattach</a>;
            attribute <span>EventListener</span> <a href="#onunload" title=handler-WindowWorker-onunload>onunload</a>;
 };</pre>
-
-  <p>Objects that implement the <code><a
-   href="#windowworker">WindowWorker</a></code> interface must also implement
-   the <code>Window</code> interface (and thus also the
-   <code>WindowTimers</code> and <code><a
-   href="#windowworkercreators">WindowWorkerCreators</a></code> interfaces)
-   and the <code>EventTarget</code> interface.
 
   <p>The <dfn id=url title=dom-WindowWorker-URL><code>URL</code></dfn>
    attribute must return the value it was assigned when the <code><a
@@ -690,10 +684,7 @@
     </ol>
   </ol>
 
-  <h2 id=creating><span class=secno>3. </span>Creating workers</h2>
-
-  <h3 id=the-windowworkercreators><span class=secno>3.1 </span>The <code><a
-   href="#windowworkercreators">WindowWorkerCreators</a></code> interface</h3>
+  <h3 id=creating><span class=secno>2.5 </span>Creating workers</h3>
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=windowworkercreators>WindowWorkerCreators</dfn> {
@@ -881,6 +872,27 @@
      href="#queue">queue of events</a>, targetted at the <code><a
      href="#windowworker">WindowWorker</a></code> object itself.
   </ol>
+
+  <h2 id=apis-available><span class=secno>3. </span>APIs available to workers</h2>
+
+  <p>Objects that implement the <code><a
+   href="#windowworker">WindowWorker</a></code> interface must also implement
+   the following interfaces:
+
+  <ul>
+   <li>
+    <p>The <code>Window</code> interface, and interfaces that are required to
+     be implemented by objects implementing that interface, including:</p>
+
+    <ul>
+     <li>The <code>WindowTimers</code> interface
+
+     <li>The <code><a
+      href="#windowworkercreators">WindowWorkerCreators</a></code> interface
+    </ul>
+
+   <li>The <code>EventTarget</code> interface.
+  </ul>
 
   <h2 class=no-num id=references>References</h2>
 
