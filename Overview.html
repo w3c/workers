@@ -894,6 +894,36 @@
    <li>The <code>EventTarget</code> interface.
   </ul>
 
+  <p>There must be no interface objects and constructors available in the
+   global scope of scripts whose <span>script execution context</span> is a
+   <code><a href="#windowworker">WindowWorker</a></code> object except for
+   the following:
+
+  <ul>
+   <li>
+    <p><code>XMLHttpRequest</code> and all interface objects and constructors
+     defined by the XMLHttpRequest specifications, except that the
+     <span>document response entity body</span> must always be null. <a
+     href="#refsXHR">[XHR]</a>
+
+   <li>
+    <p>The <code>WebSocket</code> interface object and constructor.
+
+   <li>
+    <p>The <code>MessageChannel</code> interface object and constructor.
+   </li>
+   <!-- XXX showNotification() -->
+   <!-- XXX ApplicationCache -->
+   <!-- XXX globalStorage -->
+   <!-- XXX openDatabase() -->
+   <!-- XXX a way to set cookies on the URL for the script -->
+   <!-- XXX the navigator object, for UA sniffing (?) -->
+   <!-- XXX
+  void include(in DOMString url);
+  void log(in DOMString s); // log to console
+-->
+  </ul>
+
   <h2 class=no-num id=references>References</h2>
 
   <p class=big-issue>This section will be written in a future
