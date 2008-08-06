@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ--> 5 August 2008</h2>
+    Draft <!--ZZZ--> 6 August 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 5
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 6
    August 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -196,8 +196,8 @@
    <li><a href="#infrastructure"><span class=secno>2.
     </span>Infrastructure</a>
     <ul class=toc>
-     <li><a href="#the-windowworker"><span class=secno>2.1 </span>The
-      <code>WindowWorker</code> interface</a>
+     <li><a href="#the-workerglobalscope"><span class=secno>2.1 </span>The
+      <code>WorkerGlobalScope</code> interface</a>
 
      <li><a href="#base-urls"><span class=secno>2.2 </span>Base URLs and
       origins of workers</a>
@@ -217,6 +217,16 @@
 
    <li><a href="#apis-available"><span class=secno>3. </span>APIs available
     to workers</a>
+    <ul class=toc>
+     <li><a href="#importing"><span class=secno>3.1 </span>Importing scripts
+      and libraries</a>
+
+     <li><a href="#apis-defined"><span class=secno>3.2 </span>APIs defined in
+      other specifications</a>
+
+     <li><a href="#interface"><span class=secno>3.3 </span>Interface objects
+      and constructors</a>
+    </ul>
 
    <li class=no-num><a href="#references">References</a>
 
@@ -325,84 +335,104 @@
 
   <h2 id=infrastructure><span class=secno>2. </span>Infrastructure</h2>
 
-  <h3 id=the-windowworker><span class=secno>2.1 </span>The <code><a
-   href="#windowworker">WindowWorker</a></code> interface</h3>
+  <h3 id=the-workerglobalscope><span class=secno>2.1 </span>The <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> interface</h3>
 
   <pre
-   class=idl>[NoInterfaceObject] interface <dfn id=windowworker>WindowWorker</dfn> {
-  readonly attribute DOMString <a href="#url" title=dom-WindowWorker-URL>URL</a>;
-  readonly attribute DOMString <a href="#name" title=dom-WindowWorker-name>name</a>;
-  readonly attribute boolean <a href="#closing" title=dom-WindowWorker-closing>closing</a>;
-  boolean <a href="#import" title=dom-WindowWorker-import>import</a>(in DOMString url);
-  void <a href="#close" title=dom-WindowWorker-close>close</a>();
+   class=idl>[NoInterfaceObject] interface <dfn id=workerglobalscope>WorkerGlobalScope</dfn> {
+  // core worker features
+  readonly attribute <a href="#workerglobalscope">WorkerGlobalScope</a> <a href="#self" title=dom-WorkerGlobalScope-self>self</a>;
+  readonly attribute DOMString <a href="#url" title=dom-WorkerGlobalScope-URL>URL</a>;
+  readonly attribute DOMString <a href="#name" title=dom-WorkerGlobalScope-name>name</a>;
+  readonly attribute boolean <a href="#closing" title=dom-WorkerGlobalScope-closing>closing</a>;
+  void <a href="#close" title=dom-WorkerGlobalScope-close>close</a>();
+
+  // other APIs
+  readonly attribute WorkerUtils <a href="#utils" title=dom-WorkerGlobalScope-utils>utils</a>;
 
   // event handler attributes
-           attribute <span>EventListener</span> <a href="#onconnect" title=handler-WindowWorker-onconnect>onconnect</a>;
-           attribute <span>EventListener</span> <a href="#onunload" title=handler-WindowWorker-onunload>onunload</a>;
+           attribute <span>EventListener</span> <a href="#onconnect" title=handler-WorkerGlobalScope-onconnect>onconnect</a>;
+           attribute <span>EventListener</span> <a href="#onunload" title=handler-WorkerGlobalScope-onunload>onunload</a>;
 };</pre>
 
-  <p>The <dfn id=url title=dom-WindowWorker-URL><code>URL</code></dfn>
-   attribute must return the value it was assigned when the <code><a
-   href="#windowworker">WindowWorker</a></code> object was created by the "<a
-   href="#run-a">run a worker</a>" algorithm. It gives the <span>absolute
-   URL</span> of the script that was used to initialize the worker.
+  <p>The <dfn id=self
+   title=dom-WorkerGlobalScope-self><code>self</code></dfn> attribute must
+   return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
+   object itself.
 
-  <p>The <dfn id=name title=dom-WindowWorker-name><code>name</code></dfn>
+  <p>The <dfn id=url title=dom-WorkerGlobalScope-URL><code>URL</code></dfn>
    attribute must return the value it was assigned when the <code><a
-   href="#windowworker">WindowWorker</a></code> object was created by the "<a
-   href="#run-a">run a worker</a>" algorithm. If it has a value that isn't
-   the empty string, its value represents the name that can be used to obtain
-   a reference to the worker using the <code
-   title=dom-WindowWorkerCreators-createNamedWorker><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> object was created
+   by the "<a href="#run-a">run a worker</a>" algorithm. It gives the
+   <span>absolute URL</span> of the script that was used to initialize the
+   worker.
+
+  <p>The <dfn id=name
+   title=dom-WorkerGlobalScope-name><code>name</code></dfn> attribute must
+   return the value it was assigned when the <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> object was created
+   by the "<a href="#run-a">run a worker</a>" algorithm. If it has a value
+   that isn't the empty string, its value represents the name that can be
+   used to obtain a reference to the worker using the <code
+   title=dom-WorkerFactory-createNamedWorker><a
    href="#createnamedworker">createNamedWorker()</a></code> method.
 
   <p>The <dfn id=closing
-   title=dom-WindowWorker-closing><code>closing</code></dfn> attribute must
-   return false until it is set to true by one of the algorithms in the
+   title=dom-WorkerGlobalScope-closing><code>closing</code></dfn> attribute
+   must return false until it is set to true by one of the algorithms in the
    processing model section below.
 
   <p>The following are the <span>event handler DOM attributes</span> that
    must be supported by objects implementing the <code><a
-   href="#windowworker">WindowWorker</a></code> interface:
+   href="#workerglobalscope">WorkerGlobalScope</a></code> interface:
 
   <dl>
    <dt><dfn id=onconnect
-    title=handler-WindowWorker-onconnect><code>onconnect</code></dfn>
+    title=handler-WorkerGlobalScope-onconnect><code>onconnect</code></dfn>
 
    <dd>
     <p>Must be invoked whenever a <code
-     title=event-WindowWorker-connect>connect</code> event is targeted at or
-     bubbles through the <code><a
-     href="#windowworker">WindowWorker</a></code> object.
+     title=event-WorkerGlobalScope-connect>connect</code> event is targeted
+     at or bubbles through the <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object.
 
    <dt><dfn id=onunload
-    title=handler-WindowWorker-onunload><code>onunload</code></dfn>
+    title=handler-WorkerGlobalScope-onunload><code>onunload</code></dfn>
 
    <dd>
     <p>Must be invoked whenever a <code title=event-unload>unload</code>
      event is targeted at or bubbles through the <code><a
-     href="#windowworker">WindowWorker</a></code> object.
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object.
   </dl>
+
+  <p>The <dfn id=utils
+   title=dom-WorkerGlobalScope-utils><code>utils</code></dfn> attribute must
+   return the <code><a href="#workerutils">WorkerUtils</a></code> object
+   created for the <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> object when the
+   worker was created.
 
   <h3 id=base-urls><span class=secno>2.2 </span>Base URLs and origins of
    workers</h3>
 
   <p>The <span>base URL</span> of a <span>URL</span> passed to an API in a
    worker is the <span>absolute URL</span> given by the value of the <code
-   title=dom-WindowWorker-URL><a href="#url">URL</a></code> attribute of the
-   worker's <code><a href="#windowworker">WindowWorker</a></code> object.
+   title=dom-WorkerGlobalScope-URL><a href="#url">URL</a></code> attribute of
+   the worker's <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> object.
 
   <p>Both the <span>origin</span> and <span>effective script origin</span> of
    scripts running in workers are the <span>origin</span> of the
    <span>absolute URL</span> given by the value of the <code
-   title=dom-WindowWorker-URL><a href="#url">URL</a></code> attribute of the
-   worker's <code><a href="#windowworker">WindowWorker</a></code> object.
+   title=dom-WorkerGlobalScope-URL><a href="#url">URL</a></code> attribute of
+   the worker's <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> object.
 
   <h3 id=the-queue><span class=secno>2.3 </span>The queue of events</h3>
 
-  <p>Each <code><a href="#windowworker">WindowWorker</a></code> object is
-   asssociated with a <dfn id=queue>queue of events</dfn>, which is initially
-   empty.
+  <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
+   object is asssociated with a <dfn id=queue>queue of events</dfn>, which is
+   initially empty.
 
   <p>An event in the queue can be a DOM event or a timeout callback.
 
@@ -411,11 +441,12 @@
    href="#run-a">run a worker</a>" processing model below taking care of
    actually calling the callbacks or dispatching the events.
 
-  <p>Once the <code><a href="#windowworker">WindowWorker</a></code>'s <code
-   title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
+  <p>Once the <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code>'s <code
+   title=dom-WorkerGlobalScope-closing><a href="#closing">closing</a></code>
    attribute is set to true, the queue must discard anything else that would
    be added to it. Effectively, once the <code
-   title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
+   title=dom-WorkerGlobalScope-closing><a href="#closing">closing</a></code>
    attribute is true, timers stop firing, notifications for all pending
    asynchronous operations are dropped, etc.
 
@@ -426,22 +457,19 @@
    messaging">message channels</span> and their <code>MessagePort</code>
    objects.
 
-  <p>Each <code><a href="#windowworker">WindowWorker</a></code> <var
-   title="">worker</var> has a list of <dfn id=the-workers0>the worker's
+  <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
+   <var title="">worker</var> has a list of <dfn id=the-workers0>the worker's
    ports</dfn>, which consists of all the <code>MessagePort</code> objects
    that are entangled with another port and that have one (but only one) port
-   whose <code title=dom-MessagePort-ownerWindow>ownerWindow</code> is <var
-   title="">worker</var>. This list includes all the <code>MessagePort</code>
-   objects that are in events pending in the <a href="#queue">queue of
-   events</a>.
+   owned by <var title="">worker</var>. This list includes all the
+   <code>MessagePort</code> objects that are in events pending in the <a
+   href="#queue">queue of events</a>.
 
   <hr>
 
   <p>A worker is said to be a <dfn id=front-line>front-line worker</dfn> if
    at least one of the <a href="#the-workers0">the worker's ports</a> has an
-   entangled <code>MessagePort</code> whose <code
-   title=dom-MessagePort-ownerWindow>ownerWindow</code> is a
-   <code>WindowBrowsingContext</code> object.
+   entangled <code>MessagePort</code> owned by a <code>Window</code> object.
 
   <p>A worker is said to be a <dfn id=needed>needed worker</dfn> if either:
 
@@ -449,10 +477,9 @@
    <li>it is a <a href="#front-line">front-line worker</a>, or
 
    <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
-    an entangled <code>MessagePort</code> whose <code
-    title=dom-MessagePort-ownerWindow>ownerWindow</code> is a <code><a
-    href="#windowworker">WindowWorker</a></code> object that is itself a <a
-    href="#needed">needed worker</a>.
+    an entangled <code>MessagePort</code> owned by a <code><a
+    href="#workerglobalscope">WorkerGlobalScope</a></code> object that is
+    itself a <a href="#needed">needed worker</a>.
   </ul>
 
   <hr>
@@ -460,9 +487,8 @@
   <p>A worker is said to be an <dfn id=active>active front-line worker</dfn>
    if at least one of the <a href="#the-workers0">the worker's ports</a> has
    both an <code title=dom-MessagePort-active>active</code> attribute whose
-   value is true and an entangled <code>MessagePort</code> whose <code
-   title=dom-MessagePort-ownerWindow>ownerWindow</code> is a
-   <code>WindowBrowsingContext</code> object.
+   value is true and an entangled <code>MessagePort</code> whose owner is a
+   <code>Window</code> object.
 
   <p>A worker is said to be an <dfn id=active0>active needed worker</dfn> if
    either:
@@ -471,10 +497,9 @@
    <li>it is an <a href="#active">active front-line worker</a>, or
 
    <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
-    an entangled <code>MessagePort</code> whose <code
-    title=dom-MessagePort-ownerWindow>ownerWindow</code> is a <code><a
-    href="#windowworker">WindowWorker</a></code> object that is itself an <a
-    href="#active0">active needed worker</a>.
+    an entangled <code>MessagePort</code> owned by a <code><a
+    href="#workerglobalscope">WorkerGlobalScope</a></code> object that is
+    itself an <a href="#active0">active needed worker</a>.
   </ul>
 
   <h3 id=processing><span class=secno>2.5 </span>Processing model</h3>
@@ -506,18 +531,24 @@
     
 
    <li>
-    <p>Create a new <code><a href="#windowworker">WindowWorker</a></code>
-     object, <var title="">worker</var>.</p>
+    <p>Create a new <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object, <var
+     title="">worker</var>.</p>
 
    <li>
-    <p>Set the <code title=dom-WindowWorker-URL><a href="#url">URL</a></code>
-     attribute of <var title="">worker</var> to the value of <var
-     title="">url</var>.</p>
+    <p>Set the <code title=dom-WorkerGlobalScope-URL><a
+     href="#url">URL</a></code> attribute of <var title="">worker</var> to
+     the value of <var title="">url</var>.</p>
 
    <li>
-    <p>Set the <code title=dom-WindowWorker-name><a
+    <p>Set the <code title=dom-WorkerGlobalScope-name><a
      href="#name">name</a></code> attribute of <var title="">worker</var> to
      the value of <var title="">name</var>.</p>
+
+   <li>
+    <p>Create a new <code><a href="#workerutils">WorkerUtils</a></code>
+     object for the <code title=dom-WorkerGlobalScope-utils><a
+     href="#utils">utils</a></code> attribute of <var title="">worker</var>.
 
    <li>
     <p>Let <var title="">script</var>'s <span>script execution context</span>
@@ -542,25 +573,26 @@
      <code>MessagePort</code> and thus the list of <a
      href="#the-workers0">the worker's ports</a> will not be empty. If it
      doesn't, then the next step will set the <var title="">worker</var>
-     object's <code title=dom-WindowWorker-closing><a
+     object's <code title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute to true.</p>
 
    <li>
     <p>Start monitoring <var title="">worker</var>, such that as soon as the
      worker stops being a <a href="#needed">needed worker</a>, the <var
-     title="">worker</var> object's <code title=dom-WindowWorker-closing><a
+     title="">worker</var> object's <code
+     title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute is set to true.</p>
 
    <li>
     <p>Start monitoring <var title="">worker</var>, such that whenever the
      <var title="">worker</var> object's <code
-     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
-     attribute is false and the worker is not an <a href="#active0">active
-     needed worker</a>, the user agent suspends execution of script in that
-     worker until such time as either the <code
-     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
-     attribute switches to true or the worker becomes an <a
-     href="#active0">active needed worker</a>.</p>
+     title=dom-WorkerGlobalScope-closing><a
+     href="#closing">closing</a></code> attribute is false and the worker is
+     not an <a href="#active0">active needed worker</a>, the user agent
+     suspends execution of script in that worker until such time as either
+     the <code title=dom-WorkerGlobalScope-closing><a
+     href="#closing">closing</a></code> attribute switches to true or the
+     worker becomes an <a href="#active0">active needed worker</a>.</p>
 
    <li>
     <p>Run <var title="">script</var> until it either returns, fails to catch
@@ -578,8 +610,8 @@
     <p><i>Event loop</i>: Wait until either there is an event in the <a
      href="#queue">queue of events</a> associated with <var
      title="">worker</var> or the <var title="">worker</var> object's <code
-     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
-     attribute is set to true.</p>
+     title=dom-WorkerGlobalScope-closing><a
+     href="#closing">closing</a></code> attribute is set to true.</p>
 
    <li>
     <p>Dispatch the oldest event or callback in the <a href="#queue">queue of
@@ -590,9 +622,9 @@
    <li>
     <p>If there are any more events in the <a href="#queue">queue of
      events</a> or if the <var title="">worker</var> object's <code
-     title=dom-WindowWorker-closing><a href="#closing">closing</a></code>
-     attribute is set to false, then jump back to the step above labeled
-     <i>event loop</i>.</p>
+     title=dom-WorkerGlobalScope-closing><a
+     href="#closing">closing</a></code> attribute is set to false, then jump
+     back to the step above labeled <i>event loop</i>.</p>
 
    <li>
     <p class=big-issue>timers, intervals, XMLHttpRequests, database
@@ -611,13 +643,14 @@
     <p>Create an <code>Event</code> object with the event name <code
      title=event-unload>unload</code>, which does not bubble and is not
      cancelable, and add it to the worker's <code><a
-     href="#windowworker">WindowWorker</a></code> object's <a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a
      href="#queue">queue of events</a>, targetted at the <code><a
-     href="#windowworker">WindowWorker</a></code> object itself.
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.
 
    <li>
-    <p>Set the worker's <code><a href="#windowworker">WindowWorker</a></code>
-     object's <code title=dom-WindowWorker-closing><a
+    <p>Set the worker's <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object's <code
+     title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute to true.
 
    <li>
@@ -651,92 +684,36 @@
    processing model on a worker at any time, e.g. in response to user
    requests, in response to CPU quota management, or when a worker stops
    being a <a href="#needed">needed worker</a> if the worker continues
-   executing even after its <code title=dom-WindowWorker-closing><a
+   executing even after its <code title=dom-WorkerGlobalScope-closing><a
    href="#closing">closing</a></code> attribute was set to true.
 
   <hr>
 
-  <p>When a script invokes the <dfn id=import
-   title=dom-WindowWorker-import><code>import(<var
-   title="">url</var>)</code></dfn> method on a <code><a
-   href="#windowworker">WindowWorker</a></code> object, the user agent must
-   run the following steps:
-
-  <ol>
-   <li>
-    <p><span title="resolve a url">Resolve</span> the <var title="">url</var>
-     argument.
-
-   <li>
-    <p>If this fails, throw a <code>SYNTAX_ERR</code> exception.
-
-   <li>
-    <p>If the <span>origin</span> of the resulting <span>absolute URL</span>
-     is not the <span title="same origin">same</span> as the origin of the
-     script that invoked the method, then throw a <span>security
-     exception</span>.
-
-   <li>
-    <p>Attempt to <span>fetch</span><!-- XXX --> the resource identified by
-     the resulting <span>absolute URL</span>.</p>
-
-    <p>If the attempt fails, return false and abort these steps.</p>
-
-    <p>If the attempt succeeds, then let <var title="">script</var> be the
-     resource that was obtained.</p>
-
-    <p class=note>As with the initial script, the script here is always
-     assumed to be JavaScript, regardless of the MIME type.</p>
-    <!-- XXX -->
-
-   <li>
-    <p>Let <var title="">script</var>'s <span>script execution
-     context</span>, <span>script browsing context</span>, and <span>script
-     document context</span> be the same as for the script that was executed
-     by the <a href="#run-a">run a worker</a> processing model for this
-     worker.</p>
-
-   <li>
-    <p>Run <var title="">script</var> until it either returns, fails to catch
-     an exception, or gets prematurely aborted by the "<a href="#kill-a">kill
-     a worker</a>" algorithm below.</p>
-
-    <p>If an exception was raised or if the script was prematurely aborted,
-     then abort these steps, letting the exception or aborting continue to be
-     processed by the script that called the <code
-     title=dom-WindowWorker-import><a href="#import">import()</a></code>
-     method.</p>
-
-    <p>Otherwise, return true.</p>
-  </ol>
-
-  <hr>
-
   <p>When a script invokes the <dfn id=close
-   title=dom-WindowWorker-close><code>close()</code></dfn> method on a
-   <code><a href="#windowworker">WindowWorker</a></code> object, the user
-   agent must run the following steps:
+   title=dom-WorkerGlobalScope-close><code>close()</code></dfn> method on a
+   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object,
+   the user agent must run the following steps:
 
   <ol>
    <li>
     <p>Create an <code>Event</code> object with the event name <code
      title=event-unload>unload</code>, which does not bubble and is not
      cancelable, and add it to the <code><a
-     href="#windowworker">WindowWorker</a></code> object's <a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a
      href="#queue">queue of events</a>, targetted at the <code><a
-     href="#windowworker">WindowWorker</a></code> object itself.
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.
 
    <li>
-    <p>Set the worker's <code><a href="#windowworker">WindowWorker</a></code>
-     object's <code title=dom-WindowWorker-closing><a
+    <p>Set the worker's <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object's <code
+     title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute to true.
 
    <li>
     <p>For each <code>MessagePort</code> object that is entangled with
-     another port and that has one (but only one) port whose <code
-     title=dom-MessagePort-ownerWindow>ownerWindow</code> is the <code><a
-     href="#windowworker">WindowWorker</a></code> object on which the method
-     was invoked, run the following substeps:</p>
+     another port and that has one (but only one) port whose owner is the
+     <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object
+     on which the method was invoked, run the following substeps:</p>
 
     <ol>
      <li>
@@ -750,9 +727,9 @@
       <p>At the next available opportunity, after any scripts have finished
        executing<!-- XXX queue -->, <span>fire a simple event</span> called
        <code title=event-unload>unload</code> at the other port (the one
-       whose <code title=dom-MessagePort-ownerWindow>ownerWindow</code> is
-       not the <code><a href="#windowworker">WindowWorker</a></code> object
-       on which the <code title=dom-WindowWorker-close><a
+       whose owner is not the <code><a
+       href="#workerglobalscope">WorkerGlobalScope</a></code> object on which
+       the <code title=dom-WorkerGlobalScope-close><a
        href="#close">close()</a></code> method was called).
     </ol>
   </ol>
@@ -760,19 +737,19 @@
   <h3 id=creating><span class=secno>2.6 </span>Creating workers</h3>
 
   <pre
-   class=idl>[NoInterfaceObject] interface <dfn id=windowworkercreators>WindowWorkerCreators</dfn> {
-  <span>MessagePort</span> <a href="#createworker" title=dom-WindowWorkerCreators-createWorker>createWorker</a>(in DOMString scriptURL);
-  <span>MessagePort</span> <a href="#createnamedworker" title=dom-WindowWorkerCreators-createNamedWorker>createNamedWorker</a>(in DOMString name, in DOMString scriptURL);
+   class=idl>[NoInterfaceObject] interface <dfn id=workerfactory>WorkerFactory</dfn> {
+  <span>MessagePort</span> <a href="#createworker" title=dom-WorkerFactory-createWorker>createWorker</a>(in DOMString scriptURL);
+  <span>MessagePort</span> <a href="#createnamedworker" title=dom-WorkerFactory-createNamedWorker>createNamedWorker</a>(in DOMString name, in DOMString scriptURL);
 };</pre>
 
-  <p>Objects that implement the <code>Window</code> interface must also
-   implement the <code><a
-   href="#windowworkercreators">WindowWorkerCreators</a></code> interface.
+  <p>Objects that implement the <code>Window</code> and <code><a
+   href="#workerutils">WorkerUtils</a></code> interfaces must also implement
+   the <code><a href="#workerfactory">WorkerFactory</a></code> interface.
 
   <hr>
 
   <p>When the <dfn id=createworker
-   title=dom-WindowWorkerCreators-createWorker><code>createWorker(<var
+   title=dom-WorkerFactory-createWorker><code>createWorker(<var
    title="">scriptURL</var>)</code></dfn> method is invoked, the user agent
    must run the following steps:
 
@@ -802,7 +779,7 @@
   <hr>
 
   <p>When the <dfn id=createnamedworker
-   title=dom-WindowWorkerCreators-createNamedWorker><code>createNamedWorker(<var
+   title=dom-WorkerFactory-createNamedWorker><code>createNamedWorker(<var
    title="">name</var>, <var title="">scriptURL</var>)</code></dfn> method is
    invoked, the user agent must run the following steps:
 
@@ -828,17 +805,18 @@
      href="#create">create a worker</a> algorithm. Then, abort these steps.
 
    <li>
-    <p>If there exists a worker whose <code title=dom-WindowWorker-closing><a
+    <p>If there exists a worker whose <code
+     title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute is false, whose <code
-     title=dom-WindowWorker-name><a href="#name">name</a></code> attribute is
-     exactly equal to the <var title="">name</var> argument, and whose <code
-     title=dom-WindowWorker-URL><a href="#url">URL</a></code> attribute has
-     the <span>same origin</span> as the resulting <span>absolute URL</span>,
-     then run these substeps:</p>
+     title=dom-WorkerGlobalScope-name><a href="#name">name</a></code>
+     attribute is exactly equal to the <var title="">name</var> argument, and
+     whose <code title=dom-WorkerGlobalScope-URL><a
+     href="#url">URL</a></code> attribute has the <span>same origin</span> as
+     the resulting <span>absolute URL</span>, then run these substeps:</p>
 
     <ol>
      <li>
-      <p>If that worker's <code title=dom-WindowWorker-URL><a
+      <p>If that worker's <code title=dom-WorkerGlobalScope-URL><a
        href="#url">URL</a></code> attribute is not exactly equal to the
        resulting <span>absolute URL</span>, then throw a
        <code>URL_MISMATCH_ERR</code> exception and abort these steps. <span
@@ -909,8 +887,7 @@
   <ol>
    <li>
     <p>If <var title="">port</var> would have been garbage collected, or if
-     the <span>active document</span> of the <code
-     title=dom-MessagePort-ownerWindow>ownerWindow</code> of <var
+     the <span>active document</span> of the owner of <var
      title="">port</var> is no longer the same <code>Document</code> object
      as when <var title="">port</var> was created, then do nothing. Abort
      these steps. If the worker was just created, it'll get killed
@@ -918,7 +895,8 @@
 
    <li>
     <p><span>Create a new <code>MessagePort</code> object</span> owned by the
-     <code><a href="#windowworker">WindowWorker</a></code> of the worker.
+     <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> of the
+     worker.
 
    <li>
     <p><span>Entangle</span> this newly created port and the port <var
@@ -941,68 +919,34 @@
      empty string and has a <code
      title=dom-MessageEvent-messagePort>messagePort</code> attribute whose
      value is the newly created port, and add it to the worker's <code><a
-     href="#windowworker">WindowWorker</a></code> object's <a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a
      href="#queue">queue of events</a>, targetted at the <code><a
-     href="#windowworker">WindowWorker</a></code> object itself.
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.
   </ol>
 
   <h2 id=apis-available><span class=secno>3. </span>APIs available to workers</h2>
 
-  <p>There must be no interface objects and constructors available in the
-   global scope of scripts whose <span>script execution context</span> is a
-   <code><a href="#windowworker">WindowWorker</a></code> object except for
-   the following:
-
-  <ul>
-   <li>
-    <p><code>XMLHttpRequest</code> and all interface objects and constructors
-     defined by the XMLHttpRequest specifications, except that the
-     <span>document response entity body</span> must always be null. <a
-     href="#refsXHR">[XHR]</a>
-
-   <li>
-    <p>The <code>WebSocket</code> interface object and constructor.
-
-   <li>
-    <p>The <code>MessageChannel</code> interface object and constructor.
-  </ul>
-
-  <hr>
+  <pre
+   class=idl>[NoInterfaceObject] interface <dfn id=workerutils>WorkerUtils</dfn> {
+  boolean <a href="#import" title=dom-WorkerGlobalScope-import>import</a>(in DOMString url);
+  readonly attribute <span>Storage</span> <a href="#localstorage" title=dom-localStorage>localStorage</a>;
+  <span>Database</span> <a href="#opendatabase" title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
+  void <a href="#shownotification" title=dom-showNotification>showNotification</a>(in DOMString title, in DOMString subtitle, in DOMString description);
+  void <a href="#shownotification" title=dom-showNotification>showNotification</a>(in DOMString title, in DOMString subtitle, in DOMString description, in VoidCallback onclick);
+};</pre>
 
   <p>Objects that implement the <code><a
-   href="#windowworker">WindowWorker</a></code> interface must also implement
+   href="#workerutils">WorkerUtils</a></code> interface must also implement
    the following interfaces:
 
   <ul>
-   <li>
-    <p>The <code>Window</code> interface, and interfaces that are required to
-     be implemented by objects implementing that interface, including:</p>
+   <li>The <code>WindowTimers</code> interface
 
-    <ul>
-     <li>The <code>WindowTimers</code> interface
+   <li>The <code>EventTarget</code> interface
 
-     <li>The <code><a
-      href="#windowworkercreators">WindowWorkerCreators</a></code> interface
-    </ul>
-
-   <li>The <code>EventTarget</code> interface.
+   <li>The <code><a href="#workerfactory">WorkerFactory</a></code> interface,
+    as noted earlier in this specification
   </ul>
-
-  <div class=note>
-   <p>The following APIs are available in workers due to their being defined
-    on the <code>Window</code> object or one of the interfaces that are
-    required to be implemented by objects implementing that interface:</p>
-
-   <ul>
-    <li>The <code title=dom-showNotification>showNotification()</code> APIs.
-
-    <li>The <code title=dom-localStorage>localStorage</code> object and
-     related name/value pair storage APIs.
-
-    <li>The <code title=dom-openDatabase>openDatabase()</code> method and the
-     related SQL database API.
-   </ul>
-  </div>
 
   <p class=big-issue>Need to define a sync database API.
 
@@ -1018,6 +962,105 @@
   <p>The DOM APIs (<code>Node</code> objects, <code>Document</code> objects,
    etc) are not available to workers in this version of this specification.
 
+  <h3 id=importing><span class=secno>3.1 </span>Importing scripts and
+   libraries</h3>
+
+  <p>When a script invokes the <dfn id=import
+   title=dom-WorkerGlobalScope-import><code>import(<var
+   title="">url</var>)</code></dfn> method on a <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user
+   agent must run the following steps:
+
+  <ol>
+   <li>
+    <p><span title="resolve a url">Resolve</span> the <var title="">url</var>
+     argument.
+
+   <li>
+    <p>If this fails, throw a <code>SYNTAX_ERR</code> exception.
+
+   <li>
+    <p>If the <span>origin</span> of the resulting <span>absolute URL</span>
+     is not the <span title="same origin">same</span> as the origin of the
+     script that invoked the method, then throw a <span>security
+     exception</span>.
+
+   <li>
+    <p>Attempt to <span>fetch</span><!-- XXX --> the resource identified by
+     the resulting <span>absolute URL</span>.</p>
+
+    <p>If the attempt fails, return false and abort these steps.</p>
+
+    <p>If the attempt succeeds, then let <var title="">script</var> be the
+     resource that was obtained.</p>
+
+    <p class=note>As with the initial script, the script here is always
+     assumed to be JavaScript, regardless of the MIME type.</p>
+    <!-- XXX -->
+
+   <li>
+    <p>Let <var title="">script</var>'s <span>script execution
+     context</span>, <span>script browsing context</span>, and <span>script
+     document context</span> be the same as for the script that was executed
+     by the <a href="#run-a">run a worker</a> processing model for this
+     worker.</p>
+
+   <li>
+    <p>Run <var title="">script</var> until it either returns, fails to catch
+     an exception, or gets prematurely aborted by the "<a href="#kill-a">kill
+     a worker</a>" algorithm above.</p>
+
+    <p>If an exception was raised or if the script was prematurely aborted,
+     then abort these steps, letting the exception or aborting continue to be
+     processed by the script that called the <code
+     title=dom-WorkerGlobalScope-import><a href="#import">import()</a></code>
+     method.</p>
+
+    <p>Otherwise, return true.</p>
+  </ol>
+
+  <h3 id=apis-defined><span class=secno>3.2 </span>APIs defined in other
+   specifications</h3>
+
+  <p> The <dfn id=localstorage
+   title=dom-localStorage><code>localStorage</code></dfn>, <dfn
+   id=opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn>
+   must act as defined for the APIs with the same names on the
+   <code>Window</code> object in the HTML5 specification, with the exception
+   that where the API would use the <span>origin</span> of the <span>active
+   document</span> of the <span>browsing context</span> of the
+   <code>Window</code> object on which the method was supposedly invoked, it
+   must instead use the <span>origin</span> of the script that invoked the
+   method. <a href="#refsHTML5">[HTML5]</a>
+
+  <p>The <dfn id=shownotification
+   title=dom-showNotification><code>showNotification()</code></dfn> methods
+   must act as defined for the APIs with the same names on the
+   <code>Window</code> object in the HTML5 specification. <a
+   href="#refsHTML5">[HTML5]</a>
+
+  <h3 id=interface><span class=secno>3.3 </span>Interface objects and
+   constructors</h3>
+
+  <p>There must be no interface objects and constructors available in the
+   global scope of scripts whose <span>script execution context</span> is a
+   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object
+   except for the following:
+
+  <ul>
+   <li>
+    <p><code>XMLHttpRequest</code> and all interface objects and constructors
+     defined by the XMLHttpRequest specifications, except that the
+     <span>document response entity body</span> must always be null. <a
+     href="#refsXHR">[XHR]</a>
+
+   <li>
+    <p>The <code>WebSocket</code> interface object and constructor.
+
+   <li>
+    <p>The <code>MessageChannel</code> interface object and constructor.
+  </ul>
+
   <h2 class=no-num id=references>References</h2>
 
   <p class=big-issue>This section will be written in a future
@@ -1026,8 +1069,8 @@
   <h2 class=no-num id=acknowledgements>Acknowledgements</h2>
   <!-- ACKS -->
 
-  <p>Thanks to Maciej Stachowiak, Mike Smith, and Philip Taylor for their
-   useful and substantial comments.
+  <p>Thanks to Aaron Boodman, Jonas Sicking, Maciej Stachowiak, Mike Smith,
+   and Philip Taylor for their useful and substantial comments.
 
   <p>Huge thanks to the whole Gears team, who pioneered this technology and
    whose experience has been a huge influence on this specification.
