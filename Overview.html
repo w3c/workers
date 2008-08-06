@@ -300,9 +300,9 @@ search: while (true) {
 
   <p>The bulk of this code is simply an unoptimised search for a prime
    number. To send a message back to the page, the <code
-   title=dom-WorkerGlobalScope-port>port</code> variable (defined
-   automatically when the worker is created) is used to post a message when a
-   prime is found.
+   title=dom-WorkerGlobalScope-port><a href="#port">port</a></code> variable
+   (defined automatically when the worker is created) is used to post a
+   message when a prime is found.
 
   <p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this
    example online</a>.
@@ -475,6 +475,11 @@ search: while (true) {
    href="#workerglobalscope">WorkerGlobalScope</a></code> object when the
    worker was created.
 
+  <p>In addition to the above members, the <a href="#success" title="worker
+   creation succeeded">worker creation success steps</a> add a <dfn id=port
+   title=dom-WorkerGlobalScope-port><code>port</code></dfn> property to the
+   object.
+
   <h3 id=base-urls><span class=secno>2.2 </span>Base URLs and origins of
    workers</h3>
 
@@ -636,9 +641,9 @@ search: while (true) {
 
     <p class=note>This will usually add an event to the <a
      href="#queue">queue of events</a> and set the <code
-     title=dom-WorkerGlobalScope-port>port</code> property on the <var
-     title="">worker</var> object. If it does, that event will have a
-     <code>MessagePort</code> and thus the list of <a
+     title=dom-WorkerGlobalScope-port><a href="#port">port</a></code>
+     property on the <var title="">worker</var> object. If it does, that
+     event will have a <code>MessagePort</code> and thus the list of <a
      href="#the-workers0">the worker's ports</a> will not be empty. If it
      doesn't, then the next step will set the <var title="">worker</var>
      object's <code title=dom-WorkerGlobalScope-closing><a
@@ -937,10 +942,10 @@ search: while (true) {
      creation succeeded">success steps</dfn>, then <a href="#connect"
      title="connect to a worker">connect</a> to this new worker, with the
      newly created port, and if that algorithm returns a second new port,
-     then add a new property <code
-     title=dom-WorkerGlobalScope-port>port</code> on the new worker's
-     <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object,
-     whose value is the <code>MessagePort</code> object return by the <a
+     then add a new property <code title=dom-WorkerGlobalScope-port><a
+     href="#port">port</a></code> on the new worker's <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object, whose
+     value is the <code>MessagePort</code> object return by the <a
      href="#connect">connect to a worker</a> algorithm.</p>
 
     <p>Otherwise, if the <dfn id=worker>worker creation failed</dfn>, then at
