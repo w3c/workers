@@ -1016,42 +1016,73 @@ function getMessage(event) {
 
   <hr>
 
-  <p>A worker is said to be a <dfn id=front-line>front-line worker</dfn> if
-   at least one of the <a href="#the-workers0">the worker's ports</a> has an
-   entangled <code>MessagePort</code> owned by a <code>Window</code> object.
-
-  <p>A worker is said to be a <dfn id=needed>needed worker</dfn> if either:
+  <p>A worker is said to be a <dfn id=permissible>permissible worker</dfn> if
+   either:
 
   <ul>
-   <li>it is a <a href="#front-line">front-line worker</a>, or
+   <li>at some point past or present a <code>MessagePort</code> owned by the
+    worker was entangled with a <code>MessagePort</code> <var
+    title="">p</var> whose owner is a <code>Window</code> object whose
+    <span>active document</span> is the <code>Document</code> that was that
+    <span>browsing context</span>'s <span>active document</span> when <var
+    title="">p</var> was created, and that <code>Document</code> is
+    <span>fully active</span>, or
 
-   <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
-    an entangled <code>MessagePort</code> owned by a <code><a
-    href="#workerglobalscope">WorkerGlobalScope</a></code> object that is
-    itself a <a href="#needed">needed worker</a>.
+   <li>at some point past or present a <code>MessagePort</code> owned by the
+    worker was entangled with a <code>MessagePort</code> owned by another
+    worker that is currently a <a href="#permissible">permissible worker</a>.
   </ul>
 
   <hr>
 
-  <p>A worker is said to be an <dfn id=active>active front-line worker</dfn>
-   if at least one of the <a href="#the-workers0">the worker's ports</a> is
-   entangled with a <code>MessagePort</code> <var title="">p</var> whose
-   owner is a <code>Window</code> object whose <span>active document</span>
-   is the <code>Document</code> that was that <span>browsing context</span>'s
-   <span>active document</span> when that <code>MessagePort</code> <var
-   title="">p</var> was created, and that <code>Document</code> is
-   <span>fully active</span>.
-
-  <p>A worker is said to be an <dfn id=active0>active needed worker</dfn> if
+  <p>A worker is said to be a <dfn id=protected>protected worker</dfn> if
    either:
 
   <ul>
-   <li>it is an <a href="#active">active front-line worker</a>, or
+   <li>it has outstanding timers, database transactions, or network
+    connections, and is a <a href="#permissible">permissible worker</a>, or:
+
+   <li>there is a <a href="#protected">protected worker</a> that at some
+    point past or present owned a <code>MessagePort</code> that was entangled
+    with a <code>MessagePort</code> owned by this worker.
+  </ul>
+
+  <hr>
+
+  <p>A worker is said to be an <dfn id=active>active needed worker</dfn> if
+   either:
+
+  <ul>
+   <li>the worker is a <a href="#protected">protected worker</a>, or
+
+   <li>at least one of the <a href="#the-workers0">the worker's ports</a> is
+    entangled with a <code>MessagePort</code> <var title="">p</var> whose
+    owner is a <code>Window</code> object whose <span>active document</span>
+    is the <code>Document</code> that was that <span>browsing
+    context</span>'s <span>active document</span> when that
+    <code>MessagePort</code> <var title="">p</var> was created, and that
+    <code>Document</code> is <span>fully active</span>, or
 
    <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
     an entangled <code>MessagePort</code> owned by a <code><a
     href="#workerglobalscope">WorkerGlobalScope</a></code> object that is
-    itself an <a href="#active0">active needed worker</a>.
+    itself an <a href="#active">active needed worker</a>.
+  </ul>
+
+  <hr>
+
+  <p>A worker is said to be a <dfn id=suspendable>suspendable worker</dfn> if
+   it is not an <a href="#active">active needed worker</a> but either:
+
+  <ul>
+   <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
+    an entangled <code>MessagePort</code> owned by a <code>Window</code>
+    object, or
+
+   <li>at least one of the <a href="#the-workers0">the worker's ports</a> has
+    an entangled <code>MessagePort</code> owned by a <code><a
+    href="#workerglobalscope">WorkerGlobalScope</a></code> object that is
+    itself a <span>needed worker</span>.
   </ul>
 
   <h3 id=processing><span class=secno>2.5 </span>Processing model</h3>
@@ -1133,9 +1164,11 @@ function getMessage(event) {
 
    <li>
     <p><strong>Closing orphan workers</strong>: Start monitoring <var
-     title="">worker</var>, such that as soon as the worker stops being a <a
-     href="#needed">needed worker</a>, the <var title="">worker</var>
-     object's <code title=dom-WorkerGlobalScope-closing><a
+     title="">worker</var>, such that as soon as the worker stops being
+     either an <a href="#active">active needed worker</a> or a <a
+     href="#suspendable">suspendable worker</a>, the <var
+     title="">worker</var> object's <code
+     title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute is set to true.</p>
 
    <li>
@@ -1143,11 +1176,11 @@ function getMessage(event) {
      title="">worker</var>, such that whenever the <var title="">worker</var>
      object's <code title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute is false and the worker is
-     not an <a href="#active0">active needed worker</a>, the user agent
-     suspends execution of script in that worker until such time as either
-     the <code title=dom-WorkerGlobalScope-closing><a
+     a <a href="#suspendable">suspendable worker</a>, the user agent suspends
+     execution of script in that worker until such time as either the <code
+     title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute switches to true or the
-     worker becomes an <a href="#active0">active needed worker</a>.</p>
+     worker stops being a <a href="#suspendable">suspendable worker</a>.</p>
 
    <li>
     <p>Run <var title="">script</var> until it either returns, fails to catch
@@ -1239,9 +1272,10 @@ function getMessage(event) {
   <p>User agents may invoke the "<a href="#kill-a">kill a worker</a>"
    processing model on a worker at any time, e.g. in response to user
    requests, in response to CPU quota management, or when a worker stops
-   being a <a href="#needed">needed worker</a> if the worker continues
-   executing even after its <code title=dom-WorkerGlobalScope-closing><a
-   href="#closing">closing</a></code> attribute was set to true.
+   being an <a href="#active">active needed worker</a> if the worker
+   continues executing even after its <code
+   title=dom-WorkerGlobalScope-closing><a href="#closing">closing</a></code>
+   attribute was set to true.
 
   <hr>
 
