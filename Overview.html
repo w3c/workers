@@ -182,6 +182,10 @@
    <li><a href="#introduction"><span class=secno>1. </span>Introduction</a>
     <ul class=toc>
      <li><a href="#tutorial"><span class=secno>1.1 </span>Tutorial</a>
+      <ul class=toc>
+       <li><a href="#a-background"><span class=secno>1.1.1 </span>A
+        background number-crunching thread</a>
+      </ul>
 
      <li><a href="#conformance"><span class=secno>1.2 </span>Conformance
       requirements</a>
@@ -242,7 +246,66 @@
 
   <p><em>This section is non-normative.</em>
 
-  <p class=big-issue>This section is missing.
+  <p>There are a variety of uses that workers can be put to. The following
+   subsections show various examples of this use.
+
+  <h4 id=a-background><span class=secno>1.1.1 </span>A background
+   number-crunching thread</h4>
+
+  <p><em>This section is non-normative.</em>
+
+  <p>The simplest use of workers is for performing a computationally
+   expensive task without interrupting the user interface.
+
+  <p>In this example, the main document spawns a thread to (na&iuml;vely)
+   compute prime numbers, and progressively displays the most recently found
+   prime number.
+
+  <p>The main page is as follows:
+
+  <pre>&lt;!DOCTYPE HTML>
+&lt;html>
+ &lt;head>
+  &lt;title>Worker example: Computation&lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;p>The highest prime number discovered so far is: &lt;output id="result">&lt;/output>&lt;/p>
+  &lt;script>
+   var worker = createWorker('worker.js');
+   worker.onmessage = function (event) {
+     document.getElementById('result').textContent = event.message;
+   };
+  &lt;/script>
+ &lt;/body>
+&lt;/html></pre>
+
+  <p>The <code title=dom-WorkerFactory-createWorker><a
+   href="#createworker">createWorker()</a></code> method call creates a
+   worker and returns a <code>MessagePort</code> object, which is used to
+   communicate with the worker. That object's <code
+   title=dom-MessagePort-onmessage>onmessage</code> event handler attribute
+   allows the code to receive messages from the worker.
+
+  <p>The worker itself is as follows:
+
+  <pre>var n = 1;
+search: while (true) {
+  n += 1;
+  for (var i = 2; i &lt;= Math.sqrt(n); i += 1)
+    if (n % i == 0)
+     continue search;
+  // found a prime!
+  port.postMessage(n);
+}</pre>
+
+  <p>The bulk of this code is simply an unoptimised search for a prime
+   number. To send a message back to the page, the <code
+   title=dom-WorkerGlobalScope-port>port</code> variable (defined
+   automatically when the worker is created) is used to post a message when a
+   prime is found.
+
+  <p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this
+   example online</a>.
 
   <h3 id=conformance><span class=secno>1.2 </span>Conformance requirements</h3>
 
@@ -908,10 +971,6 @@
    <li>
     <p><span>Entangle</span> this newly created port and the port <var
      title="">port</var> that was passed to these steps.
-
-   <li>
-    <p>Set the <code title=dom-MessagePort-active>active</code> attribute of
-     both ports to true.
 
    <li>
     <p>At the next available opportunity, after any scripts have finished
