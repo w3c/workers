@@ -188,6 +188,9 @@
 
        <li><a href="#a-worker"><span class=secno>1.1.2 </span>A worker for
         updating a client-side database</a>
+
+       <li><a href="#worker"><span class=secno>1.1.3 </span>Worker used for
+        backgroud I/O</a>
       </ul>
 
      <li><a href="#conformance"><span class=secno>1.2 </span>Conformance
@@ -355,6 +358,118 @@ server.onmessage = function (event) {
    this example online</a>. (This example will not actually function, since
    the server does not actually exist and the database is not created by this
    sample code.)
+
+  <h4 id=worker><span class=secno>1.1.3 </span>Worker used for backgroud I/O</h4>
+
+  <p><em>This section is non-normative.</em>
+
+  <p>In this example, the main document uses two workers, one for fetching
+   stock updates for at regular intervals, and one for fetching performing
+   search queries that the user requests.
+
+  <p>The main page is as follows:
+
+  <pre>&lt;!DOCTYPE HTML>
+&lt;html>
+ &lt;head>
+  &lt;title>Worker example: Stock ticker&lt;/title>
+  &lt;script>
+   // TICKER
+   var symbol = 'GOOG'; // default symbol to watch
+   var ticker = createWorker('ticker.js');
+   ticker.postMessage(symbol);
+
+   // SEARCHER
+   var searcher = createWorker('searcher.js');
+   function search(query) {
+     searcher.postMessage(query);
+   }
+
+   // SYMBOL SELECTION UI
+   function select(newSymbol) {
+     symbol = newSymbol;
+     ticker.postMessage(symbol);
+   }
+  &lt;/script>
+ &lt;/head>
+ &lt;body>
+  &lt;p>&lt;output id="symbol">&lt;/output> &lt;output id="value">&lt;/output>&lt;/p>
+  &lt;script>
+   ticker.onmessage = function (event) {
+     var data = event.message.split(' ');
+     document.getElementById('symbol').textContent = data[0];
+     document.getElementById('value').textContent = data[1];
+   };
+  &lt;/script>
+  &lt;p>&lt;label>Search: &lt;input type="text" oninput="search(this.value)">&lt;/label>&lt;/p>
+  &lt;ul id="results">&lt;/ul>
+  &lt;script>
+   searcher.onmessage = function (event) {
+     var data = event.message.split(' ');
+     var results = document.getElementById('results');
+     while (results.hasChildNodes()) // clear previous results
+       results.removeChild(results.firstChild);
+     for (var i = 0; i &lt; data.length; i += 1) {
+       // add a list item with a button for each result
+       var li = document.createElement('li');
+       var button = document.createElement('button');
+       button.value = data[i];
+       button.type = 'button';
+       button.onclick = function () { select(this.value); };
+       button.textContent = data[i];
+       li.appendChild(button);
+       results.appendChild(li);
+     }
+   };
+  &lt;/script>
+  &lt;p>(The data in this example is not real. Try searching for "Google" or "Apple".)&lt;/p>
+ &lt;/body>
+&lt;/html></pre>
+
+  <p>Messages are queued until the <code
+   title=handler-MessagePort-onmessage>onmessage</code> handler is set, so
+   even if it takes a while for the message handler to be attached, no data
+   is lost.
+
+  <p>The two workers use a common library for performing the actual network
+   calls. This library is as follows:
+
+  <pre>function get(url) {
+   try {
+     var xhr = new XMLHttpRequest();
+     xhr.open('GET', url, false);
+     xhr.send();
+     return xhr.responseText;
+   } except (e) {
+     return ''; // turn all errors into empty results
+   }
+}</pre>
+
+  <p>The stock updater worker is as follows:
+
+  <pre>importScript('io.js');
+var timer;
+var symbol;
+function update() {
+  port.postMessage(symbol + ' ' + get('stock.cgi?' + symbol));
+  timer = setTimeout(update, 10000);
+}
+port.onmessage = function (event) {
+  if (timer)
+    clearTimeout(timer);
+  symbol = event.message;
+  update();
+};</pre>
+
+  <p>The search query worker is as follows:
+
+  <pre>importScript('io.js');
+port.onmessage = function (event) {
+  port.postMessage(get('search.cgi?' + event.message));
+};</pre>
+
+  <p><a href="http://www.whatwg.org/demos/workers/stock/page.html">View this
+   example online</a>.
 
   <h3 id=conformance><span class=secno>1.2 </span>Conformance requirements</h3>
 
@@ -637,7 +752,7 @@ server.onmessage = function (event) {
      <var title="">url</var>.</p>
 
     <p>If the attempt fails, then abort these steps and invoke the <a
-     href="#worker" title="worker creation failed">error handling steps</a>
+     href="#worker0" title="worker creation failed">error handling steps</a>
      defined by the algorithm that called this one.</p>
 
     <p>If the attempt succeeds, then let <var title="">script</var> be the
@@ -997,8 +1112,8 @@ server.onmessage = function (event) {
      value is the <code>MessagePort</code> object return by the <a
      href="#connect">connect to a worker</a> algorithm.</p>
 
-    <p>Otherwise, if the <dfn id=worker>worker creation failed</dfn>, then at
-     the next available opportunity, after any scripts have finished
+    <p>Otherwise, if the <dfn id=worker0>worker creation failed</dfn>, then
+     at the next available opportunity, after any scripts have finished
      executing<!-- XXX queue -->, <span>fire a simple event</span> called
      <code title=event-error>error</code> at the newly created port.</p>
   </ol>
