@@ -185,6 +185,9 @@
       <ul class=toc>
        <li><a href="#a-background"><span class=secno>1.1.1 </span>A
         background number-crunching thread</a>
+
+       <li><a href="#a-worker"><span class=secno>1.1.2 </span>A worker for
+        updating a client-side database</a>
       </ul>
 
      <li><a href="#conformance"><span class=secno>1.2 </span>Conformance
@@ -306,6 +309,52 @@ search: while (true) {
 
   <p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this
    example online</a>.
+
+  <h4 id=a-worker><span class=secno>1.1.2 </span>A worker for updating a
+   client-side database</h4>
+
+  <p><em>This section is non-normative.</em>
+
+  <p>In this example, the main document spawns a worker whose only task is to
+   listen for notifications from the server, and, when appropriate, either
+   add or remove data from the client-side database.
+
+  <p>Since no communication occurs between the worker and the main page, the
+   main page can start the worker by just doing:
+
+  <pre>&lt;script>
+ createWorker('worker.js');
+&lt;/script></pre>
+
+  <p>The worker itself is as follows:
+
+  <pre>var server = new WebSocket('ws://whatwg.org/database');
+var database = utils.openDatabase('demobase', '1.0', 'Demo Database', 10240);
+server.onmessage = function (event) {
+  // data is in the format "command key value"
+  var data = event.message.split(' ');
+  switch (data[0]) {
+    case '+':
+     database.transaction(function(tx) {
+       tx.executeSql('INSERT INTO pairs (key, value) VALUES (?, ?)', data[1], data[2]);
+     });
+    case '-':
+     database.transaction(function(tx) {
+       tx.executeSql('DELETE FROM pairs WHERE key=? AND value=?', data[1], data[2]);
+     });
+  }
+};</pre>
+
+  <p>This connects to the server using the <code>WebSocket</code> mechanism
+   and opens the local database (which, we presume, has been created
+   earlier). The worker then just listens for messages from the worker and
+   acts on them as appropriate, forever (or until the main page is closed).
+
+  <p><a
+   href="http://www.whatwg.org/demos/workers/database-updater/page.html">View
+   this example online</a>. (This example will not actually function, since
+   the server does not actually exist and the database is not created by this
+   sample code.)
 
   <h3 id=conformance><span class=secno>1.2 </span>Conformance requirements</h3>
 
