@@ -480,18 +480,311 @@ port.onmessage = function (event) {
   port.postMessage(get('search.cgi?' + event.message));
 };</pre>
 
-  <p><a href="http://www.whatwg.org/demos/workers/stock/page.html">View this
+  <p><a href="http://www.whatwg.org/demos/workers/stocks/page.html">View this
    example online</a>.
 
   <h4 id=shared><span class=secno>1.1.4 </span>Shared workers</h4>
 
-  <p class=big-issue>...
+  <p><em>This section is non-normative.</em>
+
+  <p>In this example, multiple windows (viewers) can be opened that are all
+   viewing the same map. All the windows share the same map information, with
+   a single worker coordinating all the viewers. Each viewer can move around
+   idependently, but if they set any data on the map, all the viewers are
+   updated.
+
+  <p>The main page isn't interesting, it merely provides a way to open the
+   viewers:
+
+  <pre>&lt;!DOCTYPE HTML>
+&lt;html>
+ &lt;head>
+  &lt;title>Workers example: Multiviewer&lt;/title>
+  &lt;script>
+   function openViewer() {
+     window.open('viewer.html');
+   }
+  &lt;/script>
+ &lt;/head>
+ &lt;body>
+  &lt;p>&lt;button type=button onclick="openViewer()">Open a new
+  viewer&lt;/button>&lt;/p>
+  &lt;p>Each viewer opens in a new window. You can have as many viewers
+  as you like, they all view the same data.&lt;/p>
+ &lt;/body>
+&lt;/html></pre>
+
+  <p>The viewer is more involved:
+
+  <pre>&lt;!DOCTYPE HTML>
+&lt;html>
+ &lt;head>
+  &lt;title>Workers example: Multiviewer viewer&lt;/title>
+  &lt;script>
+   var worker = createNamedWorker('worker.js', 'core');
+
+   // CONFIGURATION
+   function configure(event) {
+     if (event.message.substr(0, 4) != 'cfg ') return;
+     var name = event.message.substr(4).split(' ', 1);
+     // update display to mention our name is name
+     document.getElementsByTagName('h1')[0].textContent += ' ' + name;
+     // no longer need this listener
+     worker.removeEventListener('message', configure, false);
+   }
+   worker.addEventListener('message', configure, false);
+
+   // MAP
+   function paintMap(event) {
+     if (event.message.substr(0, 4) != 'map ') return;
+     var data = event.message.substr(4).split(',');
+     // display tiles data[0] .. data[8]
+     var canvas = document.getElementById('map');
+     var context = canvas.getContext('2d');
+     for (var y = 0; y &lt; 3; y += 1) {
+       for (var x = 0; x &lt; 3; x += 1) {
+         var tile = data[y * 3 + x];
+         if (tile == '0')
+           context.fillStyle = 'green';
+         else 
+           context.fillStyle = 'maroon';
+         fillRect(x * 50, y * 50, 50, 50);
+       }
+     }
+   }
+   worker.addEventListener('message', paintMap, false);
+
+   // PUBLIC CHAT
+   function updatePublicChat(event) {
+     if (event.message.substr(0, 4) != 'txt ') return;
+     var name = event.message.substr(4).split(' ', 1);
+     var message = event.message.substr(4 + length(name) + 1);
+     // display "&lt;name> message" in public chat
+     var dialog = document.getElementById('public');
+     var dt = document.createElement('dt');
+     dt.textContent = name;
+     dialog.appendChild(dt);
+     var dd = document.createElement('dd');
+     dd.textContent = message;
+     dialog.appendChild(dd);
+   }
+   worker.addEventListener('message', updatePublicChat, false);
+
+   // PRIVATE CHAT
+   function startPrivateChat(event) {
+     if (event.message.substr(0, 4) != 'msg ') return;
+     var name = event.message.substr(4).split(' ', 1);
+     var port = event.port;
+     // display a private chat UI
+     var ul = document.getElementById('private');
+     var li = document.createElement('li');
+     var h3 = document.createElement('h3');
+     h3.textContent = 'Private chat with ' + name;
+     li.appendChild(h3);
+     var dialog = document.createElement('dialog');
+     var addMessage = function(name, message) {
+       var dt = document.createElement('dt');
+       dt.textContent = name;
+       dialog.appendChild(dt);
+       var dd = document.createElement('dd');
+       dd.textContent = message;
+       dialog.appendChild(dd);
+     };
+     port.onmessage = function (event) {
+       addMessage(name, event.message);
+     };
+     li.appendChild(dialog);
+     var form = document.createElement('form');
+     var p = document.createElement('p');
+     var input = document.createElement('input');
+     input.size = 50;
+     p.appendChild(input);
+     p.appendChild(document.createTextNode(' '));
+     var button = document.createElement('button');
+     button.textContent = 'Post';
+     p.appendChild(button);
+     form.onsubmit = function () {
+       port.postMessage(input.value);
+       addMessage('me', input.value);
+       input.value = '';
+       return false;
+     };
+     form.appendChild(p);
+     li.appendChild(form);
+   }
+   worker.addEventListener('message', startPrivateChat, false);
+
+   function init() {
+     // begin receiving messages (messages are queued until you
+     // either set worker.onmessage or call worker.start())
+     worker.start();
+   }
+  &lt;/script>
+ &lt;/head>
+ &lt;body onload="init()">
+  &lt;h1>Viewer&lt;/h1>
+  &lt;h2>Map&lt;/h2>
+  &lt;p>&lt;canvas id="map" height=150 width=150>&lt;/canvas>&lt;/p>
+  &lt;p>
+   &lt;button type=button onclick="worker.postMessage('mov left')">Left&lt;/button>
+   &lt;button type=button onclick="worker.postMessage('mov up')">Up&lt;/button>
+   &lt;button type=button onclick="worker.postMessage('mov down')">Down&lt;/button>
+   &lt;button type=button onclick="worker.postMessage('mov right')">Right&lt;/button>
+   &lt;button type=button onclick="worker.postMessage('set 0')">Set 0&lt;/button>
+   &lt;button type=button onclick="worker.postMessage('set 1')">Set 1&lt;/button>
+  &lt;/p>
+  &lt;h2>Public Chat&lt;/h2>
+  &lt;dialog id="public">&lt;/dialog>
+  &lt;form onsubmit="worker.postMessage('txt ' + message.value); message.value = ''; return false;">
+   &lt;p>
+    &lt;input type="text" name="message" size="50">
+    &lt;button>Post&lt;/button>
+   &lt;/p>
+  &lt;/form>
+  &lt;h2>Private Chat&lt;/h2>
+  &lt;ul id="private">&lt;/ul>
+ &lt;/body>
+&lt;/html></pre>
+
+  <p>There are several key things worth noting about the way the viewer is
+   written.
+
+  <p><strong>Multiple listeners</strong>. Instead of a single message
+   processing function, the code here attaches multiple event listeners, each
+   one performing a quick check to see if it is relevant for the message. In
+   this example it doesn't make much difference, but if multiple authors
+   wanted to collaborate using a single port to communicate with a worker, it
+   would allow for independent code instead of changes having to all be made
+   to a single event handling function.
+
+  <p>Because event listeners are registered using <code
+   title="">addEventListener()</code> instead of <code
+   title=handler-MessagePort-onmessage>onmessge</code>, the events remain
+   queued until the <code title=dom-MessagePort-start>start()</code> method
+   is called on the message port, in the <code title="">init()</code>
+   function called from the <code title=handler-onload>onload</code> handler.
+
+  <p>Registering event listeners in this way also allows you to unregister
+   specific listeners when you are done with them, as is done with the <code
+   title="">configure()</code> method in this example.
+
+  <p>Finally, the worker:
+
+  <pre>
+var nextName = 0;
+function getNextName() {
+  // this could use more friendly names
+  // but for now just return a number
+  return nextName++;
+}
+
+var map = [
+ [0, 0, 0, 0, 0, 0, 0],
+ [1, 1, 0, 1, 0, 1, 1],
+ [0, 1, 0, 1, 0, 0, 0],
+ [0, 1, 0, 1, 0, 1, 1],
+ [0, 0, 0, 1, 0, 0, 0],
+ [1, 0, 0, 1, 1, 1, 1],
+ [1, 1, 0, 1, 1, 0, 1],
+];
+
+function wrapX(x) {
+  if (x &lt; 0) return wrapX(x + map[0].length);
+  if (x >= map[0].length) return wrapX(x - map[0].length);
+  return x;
+}
+
+function wrapY(y) {
+  if (y &lt; 0) return wrapY(y + map.length);
+  if (y >= map[0].length) return wrapY(y - map.length);
+  return y;
+}
+
+function sendMapData(viewer) {
+  var data = '';
+  for (var y = viewer.y-1; y &lt;= viewer.y+1; y += 1) {
+    for (var x = viewer.x-1; x &lt;= viewer.x+1; x += 1) {
+      if (data != '')
+        data += ',';
+      data += map[y][x];
+    }
+  }
+  viewer.port.postMessage('map ' + data);
+}
+
+var viewers = {};
+onconnect = function (event) {
+  event.port._name = getNextName();
+  event.port._data = { port: event.port, x: 0, y: 0, };
+  viewers[event.port._name] = event.port._data;
+  event.port.postMessage('cfg ' + name);
+  event.port.onmessage = getMessage;
+  sendMapData(event.port._data);
+};
+
+function getMessage(event) {
+  switch (event.message.substr(0, 4)) {
+    case 'mov ':
+      var direction = event.message.substr(4);
+      var dx = 0;
+      var dy = 0;
+      switch (direction) {
+        case 'up': dy = -1; break;
+        case 'down': dy = 1; break;
+        case 'left': dx = -1; break;
+        case 'right': dx = 1; break;
+      }
+      event.target._data.x = wrapX(event.target._data.x + dx);
+      event.target._data.y = wrapY(event.target._data.y + dy);
+      sendMapData(event.target._data);
+      break;
+    case 'set ':
+      var value = event.message.substr(4);
+      map[event.target._data.y][event.target._data.x] = value;
+      for (var viewer in viewers)
+        sendMapData(viewers[viewer]);
+      break;
+    case 'txt ':
+      var name = event.target._name;
+      var message = event.message.substr(4);
+      for (var viewer in viewers)
+        viewers[viewer].port.postMessage('txt ' + name + ' ' + message);
+      break;
+    case 'msg ':
+      var party1 = event._data;
+      var party2 = viewers[event.message.substr(4).split(' ', 1)];
+      if (party2) {
+        var channel = new MessageChannel();
+        party1.port.postMessage('msg ' + party2.name, channel.port1);
+        party2.port.postMessage('msg ' + party1.name, channel.port2);
+      }
+      break;
+  }
+}</pre>
+
+  <p><strong>Connecting to multiple pages</strong>. Instead of using the
+   <code title=dom-WorkerGlobalScope-port><a href="#port">port global
+   variable in the worker, the script uses the <code
+   title=handler-WorkerGlobalScope-onconnect>onconnect</code> event listener
+   to listen for multiple connections.</a></code>
+
+  <p><strong>Direct channels</strong>. When the worker receives a "msg"
+   message from one viewer naming another viewer, it sets up a direct
+   connection between the two, so that the two viewers can communicate
+   directly without the worker having to proxy all the messages.
+
+  <p><a href="http://www.whatwg.org/demos/workers/multiviewer/page.html">View
+   this example online</a>.
 
   <h4 id=granting><span class=secno>1.1.5 </span>Granting capabilities</h4>
+
+  <p><em>This section is non-normative.</em>
 
   <p class=big-issue>...
 
   <h4 id=delegation><span class=secno>1.1.6 </span>Delegation</h4>
+
+  <p><em>This section is non-normative.</em>
 
   <p class=big-issue>...
 
