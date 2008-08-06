@@ -191,6 +191,15 @@
 
        <li><a href="#worker"><span class=secno>1.1.3 </span>Worker used for
         backgroud I/O</a>
+
+       <li><a href="#shared"><span class=secno>1.1.4 </span>Shared
+        workers</a>
+
+       <li><a href="#granting"><span class=secno>1.1.5 </span>Granting
+        capabilities</a>
+
+       <li><a href="#delegation"><span class=secno>1.1.6
+        </span>Delegation</a>
       </ul>
 
      <li><a href="#conformance"><span class=secno>1.2 </span>Conformance
@@ -236,6 +245,9 @@
 
      <li><a href="#interface"><span class=secno>3.3 </span>Interface objects
       and constructors</a>
+
+     <li><a href="#worker0"><span class=secno>3.4 </span>Worker locations</a>
+      
     </ul>
 
    <li class=no-num><a href="#references">References</a>
@@ -440,7 +452,7 @@ server.onmessage = function (event) {
      xhr.open('GET', url, false);
      xhr.send();
      return xhr.responseText;
-   } except (e) {
+   } catch (e) {
      return ''; // turn all errors into empty results
    }
 }</pre>
@@ -470,6 +482,18 @@ port.onmessage = function (event) {
 
   <p><a href="http://www.whatwg.org/demos/workers/stock/page.html">View this
    example online</a>.
+
+  <h4 id=shared><span class=secno>1.1.4 </span>Shared workers</h4>
+
+  <p class=big-isue>...
+
+  <h4 id=granting><span class=secno>1.1.5 </span>Granting capabilities</h4>
+
+  <p class=big-isue>...
+
+  <h4 id=delegation><span class=secno>1.1.6 </span>Delegation</h4>
+
+  <p class=big-isue>...
 
   <h3 id=conformance><span class=secno>1.2 </span>Conformance requirements</h3>
 
@@ -569,7 +593,7 @@ port.onmessage = function (event) {
    class=idl>[NoInterfaceObject] interface <dfn id=workerglobalscope>WorkerGlobalScope</dfn> {
   // core worker features
   readonly attribute <a href="#workerglobalscope">WorkerGlobalScope</a> <a href="#self" title=dom-WorkerGlobalScope-self>self</a>;
-  readonly attribute DOMString <a href="#url" title=dom-WorkerGlobalScope-URL>URL</a>;
+  readonly attribute <a href="#workerlocation">WorkerLocation</a> <a href="#location" title=dom-WorkerGlobalScope-location>location</a>;
   readonly attribute DOMString <a href="#name" title=dom-WorkerGlobalScope-name>name</a>;
   readonly attribute boolean <a href="#closing" title=dom-WorkerGlobalScope-closing>closing</a>;
   void <a href="#close" title=dom-WorkerGlobalScope-close>close</a>();
@@ -587,12 +611,13 @@ port.onmessage = function (event) {
    return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
    object itself.
 
-  <p>The <dfn id=url title=dom-WorkerGlobalScope-URL><code>URL</code></dfn>
-   attribute must return the value it was assigned when the <code><a
-   href="#workerglobalscope">WorkerGlobalScope</a></code> object was created
-   by the "<a href="#run-a">run a worker</a>" algorithm. It gives the
-   <span>absolute URL</span> of the script that was used to initialize the
-   worker.
+  <p>The <dfn id=location
+   title=dom-WorkerGlobalScope-location><code>location</code></dfn> attribute
+   must return the <code><a href="#workerlocation">WorkerLocation</a></code>
+   object created for the <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> object when the
+   worker was created. It represents the <span>absolute URL</span> of the
+   script that was used to initialize the worker.
 
   <p>The <dfn id=name
    title=dom-WorkerGlobalScope-name><code>name</code></dfn> attribute must
@@ -648,17 +673,15 @@ port.onmessage = function (event) {
    workers</h3>
 
   <p>The <span>base URL</span> of a <span>URL</span> passed to an API in a
-   worker is the <span>absolute URL</span> given by the value of the <code
-   title=dom-WorkerGlobalScope-URL><a href="#url">URL</a></code> attribute of
-   the worker's <code><a
-   href="#workerglobalscope">WorkerGlobalScope</a></code> object.
+   worker is the <span>absolute URL</span> given that the worker's <code
+   title=dom-WorkerGlobalScope-location><a
+   href="#location">location</a></code> attribute represents.
 
   <p>Both the <span>origin</span> and <span>effective script origin</span> of
    scripts running in workers are the <span>origin</span> of the
-   <span>absolute URL</span> given by the value of the <code
-   title=dom-WorkerGlobalScope-URL><a href="#url">URL</a></code> attribute of
-   the worker's <code><a
-   href="#workerglobalscope">WorkerGlobalScope</a></code> object.
+   <span>absolute URL</span> given that the worker's <code
+   title=dom-WorkerGlobalScope-location><a
+   href="#location">location</a></code> attribute represents.
 
   <h3 id=the-queue><span class=secno>2.3 </span>The queue of events</h3>
 
@@ -752,7 +775,7 @@ port.onmessage = function (event) {
      <var title="">url</var>.</p>
 
     <p>If the attempt fails, then abort these steps and invoke the <a
-     href="#worker0" title="worker creation failed">error handling steps</a>
+     href="#worker1" title="worker creation failed">error handling steps</a>
      defined by the algorithm that called this one.</p>
 
     <p>If the attempt succeeds, then let <var title="">script</var> be the
@@ -771,19 +794,20 @@ port.onmessage = function (event) {
      title="">worker</var>.</p>
 
    <li>
-    <p>Set the <code title=dom-WorkerGlobalScope-URL><a
-     href="#url">URL</a></code> attribute of <var title="">worker</var> to
-     the value of <var title="">url</var>.</p>
-
-   <li>
     <p>Set the <code title=dom-WorkerGlobalScope-name><a
      href="#name">name</a></code> attribute of <var title="">worker</var> to
      the value of <var title="">name</var>.</p>
 
    <li>
+    <p>Create a new <code><a href="#workerlocation">WorkerLocation</a></code>
+     object for the <code title=dom-WorkerGlobalScope-location><a
+     href="#location">location</a></code> attribute of <var
+     title="">worker</var>, representing <var title="">url</var>.</p>
+
+   <li>
     <p>Create a new <code><a href="#workerutils">WorkerUtils</a></code>
      object for the <code title=dom-WorkerGlobalScope-utils><a
-     href="#utils">utils</a></code> attribute of <var title="">worker</var>.
+     href="#utils">utils</a></code> attribute of <var title="">worker</var>.</p>
 
    <li>
     <p>Let <var title="">script</var>'s <span>script execution context</span>
@@ -1044,17 +1068,18 @@ port.onmessage = function (event) {
      href="#closing">closing</a></code> attribute is false, whose <code
      title=dom-WorkerGlobalScope-name><a href="#name">name</a></code>
      attribute is exactly equal to the <var title="">name</var> argument, and
-     whose <code title=dom-WorkerGlobalScope-URL><a
-     href="#url">URL</a></code> attribute has the <span>same origin</span> as
-     the resulting <span>absolute URL</span>, then run these substeps:</p>
+     whose <code title=dom-WorkerGlobalScope-location><a
+     href="#location">location</a></code> attribute represents an
+     <span>absolute URL</span> that has the <span>same origin</span> as the
+     resulting <span>absolute URL</span>, then run these substeps:</p>
 
     <ol>
      <li>
-      <p>If that worker's <code title=dom-WorkerGlobalScope-URL><a
-       href="#url">URL</a></code> attribute is not exactly equal to the
-       resulting <span>absolute URL</span>, then throw a
-       <code>URL_MISMATCH_ERR</code> exception and abort these steps. <span
-       class=big-issue>code 19</span>
+      <p>If that worker's <code title=dom-WorkerGlobalScope-location><a
+       href="#location">location</a></code> attribute represents an
+       <span>absolute URL</span> that is not exactly equal to the resulting
+       <span>absolute URL</span>, then throw a <code>URL_MISMATCH_ERR</code>
+       exception and abort these steps. <span class=big-issue>code 19</span>
 
      <li>
       <p><span>Create a new <code>MessagePort</code> object</span> owned by
@@ -1112,7 +1137,7 @@ port.onmessage = function (event) {
      value is the <code>MessagePort</code> object return by the <a
      href="#connect">connect to a worker</a> algorithm.</p>
 
-    <p>Otherwise, if the <dfn id=worker0>worker creation failed</dfn>, then
+    <p>Otherwise, if the <dfn id=worker1>worker creation failed</dfn>, then
      at the next available opportunity, after any scripts have finished
      executing<!-- XXX queue -->, <span>fire a simple event</span> called
      <code title=event-error>error</code> at the newly created port.</p>
@@ -1298,6 +1323,45 @@ port.onmessage = function (event) {
    <li>
     <p>The <code>MessageChannel</code> interface object and constructor.
   </ul>
+
+  <h3 id=worker0><span class=secno>3.4 </span>Worker locations</h3>
+
+  <pre
+   class=idl>[NoInterfaceObject] interface <dfn id=workerlocation>WorkerLocation</dfn> {
+  readonly attribute DOMString <a href="#href" title=dom-WorkerLocation-href>href</a>;
+  readonly attribute DOMString <a href="#protocol" title=dom-WorkerLocation-protocol>protocol</a>;
+  readonly attribute DOMString <a href="#host" title=dom-WorkerLocation-host>host</a>;
+  readonly attribute DOMString <a href="#hostname" title=dom-WorkerLocation-hostname>hostname</a>;
+  readonly attribute DOMString <a href="#port0" title=dom-WorkerLocation-port>port</a>;
+  readonly attribute DOMString <a href="#pathname" title=dom-WorkerLocation-pathname>pathname</a>;
+  readonly attribute DOMString <a href="#search" title=dom-WorkerLocation-search>search</a>;
+  readonly attribute DOMString <a href="#hash" title=dom-WorkerLocation-hash>hash</a>;
+};</pre>
+
+  <p>A <code><a href="#workerlocation">WorkerLocation</a></code> object
+   represents an <span>absolute URL</span> set at its creation.
+
+  <p>The <dfn id=href title=dom-WorkerLocation-href><code>href</code></dfn>
+   attribute must return the <span>absolute URL</span> that the object
+   represents.
+
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface
+   also has the complement of <span>URL decomposition attributes</span>, <dfn
+   id=protocol title=dom-WorkerLocation-protocol><code>protocol</code></dfn>,
+   <dfn id=host title=dom-WorkerLocation-host><code>host</code></dfn>, <dfn
+   id=port0 title=dom-WorkerLocation-port><code>port</code></dfn>, <dfn
+   id=hostname title=dom-WorkerLocation-hostname><code>hostname</code></dfn>,
+   <dfn id=pathname
+   title=dom-WorkerLocation-pathname><code>pathname</code></dfn>, <dfn
+   id=search title=dom-WorkerLocation-search><code>search</code></dfn>, and
+   <dfn id=hash title=dom-WorkerLocation-hash><code>hash</code></dfn>. These
+   must follow the rules given for URL decomposition attributes, with the
+   <span title=concept-uda-input>input</span> being the <span>absolute
+   URL</span> that the object represents (same as the <code
+   title=dom-WorkerLocation-href><a href="#href">href</a></code> attribute),
+   and the <span title=concept-uda-setter>common setter action</span> being a
+   no-op, since the attributes are defined to be readonly. <a
+   href="#refsHTML5">[HTML5]</a>
 
   <h2 class=no-num id=references>References</h2>
 
