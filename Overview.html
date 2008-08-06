@@ -928,7 +928,7 @@
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=workerutils>WorkerUtils</dfn> {
-  boolean <a href="#import" title=dom-WorkerGlobalScope-import>import</a>(in DOMString url);
+  boolean <a href="#importscript" title=dom-WorkerGlobalScope-importScript>importScript</a>(in DOMString url);
   readonly attribute <span>Storage</span> <a href="#localstorage" title=dom-localStorage>localStorage</a>;
   <span>Database</span> <a href="#opendatabase" title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
   void <a href="#shownotification" title=dom-showNotification>showNotification</a>(in DOMString title, in DOMString subtitle, in DOMString description);
@@ -965,8 +965,8 @@
   <h3 id=importing><span class=secno>3.1 </span>Importing scripts and
    libraries</h3>
 
-  <p>When a script invokes the <dfn id=import
-   title=dom-WorkerGlobalScope-import><code>import(<var
+  <p>When a script invokes the <dfn id=importscript
+   title=dom-WorkerGlobalScope-importScript><code>importScript(<var
    title="">url</var>)</code></dfn> method on a <code><a
    href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user
    agent must run the following steps:
@@ -1013,8 +1013,8 @@
     <p>If an exception was raised or if the script was prematurely aborted,
      then abort these steps, letting the exception or aborting continue to be
      processed by the script that called the <code
-     title=dom-WorkerGlobalScope-import><a href="#import">import()</a></code>
-     method.</p>
+     title=dom-WorkerGlobalScope-importScript><a
+     href="#importscript">importScript()</a></code> method.</p>
 
     <p>Otherwise, return true.</p>
   </ol>
@@ -1022,7 +1022,7 @@
   <h3 id=apis-defined><span class=secno>3.2 </span>APIs defined in other
    specifications</h3>
 
-  <p> The <dfn id=localstorage
+  <p>The <dfn id=localstorage
    title=dom-localStorage><code>localStorage</code></dfn>, <dfn
    id=opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn>
    must act as defined for the APIs with the same names on the
