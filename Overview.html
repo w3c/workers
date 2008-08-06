@@ -900,6 +900,10 @@ function getMessage(event) {
            attribute <span>EventListener</span> <a href="#onunload" title=handler-WorkerGlobalScope-onunload>onunload</a>;
 };</pre>
 
+  <p>Objects implementing the <code><a
+   href="#workerglobalscope">WorkerGlobalScope</a></code> interface must also
+   implement the <code>EventTarget</code> interface.
+
   <p>The <dfn id=self
    title=dom-WorkerGlobalScope-self><code>self</code></dfn> attribute must
    return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
@@ -1528,16 +1532,9 @@ function getMessage(event) {
 
   <p>Objects that implement the <code><a
    href="#workerutils">WorkerUtils</a></code> interface must also implement
-   the following interfaces:
-
-  <ul>
-   <li>The <code>WindowTimers</code> interface
-
-   <li>The <code>EventTarget</code> interface
-
-   <li>The <code><a href="#workerfactory">WorkerFactory</a></code> interface,
-    as noted earlier in this specification
-  </ul>
+   the <code>WindowTimers</code> interface (and <code><a
+   href="#workerfactory">WorkerFactory</a></code> interface, as noted earlier
+   in this specification).
 
   <p class=big-issue>Need to define a sync database API.
 
