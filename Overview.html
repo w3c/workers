@@ -485,10 +485,13 @@
   <hr>
 
   <p>A worker is said to be an <dfn id=active>active front-line worker</dfn>
-   if at least one of the <a href="#the-workers0">the worker's ports</a> has
-   both an <code title=dom-MessagePort-active>active</code> attribute whose
-   value is true and an entangled <code>MessagePort</code> whose owner is a
-   <code>Window</code> object.
+   if at least one of the <a href="#the-workers0">the worker's ports</a> is
+   entangled with a <code>MessagePort</code> <var title="">p</var> whose
+   owner is a <code>Window</code> object whose <span>active document</span>
+   is the <code>Document</code> that was that <span>browsing context</span>'s
+   <span>active document</span> when that <code>MessagePort</code> <var
+   title="">p</var> was created, and that <code>Document</code> is
+   <span>fully active</span>.
 
   <p>A worker is said to be an <dfn id=active0>active needed worker</dfn> if
    either:
@@ -569,7 +572,9 @@
      one.</p>
 
     <p class=note>This will usually add an event to the <a
-     href="#queue">queue of events</a>. If it does, that event will have a
+     href="#queue">queue of events</a> and set the <code
+     title=dom-WorkerGlobalScope-port>port</code> property on the <var
+     title="">worker</var> object. If it does, that event will have a
      <code>MessagePort</code> and thus the list of <a
      href="#the-workers0">the worker's ports</a> will not be empty. If it
      doesn't, then the next step will set the <var title="">worker</var>
@@ -577,16 +582,16 @@
      href="#closing">closing</a></code> attribute to true.</p>
 
    <li>
-    <p>Start monitoring <var title="">worker</var>, such that as soon as the
-     worker stops being a <a href="#needed">needed worker</a>, the <var
-     title="">worker</var> object's <code
-     title=dom-WorkerGlobalScope-closing><a
+    <p><strong>Closing orphan workers</strong>: Start monitoring <var
+     title="">worker</var>, such that as soon as the worker stops being a <a
+     href="#needed">needed worker</a>, the <var title="">worker</var>
+     object's <code title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute is set to true.</p>
 
    <li>
-    <p>Start monitoring <var title="">worker</var>, such that whenever the
-     <var title="">worker</var> object's <code
-     title=dom-WorkerGlobalScope-closing><a
+    <p><strong>Suspending workers</strong>: Start monitoring <var
+     title="">worker</var>, such that whenever the <var title="">worker</var>
+     object's <code title=dom-WorkerGlobalScope-closing><a
      href="#closing">closing</a></code> attribute is false and the worker is
      not an <a href="#active0">active needed worker</a>, the user agent
      suspends execution of script in that worker until such time as either
@@ -602,9 +607,7 @@
     <p class=note>If the script gets aborted by the "<a href="#kill-a">kill a
      worker</a>" algorithm, then that same algorithm will cause there to only
      be a single event in the <a href="#queue">queue of events</a> at the
-     next step, namely the <code title=message-unload>unload</code> event.
-     However, if the event is ignored then it will become true as soon as
-     that port is garbage collected.</p>
+     next step, namely the <code title=message-unload>unload</code> event.</p>
 
    <li>
     <p><i>Event loop</i>: Wait until either there is an event in the <a
@@ -628,8 +631,7 @@
 
    <li>
     <p class=big-issue>timers, intervals, XMLHttpRequests, database
-     transactions, etc, must be killed; ports must be deactivated and
-     unentangled (do not send unload)</p>
+     transactions, etc, must be killed; ports must be unentangled</p>
   </ol>
 
   <hr>
@@ -646,6 +648,10 @@
      href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a
      href="#queue">queue of events</a>, targetted at the <code><a
      href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.
+   </li>
+   <!-- XXX shouldn't add one if closing is
+   already true, assuming unload has already been added to the queue
+   (?) -->
 
    <li>
     <p>Set the worker's <code><a
@@ -656,10 +662,10 @@
    <li>
     <p>Wait a user-agent-defined amount of time. If the "<a href="#run-a">run
      a worker</a>" processing model defined above immediately starts running
-     event listeners registered for <code title=event-unload>unload</code>
-     event, this time should not be zero &mdash; the idea is that the <code
-     title=event-unload>unload</code> event can be used to clean up when
-     shutting down unexpectedly.
+     event listeners registered for the <code
+     title=event-unload>unload</code> event, this time should not be zero
+     &mdash; the idea is that the <code title=event-unload>unload</code>
+     event can be used to clean up when shutting down unexpectedly.
 
    <li>
     <p>If there are any events in the <a href="#queue">queue of events</a>
@@ -718,10 +724,6 @@
     <ol>
      <li>
       <p>Unentangle the two ports.
-
-     <li>
-      <p>Set both ports' <code title=dom-MessagePort-active>active</code>
-       attribute to false.
 
      <li>
       <p>At the next available opportunity, after any scripts have finished
@@ -871,7 +873,12 @@
     <p>If that algorithm invokes the steps for <dfn id=success title="worker
      creation succeeded">success steps</dfn>, then <a href="#connect"
      title="connect to a worker">connect</a> to this new worker, with the
-     newly created port.</p>
+     newly created port, and if that algorithm returns a second new port,
+     then add a new property <code
+     title=dom-WorkerGlobalScope-port>port</code> on the new worker's
+     <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object,
+     whose value is the <code>MessagePort</code> object return by the <a
+     href="#connect">connect to a worker</a> algorithm.</p>
 
     <p>Otherwise, if the <dfn id=worker>worker creation failed</dfn>, then at
      the next available opportunity, after any scripts have finished
@@ -922,6 +929,9 @@
      href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a
      href="#queue">queue of events</a>, targetted at the <code><a
      href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.
+
+   <li>
+    <p>Return the newly created port.
   </ol>
 
   <h2 id=apis-available><span class=secno>3. </span>APIs available to workers</h2>
