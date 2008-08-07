@@ -835,6 +835,7 @@ function storeResult(event) {
   <p>The subworkers are implemented as follows:
 
   <pre>var start;
+onmessage = getStart;
 function getStart(event) {
   start = 1*event.message;
   onmessage = getEnd;
