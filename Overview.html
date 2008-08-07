@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ--> 6 August 2008</h2>
+    Draft <!--ZZZ--> 7 August 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 6
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 7
    August 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -195,11 +195,11 @@
        <li><a href="#shared"><span class=secno>1.1.4 </span>Shared
         workers</a>
 
-       <li><a href="#granting"><span class=secno>1.1.5 </span>Granting
-        capabilities</a>
-
-       <li><a href="#delegation"><span class=secno>1.1.6
+       <li><a href="#delegation"><span class=secno>1.1.5
         </span>Delegation</a>
+
+       <li><a href="#granting"><span class=secno>1.1.6 </span>Granting
+        capabilities</a>
       </ul>
 
      <li><a href="#conformance"><span class=secno>1.2 </span>Conformance
@@ -284,7 +284,7 @@
   <pre>&lt;!DOCTYPE HTML>
 &lt;html>
  &lt;head>
-  &lt;title>Worker example: Computation&lt;/title>
+  &lt;title>Worker example: One-core computation&lt;/title>
  &lt;/head>
  &lt;body>
   &lt;p>The highest prime number discovered so far is: &lt;output id="result">&lt;/output>&lt;/p>
@@ -777,13 +777,93 @@ function getMessage(event) {
   <p><a href="http://www.whatwg.org/demos/workers/multiviewer/page.html">View
    this example online</a>.
 
-  <h4 id=granting><span class=secno>1.1.5 </span>Granting capabilities</h4>
+  <h4 id=delegation><span class=secno>1.1.5 </span>Delegation</h4>
 
   <p><em>This section is non-normative.</em>
 
-  <p class=big-issue>...
+  <p>With multicore CPUs becoming prevalent, one way to obtain better
+   performance is to split computationally expensive tasks amongst multiple
+   workers. In this example, a computationally expensive task that is to be
+   performed for every number from 1 to 10,000,000 is farmed out to ten
+   subworkers.
 
-  <h4 id=delegation><span class=secno>1.1.6 </span>Delegation</h4>
+  <p>The main page is as follows, it just reports the result:
+
+  <pre>&lt;!DOCTYPE HTML>
+&lt;html>
+ &lt;head>
+  &lt;title>Worker example: One-core computation&lt;/title>
+ &lt;/head>
+ &lt;body>
+  &lt;p>The highest prime number discovered so far is: &lt;output id="result">&lt;/output>&lt;/p>
+  &lt;script>
+   var worker = createWorker('worker.js');
+   worker.onmessage = function (event) {
+     document.getElementById('result').textContent = event.message;
+   };
+  &lt;/script>
+ &lt;/body>
+&lt;/html></pre>
+
+  <p>The worker itself is as follows:
+
+  <pre>// settings
+var num_workers = 10;
+var items_per_worker = 1000000;
+
+// start the workers
+var result = 0;
+var pending_workers = num_workers;
+for (var i = 0; i &lt; num_workers; i += 1) {
+  var worker = createWorker('core.js');
+  worker.postMessage(i * items_per_worker);
+  worker.postMessage((i+1) * items_per_worker);
+  worker.onmessage = storeResult;
+}
+
+// handle the results
+function storeResult(event) {
+  result += 1*event.message;
+  pending_workers -= 1;
+  if (pending_workers &lt;= 0)
+    port.postMessage(result); // finished!
+}</pre>
+
+  <p>It consists of a loop to start the subworkers, and then a handler that
+   waits for all the subworkers to respond.
+
+  <p>The subworkers are implemented as follows:
+
+  <pre>var start;
+function getStart(event) {
+  start = 1*event.message;
+  onmessage = getEnd;
+}
+
+var end;
+function getEnd(event) {
+  end = 1*event.message;
+  onmessage = null;
+  do();
+}
+
+function do() {
+  var result = 0;
+  for (var i = start; i &lt; end; i += 1) {
+    // perform some complex calculation here
+    result += 1;
+  }
+  port.postMessage(result);
+}</pre>
+
+  <p>They receive two numbers in two events, perform the computation for the
+   range of numbers thus specified, and then report the result back to the
+   parent.
+
+  <p><a href="http://www.whatwg.org/demos/workers/multicore/page.html">View
+   this example online</a>.
+
+  <h4 id=granting><span class=secno>1.1.6 </span>Granting capabilities</h4>
 
   <p><em>This section is non-normative.</em>
 
