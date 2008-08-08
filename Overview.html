@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ--> 7 August 2008</h2>
+    Draft <!--ZZZ--> 8 August 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 7
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 8
    August 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -344,7 +344,7 @@ search: while (true) {
   <p>The worker itself is as follows:
 
   <pre>var server = new WebSocket('ws://whatwg.org/database');
-var database = utils.openDatabase('demobase', '1.0', 'Demo Database', 10240);
+var database = openDatabase('demobase', '1.0', 'Demo Database', 10240);
 server.onmessage = function (event) {
   // data is in the format "command key value"
   var data = event.message.split(' ');
@@ -973,9 +973,6 @@ function do() {
   readonly attribute boolean <a href="#closing" title=dom-WorkerGlobalScope-closing>closing</a>;
   void <a href="#close" title=dom-WorkerGlobalScope-close>close</a>();
 
-  // other APIs
-  readonly attribute WorkerUtils <a href="#utils" title=dom-WorkerGlobalScope-utils>utils</a>;
-
   // event handler attributes
            attribute <span>EventListener</span> <a href="#onconnect" title=handler-WorkerGlobalScope-onconnect>onconnect</a>;
            attribute <span>EventListener</span> <a href="#onunload" title=handler-WorkerGlobalScope-onunload>onunload</a>;
@@ -1035,13 +1032,6 @@ function do() {
      event is targeted at or bubbles through the <code><a
      href="#workerglobalscope">WorkerGlobalScope</a></code> object.
   </dl>
-
-  <p>The <dfn id=utils
-   title=dom-WorkerGlobalScope-utils><code>utils</code></dfn> attribute must
-   return the <code><a href="#workerutils">WorkerUtils</a></code> object
-   created for the <code><a
-   href="#workerglobalscope">WorkerGlobalScope</a></code> object when the
-   worker was created.
 
   <p>In addition to the above members, the <a href="#success" title="worker
    creation succeeded">worker creation success steps</a> add a <dfn id=port
@@ -1213,11 +1203,6 @@ function do() {
      object for the <code title=dom-WorkerGlobalScope-location><a
      href="#location">location</a></code> attribute of <var
      title="">worker</var>, representing <var title="">url</var>.</p>
-
-   <li>
-    <p>Create a new <code><a href="#workerutils">WorkerUtils</a></code>
-     object for the <code title=dom-WorkerGlobalScope-utils><a
-     href="#utils">utils</a></code> attribute of <var title="">worker</var>.</p>
 
    <li>
     <p>Let <var title="">script</var>'s <span>script execution context</span>
@@ -1414,8 +1399,9 @@ function do() {
 };</pre>
 
   <p>Objects that implement the <code>Window</code> and <code><a
-   href="#workerutils">WorkerUtils</a></code> interfaces must also implement
-   the <code><a href="#workerfactory">WorkerFactory</a></code> interface.
+   href="#workerglobalscope">WorkerGlobalScope</a></code> interfaces must
+   also implement the <code><a href="#workerfactory">WorkerFactory</a></code>
+   interface.
 
   <hr>
 
@@ -1612,10 +1598,9 @@ function do() {
 };</pre>
 
   <p>Objects that implement the <code><a
-   href="#workerutils">WorkerUtils</a></code> interface must also implement
-   the <code>WindowTimers</code> interface (and <code><a
-   href="#workerfactory">WorkerFactory</a></code> interface, as noted earlier
-   in this specification).
+   href="#workerglobalscope">WorkerGlobalScope</a></code> interface must also
+   implement the <code><a href="#workerutils">WorkerUtils</a></code>
+   interface.
 
   <p class=big-issue>Need to define a sync database API.
 
