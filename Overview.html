@@ -1241,7 +1241,13 @@ function do() {
      href="#suspendable">suspendable worker</a>, the <var
      title="">worker</var> object's <code
      title=dom-WorkerGlobalScope-closing><a
-     href="#closing">closing</a></code> attribute is set to true.</p>
+     href="#closing">closing</a></code> attribute is set to true and an event
+     named <code title=event-unload>unload</code>, which uses the
+     <code>Event</code> object, which does not bubble, and which is not
+     cancelable, is added it to the worker's <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a
+     href="#queue">queue of events</a>, targetted at the <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object.</p>
 
    <li>
     <p><strong>Suspending workers</strong>: Start monitoring <var
