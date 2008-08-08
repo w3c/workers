@@ -290,7 +290,7 @@
   &lt;p>The highest prime number discovered so far is: &lt;output id="result">&lt;/output>&lt;/p>
   &lt;script>
    var worker = createWorker('worker.js');
-   worker.onmessage = function (event) {
+   worker.port.onmessage = function (event) {
      document.getElementById('result').textContent = event.message;
    };
   &lt;/script>
@@ -299,8 +299,9 @@
 
   <p>The <code title=dom-WorkerFactory-createWorker><a
    href="#createworker">createWorker()</a></code> method call creates a
-   worker and returns a <code>MessagePort</code> object, which is used to
-   communicate with the worker. That object's <code
+   worker and returns a <code><a href="#worker1">Worker</a></code> object
+   representing that worker and containing a <code>MessagePort</code> object,
+   which is used to communicate with the worker. That object's <code
    title=dom-MessagePort-onmessage>onmessage</code> event handler attribute
    allows the code to receive messages from the worker.
 
@@ -389,25 +390,25 @@ server.onmessage = function (event) {
    // TICKER
    var symbol = 'GOOG'; // default symbol to watch
    var ticker = createWorker('ticker.js');
-   ticker.postMessage(symbol);
+   ticker.port.postMessage(symbol);
 
    // SEARCHER
    var searcher = createWorker('searcher.js');
    function search(query) {
-     searcher.postMessage(query);
+     searcher.port.postMessage(query);
    }
 
    // SYMBOL SELECTION UI
    function select(newSymbol) {
      symbol = newSymbol;
-     ticker.postMessage(symbol);
+     ticker.port.postMessage(symbol);
    }
   &lt;/script>
  &lt;/head>
  &lt;body>
   &lt;p>&lt;output id="symbol">&lt;/output> &lt;output id="value">&lt;/output>&lt;/p>
   &lt;script>
-   ticker.onmessage = function (event) {
+   ticker.port.onmessage = function (event) {
      var data = event.message.split(' ');
      document.getElementById('symbol').textContent = data[0];
      document.getElementById('value').textContent = data[1];
@@ -416,7 +417,7 @@ server.onmessage = function (event) {
   &lt;p>&lt;label>Search: &lt;input type="text" oninput="search(this.value)">&lt;/label>&lt;/p>
   &lt;ul id="results">&lt;/ul>
   &lt;script>
-   searcher.onmessage = function (event) {
+   searcher.port.onmessage = function (event) {
      var data = event.message.split(' ');
      var results = document.getElementById('results');
      while (results.hasChildNodes()) // clear previous results
@@ -530,9 +531,9 @@ port.onmessage = function (event) {
      // update display to mention our name is name
      document.getElementsByTagName('h1')[0].textContent += ' ' + name;
      // no longer need this listener
-     worker.removeEventListener('message', configure, false);
+     worker.port.removeEventListener('message', configure, false);
    }
-   worker.addEventListener('message', configure, false);
+   worker.port.addEventListener('message', configure, false);
 
    // MAP
    function paintMap(event) {
@@ -552,7 +553,7 @@ port.onmessage = function (event) {
        }
      }
    }
-   worker.addEventListener('message', paintMap, false);
+   worker.port.addEventListener('message', paintMap, false);
 
    // PUBLIC CHAT
    function updatePublicChat(event) {
@@ -568,7 +569,7 @@ port.onmessage = function (event) {
      dd.textContent = message;
      dialog.appendChild(dd);
    }
-   worker.addEventListener('message', updatePublicChat, false);
+   worker.port.addEventListener('message', updatePublicChat, false);
 
    // PRIVATE CHAT
    function startPrivateChat(event) {
@@ -612,12 +613,12 @@ port.onmessage = function (event) {
      form.appendChild(p);
      li.appendChild(form);
    }
-   worker.addEventListener('message', startPrivateChat, false);
+   worker.port.addEventListener('message', startPrivateChat, false);
 
    function init() {
-     // begin receiving messages (messages are queued until you
-     // either set worker.onmessage or call worker.start())
-     worker.start();
+     // begin receiving messages (messages are queued until you either
+     // set worker.port.onmessage or call worker.port.start())
+     worker.port.start();
    }
   &lt;/script>
  &lt;/head>
@@ -626,16 +627,16 @@ port.onmessage = function (event) {
   &lt;h2>Map&lt;/h2>
   &lt;p>&lt;canvas id="map" height=150 width=150>&lt;/canvas>&lt;/p>
   &lt;p>
-   &lt;button type=button onclick="worker.postMessage('mov left')">Left&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('mov up')">Up&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('mov down')">Down&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('mov right')">Right&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('set 0')">Set 0&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('set 1')">Set 1&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov left')">Left&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov up')">Up&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov down')">Down&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov right')">Right&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('set 0')">Set 0&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('set 1')">Set 1&lt;/button>
   &lt;/p>
   &lt;h2>Public Chat&lt;/h2>
   &lt;dialog id="public">&lt;/dialog>
-  &lt;form onsubmit="worker.postMessage('txt ' + message.value); message.value = ''; return false;">
+  &lt;form onsubmit="worker.port.postMessage('txt ' + message.value); message.value = ''; return false;">
    &lt;p>
     &lt;input type="text" name="message" size="50">
     &lt;button>Post&lt;/button>
@@ -644,7 +645,8 @@ port.onmessage = function (event) {
   &lt;h2>Private Chat&lt;/h2>
   &lt;ul id="private">&lt;/ul>
  &lt;/body>
-&lt;/html></pre>
+&lt;/html>
+</pre>
 
   <p>There are several key things worth noting about the way the viewer is
    written.
@@ -798,7 +800,7 @@ function getMessage(event) {
   &lt;p>The highest prime number discovered so far is: &lt;output id="result">&lt;/output>&lt;/p>
   &lt;script>
    var worker = createWorker('worker.js');
-   worker.onmessage = function (event) {
+   worker.port.onmessage = function (event) {
      document.getElementById('result').textContent = event.message;
    };
   &lt;/script>
@@ -816,9 +818,9 @@ var result = 0;
 var pending_workers = num_workers;
 for (var i = 0; i &lt; num_workers; i += 1) {
   var worker = createWorker('core.js');
-  worker.postMessage(i * items_per_worker);
-  worker.postMessage((i+1) * items_per_worker);
-  worker.onmessage = storeResult;
+  worker.port.postMessage(i * items_per_worker);
+  worker.port.postMessage((i+1) * items_per_worker);
+  worker.port.onmessage = storeResult;
 }
 
 // handle the results
@@ -1175,7 +1177,7 @@ function do() {
      <var title="">url</var>.</p>
 
     <p>If the attempt fails, then abort these steps and invoke the <a
-     href="#worker1" title="worker creation failed">error handling steps</a>
+     href="#worker2" title="worker creation failed">error handling steps</a>
      defined by the algorithm that called this one.</p>
 
     <p>If the attempt succeeds, then let <var title="">script</var> be the
@@ -1285,6 +1287,12 @@ function do() {
    <li>
     <p class=big-issue>timers, intervals, XMLHttpRequests, database
      transactions, etc, must be killed; ports must be unentangled</p>
+
+   <li>
+    <p>At the next available opportunity, after any scripts have finished
+     executing<!-- XXX queue -->, <span>fire a simple event</span> called
+     <code title=event-unload>unload</code> at any <code><a
+     href="#worker1">Worker</a></code> objects associated with this worker.</p>
   </ol>
 
   <hr>
@@ -1394,8 +1402,17 @@ function do() {
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=workerfactory>WorkerFactory</dfn> {
-  <span>MessagePort</span> <a href="#createworker" title=dom-WorkerFactory-createWorker>createWorker</a>(in DOMString scriptURL);
-  <span>MessagePort</span> <a href="#createnamedworker" title=dom-WorkerFactory-createNamedWorker>createNamedWorker</a>(in DOMString name, in DOMString scriptURL);
+  <a href="#worker1">Worker</a> <a href="#createworker" title=dom-WorkerFactory-createWorker>createWorker</a>(in DOMString scriptURL);
+  <a href="#worker1">Worker</a> <a href="#createnamedworker" title=dom-WorkerFactory-createNamedWorker>createNamedWorker</a>(in DOMString name, in DOMString scriptURL);
+};
+
+interface <dfn id=worker1>Worker</dfn> {
+  <span>MessagePort</span> <a href="#port0" title=dom-Worker-port>port</a>();
+
+  // event handler attributes
+           attribute <span>EventListener</span> <a href="#onload" title=handler-Worker-onload>onload</a>;
+           attribute <span>EventListener</span> <a href="#onerror" title=handler-Worker-onerror>onerror</a>;
+           attribute <span>EventListener</span> <a href="#onunload0" title=handler-Worker-onunload>onunload</a>;
 };</pre>
 
   <p>Objects that implement the <code>Window</code> and <code><a
@@ -1429,8 +1446,8 @@ function do() {
      <span>absolute URL</span> whose name is the empty string.
 
    <li>
-    <p>Return the <code>MessagePort</code> object returned from the <a
-     href="#create">create a worker</a> algorithm.
+    <p>Return the <code><a href="#worker1">Worker</a></code> object returned
+     from the <a href="#create">create a worker</a> algorithm.
   </ol>
 
   <hr>
@@ -1457,8 +1474,8 @@ function do() {
    <li>
     <p>If the <var title="">name</var> argument is the empty string, <a
      href="#create">create a worker</a> from the resulting <span>absolute
-     URL</span>, whose name is the empty string, and return the
-     <code>MessagePort</code> object returned from the <a
+     URL</span>, whose name is the empty string, and return the <code><a
+     href="#worker1">Worker</a></code> object returned from the <a
      href="#create">create a worker</a> algorithm. Then, abort these steps.
 
    <li>
@@ -1486,19 +1503,27 @@ function do() {
        the method.
 
      <li>
-      <p>Return that port.
+      <p><span>Create a new <code><a href="#worker1">Worker</a></code>
+       object</span> associated with that worker, and assign the newly
+       created port to its <code title=dom-Worker-port><a
+       href="#port0">port</a></code> attribute.
+
+     <li>
+      <p>Return the newly created <code><a href="#worker1">Worker</a></code>
+       object.
 
      <li>
       <p>Asynchronously, <a href="#connect" title="connect to a
        worker">connect</a> to this preexisting worker, with the newly created
-       port.
+       <code>MessagePort</code> and <code><a
+       href="#worker1">Worker</a></code> objects.
     </ol>
 
     <p>Otherwise, <a href="#create">create a worker</a> from the resulting
      <span>absolute URL</span>, whose name is the value of the <var
-     title="">name</var> argument, and return the <code>MessagePort</code>
-     object returned from the <a href="#create">create a worker</a>
-     algorithm.</p>
+     title="">name</var> argument, and return the <code><a
+     href="#worker1">Worker</a></code> object returned from the <a
+     href="#create">create a worker</a> algorithm.</p>
   </ol>
 
   <hr>
@@ -1514,7 +1539,13 @@ function do() {
      method.
 
    <li>
-    <p>Return that port.
+    <p><span>Create a new <code><a href="#worker1">Worker</a></code>
+     object</span>, associated with the worker that will be created below,
+     and assign the newly created port to its <code title=dom-Worker-port><a
+     href="#port0">port</a></code> attribute.
+
+   <li>
+    <p>Return that <code><a href="#worker1">Worker</a></code> object.
 
    <li>
     <p>In a parallel execution context (i.e. a separate thread or process or
@@ -1533,19 +1564,22 @@ function do() {
      then add a new property <code title=dom-WorkerGlobalScope-port><a
      href="#port">port</a></code> on the new worker's <code><a
      href="#workerglobalscope">WorkerGlobalScope</a></code> object, whose
-     value is the <code>MessagePort</code> object return by the <a
+     value is the <code>MessagePort</code> object returned by the <a
      href="#connect">connect to a worker</a> algorithm.</p>
 
-    <p>Otherwise, if the <dfn id=worker1>worker creation failed</dfn>, then
+    <p>Otherwise, if the <dfn id=worker2>worker creation failed</dfn>, then
      at the next available opportunity, after any scripts have finished
      executing<!-- XXX queue -->, <span>fire a simple event</span> called
-     <code title=event-error>error</code> at the newly created port.</p>
+     <code title=event-error>error</code> at the newly created <code><a
+     href="#worker1">Worker</a></code> object.</p>
   </ol>
 
   <hr>
 
   <p>The steps to <dfn id=connect>connect to a worker</dfn> given a
-   <code>MessagePort</code> object <var title="">port</var> are as follows:
+   <code>MessagePort</code> object <var title="">port</var> and a <code><a
+   href="#worker1">Worker</a></code> object <var title="">worker</var> are as
+   follows:
 
   <ol>
    <li>
@@ -1568,7 +1602,7 @@ function do() {
    <li>
     <p>At the next available opportunity, after any scripts have finished
      executing<!-- XXX queue -->, <span>fire a simple event</span> called
-     <code title=event-load>load</code> at <var title="">port</var>.
+     <code title=event-load>load</code> at <var title="">worker</var>.
 
    <li>
     <p>Create an event that uses the <code>MessageEvent</code> interface,
@@ -1585,6 +1619,43 @@ function do() {
    <li>
     <p>Return the newly created port.
   </ol>
+
+  <hr>
+
+  <p>The <dfn id=port0 title=dom-Worker-port><code>port</code></dfn>
+   attribute on a <code><a href="#worker1">Worker</a></code> object must
+   return the value it was assigned when the <code><a
+   href="#worker1">Worker</a></code> object was created by the methods on the
+   <code><a href="#workerfactory">WorkerFactory</a></code> interface.
+
+  <p>The following are the <span>event handler DOM attributes</span> that
+   must be supported by objects implementing the <code><a
+   href="#worker1">Worker</a></code> interface:
+
+  <dl>
+   <dt><dfn id=onload title=handler-Worker-onload><code>onload</code></dfn>
+
+   <dd>
+    <p>Must be invoked whenever a <code title=event-load>load</code> event is
+     targeted at or bubbles through the <code><a
+     href="#worker1">Worker</a></code> object.
+
+   <dt><dfn id=onerror
+    title=handler-Worker-onerror><code>onerror</code></dfn>
+
+   <dd>
+    <p>Must be invoked whenever an <code title=event-error>error</code> event
+     is targeted at or bubbles through the <code><a
+     href="#worker1">Worker</a></code> object.
+
+   <dt><dfn id=onunload0
+    title=handler-Worker-onunload><code>onunload</code></dfn>
+
+   <dd>
+    <p>Must be invoked whenever an <code title=event-unload>unload</code>
+     event is targeted at or bubbles through the <code><a
+     href="#worker1">Worker</a></code> object.
+  </dl>
 
   <h2 id=apis-available><span class=secno>3. </span>APIs available to workers</h2>
 
@@ -1723,7 +1794,7 @@ function do() {
   readonly attribute DOMString <a href="#protocol" title=dom-WorkerLocation-protocol>protocol</a>;
   readonly attribute DOMString <a href="#host" title=dom-WorkerLocation-host>host</a>;
   readonly attribute DOMString <a href="#hostname" title=dom-WorkerLocation-hostname>hostname</a>;
-  readonly attribute DOMString <a href="#port0" title=dom-WorkerLocation-port>port</a>;
+  readonly attribute DOMString <a href="#port1" title=dom-WorkerLocation-port>port</a>;
   readonly attribute DOMString <a href="#pathname" title=dom-WorkerLocation-pathname>pathname</a>;
   readonly attribute DOMString <a href="#search" title=dom-WorkerLocation-search>search</a>;
   readonly attribute DOMString <a href="#hash" title=dom-WorkerLocation-hash>hash</a>;
@@ -1740,7 +1811,7 @@ function do() {
    also has the complement of <span>URL decomposition attributes</span>, <dfn
    id=protocol title=dom-WorkerLocation-protocol><code>protocol</code></dfn>,
    <dfn id=host title=dom-WorkerLocation-host><code>host</code></dfn>, <dfn
-   id=port0 title=dom-WorkerLocation-port><code>port</code></dfn>, <dfn
+   id=port1 title=dom-WorkerLocation-port><code>port</code></dfn>, <dfn
    id=hostname title=dom-WorkerLocation-hostname><code>hostname</code></dfn>,
    <dfn id=pathname
    title=dom-WorkerLocation-pathname><code>pathname</code></dfn>, <dfn
