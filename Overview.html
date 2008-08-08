@@ -460,7 +460,7 @@ server.onmessage = function (event) {
 
   <p>The stock updater worker is as follows:
 
-  <pre>importScript('io.js');
+  <pre>importScripts('io.js');
 var timer;
 var symbol;
 function update() {
@@ -476,7 +476,7 @@ port.onmessage = function (event) {
 
   <p>The search query worker is as follows:
 
-  <pre>importScript('io.js');
+  <pre>importScripts('io.js');
 port.onmessage = function (event) {
   port.postMessage(get('search.cgi?' + event.message));
 };</pre>
@@ -1667,7 +1667,7 @@ interface <dfn id=worker1>Worker</dfn> {
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=workerutils>WorkerUtils</dfn> {
-  boolean <a href="#importscript" title=dom-WorkerGlobalScope-importScript>importScript</a>(in DOMString url);
+  boolean <a href="#importscripts" title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
   readonly attribute <span>Storage</span> <a href="#localstorage" title=dom-localStorage>localStorage</a>;
   <span>Database</span> <a href="#opendatabase" title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
   void <a href="#shownotification" title=dom-showNotification>showNotification</a>(in DOMString title, in DOMString subtitle, in DOMString description);
@@ -1696,58 +1696,73 @@ interface <dfn id=worker1>Worker</dfn> {
   <h3 id=importing><span class=secno>3.1 </span>Importing scripts and
    libraries</h3>
 
-  <p>When a script invokes the <dfn id=importscript
-   title=dom-WorkerGlobalScope-importScript><code>importScript(<var
-   title="">url</var>)</code></dfn> method on a <code><a
+  <p>When a script invokes the <dfn id=importscripts
+   title=dom-WorkerGlobalScope-importScripts><code>importScripts(<var
+   title="">urls</var>)</code></dfn> method on a <code><a
    href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user
    agent must run the following steps:
 
   <ol>
    <li>
-    <p><span title="resolve a url">Resolve</span> the <var title="">url</var>
-     argument.
+    <p><span title="resolve a url">Resolve</span> each argument.
 
    <li>
-    <p>If this fails, throw a <code>SYNTAX_ERR</code> exception.
+    <p>If any fail, throw a <code>SYNTAX_ERR</code> exception.
 
    <li>
-    <p>If the <span>origin</span> of the resulting <span>absolute URL</span>
-     is not the <span title="same origin">same</span> as the origin of the
-     script that invoked the method, then throw a <span>security
-     exception</span>.
+    <p>If any of the resulting <span title="absolute URL">absolute
+     URLs</span> have an <span>origin</span> that is not the <span
+     title="same origin">same</span> as the origin of the script that invoked
+     the method, then throw a <span>security exception</span>.
 
    <li>
-    <p>Attempt to <span>fetch</span><!-- XXX --> the resource identified by
-     the resulting <span>absolute URL</span>.</p>
-
-    <p>If the attempt fails, return false and abort these steps.</p>
-
-    <p>If the attempt succeeds, then let <var title="">script</var> be the
-     resource that was obtained.</p>
-
-    <p class=note>As with the initial script, the script here is always
-     assumed to be JavaScript, regardless of the MIME type.</p>
-    <!-- XXX -->
+    <p>Attempt to <span>fetch</span> each resource identified by the
+     resulting <span title="absolute URLs">absolute URL</span>.</p>
 
    <li>
-    <p>Let <var title="">script</var>'s <span>script execution
-     context</span>, <span>script browsing context</span>, and <span>script
-     document context</span> be the same as for the script that was executed
-     by the <a href="#run-a">run a worker</a> processing model for this
-     worker.</p>
+    <p>For each argument in turn, in the order given, starting with the first
+     one, run these substeps:</p>
+
+    <ol>
+     <li>
+      <p>Wait for the fetching attempt for the corresponding resource to
+       complete.</p>
+
+      <p>If the fetching attempt failed, return false and abort all these
+       steps.</p>
+
+      <p>If the fetching attempt succeeded, then let <var
+       title="">script</var> be the resource that was obtained.</p>
+
+      <p class=note>As with the worker's script, the script here is always
+       assumed to be JavaScript, regardless of the MIME type.</p>
+      <!-- XXX -->
+
+     <li>
+      <p>Let <var title="">script</var>'s <span>script execution
+       context</span>, <span>script browsing context</span>, and <span>script
+       document context</span> be the same as for the script that was
+       executed by the <a href="#run-a">run a worker</a> processing model for
+       this worker.</p>
+
+     <li>
+      <p>Run <var title="">script</var> until it either returns, fails to
+       catch an exception, or gets prematurely aborted by the "<a
+       href="#kill-a">kill a worker</a>" algorithm above.</p>
+
+      <p>If an exception was raised or if the script was prematurely aborted,
+       then abort all these steps, letting the exception or aborting continue
+       to be processed by the script that called the <code
+       title=dom-WorkerGlobalScope-importScripts><a
+       href="#importscripts">importScripts()</a></code> method.</p>
+
+      <p>If the "<a href="#kill-a">kill a worker</a>" algorithm aborts the
+       script then abort all these steps (the return value is
+       inconsequential).</p>
+    </ol>
 
    <li>
-    <p>Run <var title="">script</var> until it either returns, fails to catch
-     an exception, or gets prematurely aborted by the "<a href="#kill-a">kill
-     a worker</a>" algorithm above.</p>
-
-    <p>If an exception was raised or if the script was prematurely aborted,
-     then abort these steps, letting the exception or aborting continue to be
-     processed by the script that called the <code
-     title=dom-WorkerGlobalScope-importScript><a
-     href="#importscript">importScript()</a></code> method.</p>
-
-    <p>Otherwise, return true.</p>
+    <p>Return true.
   </ol>
 
   <h3 id=apis-defined><span class=secno>3.2 </span>APIs defined in other
