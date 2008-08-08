@@ -1004,8 +1004,8 @@ function do() {
    by the "<a href="#run-a">run a worker</a>" algorithm. If it has a value
    that isn't the empty string, its value represents the name that can be
    used to obtain a reference to the worker using the <code
-   title=dom-WorkerFactory-createNamedWorker><a
-   href="#createnamedworker">createNamedWorker()</a></code> method.
+   title=dom-WorkerFactory-createSharedWorker><a
+   href="#createsharedworker">createSharedWorker()</a></code> method.
 
   <p>The <dfn id=closing
    title=dom-WorkerGlobalScope-closing><code>closing</code></dfn> attribute
@@ -1409,7 +1409,7 @@ function do() {
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=workerfactory>WorkerFactory</dfn> {
   <a href="#worker1">Worker</a> <a href="#createworker" title=dom-WorkerFactory-createWorker>createWorker</a>(in DOMString scriptURL);
-  <a href="#worker1">Worker</a> <a href="#createnamedworker" title=dom-WorkerFactory-createNamedWorker>createNamedWorker</a>(in DOMString name, in DOMString scriptURL);
+  <a href="#worker1">Worker</a> <a href="#createsharedworker" title=dom-WorkerFactory-createSharedWorker>createSharedWorker</a>(in DOMString name, in DOMString scriptURL);
 };
 
 interface <dfn id=worker1>Worker</dfn> {
@@ -1458,8 +1458,8 @@ interface <dfn id=worker1>Worker</dfn> {
 
   <hr>
 
-  <p>When the <dfn id=createnamedworker
-   title=dom-WorkerFactory-createNamedWorker><code>createNamedWorker(<var
+  <p>When the <dfn id=createsharedworker
+   title=dom-WorkerFactory-createSharedWorker><code>createSharedWorker(<var
    title="">name</var>, <var title="">scriptURL</var>)</code></dfn> method is
    invoked, the user agent must run the following steps:
 
