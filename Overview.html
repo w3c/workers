@@ -1667,7 +1667,7 @@ interface <dfn id=worker1>Worker</dfn> {
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=workerutils>WorkerUtils</dfn> {
-  boolean <a href="#importscripts" title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
+  void <a href="#importscripts" title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
   readonly attribute <span>Storage</span> <a href="#localstorage" title=dom-localStorage>localStorage</a>;
   <span>Database</span> <a href="#opendatabase" title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
   void <a href="#shownotification" title=dom-showNotification>showNotification</a>(in DOMString title, in DOMString subtitle, in DOMString description);
@@ -1704,6 +1704,10 @@ interface <dfn id=worker1>Worker</dfn> {
 
   <ol>
    <li>
+    <p>If there are no arguments, return without doing anything. Abort these
+     steps.
+
+   <li>
     <p><span title="resolve a url">Resolve</span> each argument.
 
    <li>
@@ -1728,8 +1732,8 @@ interface <dfn id=worker1>Worker</dfn> {
       <p>Wait for the fetching attempt for the corresponding resource to
        complete.</p>
 
-      <p>If the fetching attempt failed, return false and abort all these
-       steps.</p>
+      <p>If the fetching attempt failed, throw a <code>NETWORK_ERR</code>
+       exception and abort all these steps.</p>
 
       <p>If the fetching attempt succeeded, then let <var
        title="">script</var> be the resource that was obtained.</p>
@@ -1757,12 +1761,8 @@ interface <dfn id=worker1>Worker</dfn> {
        href="#importscripts">importScripts()</a></code> method.</p>
 
       <p>If the "<a href="#kill-a">kill a worker</a>" algorithm aborts the
-       script then abort all these steps (the return value is
-       inconsequential).</p>
+       script then abort all these steps.</p>
     </ol>
-
-   <li>
-    <p>Return true.
   </ol>
 
   <h3 id=apis-defined><span class=secno>3.2 </span>APIs defined in other
