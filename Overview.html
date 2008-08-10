@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ--> 8 August 2008</h2>
+    Draft <!--ZZZ-->10 August 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 8
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 10
    August 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -1501,7 +1501,7 @@ interface <dfn id=worker1>Worker</dfn> {
        href="#location">location</a></code> attribute represents an
        <span>absolute URL</span> that is not exactly equal to the resulting
        <span>absolute URL</span>, then throw a <code>URL_MISMATCH_ERR</code>
-       exception and abort these steps. <span class=big-issue>code 19</span>
+       exception and abort these steps. <span class=big-issue>code 21</span>
 
      <li>
       <p><span>Create a new <code>MessagePort</code> object</span> owned by
@@ -1733,7 +1733,9 @@ interface <dfn id=worker1>Worker</dfn> {
        complete.</p>
 
       <p>If the fetching attempt failed, throw a <code>NETWORK_ERR</code>
-       exception and abort all these steps.</p>
+       exception and abort all these steps. <a
+       href="#refsXHR">[XHR]</a><!-- XXX get DOM Core updated instead
+      --></p>
 
       <p>If the fetching attempt succeeded, then let <var
        title="">script</var> be the resource that was obtained.</p>
