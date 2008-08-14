@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->10 August 2008</h2>
+    Draft <!--ZZZ-->14 August 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 10
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 14
    August 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -198,7 +198,10 @@
        <li><a href="#delegation"><span class=secno>1.1.5
         </span>Delegation</a>
 
-       <li><a href="#granting"><span class=secno>1.1.6 </span>Granting
+       <li><a href="#providing"><span class=secno>1.1.6 </span>Providing
+        libraries</a>
+
+       <li><a href="#granting"><span class=secno>1.1.7 </span>Granting
         capabilities</a>
       </ul>
 
@@ -866,7 +869,233 @@ function do() {
   <p><a href="http://www.whatwg.org/demos/workers/multicore/page.html">View
    this example online</a>.
 
-  <h4 id=granting><span class=secno>1.1.6 </span>Granting capabilities</h4>
+  <h4 id=providing><span class=secno>1.1.6 </span>Providing libraries</h4>
+
+  <p><em>This section is non-normative.</em>
+
+  <p>Suppose that a cryptography library is made available that provides
+   three tasks:
+
+  <dl>
+   <dt>Generate a public/private key pair
+
+   <dd>Takes a port, on which it will send two messages, first the public key
+    and then the private key.
+
+   <dt>Given a plaintext and a public key, return the corresponding
+    cyphertext
+
+   <dd>Takes a port, to which any number of messages can be sent, the first
+    giving the public key, and the remainder giving the plaintext, each of
+    which is encrypted and then sent on that same channel as the cyphertext.
+    The user can close the port when it is done encrypting content.
+
+   <dt>Given a cyphertext and a private key, return the corresponding
+    plaintext
+
+   <dd>Takes a port, to which any number of messages can be sent, the first
+    giving the private key, and the remainder giving the cyphertext, each of
+    which is decrypted and then sent on that same channel as the plaintext.
+    The user can close the port when it is done decrypting content.
+  </dl>
+
+  <p>The library itself is as follows:
+
+  <pre>function handleMessage(e) {
+  if (e.message == "genkeys")
+    genkeys(e.port);
+  else if (e.message == "encrypt")
+    encrypt(e.port);
+  else if (e.message == "decrypt")
+    decrypt(e.port);
+}
+
+function genkeys(p) {
+  var keys = _generateKeyPair();
+  p.postMessage(keys[0]);
+  p.postMessage(keys[1]);
+}
+
+function encrypt(p) {
+  var key, state = 0;
+  p.onmessage = function (e) {
+    if (state == 0) {
+      key = e.message;
+      state = 1;
+    } else {
+      p.postMessage(_encrypt(key, e.message));
+    }
+  };
+}
+
+function decrypt(p) {
+  var key, state = 0;
+  p.onmessage = function (e) {
+    if (state == 0) {
+      key = e.message;
+      state = 1;
+    } else {
+      p.postMessage(_decrypt(key, e.message));
+    }
+  };
+}
+
+onconnect = function (e) { e.port.onmessage = handleMessage; }
+
+
+// the "crypto" functions:
+
+function _generateKeyPair() {
+  return [Math.random(), Math.random()];
+}
+
+function _encrypt(k, s) {
+  return 'encrypted-' + k + ' ' + s;
+}
+
+function _decrypt(k, s) {
+  return s.substr(s.indexOf(' ')+1);
+}</pre>
+
+  <p>Note that the crypto functions here are just stubs and don't do real
+   cryptography.
+
+  <p>This library could be used as follows:
+
+  <pre>&lt;!DOCTYPE HTML>
+&lt;html>
+ &lt;head>
+  &lt;title>Worker example: Crypto library&lt;/title>
+  &lt;script>
+   var crytoLib = createWorker('libcrypto-v1.js'); // or could use 'libcrypto-v2.js'
+   function getKeys() {
+     var state = 0;
+     cryptoLib.port.startConversation("genkeys").onmessage = function (e) {
+       if (state == 0)
+         document.getElementById('public').value = e.message;
+       else if (state == 1)
+         document.getElementById('private').value = e.message;
+       state += 1;
+     };
+   }
+   function enc() {
+     var channel = new MessageChannel();
+     cryptoLib.port.postMessage("encrypt", channel.port2);
+     channel.port1.postMessage(document.getElementById('public').value);
+     channel.port1.postMessage(document.getElementById('input').value);
+     port1.onmessage = function (e) {
+       document.getElementById('input').value = e.message;
+       port1.close();
+     };
+   }
+   function dec() {
+     var channel = new MessageChannel();
+     cryptoLib.port.postMessage("decrypt", channel.port2);
+     channel.port1.postMessage(document.getElementById('private').value);
+     channel.port1.postMessage(document.getElementById('input').value);
+     port1.onmessage = function (e) {
+       document.getElementById('input').value = e.message;
+       port1.close();
+     };
+   }
+  &lt;/script>
+  &lt;style>
+   textarea { display: block; }
+  &lt;/style>
+ &lt;/head>
+ &lt;body onload="getKeys()">
+  &lt;fieldset>
+   &lt;legend>Keys&lt;/legend>
+   &lt;p>&lt;label>Public Key: &lt;textarea id="public">&lt;/label>&lt;/p>
+   &lt;p>&lt;label>Private Key: &lt;textarea id="private">&lt;/label>&lt;/p>
+  &lt;/fieldset>
+  &lt;p>&lt;label>Input: &lt;textarea id="input">&lt;/label>&lt;/p>
+  &lt;p>&lt;button onclick="enc()">Encrypt&lt;/button> &lt;button onclick="dec()">Decrypt&lt;/button>&lt;/p>
+ &lt;/body>
+&lt;/html></pre>
+
+  <p>A later version of the API, though, might want to offload all the crypto
+   work onto subworkers. This could be done as follows:
+
+  <pre>function handleMessage(e) {
+  if (e.message == "genkeys")
+    genkeys(e.port);
+  else if (e.message == "encrypt")
+    encrypt(e.port);
+  else if (e.message == "decrypt")
+    decrypt(e.port);
+}
+
+function genkeys(p) {
+  var generator = createWorker('libcrypto-v2-generator.js');
+  generator.postMessage('', p);
+}
+
+function encrypt(p) {
+  p.onmessage = function (e) {
+    var key = e.message;
+    var encryptor = createWorker('libcrypto-v2-encryptor.js');
+    encryptor.postMessage(key, p);
+  };
+}
+
+function encrypt(p) {
+  p.onmessage = function (e) {
+    var key = e.message;
+    var decryptor = createWorker('libcrypto-v2-decryptor.js');
+    decryptor.postMessage(key, p);
+  };
+}
+
+onconnect = function (e) { e.port.onmessage = handleMessage; }
+</pre>
+
+  <p>The little subworkers would then be as follows.
+
+  <p>For generating key pairs:
+
+  <pre>port.onmessage = function (e) {
+  e.port.postMessage(Math.random());
+  e.port.postMessage(Math.random());
+  close();
+}
+</pre>
+
+  <p>For encrypting:
+
+  <pre>port.onmessage = function (e) {
+  var key = e.message;
+  e.port.onmessage = function (e) {
+    var s = e.message;
+    port.postMessage('encrypted-' + key + ' ' + s);
+  }
+  e.port.onunload = function (e) {
+    close();
+  }
+}</pre>
+
+  <p>For decrypting:
+
+  <pre>port.onmessage = function (e) {
+  var key = e.message;
+  e.port.onmessage = function (e) {
+    var s = e.message;
+    port.postMessage(s.substr(s.indexOf(' ')+1));
+  }
+  e.port.onunload = function (e) {
+    close();
+  }
+}</pre>
+
+  <p>Notice how the users of the API don't have to even know that this is
+   happening &mdash; the API hasn't changed; the library can delegate to
+   subworkers without changing its API, even though it is accepting data
+   using message channels.
+
+  <p><a href="http://www.whatwg.org/demos/workers/crypto/page.html">View this
+   example online</a>.
+
+  <h4 id=granting><span class=secno>1.1.7 </span>Granting capabilities</h4>
 
   <p><em>This section is non-normative.</em>
 
