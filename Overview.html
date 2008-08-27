@@ -1311,8 +1311,8 @@ function _decrypt(k, s) {
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
-  boolean <a href="#postmessage" title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in DOMString message);
-  boolean <a href="#postmessage" title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);
+  void <a href="#postmessage" title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in DOMString message);
+  void <a href="#postmessage" title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);
   <span>MessagePort</span> <a href="#startconversation" title=dom-DedicatedWorkerGlobalScope-startConversation>startConversation</a>(in DOMString message);
            attribute <span>EventListener</span> <a href="#onmessage" title=handler-DedicatedWorkerGlobalScope-onmessage>onmessage</a>;
 };</pre>
@@ -1338,7 +1338,8 @@ function _decrypt(k, s) {
    methods on <code><a
    href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>
    objects must act as if, when invoked, they immediately invoked the method
-   of the same name on the port, with the same arguments.
+   of the same name on the port, with the same arguments, and returned the
+   same return value.
 
   <p>The following are the <span>event handler DOM attributes</span> that
    must be supported by objects implementing the <code><a
@@ -1771,8 +1772,8 @@ function _decrypt(k, s) {
 interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
   void <a href="#close0" title=dom-Worker-close>close</a>();
 
-  boolean <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message);
-  boolean <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);
+  void <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message);
+  void <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);
   <span>MessagePort</span> <a href="#startconversation0" title=dom-Worker-startConversation>startConversation</a>(in DOMString message);
            attribute <span>EventListener</span> <a href="#onmessage0" title=handler-Worker-onmessage>onmessage</a>;
 };</pre>
@@ -1797,7 +1798,7 @@ interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorke
    title=dom-Worker-startConversation><code>startConversation()</code></dfn>
    methods on <code><a href="#worker1">Worker</a></code> objects must act as
    if, when invoked, they immediately invoked the method of the same name on
-   the port, with the same arguments.
+   the port, with the same arguments, and returned the same return value.
 
   <p>The following are the <span>event handler DOM attributes</span> that
    must be supported by objects implementing the <code><a
@@ -1872,6 +1873,10 @@ interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorke
 
    <li>
     <p>Open <var title="">inside port</var>'s <span>port message
+     queue</span>.
+
+   <li>
+    <p>Open <var title="">outside port</var>'s <span>port message
      queue</span>.
 
    <li>
