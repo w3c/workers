@@ -1536,10 +1536,14 @@ function _decrypt(k, s) {
    with <span>URL</span> <var title="">url</var>, a browsing context <var
    title="">owner browsing context</var>, a <code>Document</code> <var
    title="">owner document</var>, and with global scope <var title="">worker
-   global scope</var>, it must run the following steps in a completely
-   separate and parallel execution environment:
+   global scope</var>, it must run the following steps:
 
   <ol>
+   <li>
+    <p>Create a completely separate and parallel execution environment (i.e.
+     a separate thread or process or equivalent construct), and run the rest
+     of these steps asychronously in that context.</p>
+
    <li>
     <p>Attempt to <span>fetch</span><!-- XXX --> the resource identified by
      <var title="">url</var>.</p>
@@ -1880,13 +1884,12 @@ interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorke
      queue</span>.
 
    <li>
-    <p>In a parallel execution context (i.e. a separate thread or process or
-     equivalent construct), <a href="#run-a">run a worker</a>, with the
-     <span>script browsing context</span> of the script that invoked the
-     method as the <var title="">owner browsing context</var>, with the
-     <span>script document context</span> of the script that invoked the
-     method as the <var title="">owner document</var>, and with <var
-     title="">worker global scope</var> as the global scope.</p>
+    <p><a href="#run-a">Run a worker</a>, with the <span>script browsing
+     context</span> of the script that invoked the method as the <var
+     title="">owner browsing context</var>, with the <span>script document
+     context</span> of the script that invoked the method as the <var
+     title="">owner document</var>, and with <var title="">worker global
+     scope</var> as the global scope.</p>
   </ol>
 
   <h4 id=shared1><span class=secno>2.6.3 </span>Shared workers and the
@@ -2044,13 +2047,12 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
      the <var title="">worker global scope</var> itself.
 
    <li>
-    <p>In a parallel execution context (i.e. a separate thread or process or
-     equivalent construct), <a href="#run-a">run a worker</a>, with the
-     <span>script browsing context</span> of the script that invoked the
-     method as the <var title="">owner browsing context</var>, with the
-     <span>script document context</span> of the script that invoked the
-     method as the <var title="">owner document</var>, and with <var
-     title="">worker global scope</var> as the global scope.</p>
+    <p><a href="#run-a">Run a worker</a>, with the <span>script browsing
+     context</span> of the script that invoked the method as the <var
+     title="">owner browsing context</var>, with the <span>script document
+     context</span> of the script that invoked the method as the <var
+     title="">owner document</var>, and with <var title="">worker global
+     scope</var> as the global scope.</p>
   </ol>
 
   <h2 id=apis-available><span class=secno>3. </span>APIs available to workers</h2>
@@ -2248,8 +2250,8 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
   <h2 class=no-num id=acknowledgements>Acknowledgements</h2>
   <!-- ACKS -->
 
-  <p>Thanks to Aaron Boodman, Jonas Sicking, Maciej Stachowiak, Mike Smith,
-   and Philip Taylor for their useful and substantial comments.
+  <p>Thanks to Aaron Boodman, Jonas Sicking, Justin James, Maciej Stachowiak,
+   Mike Smith, and Philip Taylor for their useful and substantial comments.
 
   <p>Huge thanks to the whole Gears team, who pioneered this technology and
    whose experience has been a huge influence on this specification.
