@@ -549,7 +549,7 @@ onmessage = function (event) {
      // no longer need this listener
      worker.port.removeEventListener('message', configure, false);
    }
-   worker.addEventListener('message', configure, false);
+   worker.port.addEventListener('message', configure, false);
 
    // MAP
    function paintMap(event) {
@@ -569,7 +569,7 @@ onmessage = function (event) {
        }
      }
    }
-   worker.addEventListener('message', paintMap, false);
+   worker.port.addEventListener('message', paintMap, false);
 
    // PUBLIC CHAT
    function updatePublicChat(event) {
@@ -585,7 +585,7 @@ onmessage = function (event) {
      dd.textContent = message;
      dialog.appendChild(dd);
    }
-   worker.addEventListener('message', updatePublicChat, false);
+   worker.port.addEventListener('message', updatePublicChat, false);
 
    // PRIVATE CHAT
    function startPrivateChat(event) {
@@ -629,7 +629,7 @@ onmessage = function (event) {
      form.appendChild(p);
      li.appendChild(form);
    }
-   worker.addEventListener('message', startPrivateChat, false);
+   worker.port.addEventListener('message', startPrivateChat, false);
   &lt;/script>
  &lt;/head>
  &lt;body>
@@ -637,16 +637,16 @@ onmessage = function (event) {
   &lt;h2>Map&lt;/h2>
   &lt;p>&lt;canvas id="map" height=150 width=150>&lt;/canvas>&lt;/p>
   &lt;p>
-   &lt;button type=button onclick="worker.postMessage('mov left')">Left&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('mov up')">Up&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('mov down')">Down&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('mov right')">Right&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('set 0')">Set 0&lt;/button>
-   &lt;button type=button onclick="worker.postMessage('set 1')">Set 1&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov left')">Left&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov up')">Up&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov down')">Down&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('mov right')">Right&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('set 0')">Set 0&lt;/button>
+   &lt;button type=button onclick="worker.port.postMessage('set 1')">Set 1&lt;/button>
   &lt;/p>
   &lt;h2>Public Chat&lt;/h2>
   &lt;dialog id="public">&lt;/dialog>
-  &lt;form onsubmit="worker.postMessage('txt ' + message.value); message.value = ''; return false;">
+  &lt;form onsubmit="worker.port.postMessage('txt ' + message.value); message.value = ''; return false;">
    &lt;p>
     &lt;input type="text" name="message" size="50">
     &lt;button>Post&lt;/button>
