@@ -181,35 +181,37 @@
   <ul class=toc>
    <li><a href="#introduction"><span class=secno>1. </span>Introduction</a>
     <ul class=toc>
-     <li><a href="#tutorial"><span class=secno>1.1 </span>Tutorial</a>
+     <li><a href="#scope"><span class=secno>1.1 </span>Scope</a>
+
+     <li><a href="#tutorial"><span class=secno>1.2 </span>Tutorial</a>
       <ul class=toc>
-       <li><a href="#a-background"><span class=secno>1.1.1 </span>A
+       <li><a href="#a-background"><span class=secno>1.2.1 </span>A
         background number-crunching worker</a>
 
-       <li><a href="#a-worker"><span class=secno>1.1.2 </span>A worker for
+       <li><a href="#a-worker"><span class=secno>1.2.2 </span>A worker for
         updating a client-side database</a>
 
-       <li><a href="#worker"><span class=secno>1.1.3 </span>Worker used for
+       <li><a href="#worker"><span class=secno>1.2.3 </span>Worker used for
         backgroud I/O</a>
 
-       <li><a href="#shared"><span class=secno>1.1.4 </span>Shared
+       <li><a href="#shared"><span class=secno>1.2.4 </span>Shared
         workers</a>
 
-       <li><a href="#delegation"><span class=secno>1.1.5
+       <li><a href="#delegation"><span class=secno>1.2.5
         </span>Delegation</a>
 
-       <li><a href="#providing"><span class=secno>1.1.6 </span>Providing
+       <li><a href="#providing"><span class=secno>1.2.6 </span>Providing
         libraries</a>
       </ul>
 
-     <li><a href="#conformance"><span class=secno>1.2 </span>Conformance
+     <li><a href="#conformance"><span class=secno>1.3 </span>Conformance
       requirements</a>
       <ul class=toc>
-       <li><a href="#dependencies"><span class=secno>1.2.1
+       <li><a href="#dependencies"><span class=secno>1.3.1
         </span>Dependencies</a>
       </ul>
 
-     <li><a href="#terminology"><span class=secno>1.3 </span>Terminology</a>
+     <li><a href="#terminology"><span class=secno>1.4 </span>Terminology</a>
     </ul>
 
    <li><a href="#infrastructure"><span class=secno>2.
@@ -281,14 +283,34 @@
 
   <h2 id=introduction><span class=secno>1. </span>Introduction</h2>
 
-  <h3 id=tutorial><span class=secno>1.1 </span>Tutorial</h3>
+  <h3 id=scope><span class=secno>1.1 </span>Scope</h3>
+
+  <p><em>This section is non-normative.</em>
+
+  <p>This specification defines an API for running scripts in the background
+   independently of any user interface scripts.
+
+  <p>This allows for long-running scripts that are not interrupted by scripts
+   that respond to clicks or other user interactions, and allows long tasks
+   to be executed without yielding to keep the page responsive.
+
+  <p>Workers (as these background scripts are called herein) are relatively
+   heavy-weight, and are not intended to be used in large numbers. For
+   example, it would be inappropriate to launch one worker for each pixel of
+   a four megapixel image. The examples below show some appropriate uses of
+   workers.
+
+  <p>Generally, workers are expected to be long-lived, have a high start-up
+   performance cost, and a high per-instance memory cost.
+
+  <h3 id=tutorial><span class=secno>1.2 </span>Tutorial</h3>
 
   <p><em>This section is non-normative.</em>
 
   <p>There are a variety of uses that workers can be put to. The following
    subsections show various examples of this use.
 
-  <h4 id=a-background><span class=secno>1.1.1 </span>A background
+  <h4 id=a-background><span class=secno>1.2.1 </span>A background
    number-crunching worker</h4>
 
   <p><em>This section is non-normative.</em>
@@ -347,7 +369,7 @@ search: while (true) {
   <p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this
    example online</a>.
 
-  <h4 id=a-worker><span class=secno>1.1.2 </span>A worker for updating a
+  <h4 id=a-worker><span class=secno>1.2.2 </span>A worker for updating a
    client-side database</h4>
 
   <p><em>This section is non-normative.</em>
@@ -393,7 +415,7 @@ server.onmessage = function (event) {
    the server does not actually exist and the database is not created by this
    sample code.)
 
-  <h4 id=worker><span class=secno>1.1.3 </span>Worker used for backgroud I/O</h4>
+  <h4 id=worker><span class=secno>1.2.3 </span>Worker used for backgroud I/O</h4>
 
   <p><em>This section is non-normative.</em>
 
@@ -500,7 +522,7 @@ onmessage = function (event) {
   <p><a href="http://www.whatwg.org/demos/workers/stocks/page.html">View this
    example online</a>.
 
-  <h4 id=shared><span class=secno>1.1.4 </span>Shared workers</h4>
+  <h4 id=shared><span class=secno>1.2.4 </span>Shared workers</h4>
 
   <p><em>This section is non-normative.</em>
 
@@ -780,7 +802,7 @@ function getMessage(event) {
   <p><a href="http://www.whatwg.org/demos/workers/multiviewer/page.html">View
    this example online</a>.
 
-  <h4 id=delegation><span class=secno>1.1.5 </span>Delegation</h4>
+  <h4 id=delegation><span class=secno>1.2.5 </span>Delegation</h4>
 
   <p><em>This section is non-normative.</em>
 
@@ -868,7 +890,7 @@ function do() {
   <p><a href="http://www.whatwg.org/demos/workers/multicore/page.html">View
    this example online</a>.
 
-  <h4 id=providing><span class=secno>1.1.6 </span>Providing libraries</h4>
+  <h4 id=providing><span class=secno>1.2.6 </span>Providing libraries</h4>
 
   <p><em>This section is non-normative.</em>
 
@@ -1112,7 +1134,7 @@ function _decrypt(k, s) {
   <p><a href="http://www.whatwg.org/demos/workers/crypto/page.html">View this
    example online</a>.
 
-  <h3 id=conformance><span class=secno>1.2 </span>Conformance requirements</h3>
+  <h3 id=conformance><span class=secno>1.3 </span>Conformance requirements</h3>
 
   <p>All diagrams, examples, and notes in this specification are
    non-normative, as are all sections explicitly marked non-normative.
@@ -1148,7 +1170,7 @@ function _decrypt(k, s) {
    against running out of memory, or to work around platform-specific
    limitations.
 
-  <h4 id=dependencies><span class=secno>1.2.1 </span>Dependencies</h4>
+  <h4 id=dependencies><span class=secno>1.3.1 </span>Dependencies</h4>
 
   <p>This specification relies on several other underlying specifications.
 
@@ -1172,7 +1194,7 @@ function _decrypt(k, s) {
      specification. <a href="#refsWebIDL">[WebIDL]</a></p>
   </dl>
 
-  <h3 id=terminology><span class=secno>1.3 </span>Terminology</h3>
+  <h3 id=terminology><span class=secno>1.4 </span>Terminology</h3>
 
   <p>For simplicity, terms such as <em>shown</em>, <em>displayed</em>, and
    <em>visible</em> might sometimes be used when referring to the way a
