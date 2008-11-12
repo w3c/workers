@@ -1796,7 +1796,7 @@ function _decrypt(k, s) {
   <pre class=idl>[NoInterfaceObject,
  <a href="#worker2" title=dom-Worker>Constructor</a>(in DOMString scriptURL)]
 interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
-  void <a href="#close0" title=dom-Worker-close>close</a>();
+  void <a href="#terminate0" title=dom-Worker-terminate>terminate</a>();
 
   void <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message);
   void <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);
@@ -1804,10 +1804,10 @@ interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorke
            attribute <span>EventListener</span> <a href="#onmessage0" title=handler-Worker-onmessage>onmessage</a>;
 };</pre>
 
-  <p>The <dfn id=close0 title=dom-Worker-close><code>close()</code></dfn>
-   method, when invoked, must cause the "<a href="#terminate">terminate a
-   worker</a>" algorithm to be run on the worker with with the object is
-   associated.
+  <p>The <dfn id=terminate0
+   title=dom-Worker-terminate><code>terminate()</code></dfn> method, when
+   invoked, must cause the "<a href="#terminate">terminate a worker</a>"
+   algorithm to be run on the worker with with the object is associated.
 
   <p><code><a href="#worker1">Worker</a></code> objects act as if they had an
    implicit <code>MessagePort</code> associated with them. This port is part
