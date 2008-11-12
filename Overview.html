@@ -13,13 +13,13 @@
    <p><a href="http://www.w3.org/"><img alt=W3C height=48
     src="http://www.w3.org/Icons/w3c_home" width=72></a></p>
 
-   <h1 id=web-workers>Web Workers</h1>
+   <h1>Web Workers</h1>
 
    <h2 class="no-num no-toc" id=an-accompaniment>An accompaniment
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->27 August 2008</h2>
+    Draft <!--ZZZ-->12 November 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,8 +144,8 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 27
-   August 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 12
+   November 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
 
@@ -312,7 +312,7 @@
   &lt;script>
    var worker = new Worker('worker.js');
    worker.onmessage = function (event) {
-     document.getElementById('result').textContent = event.message;
+     document.getElementById('result').textContent = event.data;
    };
   &lt;/script>
  &lt;/body>
@@ -369,7 +369,7 @@ search: while (true) {
 var database = openDatabase('demobase', '1.0', 'Demo Database', 10240);
 server.onmessage = function (event) {
   // data is in the format "command key value"
-  var data = event.message.split(' ');
+  var data = event.data.split(' ');
   switch (data[0]) {
     case '+':
      database.transaction(function(tx) {
@@ -429,7 +429,7 @@ server.onmessage = function (event) {
   &lt;p>&lt;output id="symbol">&lt;/output> &lt;output id="value">&lt;/output>&lt;/p>
   &lt;script>
    ticker.onmessage = function (event) {
-     var data = event.message.split(' ');
+     var data = event.data.split(' ');
      document.getElementById('symbol').textContent = data[0];
      document.getElementById('value').textContent = data[1];
    };
@@ -439,7 +439,7 @@ server.onmessage = function (event) {
   &lt;ul id="results">&lt;/ul>
   &lt;script>
    searcher.onmessage = function (event) {
-     var data = event.message.split(' ');
+     var data = event.data.split(' ');
      var results = document.getElementById('results');
      while (results.hasChildNodes()) // clear previous results
        results.removeChild(results.firstChild);
@@ -486,7 +486,7 @@ function update() {
 onmessage = function (event) {
   if (timer)
     clearTimeout(timer);
-  symbol = event.message;
+  symbol = event.data;
   update();
 };</pre>
 
@@ -494,7 +494,7 @@ onmessage = function (event) {
 
   <pre>importScripts('io.js');
 onmessage = function (event) {
-  postMessage(get('search.cgi?' + event.message));
+  postMessage(get('search.cgi?' + event.data));
 };</pre>
 
   <p><a href="http://www.whatwg.org/demos/workers/stocks/page.html">View this
@@ -542,8 +542,8 @@ onmessage = function (event) {
 
    // CONFIGURATION
    function configure(event) {
-     if (event.message.substr(0, 4) != 'cfg ') return;
-     var name = event.message.substr(4).split(' ', 1);
+     if (event.data.substr(0, 4) != 'cfg ') return;
+     var name = event.data.substr(4).split(' ', 1);
      // update display to mention our name is name
      document.getElementsByTagName('h1')[0].textContent += ' ' + name;
      // no longer need this listener
@@ -553,8 +553,8 @@ onmessage = function (event) {
 
    // MAP
    function paintMap(event) {
-     if (event.message.substr(0, 4) != 'map ') return;
-     var data = event.message.substr(4).split(',');
+     if (event.data.substr(0, 4) != 'map ') return;
+     var data = event.data.substr(4).split(',');
      // display tiles data[0] .. data[8]
      var canvas = document.getElementById('map');
      var context = canvas.getContext('2d');
@@ -573,9 +573,9 @@ onmessage = function (event) {
 
    // PUBLIC CHAT
    function updatePublicChat(event) {
-     if (event.message.substr(0, 4) != 'txt ') return;
-     var name = event.message.substr(4).split(' ', 1);
-     var message = event.message.substr(4 + length(name) + 1);
+     if (event.data.substr(0, 4) != 'txt ') return;
+     var name = event.data.substr(4).split(' ', 1);
+     var message = event.data.substr(4 + length(name) + 1);
      // display "&lt;name> message" in public chat
      var dialog = document.getElementById('public');
      var dt = document.createElement('dt');
@@ -589,8 +589,8 @@ onmessage = function (event) {
 
    // PRIVATE CHAT
    function startPrivateChat(event) {
-     if (event.message.substr(0, 4) != 'msg ') return;
-     var name = event.message.substr(4).split(' ', 1);
+     if (event.data.substr(0, 4) != 'msg ') return;
+     var name = event.data.substr(4).split(' ', 1);
      var port = event.port;
      // display a private chat UI
      var ul = document.getElementById('private');
@@ -608,7 +608,7 @@ onmessage = function (event) {
        dialog.appendChild(dd);
      };
      port.onmessage = function (event) {
-       addMessage(name, event.message);
+       addMessage(name, event.data);
      };
      li.appendChild(dialog);
      var form = document.createElement('form');
@@ -728,9 +728,9 @@ onconnect = function (event) {
 };
 
 function getMessage(event) {
-  switch (event.message.substr(0, 4)) {
+  switch (event.data.substr(0, 4)) {
     case 'mov ':
-      var direction = event.message.substr(4);
+      var direction = event.data.substr(4);
       var dx = 0;
       var dy = 0;
       switch (direction) {
@@ -744,20 +744,20 @@ function getMessage(event) {
       sendMapData(event.target.postMessage);
       break;
     case 'set ':
-      var value = event.message.substr(4);
+      var value = event.data.substr(4);
       map[event.target._data.y][event.target._data.x] = value;
       for (var viewer in viewers)
         sendMapData(viewers[viewer].port.postMessage);
       break;
     case 'txt ':
       var name = event.target._name;
-      var message = event.message.substr(4);
+      var message = event.data.substr(4);
       for (var viewer in viewers)
         viewers[viewer].port.postMessage('txt ' + name + ' ' + message);
       break;
     case 'msg ':
       var party1 = event._data;
-      var party2 = viewers[event.message.substr(4).split(' ', 1)];
+      var party2 = viewers[event.data.substr(4).split(' ', 1)];
       if (party2) {
         var channel = new MessageChannel();
         party1.port.postMessage('msg ' + party2.name, channel.port1);
@@ -802,7 +802,7 @@ function getMessage(event) {
   &lt;script>
    var worker = new Worker('worker.js');
    worker.onmessage = function (event) {
-     document.getElementById('result').textContent = event.message;
+     document.getElementById('result').textContent = event.data;
    };
   &lt;/script>
  &lt;/body>
@@ -826,7 +826,7 @@ for (var i = 0; i &lt; num_workers; i += 1) {
 
 // handle the results
 function storeResult(event) {
-  result += 1*event.message;
+  result += 1*event.data;
   pending_workers -= 1;
   if (pending_workers &lt;= 0)
     postMessage(result); // finished!
@@ -840,13 +840,13 @@ function storeResult(event) {
   <pre>var start;
 onmessage = getStart;
 function getStart(event) {
-  start = 1*event.message;
+  start = 1*event.data;
   onmessage = getEnd;
 }
 
 var end;
 function getEnd(event) {
-  end = 1*event.message;
+  end = 1*event.data;
   onmessage = null;
   do();
 }
@@ -901,11 +901,11 @@ function do() {
   <p>The library itself is as follows:
 
   <pre>function handleMessage(e) {
-  if (e.message == "genkeys")
+  if (e.data == "genkeys")
     genkeys(e.port);
-  else if (e.message == "encrypt")
+  else if (e.data == "encrypt")
     encrypt(e.port);
-  else if (e.message == "decrypt")
+  else if (e.data == "decrypt")
     decrypt(e.port);
 }
 
@@ -919,10 +919,10 @@ function encrypt(p) {
   var key, state = 0;
   p.onmessage = function (e) {
     if (state == 0) {
-      key = e.message;
+      key = e.data;
       state = 1;
     } else {
-      p.postMessage(_encrypt(key, e.message));
+      p.postMessage(_encrypt(key, e.data));
     }
   };
 }
@@ -931,10 +931,10 @@ function decrypt(p) {
   var key, state = 0;
   p.onmessage = function (e) {
     if (state == 0) {
-      key = e.message;
+      key = e.data;
       state = 1;
     } else {
-      p.postMessage(_decrypt(key, e.message));
+      p.postMessage(_decrypt(key, e.data));
     }
   };
 }
@@ -975,9 +975,9 @@ function _decrypt(k, s) {
      var state = 0;
      cryptoLib.startConversation("genkeys").onmessage = function (e) {
        if (state == 0)
-         document.getElementById('public').value = e.message;
+         document.getElementById('public').value = e.data;
        else if (state == 1)
-         document.getElementById('private').value = e.message;
+         document.getElementById('private').value = e.data;
        state += 1;
      };
    }
@@ -986,7 +986,7 @@ function _decrypt(k, s) {
      port.postMessage(document.getElementById('public').value);
      port.postMessage(document.getElementById('input').value);
      port.onmessage = function (e) {
-       document.getElementById('input').value = e.message;
+       document.getElementById('input').value = e.data;
        port.close();
      };
    }
@@ -995,7 +995,7 @@ function _decrypt(k, s) {
      port.postMessage(document.getElementById('private').value);
      port.postMessage(document.getElementById('input').value);
      port.onmessage = function (e) {
-       document.getElementById('input').value = e.message;
+       document.getElementById('input').value = e.data;
        port.close();
      };
    }
@@ -1019,11 +1019,11 @@ function _decrypt(k, s) {
    work onto subworkers. This could be done as follows:
 
   <pre>function handleMessage(e) {
-  if (e.message == "genkeys")
+  if (e.data == "genkeys")
     genkeys(e.port);
-  else if (e.message == "encrypt")
+  else if (e.data == "encrypt")
     encrypt(e.port);
-  else if (e.message == "decrypt")
+  else if (e.data == "decrypt")
     decrypt(e.port);
 }
 
@@ -1034,7 +1034,7 @@ function genkeys(p) {
 
 function encrypt(p) {
   p.onmessage = function (e) {
-    var key = e.message;
+    var key = e.data;
     var encryptor = new Worker('libcrypto-v2-encryptor.js');
     encryptor.postMessage(key, p);
   };
@@ -1042,7 +1042,7 @@ function encrypt(p) {
 
 function encrypt(p) {
   p.onmessage = function (e) {
-    var key = e.message;
+    var key = e.data;
     var decryptor = new Worker('libcrypto-v2-decryptor.js');
     decryptor.postMessage(key, p);
   };
@@ -1073,9 +1073,9 @@ function _generateKeyPair() {
   <p>For encrypting:
 
   <pre>onmessage = function (e) {
-  var key = e.message;
+  var key = e.data;
   e.port.onmessage = function (e) {
-    var s = e.message;
+    var s = e.data;
     postMessage(_encrypt(key, s));
   }
   e.port.onclose = function (e) {
@@ -1090,9 +1090,9 @@ function _encrypt(k, s) {
   <p>For decrypting:
 
   <pre>onmessage = function (e) {
-  var key = e.message;
+  var key = e.data;
   e.port.onmessage = function (e) {
-    var s = e.message;
+    var s = e.data;
     postMessage(_decrypt(key, s));
   }
   e.port.onclose = function (e) {
