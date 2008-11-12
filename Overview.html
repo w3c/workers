@@ -1458,7 +1458,8 @@ function _decrypt(k, s) {
    href="#workerglobalscope">WorkerGlobalScope</a></code>'s <a
    href="#closing" title=dom-WorkerGlobalScope-closing>closing</a> flag is
    set to true, the queue must discard anything else that would be added to
-   it. Effectively, once the <a href="#closing"
+   it (existing already on the queue is unaffected unless otherwise
+   specified). Effectively, once the <a href="#closing"
    title=dom-WorkerGlobalScope-closing>closing</a> flag is true, timers stop
    firing, notifications for all pending asynchronous operations are dropped,
    etc.
@@ -2178,7 +2179,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
        href="#importscripts">importScripts()</a></code> method.</p>
 
       <p>If the "<a href="#kill-a">kill a worker</a>" or "<a
-       href="#terminate">terminate a worker</a>" algoriths abort the script
+       href="#terminate">terminate a worker</a>" algorithms abort the script
        then abort all these steps.</p>
     </ol>
   </ol>
