@@ -263,13 +263,16 @@
      <li><a href="#importing"><span class=secno>3.1 </span>Importing scripts
       and libraries</a>
 
-     <li><a href="#apis-defined"><span class=secno>3.2 </span>APIs defined in
+     <li><a href="#the-navigator"><span class=secno>3.2 </span>The
+      <code>Navigator</code> object</a>
+
+     <li><a href="#apis-defined"><span class=secno>3.3 </span>APIs defined in
       other specifications</a>
 
-     <li><a href="#interface"><span class=secno>3.3 </span>Interface objects
+     <li><a href="#interface"><span class=secno>3.4 </span>Interface objects
       and constructors</a>
 
-     <li><a href="#worker0"><span class=secno>3.4 </span>Worker locations</a>
+     <li><a href="#worker0"><span class=secno>3.5 </span>Worker locations</a>
       
     </ul>
 
@@ -2088,6 +2091,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
    class=idl>[NoInterfaceObject] interface <dfn id=workerutils>WorkerUtils</dfn> {
   void <a href="#importscripts" title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
   readonly attribute <span>Storage</span> <a href="#localstorage" title=dom-localStorage>localStorage</a>;
+  readonly attribute <a href="#navigator0">Navigator</a> <a href="#navigator" title=dom-navigator>navigator</a>;
   <span>Database</span> <a href="#opendatabase" title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
   void <a href="#shownotification" title=dom-showNotification>showNotification</a>(in DOMString title, in DOMString subtitle, in DOMString description);
   void <a href="#shownotification" title=dom-showNotification>showNotification</a>(in DOMString title, in DOMString subtitle, in DOMString description, in VoidCallback onclick);
@@ -2098,10 +2102,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
    implement the <code><a href="#workerutils">WorkerUtils</a></code>
    interface.
 
-  <p class=big-issue>Need to define a sync database API.
-
-  <p class=big-issue>May need to define a browser sniffing API (like
-   window.navigator).</p>
+  <p class=big-issue>Need to define a sync database API.</p>
   <!-- XXX ApplicationCache -->
   <!-- XXX a way to set cookies on the URL for the script -->
   <!-- XXX debugging: void log(in DOMString s); // log to console -->
@@ -2195,7 +2196,30 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
     </ol>
   </ol>
 
-  <h3 id=apis-defined><span class=secno>3.2 </span>APIs defined in other
+  <h3 id=the-navigator><span class=secno>3.2 </span>The <code><a
+   href="#navigator0">Navigator</a></code> object</h3>
+
+  <p>The <dfn id=navigator title=dom-navigator><code>navigator</code></dfn>
+   attribute of the <code><a href="#workerutils">WorkerUtils</a></code>
+   interface must return an instance of the <code><a
+   href="#navigator0">Navigator</a></code> interface, which represents the
+   identity and state of the user agent (the client):
+
+  <pre
+   class=idl>[NoInterfaceObject] interface <dfn id=navigator0>Navigator</dfn> {
+  // objects implementing this interface also implement the interfaces listed below
+};</pre>
+
+  <p>Objects implementing the <code><a
+   href="#navigator0">Navigator</a></code> interface must also implement the
+   <span>NavigatorID</span> and <span>NavigatorOnLine</span> interfaces
+   specified in the HTML5 specification. <a href="#refsHTML5">[HTML5]</a>
+
+  <p class=note>The <code><a href="#navigator0">Navigator</a></code>
+   interface defined in this specification is different than the one defined
+   in the HTML5 specification.
+
+  <h3 id=apis-defined><span class=secno>3.3 </span>APIs defined in other
    specifications</h3>
 
   <p>The <dfn id=localstorage
@@ -2215,7 +2239,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
    <code>Window</code> object in the HTML5 specification. <a
    href="#refsHTML5">[HTML5]</a>
 
-  <h3 id=interface><span class=secno>3.3 </span>Interface objects and
+  <h3 id=interface><span class=secno>3.4 </span>Interface objects and
    constructors</h3>
 
   <p>There must be no interface objects and constructors available in the
@@ -2237,7 +2261,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
     <p>The <code>MessageChannel</code> interface object and constructor.
   </ul>
 
-  <h3 id=worker0><span class=secno>3.4 </span>Worker locations</h3>
+  <h3 id=worker0><span class=secno>3.5 </span>Worker locations</h3>
 
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=workerlocation>WorkerLocation</dfn> {
