@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->12 November 2008</h2>
+    Draft <!--ZZZ-->13 November 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 12
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 13
    November 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -529,7 +529,7 @@ onmessage = function (event) {
   <p>In this example, multiple windows (viewers) can be opened that are all
    viewing the same map. All the windows share the same map information, with
    a single worker coordinating all the viewers. Each viewer can move around
-   idependently, but if they set any data on the map, all the viewers are
+   independently, but if they set any data on the map, all the viewers are
    updated.
 
   <p>The main page isn't interesting, it merely provides a way to open the
@@ -1228,7 +1228,7 @@ function _decrypt(k, s) {
   <p>There are two kinds of workers; dedicated workers, and shared workers.
    Dedicated workers, once created, and are linked to their creator; but
    message ports can be used to communicate from a dedicated worker to
-   multple other browsing contexts or workers. Shared workers, on the other
+   multiple other browsing contexts or workers. Shared workers, on the other
    hand, are named, and once created any script running in the same
    <span>origin</span> can obtain a reference to that worker and communicate
    with it.
@@ -1251,8 +1251,8 @@ function _decrypt(k, s) {
 };</pre>
 
   <p>Objects implementing the <code><a
-   href="#workerglobalscope">WorkerGlobalScope</a></code> interface it must
-   also implement the <code>EventTarget</code> interface.
+   href="#workerglobalscope">WorkerGlobalScope</a></code> interface must also
+   implement the <code>EventTarget</code> interface.
 
   <p>The <dfn id=self
    title=dom-WorkerGlobalScope-self><code>self</code></dfn> attribute must
@@ -1508,7 +1508,7 @@ function _decrypt(k, s) {
 
   <ul>
    <li>it has outstanding timers, database transactions, or network
-    connections, and is a <a href="#permissible">permissible worker</a>, or:
+    connections, and is a <a href="#permissible">permissible worker</a>, or
 
    <li>there is a <a href="#protected">protected worker</a> that at some
     point past or present owned a <code>MessagePort</code> that was entangled
@@ -1768,6 +1768,10 @@ function _decrypt(k, s) {
            attribute <span>EventListener</span> <a href="#onerror" title=handler-AbstractWorker-onerror>onerror</a>;
            attribute <span>EventListener</span> <a href="#onclose0" title=handler-AbstractWorker-onclose>onclose</a>;
 };</pre>
+
+  <p>Objects implementing the <code><a
+   href="#abstractworker">AbstractWorker</a></code> interface must also
+   implement the <code>EventTarget</code> interface.
 
   <p>The following are the <span>event handler DOM attributes</span> that
    must be supported by objects implementing the <code><a
@@ -2133,6 +2137,8 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
      URLs</span> have an <span>origin</span> that is not the <span
      title="same origin">same</span> as the origin of the script that invoked
      the method, then throw a <span>security exception</span>.
+   </li>
+   <!-- XXX why? -->
 
    <li>
     <p>Attempt to <span>fetch</span> each resource identified by the
@@ -2167,10 +2173,15 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
        this worker.</p>
 
      <li>
-      <p>Run <var title="">script</var> until it either returns, fails to
-       catch an exception, or gets prematurely aborted by the "<a
-       href="#kill-a">kill a worker</a>" or "<a href="#terminate">terminate a
-       worker</a>" algorithms defined above.</p>
+      <p>Parse and execute <var title="">script</var> until it either
+       returns, fails to parse, fails to catch an exception, or gets
+       prematurely aborted by the "<a href="#kill-a">kill a worker</a>" or
+       "<a href="#terminate">terminate a worker</a>" algorithms defined
+       above.</p>
+
+      <p>If it failed to parse, then throw a
+       <code>SyntaxError</code><!-- XXX ref? --> exception and abort all
+       these steps.</p>
 
       <p>If an exception was raised or if the script was prematurely aborted,
        then abort all these steps, letting the exception or aborting continue
@@ -2273,9 +2284,9 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
   <h2 class=no-num id=acknowledgements>Acknowledgements</h2>
   <!-- ACKS -->
 
-  <p>Thanks to Aaron Boodman, Jonas Sicking, Justin James, Maciej Stachowiak,
-   Michael Nordman, Mike Smith, and Philip Taylor for their useful and
-   substantial comments.
+  <p>Thanks to Aaron Boodman, Jonas Sicking, Justin James, Kevin Hakanson,
+   Maciej Stachowiak, Michael Nordman, Mike Smith, and Philip Taylor for
+   their useful and substantial comments.
 
   <p>Huge thanks to the whole Gears team, who pioneered this technology and
    whose experience has been a huge influence on this specification.
