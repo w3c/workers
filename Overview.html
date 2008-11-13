@@ -2102,6 +2102,11 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
    implement the <code><a href="#workerutils">WorkerUtils</a></code>
    interface.
 
+  <p>Objects that implement the <code><a
+   href="#workerutils">WorkerUtils</a></code> interface must also implement
+   the <code>WindowTimers</code> interface. (This interface provides the
+   <code title="">setTimeout()</code> method and its friends.)
+
   <p class=big-issue>Need to define a sync database API.</p>
   <!-- XXX ApplicationCache -->
   <!-- XXX a way to set cookies on the URL for the script -->
@@ -2308,9 +2313,9 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
   <h2 class=no-num id=acknowledgements>Acknowledgements</h2>
   <!-- ACKS -->
 
-  <p>Thanks to Aaron Boodman, Jonas Sicking, Justin James, Kevin Hakanson,
-   Maciej Stachowiak, Michael Nordman, Mike Smith, and Philip Taylor for
-   their useful and substantial comments.
+  <p>Thanks to Aaron Boodman, Dmitry Titov, Jonas Sicking, Justin James,
+   Kevin Hakanson, Maciej Stachowiak, Michael Nordman, Mike Smith, and Philip
+   Taylor for their useful and substantial comments.
 
   <p>Huge thanks to the whole Gears team, who pioneered this technology and
    whose experience has been a huge influence on this specification.
