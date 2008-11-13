@@ -1337,8 +1337,8 @@ function _decrypt(k, s) {
   <pre
    class=idl>[NoInterfaceObject] interface <dfn id=dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   void <a href="#postmessage" title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in DOMString message);
-  void <a href="#postmessage" title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);
-  <span>MessagePort</span> <a href="#startconversation" title=dom-DedicatedWorkerGlobalScope-startConversation>startConversation</a>(in DOMString message);
+  void <a href="#postmessage" title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);<!--
+  <span>MessagePort</span> <span title="dom-DedicatedWorkerGlobalScope-startConversation">startConversation</span>(in DOMString message);-->
            attribute <span>EventListener</span> <a href="#onmessage" title=handler-DedicatedWorkerGlobalScope-onmessage>onmessage</a>;
 };</pre>
 
@@ -1357,14 +1357,14 @@ function _decrypt(k, s) {
    object.
 
   <p>The <dfn id=postmessage
-   title=dom-DedicatedWorkerGlobalScope-postMessage><code>postMessage()</code></dfn>
-   and <dfn id=startconversation
-   title=dom-DedicatedWorkerGlobalScope-startConversation><code>startConversation()</code></dfn>
-   methods on <code><a
+   title=dom-DedicatedWorkerGlobalScope-postMessage><code>postMessage()</code></dfn><!--
+  and <dfn
+  title="dom-DedicatedWorkerGlobalScope-startConversation"><code>startConversation()</code></dfn>-->
+   method<!--s (startConversation)--> on <code><a
    href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>
-   objects must act as if, when invoked, they immediately invoked the method
-   of the same name on the port, with the same arguments, and returned the
-   same return value.
+   objects must act as if, when invoked, it<!--/they (startConversation)-->
+   immediately invoked the method of the same name on the port, with the same
+   arguments, and returned the same return value.
 
   <p>The following are the <span>event handler DOM attributes</span> that
    must be supported by objects implementing the <code><a
@@ -1807,8 +1807,8 @@ interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorke
   void <a href="#terminate0" title=dom-Worker-terminate>terminate</a>();
 
   void <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message);
-  void <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);
-  <span>MessagePort</span> <a href="#startconversation0" title=dom-Worker-startConversation>startConversation</a>(in DOMString message);
+  void <a href="#postmessage0" title=dom-Worker-postMessage>postMessage</a>(in DOMString message, in <span>MessagePort</span> messagePort);<!--
+  <span>MessagePort</span> <span title="dom-Worker-startConversation">startConversation</span>(in DOMString message);-->
            attribute <span>EventListener</span> <a href="#onmessage0" title=handler-Worker-onmessage>onmessage</a>;
 };</pre>
 
@@ -1827,12 +1827,14 @@ interface <dfn id=worker1>Worker</dfn> : <a href="#abstractworker">AbstractWorke
    the <code><a href="#worker1">Worker</a></code> object.
 
   <p>The <dfn id=postmessage0
-   title=dom-Worker-postMessage><code>postMessage()</code></dfn> and <dfn
-   id=startconversation0
-   title=dom-Worker-startConversation><code>startConversation()</code></dfn>
-   methods on <code><a href="#worker1">Worker</a></code> objects must act as
-   if, when invoked, they immediately invoked the method of the same name on
-   the port, with the same arguments, and returned the same return value.
+   title=dom-Worker-postMessage><code>postMessage()</code></dfn><!--
+  and <dfn
+  title="dom-Worker-startConversation"><code>startConversation()</code></dfn>-->
+   method<!--s (startConversation)--> on <code><a
+   href="#worker1">Worker</a></code> objects must act as if, when invoked,
+   it<!--/they (startConversation)--> immediately invoked the method of the
+   same name on the port, with the same arguments, and returned the same
+   return value.
 
   <p>The following are the <span>event handler DOM attributes</span> that
    must be supported by objects implementing the <code><a
