@@ -19,7 +19,7 @@
     specification for HTML5</h2>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->13 November 2008</h2>
+    Draft <!--ZZZ-->18 November 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -144,7 +144,7 @@
 
   <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
    the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 13
+   the W3C Recommendation track. <!--ZZZ:--> This specification is the 18
    November 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -1479,9 +1479,13 @@ function _decrypt(k, s) {
    id=the-workers0>the worker's ports</dfn>, which consists of all the
    <code>MessagePort</code> objects that are entangled with another port and
    that have one (but only one) port owned by <var title="">worker global
-   scope</var>. This list includes all the <code>MessagePort</code> objects
-   that are in events pending in the <a href="#queue">queue of events</a>, as
-   well as the implicit <code>MessagePort</code> in the case of <a
+   scope</var>. This list includes
+   <!--all the <code>MessagePort</code> objects that are in events
+  pending in the <span>queue of events</span>, as well as (commented
+  out because in practice it makes no difference either way as far as
+  I can tell, and it would be hard to strictly implement since these
+  ports might not yet be across the thread boundary)-->
+   the implicit <code>MessagePort</code> in the case of <a
    href="#dedicatedworkerglobalscope"
    title=DedicatedWorkerGlobalScope>dedicated workers</a>.
 
