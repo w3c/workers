@@ -15,11 +15,8 @@
 
    <h1>Web Workers</h1>
 
-   <h2 class="no-num no-toc" id=an-accompaniment>An accompaniment
-    specification for HTML5</h2>
-
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->18 November 2008</h2>
+    Draft <!--ZZZ-->20 November 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -88,11 +85,11 @@
 
   <p>If you wish to make comments regarding this document, please send them
    to <a
-   href="mailto:public-html-comments@w3.org">public-html-comments@w3.org</a>
+   href="mailto:public-webapps-comments@w3.org">public-webapps-comments@w3.org</a>
    (<a
-   href="mailto:public-html-comments-request@w3.org?subject=subscribe">subscribe</a>,
+   href="mailto:public-webapps-comments-request@w3.org?subject=subscribe">subscribe</a>,
    <a
-   href="http://lists.w3.org/Archives/Public/public-html-comments/">archives</a>)
+   href="http://lists.w3.org/Archives/Public/public-webapps-comments/">archives</a>)
    <!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING SENTENCE TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
    or <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a> (<a
    href="http://lists.whatwg.org/listinfo.cgi/whatwg-whatwg.org">subscribe</a>,
@@ -142,10 +139,11 @@
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING LIST TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- status of document, group responsible (required) -->
 
-  <p>The W3C <a href="http://www.w3.org/html/wg/">HTML Working Group</a> is
-   the W3C working group responsible for this specification's progress along
-   the W3C Recommendation track. <!--ZZZ:--> This specification is the 18
-   November 2008 <!--ZZZ "Working Draft"-->Editor's Draft. <!--:ZZZ--></p>
+  <p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Apps Working
+   Group</a> is the W3C working group responsible for this specification's
+   progress along the W3C Recommendation track. <!--ZZZ:--> This
+   specification is the 20 November 2008 <!--ZZZ "Working Draft"-->Editor's
+   Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
 
@@ -165,7 +163,7 @@
   <p>This document was produced by a group operating under the <a
    href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February
    2004 W3C Patent Policy</a>. W3C maintains a <a
-   href="http://www.w3.org/2004/01/pp-impl/40318/status"
+   href="http://www.w3.org/2004/01/pp-impl/42538/status"
    rel=disclosure>public list of any patent disclosures</a> made in
    connection with the deliverables of the group; that page also includes
    instructions for disclosing a patent. An individual who has actual
@@ -873,10 +871,10 @@ var end;
 function getEnd(event) {
   end = 1*event.data;
   onmessage = null;
-  do();
+  work();
 }
 
-function do() {
+function work() {
   var result = 0;
   for (var i = start; i &lt; end; i += 1) {
     // perform some complex calculation here
