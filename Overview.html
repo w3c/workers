@@ -16,7 +16,7 @@
    <h1>Web Workers</h1>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->20 November 2008</h2>
+    Draft <!--ZZZ-->26 November 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -142,7 +142,7 @@
   <p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Apps Working
    Group</a> is the W3C working group responsible for this specification's
    progress along the W3C Recommendation track. <!--ZZZ:--> This
-   specification is the 20 November 2008 <!--ZZZ "Working Draft"-->Editor's
+   specification is the 26 November 2008 <!--ZZZ "Working Draft"-->Editor's
    Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -2141,14 +2141,14 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href="#abstractworker">Ab
 
    <li>
     <p>If any fail, throw a <code>SYNTAX_ERR</code> exception.
-
-   <li>
-    <p>If any of the resulting <span title="absolute URL">absolute
-     URLs</span> have an <span>origin</span> that is not the <span
-     title="same origin">same</span> as the origin of the script that invoked
-     the method, then throw a <span>security exception</span>.
    </li>
-   <!-- XXX why? -->
+   <!--
+   <li><p>If any of the resulting <span title="absolute URL">absolute
+   URLs</span> have an <span>origin</span> that is not the <span
+   title="same origin">same</span> as the origin of the script that
+   invoked the method, then throw a <span>security
+   exception</span>.</p></li>
+-->
 
    <li>
     <p>Attempt to <span>fetch</span> each resource identified by the
