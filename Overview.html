@@ -1736,6 +1736,15 @@ function _decrypt(k, s) {
 
    <li>
     <p>Abort the script currently running in the worker.
+
+   <li>
+    <p>If the worker's <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object is
+     actually a <code><a
+     href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>
+     object (i.e. the worker is a dedicated worker), then empty the
+     <span>port message queue</span> of the port that the worker's implicit
+     port is entangled with.
   </ol>
 
   <h3 id=creating><span class=secno>2.6 </span>Creating workers</h3>
