@@ -1278,23 +1278,7 @@ function _decrypt(k, s) {
      another port and that has one (but only one) port whose owner is the
      <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object
      on which the method was invoked (this would include, for instance, the
-     implicit port in used for dedicated workers), run the following
-     substeps:</p>
-
-    <ol>
-     <li>
-      <p>Unentangle the two ports.
-
-     <li>
-      <p><span>Queue a task</span> on the <span>event loop</span> handling
-       events for the other <code>MessagePort</code> (the one whose owner is
-       not the <code><a
-       href="#workerglobalscope">WorkerGlobalScope</a></code> object on which
-       the <code title=dom-WorkerGlobalScope-close><a
-       href="#close">close()</a></code> method was called) to <span>fire a
-       simple event</span> called <code title=event-close>close</code> at
-       that other <code>MessagePort</code> object.
-    </ol>
+     implicit port in used for dedicated workers), unentangle the two ports.
   </ol>
 
   <p>The following are the <span>event handler DOM attributes</span> that
@@ -1686,13 +1670,12 @@ function _decrypt(k, s) {
 
   <ol>
    <li>
-    <p><span>Queue a task</span> to <span>fire a simple event</span> called
-     <code title=event-close>close</code> at the worker's <code><a
+    <p>If the worker's <code><a
+     href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a
+     href="#closing" title=dom-WorkerGlobalScope-closing>closing</a> flag is
+     false, <span>queue a task</span> to <span>fire a simple event</span>
+     called <code title=event-close>close</code> at the worker's <code><a
      href="#workerglobalscope">WorkerGlobalScope</a></code> object.
-   </li>
-   <!-- XXX
-   shouldn't add one if closing is already true, assuming close has
-   already been added to the queue (?) -->
 
    <li>
     <p>Set the worker's <code><a
