@@ -16,7 +16,7 @@
    <h1>Web Workers</h1>
 
    <h2 class="no-num no-toc" id=editors><!-- "W3C Working Draft" --> Editor's
-    Draft <!--ZZZ-->23 December 2008</h2>
+    Draft <!--ZZZ-->27 December 2008</h2>
 
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
@@ -142,7 +142,7 @@
   <p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Apps Working
    Group</a> is the W3C working group responsible for this specification's
    progress along the W3C Recommendation track. <!--ZZZ:--> This
-   specification is the 23 December 2008 <!--ZZZ "Working Draft"-->Editor's
+   specification is the 27 December 2008 <!--ZZZ "Working Draft"-->Editor's
    Draft. <!--:ZZZ--></p>
   <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
   <!-- relationship to other work (required) -->
@@ -1786,23 +1786,23 @@ function _decrypt(k, s) {
    doesn't bubble and is cancelable, with its <code
    title=dom-ErrorEvent-message><a href="#message">message</a></code>, <code
    title=dom-ErrorEvent-filename><a href="#filename">filename</a></code>, and
-   <code title=dom-ErrorEvent-lineno>lineno</code> attributes set
-   appropriately. The default action of this event depends on whether the
-   <code><a href="#worker1">Worker</a></code> object is itself in a worker.
-   If it is, and that worker is also a dedicated worker, then the user agent
-   must again span>queue a task to <a href="#fire-an">fire an error event</a>
-   at the <code><a href="#worker1">Worker</a></code> object associated with
-   <em>that</em> worker. Otherwise, then the error should be reported to the
-   user.
+   <code title=dom-ErrorEvent-lineno><a href="#lineno">lineno</a></code>
+   attributes set appropriately. The default action of this event depends on
+   whether the <code><a href="#worker1">Worker</a></code> object is itself in
+   a worker. If it is, and that worker is also a dedicated worker, then the
+   user agent must again <span>queue a task</span> to <a href="#fire-an">fire
+   an error event</a> at the <code><a href="#worker1">Worker</a></code>
+   object associated with <em>that</em> worker. Otherwise, then the error
+   should be reported to the user.
 
   <hr>
 
   <pre class=idl>interface <dfn id=errorevent>ErrorEvent</dfn> : Event {
   readonly attribute DOMObject <a href="#message" title=dom-ErrorEvent-message>message</a>;
   readonly attribute DOMObject <a href="#filename" title=dom-ErrorEvent-filename>filename</a>;
-  readonly attribute unsigned long <a href="#fileno" title=dom-ErrorEvent-fileno>fileno</a>;
-  void <a href="#initerrorevent" title=dom-ErrorEvent-initErrorEvent>initErrorEvent</a>(in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in DOMObject messageArg, in DOMObject filenameArg, in unsigned long filenoArg);
-  void <a href="#initerroreventns" title=dom-ErrorEvent-initErrorEventNS>initErrorEventNS</a>(in DOMString namespaceURIArg, in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in DOMObject messageArg, in DOMObject filenameArg, in unsigned long filenoArg);
+  readonly attribute unsigned long <a href="#lineno" title=dom-ErrorEvent-lineno>lineno</a>;
+  void <a href="#initerrorevent" title=dom-ErrorEvent-initErrorEvent>initErrorEvent</a>(in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in DOMObject messageArg, in DOMObject filenameArg, in unsigned long linenoArg);
+  void <a href="#initerroreventns" title=dom-ErrorEvent-initErrorEventNS>initErrorEventNS</a>(in DOMString namespaceURIArg, in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in DOMObject messageArg, in DOMObject filenameArg, in unsigned long linenoArg);
 };</pre>
 
   <p>The <dfn id=initerrorevent
@@ -1822,7 +1822,7 @@ function _decrypt(k, s) {
    represents the <span>absolute URL</span> of the script in which the error
    originally occured.
 
-  <p>The <dfn id=fileno title=dom-ErrorEvent-fileno><code>fileno</code></dfn>
+  <p>The <dfn id=lineno title=dom-ErrorEvent-lineno><code>lineno</code></dfn>
    attribute represents the line number where the error occured in the
    script.
 
