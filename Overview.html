@@ -1,4 +1,148 @@
-<!DOCTYPE html><!-- when publishing, change bits marked ZZZ --><html lang=en-US-x-Hixie><meta charset=ascii><title>Web Workers</title><link href=http://www.w3.org/StyleSheets/TR/%57%33%43-ED rel=stylesheet type=text/css><!-- ZZZ ED vs WD --><div class=head>
+<!DOCTYPE html><!-- when publishing, change bits marked ZZZ --><html lang=en-US-x-Hixie><meta charset=ascii><title>Web Workers</title><style type=text/css>
+   pre { margin-left: 2em; white-space: pre-wrap; }
+   h2 { margin: 3em 0 1em 0; }
+   h3 { margin: 2.5em 0 1em 0; }
+   h4 { margin: 2.5em 0 0.75em 0; }
+   h5, h6 { margin: 2.5em 0 1em; }
+   h1 + h2, h1 + h2 + h2 { margin: 0.75em 0 0.75em; }
+   h2 + h3, h3 + h4, h4 + h5, h5 + h6 { margin-top: 0.5em; }
+   p { margin: 1em 0; }
+   hr:not(.top) { display: block; background: none; border: none; padding: 0; margin: 2em 0; height: auto; }
+   dl, dd { margin-top: 0; margin-bottom: 0; }
+   dt { margin-top: 0.75em; margin-bottom: 0.25em; clear: left; }
+   dt + dt { margin-top: 0; }
+   dd dt { margin-top: 0.25em; margin-bottom: 0; }
+   dd p { margin-top: 0; }
+   dd dl + p { margin-top: 1em; }
+   dd table + p { margin-top: 1em; }
+   p + * > li, dd li { margin: 1em 0; }
+   dt, dfn { font-weight: bold; font-style: normal; }
+   dt dfn { font-style: italic; }
+   pre, code { font-size: inherit; font-family: monospace; font-variant: normal; }
+   pre strong { color: black; font: inherit; font-weight: bold; background: yellow; }
+   pre em { font-weight: bolder; font-style: normal; }
+   @media screen { code { color: orangered; } }
+   var sub { vertical-align: bottom; font-size: smaller; position: relative; top: 0.1em; }
+   table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+   table thead { border-bottom: solid; }
+   table tbody th:first-child { border-left: solid; }
+   table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+   blockquote { margin: 0 0 0 2em; border: 0; padding: 0; font-style: italic; }
+
+   .bad, .bad *:not(.XXX) { color: gray; border-color: gray; background: transparent; }
+   .matrix, .matrix td { border: none; text-align: right; }
+   .matrix { margin-left: 2em; }
+   .dice-example { border-collapse: collapse; border-style: hidden solid solid hidden; border-width: thin; margin-left: 3em; }
+   .dice-example caption { width: 30em; font-size: smaller; font-style: italic; padding: 0.75em 0; text-align: left; }
+   .dice-example td, .dice-example th { border: solid thin; width: 1.35em; height: 1.05em; text-align: center; padding: 0; }
+   .applies th > * { display: block; white-space: nowrap; }
+   .applies thead code { display: block; }
+   .applies td { text-align: center; }
+   .applies .yes { background: yellow; }
+
+   .toc dfn, h1 dfn, h2 dfn, h3 dfn, h4 dfn, h5 dfn, h6 dfn { font: inherit; }
+   img.extra { float: right; }
+   pre.idl { border: solid thin; background: #EEEEEE; color: black; padding: 0.5em 1em; }
+   pre.idl :link, pre.idl :visited { color: inherit; background: transparent; }
+   pre.css { border: solid thin; background: #FFFFEE; color: black; padding: 0.5em 1em; }
+   pre.css:first-line { color: #AAAA50; }
+   dl.domintro { color: green; margin: 2em 0 2em 2em; padding: 0.5em 1em; border: none; background: #EEFFEE; }
+   hr + dl.domintro, div.impl + dl.domintro { margin-top: 2.5em; margin-bottom: 1.5em; }
+   dl.domintro dt, dl.domintro dt * { color: black; text-decoration: none; }
+   dl.domintro dd { margin: 0.5em 0 1em 2em; padding: 0; }
+   dl.domintro dd p { margin: 0.5em 0; }
+   dl.switch { padding-left: 2em; }
+   dl.switch > dt { text-indent: -1.5em; }
+   dl.switch > dt:before { content: '\21AA'; padding: 0 0.5em 0 0; display: inline-block; width: 1em; text-align: right; line-height: 0.5em; }
+   .diff-old { text-decoration: line-through; color: silver; background: transparent; }
+   .diff-chg, .diff-new { text-decoration: underline; color: green; background: transparent; }
+   a .diff-new { border-bottom: 1px blue solid; }
+
+   h2 { page-break-before: always; }
+   h1 + h2, hr + h2.no-toc { page-break-before: auto; }
+
+   p > span:not([title=""]):not([class="XXX"]), li > span:not([title=""]):not([class="XXX"]) { border-bottom: solid #99CC99; }
+
+   div.head { margin: 0 0 1em; padding: 1em 0 0 0; }
+   div.head p { margin: 0; }
+   div.head h1 { margin: 0; }
+   div.head .logo { float: right; margin: 0 1em; }
+   div.head .logo img { border: none } /* remove border from top image */
+   div.head dl { margin: 1em 0; }
+   p.copyright { font-size: x-small; font-style: oblique; margin: 0; }
+
+   body > .toc > li { margin-top: 1em; margin-bottom: 1em; }
+   body > .toc.brief > li { margin-top: 0.35em; margin-bottom: 0.35em; }
+   body > .toc > li > * { margin-bottom: 0.5em; }
+   body > .toc > li > * > li > * { margin-bottom: 0.25em; }
+   .toc, .toc li { list-style: none; }
+
+   .brief { margin-top: 1em; margin-bottom: 1em; line-height: 1.1; }
+   .brief li { margin: 0; padding: 0; }
+   .brief li p { margin: 0; padding: 0; }
+
+   .XXX { color: #E50000; background: white; border: solid red; padding: 0.5em; margin: 1em 0; }
+   .XXX > :first-child { margin-top: 0; }
+   p .XXX { line-height: 3em; }
+   .note { color: green; background: transparent; font-family: sans-serif; }
+   .warning { color: red; background: transparent; }
+   .note, .warning { font-weight: bolder; font-style: italic; }
+   p.note, div.note { padding: 0.5em 2em; }
+   span.note { padding: 0 2em; }
+   .note p:first-child, .warning p:first-child { margin-top: 0; }
+   .note p:last-child, .warning p:last-child { margin-bottom: 0; }
+   .warning:before { font-style: normal; }
+   p.note:before { content: 'Note: '; }
+   p.warning:before { content: '\26A0 Warning! '; }
+
+   .bookkeeping:before { display: block; content: 'Bookkeeping details'; font-weight: bolder; font-style: italic; }
+   .bookkeeping { font-size: 0.8em; margin: 2em 0; }
+   .bookkeeping p { margin: 0.5em 2em; display: list-item; list-style: square; }
+
+   h4 { position: relative; z-index: 3; }
+   h4 + .element, h4 + div + .element { margin-top: -2.5em; padding-top: 2em; }
+   .element {
+     background: #EEFFEE;
+     color: black;
+     margin: 0 0 1em 0.15em;
+     padding: 0 1em 0.25em 0.75em;
+     border-left: solid #99FF99 0.25em;
+     position: relative;
+     z-index: 1;
+   }
+   .element:before {
+     position: absolute;
+     z-index: 2;
+     top: 0;
+     left: -1.15em;
+     height: 2em;
+     width: 0.9em;
+     background: #EEFFEE;
+     content: ' ';
+     border-style: none none solid solid;
+     border-color: #99FF99;
+     border-width: 0.25em;
+   }
+
+   .example {
+     display: block;
+     color: #222222;
+     background: #FCFCFC;
+     border-left: double;
+     margin-left: 2em;
+     padding-left: 1em;
+   }
+
+   .tall-and-narrow {
+     font-size: 0.6em;
+     column-width: 25em;
+     column-gap: 1em;
+     -moz-column-width: 25em;
+     -moz-column-gap: 1em;
+     -webkit-column-width: 25em;
+     -webkit-column-gap: 1em;
+   }
+  </style><link href=http://www.w3.org/StyleSheets/TR/%57%33%43-ED rel=stylesheet type=text/css><!-- ZZZ ED vs WD --><div class=head>
    <p><a href=http://www.w3.org/><img alt=W3C height=48 src=http://www.w3.org/Icons/w3c_home width=72></a></p>
    <h1>Web Workers</h1>
    <h2 class="no-num no-toc" id=editor-s-draft-date-zzz-9-june-2008><!-- "W3C Working Draft" --> Editor's Draft <!--ZZZ-->20 March 2009</h2>
@@ -95,36 +239,36 @@
      <li><a href=#worker-used-for-background-i-o><span class=secno>1.2.3 </span>Worker used for background I/O</a></li>
      <li><a href=#shared-workers><span class=secno>1.2.4 </span>Shared workers</a></li>
      <li><a href=#delegation><span class=secno>1.2.5 </span>Delegation</a></li>
-     <li><a href=#providing-libraries><span class=secno>1.2.6 </span>Providing libraries</a></ol></li>
-   <li><a href=#conformance-requirements><span class=secno>1.3 </span>Conformance requirements</a>
-    <ol>
-     <li><a href=#dependencies><span class=secno>1.3.1 </span>Dependencies</a></ol></li>
-   <li><a href=#terminology><span class=secno>1.4 </span>Terminology</a></ol></li>
- <li><a href=#infrastructure><span class=secno>2 </span>Infrastructure</a>
+     <li><a href=#providing-libraries><span class=secno>1.2.6 </span>Providing libraries</a></ol></ol></li>
+ <li><a href=#conformance-requirements><span class=secno>2 </span>Conformance requirements</a>
   <ol>
-   <li><a href=#the-global-scope><span class=secno>2.1 </span>The global scope</a>
-    <ol>
-     <li><a href=#the-workerglobalscope-abstract-interface><span class=secno>2.1.1 </span>The <code>WorkerGlobalScope</code> abstract interface</a></li>
-     <li><a href=#dedicated-workers-and-the-dedicatedworkerglobalscope-interface><span class=secno>2.1.2 </span>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</a></li>
-     <li><a href=#shared-workers-and-the-sharedworkerglobalscope-inteface><span class=secno>2.1.3 </span>Shared workers and the <code>SharedWorkerGlobalScope</code> inteface</a></ol></li>
-   <li><a href=#base-urls-and-origins-of-workers><span class=secno>2.2 </span>Base URLs and origins of workers</a></li>
-   <li><a href=#the-event-loop><span class=secno>2.3 </span>The event loop</a></li>
-   <li><a href=#the-worker-s-ports><span class=secno>2.4 </span>The worker's ports</a></li>
-   <li><a href=#processing-model><span class=secno>2.5 </span>Processing model</a>
-    <ol>
-     <li><a href=#runtime-script-errors><span class=secno>2.5.1 </span>Runtime script errors</a></ol></li>
-   <li><a href=#creating-workers><span class=secno>2.6 </span>Creating workers</a>
-    <ol>
-     <li><a href=#the-abstractworker-abstract-interface><span class=secno>2.6.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
-     <li><a href=#dedicated-workers-and-the-worker-interface><span class=secno>2.6.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
-     <li><a href=#shared-workers-and-the-sharedworker-interface><span class=secno>2.6.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
- <li><a href=#apis-available-to-workers><span class=secno>3 </span>APIs available to workers</a>
+   <li><a href=#dependencies><span class=secno>2.1 </span>Dependencies</a></ol></li>
+ <li><a href=#terminology><span class=secno>3 </span>Terminology</a></li>
+ <li><a href=#infrastructure><span class=secno>4 </span>Infrastructure</a>
   <ol>
-   <li><a href=#importing-scripts-and-libraries><span class=secno>3.1 </span>Importing scripts and libraries</a></li>
-   <li><a href=#the-navigator-object><span class=secno>3.2 </span>The <code>Navigator</code> object</a></li>
-   <li><a href=#apis-defined-in-other-specifications><span class=secno>3.3 </span>APIs defined in other specifications</a></li>
-   <li><a href=#interface-objects-and-constructors><span class=secno>3.4 </span>Interface objects and constructors</a></li>
-   <li><a href=#worker-locations><span class=secno>3.5 </span>Worker locations</a></ol></li>
+   <li><a href=#the-global-scope><span class=secno>4.1 </span>The global scope</a>
+    <ol>
+     <li><a href=#the-workerglobalscope-abstract-interface><span class=secno>4.1.1 </span>The <code>WorkerGlobalScope</code> abstract interface</a></li>
+     <li><a href=#dedicated-workers-and-the-dedicatedworkerglobalscope-interface><span class=secno>4.1.2 </span>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</a></li>
+     <li><a href=#shared-workers-and-the-sharedworkerglobalscope-inteface><span class=secno>4.1.3 </span>Shared workers and the <code>SharedWorkerGlobalScope</code> inteface</a></ol></li>
+   <li><a href=#base-urls-and-origins-of-workers><span class=secno>4.2 </span>Base URLs and origins of workers</a></li>
+   <li><a href=#the-event-loop><span class=secno>4.3 </span>The event loop</a></li>
+   <li><a href=#the-worker-s-ports><span class=secno>4.4 </span>The worker's ports</a></li>
+   <li><a href=#processing-model><span class=secno>4.5 </span>Processing model</a>
+    <ol>
+     <li><a href=#runtime-script-errors><span class=secno>4.5.1 </span>Runtime script errors</a></ol></li>
+   <li><a href=#creating-workers><span class=secno>4.6 </span>Creating workers</a>
+    <ol>
+     <li><a href=#the-abstractworker-abstract-interface><span class=secno>4.6.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
+     <li><a href=#dedicated-workers-and-the-worker-interface><span class=secno>4.6.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
+     <li><a href=#shared-workers-and-the-sharedworker-interface><span class=secno>4.6.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
+ <li><a href=#apis-available-to-workers><span class=secno>5 </span>APIs available to workers</a>
+  <ol>
+   <li><a href=#importing-scripts-and-libraries><span class=secno>5.1 </span>Importing scripts and libraries</a></li>
+   <li><a href=#the-navigator-object><span class=secno>5.2 </span>The <code>Navigator</code> object</a></li>
+   <li><a href=#apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</a></li>
+   <li><a href=#interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</a></li>
+   <li><a href=#worker-locations><span class=secno>5.5 </span>Worker locations</a></ol></li>
  <li><a class=no-num href=#references>References</a></li>
  <li><a class=no-num href=#acknowledgements>Acknowledgements</a></ol>
 <!--end-toc--><hr><h2 id=introduction><span class=secno>1 </span>Introduction</h2><h3 id=scope><span class=secno>1.1 </span>Scope</h3><p><em>This section is non-normative.</em><p>This specification defines an API for running scripts in the
@@ -795,7 +939,7 @@ function _decrypt(k, s) {
 }</pre><p>Notice how the users of the API don't have to even know that this
   is happening &mdash; the API hasn't changed; the library can
   delegate to subworkers without changing its API, even though it is
-  accepting data using message channels.<p><a href=http://www.whatwg.org/demos/workers/crypto/page.html>View this example online</a>.<h3 id=conformance-requirements><span class=secno>1.3 </span>Conformance requirements</h3><p>All diagrams, examples, and notes in this specification are
+  accepting data using message channels.<p><a href=http://www.whatwg.org/demos/workers/crypto/page.html>View this example online</a>.<h2 id=conformance-requirements><span class=secno>2 </span>Conformance requirements</h2><p>All diagrams, examples, and notes in this specification are
   non-normative, as are all sections explicitly marked non-normative.
   Everything else in this specification is normative.<p>The key words "MUST", "MUST NOT", "REQUIRED", <!--"SHALL", "SHALL
   NOT",--> "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
@@ -815,22 +959,13 @@ function _decrypt(k, s) {
   agents.<p>User agents may impose implementation-specific limits on
   otherwise unconstrained inputs, e.g. to prevent denial of service
   attacks, to guard against running out of memory, or to work around
-  platform-specific limitations.<h4 id=dependencies><span class=secno>1.3.1 </span>Dependencies</h4><p>This specification relies on several other underlying
+  platform-specific limitations.<h3 id=dependencies><span class=secno>2.1 </span>Dependencies</h3><p>This specification relies on several other underlying
   specifications.<dl><dt>HTML5</dt>
 
    <dd>
 
     <p>Many fundamental concepts from HTML5 are used by this
     specification. <a href=#refsHTML5>[HTML5]</a></p>
-
-   </dd>
-
-   <dt>ECMAScript</dt>
-
-   <dd>
-
-    <p>This specification is intended to be used with JavaScript as
-    the scripting language. <a href=#refsJS>[JS]</a></p>
 
    </dd>
 
@@ -843,7 +978,7 @@ function _decrypt(k, s) {
 
    </dd>
 
-  </dl><h3 id=terminology><span class=secno>1.4 </span>Terminology</h3><p>The construction "a <code title="">Foo</code> object", where
+  </dl><h2 id=terminology><span class=secno>3 </span>Terminology</h2><p>The construction "a <code title="">Foo</code> object", where
   <code title="">Foo</code> is actually an interface, is sometimes
   used instead of the more accurate "an object implementing the
   interface <code title="">Foo</code>".<p>The term DOM is used to refer to the API set made available to
@@ -852,13 +987,13 @@ function _decrypt(k, s) {
   <code>Node</code> objects as defined in the DOM Core
   specifications. <a href=#refsDOM3CORE>[DOM3CORE]</a><p>A DOM attribute is said to be <em>getting</em> when its value is
   being retrieved (e.g. by author script), and is said to be
-  <em>setting</em> when a new value is assigned to it.<h2 id=infrastructure><span class=secno>2 </span>Infrastructure</h2><p>There are two kinds of workers; dedicated workers, and shared
+  <em>setting</em> when a new value is assigned to it.<h2 id=infrastructure><span class=secno>4 </span>Infrastructure</h2><p>There are two kinds of workers; dedicated workers, and shared
   workers. Dedicated workers, once created, and are linked to their
   creator; but message ports can be used to communicate from a
   dedicated worker to multiple other browsing contexts or
   workers. Shared workers, on the other hand, are named, and once
   created any script running in the same <span>origin</span> can
-  obtain a reference to that worker and communicate with it.<h3 id=the-global-scope><span class=secno>2.1 </span>The global scope</h3><p>The global scope is the "inside" of a worker.<h4 id=the-workerglobalscope-abstract-interface><span class=secno>2.1.1 </span>The <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> abstract interface</h4><pre class=idl>interface <dfn id=workerglobalscope>WorkerGlobalScope</dfn> {
+  obtain a reference to that worker and communicate with it.<h3 id=the-global-scope><span class=secno>4.1 </span>The global scope</h3><p>The global scope is the "inside" of a worker.<h4 id=the-workerglobalscope-abstract-interface><span class=secno>4.1.1 </span>The <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> abstract interface</h4><pre class=idl>interface <dfn id=workerglobalscope>WorkerGlobalScope</dfn> {
   readonly attribute <a href=#workerglobalscope>WorkerGlobalScope</a> <a href=#dom-workerglobalscope-self title=dom-WorkerGlobalScope-self>self</a>;
   readonly attribute <a href=#workerlocation>WorkerLocation</a> <a href=#dom-workerglobalscope-location title=dom-WorkerGlobalScope-location>location</a>;
   // also implements everything on <a href=#workerutils>WorkerUtils</a>
@@ -901,7 +1036,7 @@ function _decrypt(k, s) {
    <dd><p>Must be invoked whenever an <code title=event-error>error</code> event is targeted at or bubbles
    through the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object.</dd>
 
-  </dl><h4 id=dedicated-workers-and-the-dedicatedworkerglobalscope-interface><span class=secno>2.1.2 </span>Dedicated workers and the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> interface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
+  </dl><h4 id=dedicated-workers-and-the-dedicatedworkerglobalscope-interface><span class=secno>4.1.2 </span>Dedicated workers and the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> interface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
   void <a href=#dom-dedicatedworkerglobalscope-postmessage title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in any message, [Optional] in <span>MessagePort</span> messagePort);<!--
   <span>MessagePort</span> <span title="dom-DedicatedWorkerGlobalScope-startConversation">startConversation</span>(in any message);-->
            attribute <span>EventListener</span> <a href=#handler-dedicatedworkerglobalscope-onmessage title=handler-DedicatedWorkerGlobalScope-onmessage>onmessage</a>;
@@ -925,7 +1060,7 @@ function _decrypt(k, s) {
    <dd><p>Must be invoked whenever a <code title=event-DedicatedWorkerGlobalScope-message>message</code> event is targeted
    at or bubbles through the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> object.</dd>
 
-  </dl><h4 id=shared-workers-and-the-sharedworkerglobalscope-inteface><span class=secno>2.1.3 </span>Shared workers and the <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> inteface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=sharedworkerglobalscope>SharedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
+  </dl><h4 id=shared-workers-and-the-sharedworkerglobalscope-inteface><span class=secno>4.1.3 </span>Shared workers and the <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> inteface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=sharedworkerglobalscope>SharedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
   readonly attribute DOMString <a href=#dom-sharedworkerglobalscope-name title=dom-SharedWorkerGlobalScope-name>name</a>;
            attribute <span>EventListener</span> <a href=#handler-sharedworkerglobalscope-onconnect title=handler-SharedWorkerGlobalScope-onconnect>onconnect</a>;
 };</pre><p>Shared workers receive message ports through <code title=event-WorkerGlobalScope-connect>connect</code> events on
@@ -941,11 +1076,11 @@ function _decrypt(k, s) {
    <dd><p>Must be invoked whenever a <code title=event-SharedWorkerGlobalScope-connect>connect</code> event is targeted
    at or bubbles through the <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> object.</dd>
 
-  </dl><h3 id=base-urls-and-origins-of-workers><span class=secno>2.2 </span>Base URLs and origins of workers</h3><p>Both the <span>origin</span> and <span>effective script
+  </dl><h3 id=base-urls-and-origins-of-workers><span class=secno>4.2 </span>Base URLs and origins of workers</h3><p>Both the <span>origin</span> and <span>effective script
   origin</span> of scripts running in workers are the
   <span>origin</span> of the <span>absolute URL</span> given in that
   the worker's <code title=dom-WorkerGlobalScope-location><a href=#dom-workerglobalscope-location>location</a></code> attribute
-  represents.<h3 id=the-event-loop><span class=secno>2.3 </span>The event loop</h3><p>Each <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object is asssociated with a
+  represents.<h3 id=the-event-loop><span class=secno>4.3 </span>The event loop</h3><p>Each <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object is asssociated with a
   <span>event loop</span>. This <span>event loop</span> has no
   associated <span>browsing context</span>, and its <span title="task
   queue">task queues</span> only have events, callbacks, and
@@ -960,7 +1095,7 @@ function _decrypt(k, s) {
   already on the queue are unaffected unless otherwise
   specified). Effectively, once the <a href=#dom-workerglobalscope-closing title=dom-WorkerGlobalScope-closing>closing</a> flag is true,
   timers stop firing, notifications for all pending asynchronous
-  operations are dropped, etc.<h3 id=the-worker-s-ports><span class=secno>2.4 </span>The worker's ports</h3><p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
+  operations are dropped, etc.<h3 id=the-worker-s-ports><span class=secno>4.4 </span>The worker's ports</h3><p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
   <code>MessagePort</code> objects.<p>Each <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> <var title="">worker global
   scope</var> has a list of <dfn id=the-worker-s-ports-0>the worker's ports</dfn>, which
   consists of all the <code>MessagePort</code> objects that are
@@ -1020,7 +1155,7 @@ function _decrypt(k, s) {
    <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object that is itself a <span>needed
    worker</span>.</li>
 
-  </ul><h3 id=processing-model><span class=secno>2.5 </span>Processing model</h3><p>When a user agent is to <dfn id=run-a-worker>run a worker</dfn> for a script with
+  </ul><h3 id=processing-model><span class=secno>4.5 </span>Processing model</h3><p>When a user agent is to <dfn id=run-a-worker>run a worker</dfn> for a script with
   <span>URL</span> <var title="">url</var>, a browsing context <var title="">owner browsing context</var>, and with global scope <var title="">worker global scope</var>, it must run the following
   steps:<ol><li>
 
@@ -1232,7 +1367,7 @@ function _decrypt(k, s) {
    queue</span> of the port that the worker's implicit port is
    entangled with.</li>
 
-  </ol><h4 id=runtime-script-errors><span class=secno>2.5.1 </span>Runtime script errors</h4><p>Whenever a runtime script error occurs in one of the worker's
+  </ol><h4 id=runtime-script-errors><span class=secno>4.5.1 </span>Runtime script errors</h4><p>Whenever a runtime script error occurs in one of the worker's
   scripts, if the error did not occur while handling a previous script
   error, the user agent must <span>queue a task</span> to <a href=#fire-an-error-event>fire
   an error event</a> at the the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code>
@@ -1266,7 +1401,7 @@ function _decrypt(k, s) {
   attribute represents the <span>absolute URL</span> of the script in
   which the error originally occured.<p>The <dfn id=dom-errorevent-lineno title=dom-ErrorEvent-lineno><code>lineno</code></dfn>
   attribute represents the line number where the error occured in the
-  script.<h3 id=creating-workers><span class=secno>2.6 </span>Creating workers</h3><h4 id=the-abstractworker-abstract-interface><span class=secno>2.6.1 </span>The <code><a href=#abstractworker>AbstractWorker</a></code> abstract interface</h4><pre class=idl>interface <dfn id=abstractworker>AbstractWorker</dfn> {
+  script.<h3 id=creating-workers><span class=secno>4.6 </span>Creating workers</h3><h4 id=the-abstractworker-abstract-interface><span class=secno>4.6.1 </span>The <code><a href=#abstractworker>AbstractWorker</a></code> abstract interface</h4><pre class=idl>interface <dfn id=abstractworker>AbstractWorker</dfn> {
            attribute <span>EventListener</span> <a href=#handler-abstractworker-onerror title=handler-AbstractWorker-onerror>onerror</a>;
            attribute <span>EventListener</span> <a href=#handler-abstractworker-onclose title=handler-AbstractWorker-onclose>onclose</a>;
 };</pre><p>Objects implementing the <code><a href=#abstractworker>AbstractWorker</a></code> interface
@@ -1282,7 +1417,7 @@ function _decrypt(k, s) {
    <dd><p>Must be invoked whenever an <code title=event-close>close</code> event is targeted at or bubbles
    through the <code><a href=#abstractworker>AbstractWorker</a></code> object.</dd>
 
-  </dl><h4 id=dedicated-workers-and-the-worker-interface><span class=secno>2.6.2 </span>Dedicated workers and the <code><a href=#worker>Worker</a></code> interface</h4><pre class=idl>[<a href=#dom-worker title=dom-Worker>Constructor</a>(in DOMString scriptURL)]
+  </dl><h4 id=dedicated-workers-and-the-worker-interface><span class=secno>4.6.2 </span>Dedicated workers and the <code><a href=#worker>Worker</a></code> interface</h4><pre class=idl>[<a href=#dom-worker title=dom-Worker>Constructor</a>(in DOMString scriptURL)]
 interface <dfn id=worker>Worker</dfn> : <a href=#abstractworker>AbstractWorker</a> {
   void <a href=#dom-worker-terminate title=dom-Worker-terminate>terminate</a>();
 
@@ -1362,7 +1497,7 @@ interface <dfn id=worker>Worker</dfn> : <a href=#abstractworker>AbstractWorker</
 
    </li>
 
-  </ol><h4 id=shared-workers-and-the-sharedworker-interface><span class=secno>2.6.3 </span>Shared workers and the <code><a href=#sharedworker>SharedWorker</a></code> interface</h4><pre class=idl>[<a href=#dom-sharedworker title=dom-SharedWorker>Constructor</a>(in DOMString scriptURL, in DOMString name)]
+  </ol><h4 id=shared-workers-and-the-sharedworker-interface><span class=secno>4.6.3 </span>Shared workers and the <code><a href=#sharedworker>SharedWorker</a></code> interface</h4><pre class=idl>[<a href=#dom-sharedworker title=dom-SharedWorker>Constructor</a>(in DOMString scriptURL, in DOMString name)]
 interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>AbstractWorker</a> {
   readonly attribute <span>MessagePort</span> <a href=#dom-sharedworker-port title=dom-SharedWorker-port>port</a>;
 };</pre><p>The <dfn id=dom-sharedworker-port title=dom-SharedWorker-port><code>port</code></dfn>
@@ -1413,7 +1548,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
        attribute represents an <span>absolute URL</span> that is not
        exactly equal to the resulting <span>absolute URL</span>, then
        throw a <code>URL_MISMATCH_ERR</code> exception and abort all
-       these steps. <span class=big-issue>code 21</span></li>
+       these steps. <span class=XXX>code 21</span></li>
 
        <li><p>Associate <var title="">worker</var> with <var title="">worker global scope</var>.</li>
 
@@ -1476,7 +1611,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
 
    </li>
 
-  </ol><h2 id=apis-available-to-workers><span class=secno>3 </span>APIs available to workers</h2><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, ImplementedOn=WorkerGlobalScope, XXX] interface <dfn id=workerutils>WorkerUtils</dfn> {
+  </ol><h2 id=apis-available-to-workers><span class=secno>5 </span>APIs available to workers</h2><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, ImplementedOn=WorkerGlobalScope, XXX] interface <dfn id=workerutils>WorkerUtils</dfn> {
   void <a href=#dom-workerglobalscope-importscripts title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
   readonly attribute <span>Storage</span> <a href=#dom-localstorage title=dom-localStorage>localStorage</a>;
   readonly attribute <a href=#navigator>Navigator</a> <a href=#dom-navigator title=dom-navigator>navigator</a>;
@@ -1487,9 +1622,9 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
   interface.<p>Objects that implement the <code><a href=#workerutils>WorkerUtils</a></code> interface
   must also implement the <code>WindowTimers</code> interface. (This
   interface provides the <code title="">setTimeout()</code> method and
-  its friends.)<p class=big-issue>Need to define a sync database API.</p><!-- XXX ApplicationCache --><!-- XXX a way to set cookies on the URL for the script --><!-- XXX debugging: void log(in DOMString s); // log to console --><!-- XXX debugging: onerror --><hr><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
+  its friends.)<p class=XXX>Need to define a sync database API.</p><!-- XXX ApplicationCache --><!-- XXX a way to set cookies on the URL for the script --><!-- XXX debugging: void log(in DOMString s); // log to console --><!-- XXX debugging: onerror --><hr><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
   objects, etc) are not available to workers in this version of this
-  specification.<h3 id=importing-scripts-and-libraries><span class=secno>3.1 </span>Importing scripts and libraries</h3><p>When a script invokes the <dfn id=dom-workerglobalscope-importscripts title=dom-WorkerGlobalScope-importScripts><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
+  specification.<h3 id=importing-scripts-and-libraries><span class=secno>5.1 </span>Importing scripts and libraries</h3><p>When a script invokes the <dfn id=dom-workerglobalscope-importscripts title=dom-WorkerGlobalScope-importScripts><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
   <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object, the user agent must run the
   following steps:<ol><li><p>If there are no arguments, return without doing
    anything. Abort these steps.</li>
@@ -1569,7 +1704,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
 
     </ol></li>
 
-  </ol><h3 id=the-navigator-object><span class=secno>3.2 </span>The <code><a href=#navigator>Navigator</a></code> object</h3><p>The <dfn id=dom-navigator title=dom-navigator><code>navigator</code></dfn>
+  </ol><h3 id=the-navigator-object><span class=secno>5.2 </span>The <code><a href=#navigator>Navigator</a></code> object</h3><p>The <dfn id=dom-navigator title=dom-navigator><code>navigator</code></dfn>
   attribute of the <code><a href=#workerutils>WorkerUtils</a></code> interface must return an
   instance of the <code><a href=#navigator>Navigator</a></code> interface, which represents
   the identity and state of the user agent (the client):<pre class=idl>interface <dfn id=navigator>Navigator</dfn> {
@@ -1579,7 +1714,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
   <span>NavigatorOnLine</span> interfaces specified in the HTML5
   specification. <a href=#refsHTML5>[HTML5]</a><p class=note>The <code><a href=#navigator>Navigator</a></code> interface defined in this
   specification is different than the one defined in the HTML5
-  specification.<h3 id=apis-defined-in-other-specifications><span class=secno>3.3 </span>APIs defined in other specifications</h3><p>The <dfn id=dom-localstorage title=dom-localStorage><code>localStorage</code></dfn>,
+  specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <dfn id=dom-localstorage title=dom-localStorage><code>localStorage</code></dfn>,
   <dfn id=dom-opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn> must
   act as defined for the APIs with the same names on the
   <code>Window</code> object in the HTML5 specification, with the
@@ -1589,7 +1724,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
   was supposedly invoked, it must instead use the <span>origin</span>
   of the script that invoked the method. <a href=#refsHTML5>[HTML5]</a><p>The <dfn id=dom-shownotification title=dom-showNotification><code>showNotification()</code></dfn>
   methods must act as defined for the APIs with the same names on the
-  <code>Window</code> object in the HTML5 specification. <a href=#refsHTML5>[HTML5]</a><h3 id=interface-objects-and-constructors><span class=secno>3.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
+  <code>Window</code> object in the HTML5 specification. <a href=#refsHTML5>[HTML5]</a><h3 id=interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
   the global scope of scripts whose <span>script execution
   context</span> is a <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object except for
   the following:<ul><li><p><code>XMLHttpRequest</code> and all interface objects and
@@ -1605,7 +1740,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
 
    <li><p>The <code title=dom-Worker><a href=#dom-worker>Worker()</a></code> and <code title=dom-SharedWorker><a href=#dom-sharedworker>SharedWorker(<var title="">url</var>)</a></code> constructors.</li>
 
-  </ul><h3 id=worker-locations><span class=secno>3.5 </span>Worker locations</h3><pre class=idl>interface <dfn id=workerlocation>WorkerLocation</dfn> {
+  </ul><h3 id=worker-locations><span class=secno>5.5 </span>Worker locations</h3><pre class=idl>interface <dfn id=workerlocation>WorkerLocation</dfn> {
   readonly attribute DOMString <a href=#dom-workerlocation-href title=dom-WorkerLocation-href>href</a>;
   readonly attribute DOMString <a href=#dom-workerlocation-protocol title=dom-WorkerLocation-protocol>protocol</a>;
   readonly attribute DOMString <a href=#dom-workerlocation-host title=dom-WorkerLocation-host>host</a>;
