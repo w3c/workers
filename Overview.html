@@ -501,7 +501,7 @@ onmessage = function (event) {
    function startPrivateChat(event) {
      if (event.data.substr(0, 4) != 'msg ') return;
      var name = event.data.substr(4).split(' ', 1);
-     var port = event.port;
+     var port = event.ports[0];
      // display a private chat UI
      var ul = document.getElementById('private');
      var li = document.createElement('li');
@@ -621,12 +621,12 @@ function sendMapData(callback) {
 
 var viewers = {};
 onconnect = function (event) {
-  event.port._name = getNextName();
-  event.port._data = { port: event.port, x: 0, y: 0, };
-  viewers[event.port._name] = event.port._data;
-  event.port.postMessage('cfg ' + name);
-  event.port.onmessage = getMessage;
-  sendMapData(event.port.postMessage);
+  event.ports[0]._name = getNextName();
+  event.ports[0]._data = { port: event.port, x: 0, y: 0, };
+  viewers[event.ports[0]._name] = event.port._data;
+  event.ports[0].postMessage('cfg ' + name);
+  event.ports[0].onmessage = getMessage;
+  sendMapData(event.ports[0].postMessage);
 };
 
 function getMessage(event) {
@@ -662,8 +662,8 @@ function getMessage(event) {
       var party2 = viewers[event.data.substr(4).split(' ', 1)];
       if (party2) {
         var channel = new MessageChannel();
-        party1.port.postMessage('msg ' + party2.name, channel.port1);
-        party2.port.postMessage('msg ' + party1.name, channel.port2);
+        party1.port.postMessage('msg ' + party2.name, [channel.port1]);
+        party2.port.postMessage('msg ' + party1.name, [channel.port2]);
       }
       break;
   }
@@ -760,11 +760,11 @@ function work() {
 
   </dl><p>The library itself is as follows:<pre>function handleMessage(e) {
   if (e.data == "genkeys")
-    genkeys(e.port);
+    genkeys(e.ports[0]);
   else if (e.data == "encrypt")
-    encrypt(e.port);
+    encrypt(e.ports[0]);
   else if (e.data == "decrypt")
-    decrypt(e.port);
+    decrypt(e.ports[0]);
 }
 
 function genkeys(p) {
@@ -868,23 +868,23 @@ function _decrypt(k, s) {
 &lt;/html&gt;</pre><p>A later version of the API, though, might want to offload all the
   crypto work onto subworkers. This could be done as follows:<pre>function handleMessage(e) {
   if (e.data == "genkeys")
-    genkeys(e.port);
+    genkeys(e.ports[0]);
   else if (e.data == "encrypt")
-    encrypt(e.port);
+    encrypt(e.ports[0]);
   else if (e.data == "decrypt")
-    decrypt(e.port);
+    decrypt(e.ports[0]);
 }
 
 function genkeys(p) {
   var generator = new Worker('libcrypto-v2-generator.js');
-  generator.postMessage('', p);
+  generator.postMessage('', [p]);
 }
 
 function encrypt(p) {
   p.onmessage = function (e) {
     var key = e.data;
     var encryptor = new Worker('libcrypto-v2-encryptor.js');
-    encryptor.postMessage(key, p);
+    encryptor.postMessage(key, [p]);
   };
 }
 
@@ -892,7 +892,7 @@ function encrypt(p) {
   p.onmessage = function (e) {
     var key = e.data;
     var decryptor = new Worker('libcrypto-v2-decryptor.js');
-    decryptor.postMessage(key, p);
+    decryptor.postMessage(key, [p]);
   };
 }
 
@@ -900,11 +900,11 @@ function encrypt(p) {
 if (this.onmessage) // dedicated worker
   onmessage = handleMessage;
 else // shared worker
-  onconnect = function (e) { e.port.onmessage = handleMessage; }
+  onconnect = function (e) { e.ports[0].onmessage = handleMessage };
 </pre><p>The little subworkers would then be as follows.<p>For generating key pairs:<pre>onmessage = function (e) {
   var k = _generateKeyPair();
-  e.port.postMessage(k[0]);
-  e.port.postMessage(k[1]);
+  e.ports[0].postMessage(k[0]);
+  e.ports[0].postMessage(k[1]);
   close();
 }
 
@@ -912,11 +912,11 @@ function _generateKeyPair() {
   return [Math.random(), Math.random()];
 }</pre><p>For encrypting:<pre>onmessage = function (e) {
   var key = e.data;
-  e.port.onmessage = function (e) {
+  e.ports[0].onmessage = function (e) {
     var s = e.data;
     postMessage(_encrypt(key, s));
   }
-  e.port.onclose = function (e) {
+  e.ports[0].onclose = function (e) {
     close();
   }
 }
@@ -925,11 +925,11 @@ function _encrypt(k, s) {
   return 'encrypted-' + k + ' ' + s;
 }</pre><p>For decrypting:<pre>onmessage = function (e) {
   var key = e.data;
-  e.port.onmessage = function (e) {
+  e.ports[0].onmessage = function (e) {
     var s = e.data;
     postMessage(_decrypt(key, s));
   }
-  e.port.onclose = function (e) {
+  e.ports[0].onclose = function (e) {
     close();
   }
 }
@@ -1037,7 +1037,7 @@ function _decrypt(k, s) {
    through the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object.</dd>
 
   </dl><h4 id=dedicated-workers-and-the-dedicatedworkerglobalscope-interface><span class=secno>4.1.2 </span>Dedicated workers and the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> interface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
-  void <a href=#dom-dedicatedworkerglobalscope-postmessage title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in any message, [Optional] in <span>MessagePort</span> messagePort);<!--
+  void <a href=#dom-dedicatedworkerglobalscope-postmessage title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in any message, [Optional] in <span>MessagePortArray</span> ports);<!--
   <span>MessagePort</span> <span title="dom-DedicatedWorkerGlobalScope-startConversation">startConversation</span>(in any message);-->
            attribute <span>EventListener</span> <a href=#handler-dedicatedworkerglobalscope-onmessage title=handler-DedicatedWorkerGlobalScope-onmessage>onmessage</a>;
 };</pre><p><code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> objects act as if they
@@ -1421,7 +1421,7 @@ function _decrypt(k, s) {
 interface <dfn id=worker>Worker</dfn> : <a href=#abstractworker>AbstractWorker</a> {
   void <a href=#dom-worker-terminate title=dom-Worker-terminate>terminate</a>();
 
-  void <a href=#dom-worker-postmessage title=dom-Worker-postMessage>postMessage</a>(in any message, [Optional] in <span>MessagePort</span> messagePort);<!--
+  void <a href=#dom-worker-postmessage title=dom-Worker-postMessage>postMessage</a>(in any message, [Optional] in <span>MessagePortArray</span> ports);<!--
   <span>MessagePort</span> <span title="dom-Worker-startConversation">startConversation</span>(in any message);-->
            attribute <span>EventListener</span> <a href=#handler-worker-onmessage title=handler-Worker-onmessage>onmessage</a>;
 };</pre><p>The <dfn id=dom-worker-terminate title=dom-Worker-terminate><code>terminate()</code></dfn> method,
@@ -1565,9 +1565,10 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
        <li><p>Create an event that uses the <code>MessageEvent</code>
        interface, with the name <code title=event-connect>connect</code>, which does not bubble, is
        cancelable, has no default action, has a <code title=dom-MessageEvent-data>data</code> attribute whose value
-       is the empty string and has a <code title=dom-MessageEvent-messagePort>messagePort</code>
-       attribute whose value is the newly created port, and
-       <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
+       is the empty string and has a <code title=dom-MessageEvent-ports>ports</code>
+       attribute whose value is an array containing only the newly
+       created port, and <span>queue a task</span> to dispatch the
+       event at <var title="">worker global scope</var>.</li>
 
        <li><p>Abort all these steps.</li>
 
@@ -1596,10 +1597,9 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
    <li><p>Create an event that uses the <code>MessageEvent</code>
    interface, with the name <code title=event-connect>connect</code>, which does not bubble, is
    cancelable, has no default action, has a <code title=dom-MessageEvent-data>data</code> attribute whose value is
-   the empty string and has a <code title=dom-MessageEvent-messagePort>messagePort</code> attribute
-   whose value is the newly created port, and <span>queue a
-   task</span> to dispatch the event at <var title="">worker global
-   scope</var>.</li>
+   the empty string and has a <code title=dom-MessageEvent-ports>ports</code> attribute
+   whose value is an array containing only the newly created port, and
+   <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
 
    <li>
 
