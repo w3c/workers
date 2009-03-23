@@ -1680,7 +1680,6 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
 
   </ol><h2 id=apis-available-to-workers><span class=secno>5 </span>APIs available to workers</h2><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, ImplementedOn=WorkerGlobalScope, XXX] interface <dfn id=workerutils>WorkerUtils</dfn> {
   void <a href=#dom-workerglobalscope-importscripts title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
-  readonly attribute <span>Storage</span> <a href=#dom-localstorage title=dom-localStorage>localStorage</a>;
   readonly attribute <a href=#navigator>Navigator</a> <a href=#dom-navigator title=dom-navigator>navigator</a>;
   <span>Database</span> <a href=#dom-opendatabase title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);<!--
   void <span title="dom-showNotification">showNotification</span>(in DOMString title, in DOMString subtitle, in DOMString description, [Optional] in VoidCallback onclick); XXX-NOTIFY -->
@@ -1782,17 +1781,20 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
   <span>NavigatorOnLine</span> interfaces specified in the HTML5
   specification. <a href=#refsHTML5>[HTML5]</a><p class=note>The <code><a href=#navigator>Navigator</a></code> interface defined in this
   specification is different than the one defined in the HTML5
-  specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <dfn id=dom-localstorage title=dom-localStorage><code>localStorage</code></dfn>,
-  <dfn id=dom-opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn> must
-  act as defined for the APIs with the same names on the
+  specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <dfn id=dom-opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn> method
+  must act as defined for the API with the same name on the
   <code>Window</code> object in the HTML5 specification, with the
   exception that where the API would use the <span>origin</span> of
   the <span>active document</span> of the <span>browsing
   context</span> of the <code>Window</code> object on which the method
   was supposedly invoked, it must instead use the <span>origin</span>
-  of the script that invoked the method. <a href=#refsHTML5>[HTML5]</a><p>The <dfn id=dom-shownotification title=dom-showNotification><code>showNotification()</code></dfn>
+  of the script that invoked the method. <a href=#refsHTML5>[HTML5]</a></p><!--XXX-NOTIFY
+  <p>The <dfn
+  title="dom-showNotification"><code>showNotification()</code></dfn>
   methods must act as defined for the APIs with the same names on the
-  <code>Window</code> object in the HTML5 specification. <a href=#refsHTML5>[HTML5]</a><h3 id=interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
+  <code>Window</code> object in the HTML5 specification. <a
+  href="#refsHTML5">[HTML5]</a></p>
+--><h3 id=interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
   the global scope of scripts whose <span>script execution
   context</span> is a <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object except for
   the following:<ul><li><p><code>XMLHttpRequest</code> and all interface objects and
