@@ -266,7 +266,7 @@
  <li><a href=#apis-available-to-workers><span class=secno>5 </span>APIs available to workers</a>
   <ol>
    <li><a href=#importing-scripts-and-libraries><span class=secno>5.1 </span>Importing scripts and libraries</a></li>
-   <li><a href=#the-navigator-object><span class=secno>5.2 </span>The <code>Navigator</code> object</a></li>
+   <li><a href=#the-navigator-object><span class=secno>5.2 </span>The <code title=worker-Navigator>Navigator</code> object</a></li>
    <li><a href=#apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</a></li>
    <li><a href=#interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</a></li>
    <li><a href=#worker-locations><span class=secno>5.5 </span>Worker locations</a></ol></li>
@@ -1680,7 +1680,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
 
   </ol><h2 id=apis-available-to-workers><span class=secno>5 </span>APIs available to workers</h2><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, ImplementedOn=WorkerGlobalScope, XXX] interface <dfn id=workerutils>WorkerUtils</dfn> {
   void <a href=#dom-workerglobalscope-importscripts title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
-  readonly attribute <a href=#navigator>Navigator</a> <a href=#dom-navigator title=dom-navigator>navigator</a>;
+  readonly attribute <a href=#worker-navigator title=worker-Navigator>Navigator</a> <a href=#dom-worker-navigator title=dom-worker-navigator>navigator</a>;
   <span>Database</span> <a href=#dom-opendatabase title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
 };</pre><p>Objects that implement the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code>
   interface must also implement the <code><a href=#workerutils>WorkerUtils</a></code>
@@ -1770,17 +1770,18 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
 
     </ol></li>
 
-  </ol><h3 id=the-navigator-object><span class=secno>5.2 </span>The <code><a href=#navigator>Navigator</a></code> object</h3><p>The <dfn id=dom-navigator title=dom-navigator><code>navigator</code></dfn>
-  attribute of the <code><a href=#workerutils>WorkerUtils</a></code> interface must return an
-  instance of the <code><a href=#navigator>Navigator</a></code> interface, which represents
-  the identity and state of the user agent (the client):<pre class=idl>interface <dfn id=navigator>Navigator</dfn> {
+  </ol><h3 id=the-navigator-object><span class=secno>5.2 </span>The <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code> object</h3><p>The <dfn id=dom-worker-navigator title=dom-worker-navigator><code>navigator</code></dfn> attribute
+  of the <code><a href=#workerutils>WorkerUtils</a></code> interface must return an instance of
+  the <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code> interface, which
+  represents the identity and state of the user agent (the
+  client):<pre class=idl>interface <dfn id=worker-navigator title=worker-Navigator>Navigator</dfn> {
   // objects implementing this interface also implement the interfaces listed below
-};</pre><p>Objects implementing the <code><a href=#navigator>Navigator</a></code> interface must
-  also implement the <span>NavigatorID</span> and
+};</pre><p>Objects implementing the <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code> interface must also
+  implement the <span>NavigatorID</span> and
   <span>NavigatorOnLine</span> interfaces specified in the HTML5
-  specification. <a href=#refsHTML5>[HTML5]</a><p class=note>The <code><a href=#navigator>Navigator</a></code> interface defined in this
-  specification is different than the one defined in the HTML5
-  specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <dfn id=dom-opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn> method
+  specification. <a href=#refsHTML5>[HTML5]</a><p class=note>The <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code>
+  interface defined in this specification is different than the one
+  defined in the HTML5 specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <dfn id=dom-opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn> method
   must act as defined for the API with the same name on the
   <code>Window</code> object in the HTML5 specification, with the
   exception that where the API would use the <span>origin</span> of
