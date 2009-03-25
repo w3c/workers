@@ -1325,6 +1325,11 @@ function _decrypt(k, s) {
 
    </li>
 
+   <li><p>If <var title="">worker global scope</var> is actually a
+   <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> object (i.e. the worker is
+   a dedicated worker), then open the <span>port message queue</span>
+   of the worker's implicit port.</li>
+
    <li>
 
     <p><i title="">Event loop</i>: Wait until either there is a <span title=concept-task>task</span> in one of the <span>event
