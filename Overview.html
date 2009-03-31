@@ -145,7 +145,7 @@
   </style><link href=http://www.w3.org/StyleSheets/TR/%57%33%43-ED rel=stylesheet type=text/css><!-- ZZZ ED vs WD --><div class=head>
    <p><a href=http://www.w3.org/><img alt=W3C height=48 src=http://www.w3.org/Icons/w3c_home width=72></a></p>
    <h1>Web Workers</h1>
-   <h2 class="no-num no-toc" id=editor-s-draft-date-zzz-9-june-2008><!-- "W3C Working Draft" --> Editor's Draft <!--ZZZ-->28 March 2009</h2>
+   <h2 class="no-num no-toc" id=editor-s-draft-date-zzz-9-june-2008><!-- "W3C Working Draft" --> Editor's Draft <!--ZZZ-->31 March 2009</h2>
    <dl><!-- ZZZ: update the month/day
     <dt>This Version:</dt>
     <dd><a href="http://www.w3.org/TR/2009/WD-workers-20090101/">http://www.w3.org/TR/2009/WD-workers-20090101/</a></dd>
@@ -214,7 +214,7 @@
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
-  This specification is the 28 March 2009 <!--ZZZ "Working Draft"-->Editor's Draft.
+  This specification is the 31 March 2009 <!--ZZZ "Working Draft"-->Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href=http://www.whatwg.org/>WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1023,20 +1023,12 @@ function _decrypt(k, s) {
    was invoked (this would include, for instance, the implicit port in
    used for dedicated workers), unentangle the two ports.</li>
 
-  </ol><p>The following are the <span>event handler DOM attributes</span>
-  that must be supported by objects implementing the
-  <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> interface:<dl><dt><dfn id=handler-workerglobalscope-onclose title=handler-WorkerGlobalScope-onclose><code>onclose</code></dfn></dt>
-
-   <dd><p>Must be invoked whenever a <code title=event-close>close</code> event is targeted at or bubbles
-   through the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object.</dd>
-
-
-   <dt><dfn id=handler-workerglobalscope-onerror title=handler-WorkerGlobalScope-onerror><code>onerror</code></dfn></dt>
-
-   <dd><p>Must be invoked whenever an <code title=event-error>error</code> event is targeted at or bubbles
-   through the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object.</dd>
-
-  </dl><h4 id=dedicated-workers-and-the-dedicatedworkerglobalscope-interface><span class=secno>4.1.2 </span>Dedicated workers and the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> interface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
+  </ol><p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
+  that must be supported, as DOM attributes, by objects implementing
+  the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+   <tbody><tr><td><dfn id=handler-workerglobalscope-onclose title=handler-WorkerGlobalScope-onclose><code>onclose</code></dfn> <td> <code title=event-close>close</code>
+    <tr><td><dfn id=handler-workerglobalscope-onerror title=handler-WorkerGlobalScope-onerror><code>onerror</code></dfn> <td> <code title=event-error>error</code>
+  </table><h4 id=dedicated-workers-and-the-dedicatedworkerglobalscope-interface><span class=secno>4.1.2 </span>Dedicated workers and the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> interface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
   void <a href=#dom-dedicatedworkerglobalscope-postmessage title=dom-DedicatedWorkerGlobalScope-postMessage>postMessage</a>(in any message, [Optional] in <span>MessagePortArray</span> ports);<!--
   <span>MessagePort</span> <span title="dom-DedicatedWorkerGlobalScope-startConversation">startConversation</span>(in any message);-->
            attribute <span>EventListener</span> <a href=#handler-dedicatedworkerglobalscope-onmessage title=handler-DedicatedWorkerGlobalScope-onmessage>onmessage</a>;
@@ -1053,14 +1045,11 @@ function _decrypt(k, s) {
   <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> objects must act as if, when
   invoked, it<!--/they (startConversation)--> immediately invoked the
   method of the same name on the port, with the same arguments, and
-  returned the same return value.<p>The following are the <span>event handler DOM attributes</span>
-  that must be supported by objects implementing the
-  <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> interface:<dl><dt><dfn id=handler-dedicatedworkerglobalscope-onmessage title=handler-DedicatedWorkerGlobalScope-onmessage><code>onmessage</code></dfn></dt>
-
-   <dd><p>Must be invoked whenever a <code title=event-DedicatedWorkerGlobalScope-message>message</code> event is targeted
-   at or bubbles through the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> object.</dd>
-
-  </dl><p>For the purposes of the <span>offline application cache</span>
+  returned the same return value.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
+  that must be supported, as DOM attributes, by objects implementing
+  the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+   <tbody><tr><td><dfn id=handler-dedicatedworkerglobalscope-onmessage title=handler-DedicatedWorkerGlobalScope-onmessage><code>onmessage</code></dfn> <td> <code title=event-message>message</code>
+  </table><p>For the purposes of the <span>offline application cache</span>
   networking model, a dedicated worker is an extension of the
   <span>cache host</span> from which it was created.<h4 id=shared-workers-and-the-sharedworkerglobalscope-inteface><span class=secno>4.1.3 </span>Shared workers and the <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> inteface</h4><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, XXX] interface <dfn id=sharedworkerglobalscope>SharedWorkerGlobalScope</dfn> : <a href=#workerglobalscope>WorkerGlobalScope</a> {
   readonly attribute DOMString <a href=#dom-sharedworkerglobalscope-name title=dom-SharedWorkerGlobalScope-name>name</a>;
@@ -1072,14 +1061,11 @@ function _decrypt(k, s) {
   <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> object was created by the
   "<a href=#run-a-worker>run a worker</a>" algorithm. Its value represents the name
   that can be used to obtain a reference to the worker using the
-  <code><a href=#sharedworker>SharedWorker</a></code> constructor.<p>The following are the <span>event handler DOM attributes</span>
-  that must be supported by objects implementing the
-  <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> interface:<dl><dt><dfn id=handler-sharedworkerglobalscope-onconnect title=handler-SharedWorkerGlobalScope-onconnect><code>onconnect</code></dfn></dt>
-
-   <dd><p>Must be invoked whenever a <code title=event-SharedWorkerGlobalScope-connect>connect</code> event is targeted
-   at or bubbles through the <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> object.</dd>
-
-  </dl><p>For the purposes of the <span>offline application cache</span>
+  <code><a href=#sharedworker>SharedWorker</a></code> constructor.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
+  that must be supported, as DOM attributes, by objects implementing
+  the <code><a href=#sharedworkerglobalscope>SharedWorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+   <tbody><tr><td><dfn id=handler-sharedworkerglobalscope-onconnect title=handler-SharedWorkerGlobalScope-onconnect><code>onconnect</code></dfn> <td> <code title=event-connect>connect</code>
+  </table><p>For the purposes of the <span>offline application cache</span>
   networking model, a shared worker is its own <span>cache
   host</span>. The <a href=#run-a-worker>run a worker</a> algorithm takes care of
   associating the worker with an <span>application cache</span>.<p class=note>The <dfn id=dom-sharedworkerglobalscope-applicationcache title=dom-SharedWorkerGlobalScope-applicationCache><code>applicationCache</code></dfn>
@@ -1494,19 +1480,12 @@ function _decrypt(k, s) {
            attribute <span>EventListener</span> <a href=#handler-abstractworker-onerror title=handler-AbstractWorker-onerror>onerror</a>;
            attribute <span>EventListener</span> <a href=#handler-abstractworker-onclose title=handler-AbstractWorker-onclose>onclose</a>;
 };</pre><p>Objects implementing the <code><a href=#abstractworker>AbstractWorker</a></code> interface
-  must also implement the <code>EventTarget</code> interface.<p>The following are the <span>event handler DOM attributes</span>
-  that must be supported by objects implementing the
-  <code><a href=#abstractworker>AbstractWorker</a></code> interface:<dl><dt><dfn id=handler-abstractworker-onerror title=handler-AbstractWorker-onerror><code>onerror</code></dfn></dt>
-
-   <dd><p>Must be invoked whenever an <code title=event-error>error</code> event is targeted at or bubbles
-   through the <code><a href=#abstractworker>AbstractWorker</a></code> object.</dd>
-
-   <dt><dfn id=handler-abstractworker-onclose title=handler-AbstractWorker-onclose><code>onclose</code></dfn></dt>
-
-   <dd><p>Must be invoked whenever an <code title=event-close>close</code> event is targeted at or bubbles
-   through the <code><a href=#abstractworker>AbstractWorker</a></code> object.</dd>
-
-  </dl><h4 id=dedicated-workers-and-the-worker-interface><span class=secno>4.8.2 </span>Dedicated workers and the <code><a href=#worker>Worker</a></code> interface</h4><pre class=idl>[<a href=#dom-worker title=dom-Worker>Constructor</a>(in DOMString scriptURL)]
+  must also implement the <code>EventTarget</code> interface.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
+  that must be supported, as DOM attributes, by objects implementing
+  the <code><a href=#abstractworker>AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+   <tbody><tr><td><dfn id=handler-abstractworker-onerror title=handler-AbstractWorker-onerror><code>onerror</code></dfn> <td> <code title=event-error>error</code>
+    <tr><td><dfn id=handler-abstractworker-onclose title=handler-AbstractWorker-onclose><code>onclose</code></dfn> <td> <code title=event-close>close</code>
+  </table><h4 id=dedicated-workers-and-the-worker-interface><span class=secno>4.8.2 </span>Dedicated workers and the <code><a href=#worker>Worker</a></code> interface</h4><pre class=idl>[<a href=#dom-worker title=dom-Worker>Constructor</a>(in DOMString scriptURL)]
 interface <dfn id=worker>Worker</dfn> : <a href=#abstractworker>AbstractWorker</a> {
   void <a href=#dom-worker-terminate title=dom-Worker-terminate>terminate</a>();
 
@@ -1527,14 +1506,11 @@ interface <dfn id=worker>Worker</dfn> : <a href=#abstractworker>AbstractWorker</
   method<!--s (startConversation)--> on <code><a href=#worker>Worker</a></code> objects
   must act as if, when invoked, it<!--/they (startConversation)-->
   immediately invoked the method of the same name on the port, with
-  the same arguments, and returned the same return value.<p>The following are the <span>event handler DOM attributes</span>
-  that must be supported by objects implementing the
-  <code><a href=#worker>Worker</a></code> interface:<dl><dt><dfn id=handler-worker-onmessage title=handler-Worker-onmessage><code>onmessage</code></dfn></dt>
-
-   <dd><p>Must be invoked whenever a <code title=event-Worker-message>message</code> event is targeted
-   at or bubbles through the <code><a href=#worker>Worker</a></code> object.</dd>
-
-  </dl><hr><p>When the <dfn id=dom-worker title=dom-Worker><code>Worker(<var title="">scriptURL</var>)</code></dfn> constructor is invoked, the
+  the same arguments, and returned the same return value.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
+  that must be supported, as DOM attributes, by objects implementing
+  the <code><a href=#worker>Worker</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+   <tbody><tr><td><dfn id=handler-worker-onmessage title=handler-Worker-onmessage><code>onmessage</code></dfn> <td> <code title=event-message>message</code>
+  </table><hr><p>When the <dfn id=dom-worker title=dom-Worker><code>Worker(<var title="">scriptURL</var>)</code></dfn> constructor is invoked, the
   user agent must run the following steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument.</li>
 
    <li><p>If this fails, throw a <code>SYNTAX_ERR</code>
