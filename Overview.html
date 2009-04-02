@@ -1681,13 +1681,14 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
   </ol><h2 id=apis-available-to-workers><span class=secno>5 </span>APIs available to workers</h2><!-- the XXX below is for collapsing this interface onto WorkerGlobalScope so it looks like just one interface - the inheritance is a spec fiction only --><pre class=idl>[NoInterfaceObject, ImplementedOn=WorkerGlobalScope, XXX] interface <dfn id=workerutils>WorkerUtils</dfn> {
   void <a href=#dom-workerglobalscope-importscripts title=dom-WorkerGlobalScope-importScripts>importScripts</a>([Variadic] in DOMString urls);
   readonly attribute <a href=#worker-navigator title=worker-Navigator>Navigator</a> <a href=#dom-worker-navigator title=dom-worker-navigator>navigator</a>;
-  <span>Database</span> <a href=#dom-opendatabase title=dom-opendatabase>openDatabase</a>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
+  <span>Database</span> <span title=dom-opendatabase>openDatabase</span>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
+  <span>DatabaseSync</span> <span title=dom-opendatabase-sync>openDatabaseSync</span>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
 };</pre><p>Objects that implement the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code>
   interface must also implement the <code><a href=#workerutils>WorkerUtils</a></code>
   interface.<p>Objects that implement the <code><a href=#workerutils>WorkerUtils</a></code> interface
   must also implement the <code>WindowTimers</code> interface. (This
   interface provides the <code title="">setTimeout()</code> method and
-  its friends.)</p><!-- XXX ref --><p class=XXX>Need to define a sync database API.</p><!-- XXX ApplicationCache --><!-- XXX debugging: void log(in DOMString s); // log to console --><hr><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
+  its friends.)</p><!-- XXX ref --><!-- XXX ApplicationCache --><!-- XXX debugging: void log(in DOMString s); // log to console --><hr><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
   objects, etc) are not available to workers in this version of this
   specification.<h3 id=importing-scripts-and-libraries><span class=secno>5.1 </span>Importing scripts and libraries</h3><p>When a script invokes the <dfn id=dom-workerglobalscope-importscripts title=dom-WorkerGlobalScope-importScripts><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
   <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object, the user agent must run the
@@ -1781,13 +1782,9 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
   <span>NavigatorOnLine</span> interfaces specified in the HTML5
   specification. <a href=#refsHTML5>[HTML5]</a><p class=note>The <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code>
   interface defined in this specification is different than the one
-  defined in the HTML5 specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <dfn id=dom-opendatabase title=dom-opendatabase><code>openDatabase()</code></dfn> method
-  must act as defined for the API of the same name defined in the Web
-  Storage specification, with the exception that where the API would
-  use the <span>origin</span> of the <span>active document</span> of
-  the <span>browsing context</span> of the <code>Window</code> object
-  on which the method was supposedly invoked, it must instead use the
-  <span>origin</span> of the script that invoked the method. <a href=#refsWEBSTORAGE>[WEBSTORAGE]</a><h3 id=interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
+  defined in the HTML5 specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <code title=dom-opendatabase>openDatabase()</code> and
+  <code title=dom-opendatabase-sync>openDatabaseSync()</code>
+  methods are defined in the Web Storage specification. <a href=#refsWEBSTORAGE>[WEBSTORAGE]</a><h3 id=interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
   the global scope of scripts whose <span>script execution
   context</span> is a <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object except for
   the following:<ul><li><p><code>XMLHttpRequest</code> and all interface objects and
