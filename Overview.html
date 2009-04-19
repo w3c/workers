@@ -1,4 +1,4 @@
-<!DOCTYPE html><!-- when publishing, change bits marked ZZZ --><html lang=en-US-x-Hixie><meta charset=ascii><title>Web Workers</title><style type=text/css>
+<!DOCTYPE html><!-- when publishing, change bits marked ZZZ --><html lang=en-US-x-Hixie><title>Web Workers</title><style type=text/css>
    pre { margin-left: 2em; white-space: pre-wrap; }
    h2 { margin: 3em 0 1em 0; }
    h3 { margin: 2.5em 0 1em 0; }
@@ -949,7 +949,7 @@ function _decrypt(k, s) {
   NOT",--> "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
   "OPTIONAL" in the normative parts of this document are to be
   interpreted as described in RFC2119. For readability, these words do
-  not appear in all uppercase letters in this specification. <a href=#refsRFC2119>[RFC2119]</a><p>Requirements phrased in the imperative as part of algorithms
+  not appear in all uppercase letters in this specification. <a href=#references>[RFC2119]</a><p>Requirements phrased in the imperative as part of algorithms
   (such as "strip any leading space characters" or "return false and
   abort these steps") are to be interpreted with the meaning of the
   key word ("must", "should", "may", etc) used in introducing the
@@ -969,7 +969,7 @@ function _decrypt(k, s) {
    <dd>
 
     <p>Many fundamental concepts from HTML5 are used by this
-    specification. <a href=#refsHTML5>[HTML5]</a></p>
+    specification. <a href=#references>[HTML5]</a></p>
 
    </dd>
 
@@ -978,7 +978,7 @@ function _decrypt(k, s) {
    <dd>
 
     <p>The IDL blocks in this specification use the semantics of the
-    WebIDL specification. <a href=#refsWebIDL>[WebIDL]</a></p>
+    WebIDL specification. <a href=#references>[WebIDL]</a></p>
 
    </dd>
 
@@ -989,11 +989,11 @@ function _decrypt(k, s) {
   scripts in Web applications, and does not necessarily imply the
   existence of an actual <code>Document</code> object or of any other
   <code>Node</code> objects as defined in the DOM Core
-  specifications. <a href=#refsDOM3CORE>[DOM3CORE]</a><p>A DOM attribute is said to be <em>getting</em> when its value is
+  specifications. <a href=#references>[DOM3CORE]</a><p>A DOM attribute is said to be <em>getting</em> when its value is
   being retrieved (e.g. by author script), and is said to be
   <em>setting</em> when a new value is assigned to it.<p>The term "JavaScript" is used to refer to ECMA262, rather than
   the official term ECMAScript, since the term JavaScript is more
-  widely known. <a href=#refsECMA262>[ECMA262]</a><h2 id=infrastructure><span class=secno>4 </span>Infrastructure</h2><p>There are two kinds of workers; dedicated workers, and shared
+  widely known. <a href=#references>[ECMA262]</a><h2 id=infrastructure><span class=secno>4 </span>Infrastructure</h2><p>There are two kinds of workers; dedicated workers, and shared
   workers. Dedicated workers, once created, and are linked to their
   creator; but message ports can be used to communicate from a
   dedicated worker to multiple other browsing contexts or
@@ -1476,7 +1476,7 @@ function _decrypt(k, s) {
 };</pre><p>The <dfn id=dom-errorevent-initerrorevent title=dom-ErrorEvent-initErrorEvent><code>initErrorEvent()</code></dfn>
   and <dfn id=dom-errorevent-initerroreventns title=dom-ErrorEvent-initErrorEventNS><code>initErrorEventNS()</code></dfn>
   methods must initialize the event in a manner analogous to the
-  similarly-named methods in the DOM3 Events interfaces. <a href=#refsDOM3EVENTS>[DOM3EVENTS]</a><p>The <dfn id=dom-errorevent-message title=dom-ErrorEvent-message><code>message</code></dfn>
+  similarly-named methods in the DOM3 Events interfaces. <a href=#references>[DOM3EVENTS]</a><p>The <dfn id=dom-errorevent-message title=dom-ErrorEvent-message><code>message</code></dfn>
   attribute represents the error message.<p>The <dfn id=dom-errorevent-filename title=dom-ErrorEvent-filename><code>filename</code></dfn>
   attribute represents the <span>absolute URL</span> of the script in
   which the error originally occured.<p>The <dfn id=dom-errorevent-lineno title=dom-ErrorEvent-lineno><code>lineno</code></dfn>
@@ -1783,23 +1783,23 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
 };</pre><p>Objects implementing the <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code> interface must also
   implement the <span>NavigatorID</span> and
   <span>NavigatorOnLine</span> interfaces specified in the HTML5
-  specification. <a href=#refsHTML5>[HTML5]</a><p class=note>The <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code>
+  specification. <a href=#references>[HTML5]</a><p class=note>The <code title=worker-Navigator><a href=#worker-navigator>Navigator</a></code>
   interface defined in this specification is different than the one
   defined in the HTML5 specification.<h3 id=apis-defined-in-other-specifications><span class=secno>5.3 </span>APIs defined in other specifications</h3><p>The <code title=dom-opendatabase>openDatabase()</code> and
   <code title=dom-opendatabase-sync>openDatabaseSync()</code>
-  methods are defined in the Web Storage specification. <a href=#refsWEBSTORAGE>[WEBSTORAGE]</a><h3 id=interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
+  methods are defined in the Web Storage specification. <a href=#references>[WEBSTORAGE]</a><h3 id=interface-objects-and-constructors><span class=secno>5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
   the global scope of scripts whose <span>script execution
   context</span> is a <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object except for
   the following:<ul><li><p><code>XMLHttpRequest</code> and all interface objects and
    constructors defined by the XMLHttpRequest specifications, except
    that the <span>document response entity body</span> must always be
-   null. <a href=#refsXHR>[XHR]</a></li>
+   null. <a href=#references>[XHR]</a></li>
 
    <li><p>The <code>WebSocket</code> interface object and
-   constructor. <a href=#refsWEBSOCKET>[WEBSOCKET]</a></li>
+   constructor. <a href=#references>[WEBSOCKET]</a></li>
 
    <li><p>The <code>MessageChannel</code> interface object and
-   constructor. <a href=#refsHTML5>[HTML5]</a></li>
+   constructor. <a href=#references>[HTML5]</a></li>
 
    <li><p>The <code title=dom-Worker><a href=#dom-worker>Worker()</a></code> and <code title=dom-SharedWorker><a href=#dom-sharedworker>SharedWorker(<var title="">url</var>)</a></code> constructors.</li>
 
@@ -1826,7 +1826,7 @@ interface <dfn id=sharedworker>SharedWorker</dfn> : <a href=#abstractworker>Abst
   <span>absolute URL</span> that the object represents (same as the
   <code title=dom-WorkerLocation-href><a href=#dom-workerlocation-href>href</a></code> attribute), and
   the <span title=concept-uda-setter>common setter action</span>
-  being a no-op, since the attributes are defined to be readonly. <a href=#refsHTML5>[HTML5]</a><h2 class=no-num id=references>References</h2><p class=big-issue>This section will be written in a future
+  being a no-op, since the attributes are defined to be readonly. <a href=#references>[HTML5]</a><h2 class=no-num id=references>References</h2><p class=big-issue>This section will be written in a future
   draft.<!--XXX--><h2 class=no-num id=acknowledgements>Acknowledgements</h2><!-- ACKS --><p>Thanks to
 
   Aaron Boodman,
