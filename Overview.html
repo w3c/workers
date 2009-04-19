@@ -1446,7 +1446,7 @@ function _decrypt(k, s) {
   </ol><h3 id=runtime-script-errors><span class=secno>4.7 </span>Runtime script errors</h3><p>Whenever a runtime script error occurs in one of the worker's
   scripts, if the error did not occur while handling a previous script
   error, the user agent must <span>queue a task</span> to <a href=#fire-an-error-event>fire
-  an error event</a> at the the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code>
+  an error event</a> at the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code>
   object.<p>For shared workers, if the error is still <i title="">not
   handled</i> afterwards, or if the error occured while handling a
   previous script error, the error should be reported to the user.<p>For dedicated workers, if the error is still <i title="">not
