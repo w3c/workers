@@ -1023,7 +1023,7 @@ function _decrypt(k, s) {
    with another port and that has one (but only one) port whose owner
    is the <code><a href=#workerglobalscope>WorkerGlobalScope</a></code> object on which the method
    was invoked (this would include, for instance, the implicit port in
-   used for dedicated workers), unentangle the two ports.</li>
+   used for dedicated workers), disentangle the two ports.</li>
 
   </ol><p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
   that must be supported, as DOM attributes, by objects implementing
@@ -1038,9 +1038,8 @@ function _decrypt(k, s) {
   had an implicit <code>MessagePort</code> associated with them. This
   port is part of a channel that is set up when the worker is created,
   but it is not exposed. This object must never be garbage collected
-  before the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> object.<p>All messages received by that port must immediately be
-  retargetted at the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code>
-  object.<p>The <dfn id=dom-dedicatedworkerglobalscope-postmessage title=dom-DedicatedWorkerGlobalScope-postMessage><code>postMessage()</code></dfn><!--
+  before the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> object.<p>All messages received by that port must immediately be retargeted
+  at the <code><a href=#dedicatedworkerglobalscope>DedicatedWorkerGlobalScope</a></code> object.<p>The <dfn id=dom-dedicatedworkerglobalscope-postmessage title=dom-DedicatedWorkerGlobalScope-postMessage><code>postMessage()</code></dfn><!--
   and <dfn
   title="dom-DedicatedWorkerGlobalScope-startConversation"><code>startConversation()</code></dfn>-->
   method<!--s (startConversation)--> on
@@ -1501,8 +1500,8 @@ interface <dfn id=worker>Worker</dfn> : <a href=#abstractworker>AbstractWorker</
   <code>MessagePort</code> associated with them. This port is part of
   a channel that is set up when the worker is created, but it is not
   exposed. This object must never be garbage collected before the
-  <code><a href=#worker>Worker</a></code> object.<p>All messages received by that port must immediately be
-  retargetted at the <code><a href=#worker>Worker</a></code> object.<p>The <dfn id=dom-worker-postmessage title=dom-Worker-postMessage><code>postMessage()</code></dfn><!--
+  <code><a href=#worker>Worker</a></code> object.<p>All messages received by that port must immediately be retargeted
+  at the <code><a href=#worker>Worker</a></code> object.<p>The <dfn id=dom-worker-postmessage title=dom-Worker-postMessage><code>postMessage()</code></dfn><!--
   and <dfn
   title="dom-Worker-startConversation"><code>startConversation()</code></dfn>-->
   method<!--s (startConversation)--> on <code><a href=#worker>Worker</a></code> objects
