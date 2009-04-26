@@ -147,7 +147,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 24 April 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 26 April 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -215,7 +215,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 24 April 2009 Editor's Draft.
+  This specification is the 26 April 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1446,25 +1446,25 @@ function _decrypt(k, s) {
 
   </ol><h3 id="runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</h3><p>Whenever a runtime script error occurs in one of the worker's
   scripts, if the error did not occur while handling a previous script
-  error, the user agent must <span>queue a task</span> to <a href="#fire-an-error-event">fire
-  an error event</a> at the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
-  object.<p>For shared workers, if the error is still <i title="">not
+  error, the user agent must <span>queue a task</span> to <span>fire a
+  simple event</span> called <code title="event-error">error</code> at
+  the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object.<p>For shared workers, if the error is still <i title="">not
   handled</i> afterwards, or if the error occured while handling a
   previous script error, the error should be reported to the user.<p>For dedicated workers, if the error is still <i title="">not
   handled</i> afterwards, or if the error occured while handling a
   previous script error, the user agent must further <span>queue a
-  task</span> to <a href="#fire-an-error-event">fire an error event</a> at the
-  <code><a href="#worker">Worker</a></code> object associated with the worker.<p>When the user agent is to <dfn id="fire-an-error-event">fire an error event</dfn> at a
-  <code><a href="#worker">Worker</a></code> object, it must dispatch an event that uses the
-  <code><a href="#errorevent">ErrorEvent</a></code> interface, with the name <code title="event-error">error</code>, that doesn't bubble and is
+  task</span> to <a href="#fire-a-worker-error-event">fire a worker error event</a> at the
+  <code><a href="#worker">Worker</a></code> object associated with the worker.<p>When the user agent is to <dfn id="fire-a-worker-error-event">fire a worker error event</dfn> at
+  a <code><a href="#worker">Worker</a></code> object, it must dispatch an event that uses
+  the <code><a href="#errorevent">ErrorEvent</a></code> interface, with the name <code title="event-error">error</code>, that doesn't bubble and is
   cancelable, with its <code title="dom-ErrorEvent-message"><a href="#dom-errorevent-message">message</a></code>, <code title="dom-ErrorEvent-filename"><a href="#dom-errorevent-filename">filename</a></code>, and <code title="dom-ErrorEvent-lineno"><a href="#dom-errorevent-lineno">lineno</a></code> attributes set
   appropriately. The default action of this event depends on whether
   the <code><a href="#worker">Worker</a></code> object is itself in a worker. If it is, and
   that worker is also a dedicated worker, then the user agent must
-  again <span>queue a task</span> to <a href="#fire-an-error-event">fire an error event</a>
-  at the <code><a href="#worker">Worker</a></code> object associated with <em>that</em>
-  worker. Otherwise, then the error should be reported to the
-  user.<hr><pre class="idl">interface <dfn id="errorevent">ErrorEvent</dfn> : Event {
+  again <span>queue a task</span> to <a href="#fire-a-worker-error-event">fire a worker error
+  event</a> at the <code><a href="#worker">Worker</a></code> object associated with
+  <em>that</em> worker. Otherwise, then the error should be reported
+  to the user.<hr><pre class="idl">interface <dfn id="errorevent">ErrorEvent</dfn> : Event {
   readonly attribute DOMObject <a href="#dom-errorevent-message" title="dom-ErrorEvent-message">message</a>;
   readonly attribute DOMObject <a href="#dom-errorevent-filename" title="dom-ErrorEvent-filename">filename</a>;
   readonly attribute unsigned long <a href="#dom-errorevent-lineno" title="dom-ErrorEvent-lineno">lineno</a>;
@@ -1631,11 +1631,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
        <li><p>Create an event that uses the <code>MessageEvent</code>
        interface, with the name <code title="event-connect">connect</code>, which does not bubble, is
-       cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
-       is the empty string and has a <code title="dom-MessageEvent-ports">ports</code>
-       attribute whose value is an array containing only the newly
-       created port, and <span>queue a task</span> to dispatch the
-       event at <var title="">worker global scope</var>.</li>
+       not cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
+       is the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose
+       value is an array containing only the newly created port, and
+       <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
 
        <li><p>Abort all these steps.</li>
 
@@ -1662,11 +1661,12 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
    asynchronously.</li>
 
    <li><p>Create an event that uses the <code>MessageEvent</code>
-   interface, with the name <code title="event-connect">connect</code>, which does not bubble, is
+   interface, with the name <code title="event-connect">connect</code>, which does not bubble, is not
    cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value is
-   the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute
-   whose value is an array containing only the newly created port, and
-   <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
+   the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value
+   is an array containing only the newly created port, and <span>queue
+   a task</span> to dispatch the event at <var title="">worker global
+   scope</var>.</li>
 
    <li>
 
