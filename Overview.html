@@ -151,7 +151,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 10 May 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 23 May 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -219,7 +219,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 10 May 2009 Editor's Draft.
+  This specification is the 23 May 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -369,7 +369,7 @@ server.onmessage = function (event) {
    }
   &lt;/script&gt;
  &lt;/head&gt;
- &lt;body&gt;
+ &lt;body onload="search('')"&gt;
   &lt;p&gt;&lt;output id="symbol"&gt;&lt;/output&gt; &lt;output id="value"&gt;&lt;/output&gt;&lt;/p&gt;
   &lt;script&gt;
    ticker.onmessage = function (event) {
@@ -379,7 +379,7 @@ server.onmessage = function (event) {
    };
    ticker.postMessage(symbol);
   &lt;/script&gt;
-  &lt;p&gt;&lt;label&gt;Search: &lt;input type="text" oninput="search(this.value)"&gt;&lt;/label&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;label&gt;Search: &lt;input type="text" autofocus oninput="search(this.value)"&gt;&lt;/label&gt;&lt;/p&gt;
   &lt;ul id="results"&gt;&lt;/ul&gt;
   &lt;script&gt;
    searcher.onmessage = function (event) {
