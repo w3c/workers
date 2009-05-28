@@ -259,7 +259,7 @@
    <li><a href="#base-urls-and-origins-of-workers"><span class="secno">4.2 </span>Base URLs and origins of workers</a></li>
    <li><a href="#decoding-scripts"><span class="secno">4.3 </span>Decoding scripts</a></li>
    <li><a href="#the-event-loop"><span class="secno">4.4 </span>The event loop</a></li>
-   <li><a href="#the-worker-s-ports"><span class="secno">4.5 </span>The worker's ports</a></li>
+   <li><a href="#the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</a></li>
    <li><a href="#processing-model"><span class="secno">4.6 </span>Processing model</a></li>
    <li><a href="#runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</a></li>
    <li><a href="#creating-workers"><span class="secno">4.8 </span>Creating workers</a>
@@ -1024,7 +1024,7 @@ function _decrypt(k, s) {
    <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
    true. (This prevents any further tasks from being queued.)</li>
 
-   <li><p>Disentangle all the ports in the list of <a href="#the-worker-s-ports-0">the worker's
+   <li><p>Disentangle all the ports in the list of <a href="#the-worker-s-ports">the worker's
    ports</a>.</li>
 
   </ol><p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
@@ -1163,9 +1163,9 @@ function _decrypt(k, s) {
   already on the queue are unaffected unless otherwise
   specified). Effectively, once the <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is true,
   timers stop firing, notifications for all pending asynchronous
-  operations are dropped, etc.<h3 id="the-worker-s-ports"><span class="secno">4.5 </span>The worker's ports</h3><p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
+  operations are dropped, etc.<h3 id="the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</h3><p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
   <code>MessagePort</code> objects.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> <var title="">worker global
-  scope</var> has a list of <dfn id="the-worker-s-ports-0">the worker's ports</dfn>, which
+  scope</var> has a list of <dfn id="the-worker-s-ports">the worker's ports</dfn>, which
   consists of all the <code>MessagePort</code> objects that are
   entangled with another port and that have one (but only one) port
   owned by <var title="">worker global scope</var>. This list includes
@@ -1174,14 +1174,15 @@ function _decrypt(k, s) {
   because in practice it makes no difference either way as far as I
   can tell, and it would be hard to strictly implement since these
   ports might not yet be across the thread boundary)--> the implicit
-  <code>MessagePort</code> in the case of <a href="#dedicatedworkerglobalscope" title="DedicatedWorkerGlobalScope">dedicated workers</a>.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of <dfn id="the-worker-s-documents">the
-  worker's <code>Document</code>s</dfn>. Initially this list is empty;
-  it is populated when the worker is created.<p>Whenever a <code>Document</code> <var title="">d</var> is <dfn id="add-a-document-to-the-worker-s-documents" title="add a document to the worker's documents">added to the
+  <code>MessagePort</code> in the case of <a href="#dedicatedworkerglobalscope" title="DedicatedWorkerGlobalScope">dedicated workers</a>.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of <dfn id="the-worker-s-workers">the
+  worker's workers</dfn>. Initially this list is empty; it is
+  populated when the worker creates or obtains further workers.<p>Finally, each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of
+  <dfn id="the-worker-s-documents">the worker's <code>Document</code>s</dfn>. Initially this list
+  is empty; it is populated when the worker is created.<p>Whenever a <code>Document</code> <var title="">d</var> is <dfn id="add-a-document-to-the-worker-s-documents" title="add a document to the worker's documents">added to the
   worker's <code>Document</code>s</dfn>, the user agent must, for each
-  port in the list of <a href="#the-worker-s-ports-0">the worker's ports</a> that is
-  entangled with a second port <var title="">p</var> whose owner is a
-  <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object whose list of <a href="#the-worker-s-documents">the
-  worker's <code>Document</code>s</a> does not contain <var title="">d</var>, <a href="#add-a-document-to-the-worker-s-documents" title="add a document to the worker's
+  worker in the list of <a href="#the-worker-s-workers">the worker's workers</a> whose list
+  of <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a> does not contain
+  <var title="">d</var>, <a href="#add-a-document-to-the-worker-s-documents" title="add a document to the worker's
   documents">add <var title="">d</var> to <var title="">q</var>'s
   <code>WorkerGlobalScope</code> owner's list of <span>the worker's
   <code>Document</code>s</span></a>.</p><!-- suggestions welcome
@@ -1202,7 +1203,7 @@ function _decrypt(k, s) {
   empty.<p>A worker is said to be a <dfn id="protected-worker">protected worker</dfn> if it is a
   <a href="#permissible-worker">permissible worker</a> and either it has outstanding
   timers, database transactions, or network connections, or its list
-  of <a href="#the-worker-s-ports-0">the worker's ports</a> is not empty, or its
+  of <a href="#the-worker-s-ports">the worker's ports</a> is not empty, or its
   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> is actually a
   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object (i.e. the worker is a
   shared worker).<p>A worker is said to be an <dfn id="active-needed-worker">active needed worker</dfn> if any
@@ -1586,6 +1587,18 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
 
    <li>
 
+    <p>If the <span title="script's global scope">global scope</span>
+    of the <span title="concept-script">script</span> that invoked the
+    constructor is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object (i.e. we
+    are creating a nested worker), add <var title="">worker global
+    scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
+    <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span title="script's global scope">global scope</span> of the <span title="concept-script">script</span> that invoked the
+    constructor.</p>
+
+   </li>
+
+   <li>
+
     <p><a href="#run-a-worker">Run a worker</a> for the resulting <span>absolute
     URL</span>, with the <span>script browsing context</span> of the
     script that invoked the method as the <var title="">owner browsing
@@ -1683,6 +1696,19 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
        </li>
 
+       <li>
+
+        <p>If the <span title="script's global scope">global
+        scope</span> of the <span title="concept-script">script</span>
+        that invoked the constructor is a
+        <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the
+        worker's workers</a> of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
+        object that is the <span title="script's global scope">global
+        scope</span> of the <span title="concept-script">script</span>
+        that invoked the constructor.</p>
+
+       </li>
+
        <li><p>Abort all these steps.</li>
 
       </ol></li>
@@ -1721,6 +1747,18 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
     <var title="">worker global scope</var>'s list of <span>the
     worker's <code>Document</code>s</span></a> the
     <code>Document</code> objects in <var title="">docs</var>.</p>
+
+   </li>
+
+   <li>
+
+    <p>If the <span title="script's global scope">global scope</span>
+    of the <span title="concept-script">script</span> that invoked the
+    constructor is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the
+    worker's workers</a> of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
+    object that is the <span title="script's global scope">global
+    scope</span> of the <span title="concept-script">script</span>
+    that invoked the constructor.</p>
 
    </li>
 
