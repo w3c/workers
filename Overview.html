@@ -151,7 +151,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 6 June 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 11 June 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -219,7 +219,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 6 June 2009 Editor's Draft.
+  This specification is the 11 June 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1148,14 +1148,15 @@ function _decrypt(k, s) {
 
    </li>
 
-  </ol><h3 id="the-event-loop"><span class="secno">4.4 </span>The event loop</h3><p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object is asssociated with a
-  <span>event loop</span>. This <span>event loop</span> has no
-  associated <span>browsing context</span>, and its <span title="task
-  queue">task queues</span> only have events, callbacks, and
-  networking activity as <span title="concept-task">tasks</span>. The
-  processing model of these <span title="event loop">event
-  loops</span> is defined below in the <a href="#run-a-worker">run a worker</a>
-  algorithm.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object also has a <dfn id="dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</dfn> flag, which must
+  </ol><h3 id="the-event-loop"><span class="secno">4.4 </span>The event loop</h3><p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has an <span>event
+  loop</span> distinct from those defined for <span title="unit of
+  related similar-origin browsing contexts">units of related
+  similar-origin browsing contexts</span>. This <span>event
+  loop</span> has no associated <span>browsing context</span>, and its
+  <span title="task queue">task queues</span> only have events,
+  callbacks, and networking activity as <span title="concept-task">tasks</span>. The processing model of these
+  <span title="event loop">event loops</span> is defined below in the
+  <a href="#run-a-worker">run a worker</a> algorithm.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object also has a <dfn id="dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</dfn> flag, which must
   initially be false, but which can get set to true by the algorithms
   in the processing model section below.<p>Once the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>'s <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is set to
   true, the <span>event loop</span>'s <span title="task queue">task
