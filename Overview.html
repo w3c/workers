@@ -1545,7 +1545,9 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
   the <code><a href="#worker">Worker</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-worker-onmessage" title="handler-Worker-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
   </table><hr><p>When the <dfn id="dom-worker" title="dom-Worker"><code>Worker(<var title="">scriptURL</var>)</code></dfn> constructor is invoked, the
-  user agent must run the following steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument.</li>
+  user agent must run the following steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument relative to the <span>first
+   script</span>'s <span title="script's base URL">base URL</span>,
+   when the method is invoked.</li>
 
    <li><p>If this fails, throw a <code>SYNTAX_ERR</code>
    exception.</li>
