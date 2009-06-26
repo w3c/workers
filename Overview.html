@@ -166,7 +166,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 24 June 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-date-1-january-1970">Editor's Draft 26 June 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -234,7 +234,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 24 June 2009 Editor's Draft.
+  This specification is the 26 June 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1629,7 +1629,9 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
 
    </li>
 
-  </ol><h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4><pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(in DOMString scriptURL, in DOMString name)]
+  </ol><p>This constructor must be visible when the <span>script's global
+  scope</span> is either a <code>Window</code> object or an object
+  implementing the <code>WorkerUtils interface.</code><h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4><pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(in DOMString scriptURL, in DOMString name)]
 interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
   readonly attribute <span>MessagePort</span> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
 };</pre><p>The <dfn id="dom-sharedworker-port" title="dom-SharedWorker-port"><code>port</code></dfn>
@@ -1794,11 +1796,11 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
    </li>
 
-  </ol><h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2><pre class="idl">[NoInterfaceObject, ImplementedOn=WorkerGlobalScope, Supplemental] interface <dfn id="workerutils">WorkerUtils</dfn> {
+  </ol><p>This constructor must be visible when the <span>script's global
+  scope</span> is either a <code>Window</code> object or an object
+  implementing the <code>WorkerUtils interface.</code><h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2><pre class="idl">[NoInterfaceObject, ImplementedOn=WorkerGlobalScope, Supplemental] interface <dfn id="workerutils">WorkerUtils</dfn> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>([Variadic] in DOMString urls);
   readonly attribute <a href="#worker-navigator" title="worker-Navigator">Navigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
-  <span>Database</span> <span title="dom-opendatabase">openDatabase</span>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
-  <span>DatabaseSync</span> <span title="dom-opendatabase-sync">openDatabaseSync</span>(in DOMString name, in DOMString version, in DOMString displayName, in unsigned long estimatedSize);
 };</pre><p>Objects that implement the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
   interface must also implement the <code><a href="#workerutils">WorkerUtils</a></code>
   interface.<p>Objects that implement the <code><a href="#workerutils">WorkerUtils</a></code> interface
