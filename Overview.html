@@ -1023,8 +1023,8 @@ function _decrypt(k, s) {
   // also implements everything on <a href="#workerutils">WorkerUtils</a>
 
   void <a href="#dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close">close</a>();
-<!-- v2-onclose           attribute <span>EventListener</span> <span title="handler-WorkerGlobalScope-onclose">onclose</span>;
--->           attribute <span>EventListener</span> <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
+<!-- v2-onclose           attribute <span>Function</span> <span title="handler-WorkerGlobalScope-onclose">onclose</span>;
+-->           attribute <span>Function</span> <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
 };</pre><p>Objects implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface
   must also implement the <code>EventTarget</code> interface.<p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
   must return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.<p>The <dfn id="dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location"><code>location</code></dfn>
@@ -1057,7 +1057,7 @@ function _decrypt(k, s) {
   </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[NoInterfaceObject, Supplemental] interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(in any message, [Optional] in <span>MessagePortArray</span> ports);<!--
   <span>MessagePort</span> <span title="dom-DedicatedWorkerGlobalScope-startConversation">startConversation</span>(in any message);-->
-           attribute <span>EventListener</span> <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
+           attribute <span>Function</span> <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
 };</pre><p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they
   had an implicit <code>MessagePort</code> associated with them. This
   port is part of a channel that is set up when the worker is created,
@@ -1081,7 +1081,7 @@ function _decrypt(k, s) {
   <span>cache host</span> from which it was created.<h4 id="shared-workers-and-the-sharedworkerglobalscope-inteface"><span class="secno">4.1.3 </span>Shared workers and the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> inteface</h4><pre class="idl">[NoInterfaceObject, Supplemental] interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   readonly attribute DOMString <a href="#dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name">name</a>;
   readonly attribute <span>ApplicationCache</span> <a href="#dom-sharedworkerglobalscope-applicationcache" title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</a>;
-           attribute <span>EventListener</span> <a href="#handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect">onconnect</a>;
+           attribute <span>Function</span> <a href="#handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect">onconnect</a>;
 };</pre><p>Shared workers receive message ports through <code title="event-WorkerGlobalScope-connect">connect</code> events on
   their global object for each connection.<p>The <dfn id="dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name"><code>name</code></dfn>
   attribute must return the value it was assigned when the
@@ -1521,8 +1521,8 @@ function _decrypt(k, s) {
   which the error originally occurred.<p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
   attribute represents the line number where the error occurred in the
   script.<h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">interface <dfn id="abstractworker">AbstractWorker</dfn> {
-           attribute <span>EventListener</span> <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
-<!-- v2-onclose           attribute <span>EventListener</span> <span title="handler-AbstractWorker-onclose">onclose</span>; -->
+           attribute <span>Function</span> <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
+<!-- v2-onclose           attribute <span>Function</span> <span title="handler-AbstractWorker-onclose">onclose</span>; -->
 };</pre><p>Objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface
   must also implement the <code>EventTarget</code> interface.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
   that must be supported, as DOM attributes, by objects implementing
@@ -1535,7 +1535,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
 
   void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(in any message, [Optional] in <span>MessagePortArray</span> ports);<!--
   <span>MessagePort</span> <span title="dom-Worker-startConversation">startConversation</span>(in any message);-->
-           attribute <span>EventListener</span> <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
+           attribute <span>Function</span> <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
 };</pre><p>The <dfn id="dom-worker-terminate" title="dom-Worker-terminate"><code>terminate()</code></dfn> method,
   when invoked, must cause the "<a href="#terminate-a-worker">terminate a worker</a>"
   algorithm to be run on the worker with with the object is
