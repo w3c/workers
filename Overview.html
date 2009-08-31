@@ -173,7 +173,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-30-august-2009">Editor's Draft 30 August 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-31-august-2009">Editor's Draft 31 August 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -241,7 +241,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 30 August 2009 Editor's Draft.
+  This specification is the 31 August 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1050,7 +1050,7 @@ function _decrypt(k, s) {
    ports</a>.</li>
 
   </ol><p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
-  that must be supported, as DOM attributes, by objects implementing
+  that must be supported, as IDL attributes, by objects implementing
   the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
    <tbody><!-- v2-onclose    <tr><td><dfn title="handler-WorkerGlobalScope-onclose"><code>onclose</code></dfn> <td> <code title="event-close">close</code> --><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
   </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
@@ -1072,7 +1072,7 @@ interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> 
   method of the same name on the port, with the same arguments, and
   returned the same return value.<p>The following are the <span>event handler attributes</span> (and
   their corresponding <span title="event handler event type">event
-  handler event types</span>) that must be supported, as DOM
+  handler event types</span>) that must be supported, as IDL
   attributes, by objects implementing the
   <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
@@ -1091,7 +1091,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   that can be used to obtain a reference to the worker using the
   <code><a href="#sharedworker">SharedWorker</a></code> constructor.<p>The following are the <span>event handler attributes</span> (and
   their corresponding <span title="event handler event type">event
-  handler event types</span>) that must be supported, as DOM
+  handler event types</span>) that must be supported, as IDL
   attributes, by objects implementing the
   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect"><code>onconnect</code></dfn> <td> <code title="event-connect">connect</code>
@@ -1528,7 +1528,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
 <!-- v2-onclose           attribute <span>Function</span> <span title="handler-AbstractWorker-onclose">onclose</span>; -->
 };</pre><p>Objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface
   must also implement the <code>EventTarget</code> interface.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
-  that must be supported, as DOM attributes, by objects implementing
+  that must be supported, as IDL attributes, by objects implementing
   the <code><a href="#abstractworker">AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-abstractworker-onerror" title="handler-AbstractWorker-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
 <!-- v2-onclose    <tr><td><dfn title="handler-AbstractWorker-onclose"><code>onclose</code></dfn> <td> <code title="event-close">close</code> -->
@@ -1554,7 +1554,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
   must act as if, when invoked, it<!--/they (startConversation)-->
   immediately invoked the method of the same name on the port, with
   the same arguments, and returned the same return value.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
-  that must be supported, as DOM attributes, by objects implementing
+  that must be supported, as IDL attributes, by objects implementing
   the <code><a href="#worker">Worker</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-worker-onmessage" title="handler-Worker-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
   </table><hr><p>When the <dfn id="dom-worker" title="dom-Worker"><code>Worker(<var title="">scriptURL</var>)</code></dfn> constructor is invoked, the
@@ -1958,12 +1958,12 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   URL</span> set at its creation.<p>The <dfn id="dom-workerlocation-href" title="dom-WorkerLocation-href"><code>href</code></dfn>
   attribute must return the <span>absolute URL</span> that the object
   represents.<p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface also has the complement
-  of <span>URL decomposition DOM attributes</span>, <dfn id="dom-workerlocation-protocol" title="dom-WorkerLocation-protocol"><code>protocol</code></dfn>,
+  of <span>URL decomposition IDL attributes</span>, <dfn id="dom-workerlocation-protocol" title="dom-WorkerLocation-protocol"><code>protocol</code></dfn>,
   <dfn id="dom-workerlocation-host" title="dom-WorkerLocation-host"><code>host</code></dfn>, <dfn id="dom-workerlocation-port" title="dom-WorkerLocation-port"><code>port</code></dfn>, <dfn id="dom-workerlocation-hostname" title="dom-WorkerLocation-hostname"><code>hostname</code></dfn>,
   <dfn id="dom-workerlocation-pathname" title="dom-WorkerLocation-pathname"><code>pathname</code></dfn>,
   <dfn id="dom-workerlocation-search" title="dom-WorkerLocation-search"><code>search</code></dfn>,
   and <dfn id="dom-workerlocation-hash" title="dom-WorkerLocation-hash"><code>hash</code></dfn>. These must
-  follow the rules given for URL decomposition DOM attributes, with the
+  follow the rules given for URL decomposition IDL attributes, with the
   <span title="concept-uda-input">input</span> being the
   <span>absolute URL</span> that the object represents (same as the
   <code title="dom-WorkerLocation-href"><a href="#dom-workerlocation-href">href</a></code> attribute), and
