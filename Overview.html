@@ -169,7 +169,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-17-september-2009">Editor's Draft 17 September 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-18-september-2009">Editor's Draft 18 September 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -237,7 +237,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 17 September 2009 Editor's Draft.
+  This specification is the 18 September 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1271,8 +1271,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
     <p class="note">As with <code>script</code> elements, the MIME
     type of the script is ignored. Unlike with <code>script</code>
     elements, there is no way to override the type. It's always
-    assumed to be JavaScript.</p> <!-- XXX people will complain about
-    this. I guess we might want to examine the MIME type... -->
+    assumed to be JavaScript.</p>
 
    </li>
 
@@ -1852,8 +1851,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   interface must also implement the <code><a href="#workerutils">WorkerUtils</a></code>
   interface.<p>Objects that implement the <code><a href="#workerutils">WorkerUtils</a></code> interface
   must also implement the <code>WindowTimers</code> interface. (This
-  interface provides the <code title="">setTimeout()</code> method and
-  its friends.)</p><!-- XXX ref --><!-- XXX ApplicationCache --><!-- XXX debugging: void log(in DOMString s); // log to console --><hr><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
+  interface provides the <code title="dom-windowtimers-setTimeout">setTimeout()</code> method and
+  its friends.)<hr><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
   objects, etc) are not available to workers in this version of this
   specification.<h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3><p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user agent must run the
@@ -1902,7 +1901,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
       <p class="note">As with the worker's script, the script here is
       always assumed to be JavaScript, regardless of the MIME
-      type.</p> <!-- XXX -->
+      type.</p>
 
      </li>
 
@@ -1918,9 +1917,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
       prematurely aborted by the "<a href="#kill-a-worker">kill a worker</a>" or
       "<a href="#terminate-a-worker">terminate a worker</a>" algorithms defined above.</p>
 
-      <p>If it failed to parse, then throw a
-      <code>SyntaxError</code><!-- XXX ref? --> exception and abort
-      all these steps.</p>
+      <p>If it failed to parse, then throw a <code>SyntaxError</code>
+      exception and abort all these steps.</p>
 
       <p>If an exception was raised or if the script was prematurely
       aborted, then abort all these steps, letting the exception or
