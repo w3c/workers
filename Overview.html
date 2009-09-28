@@ -169,7 +169,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-27-september-2009">Editor's Draft 27 September 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-28-september-2009">Editor's Draft 28 September 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -237,7 +237,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 27 September 2009 Editor's Draft.
+  This specification is the 28 September 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1232,8 +1232,9 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   <code>Document</code>s</a> are <span>fully active</span>.<p>A worker is said to be a <dfn id="suspendable-worker">suspendable worker</dfn> if it is
   not an <a href="#active-needed-worker">active needed worker</a> but it is a
   <a href="#permissible-worker">permissible worker</a>.<h3 id="processing-model"><span class="secno">4.6 </span>Processing model</h3><p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with
-  <span>URL</span> <var title="">url</var>, a browsing context <var title="">owner browsing context</var>, and with global scope <var title="">worker global scope</var>, it must run the following
-  steps:<ol><li>
+  <span>URL</span> <var title="">url</var>, a browsing context <var title="">owner browsing context</var>, an origin <var title="">owner
+  origin</var>, and with global scope <var title="">worker global
+  scope</var>, it must run the following steps:<ol><li>
 
     <p>Create a completely separate and parallel execution environment
     (i.e. a separate thread or process or equivalent construct), and
@@ -1252,7 +1253,8 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
 
    <li>
 
-    <p>Attempt to <span>fetch</span> the resource identified by <var title="">url</var>.</p>
+    <p>Attempt to <span>fetch</span> the resource identified by <var title="">url</var>, from the <var title="">owner origin</var>.</p>
+    <!-- not http-origin privacy sensitive -->
 
     <p>If the attempt fails, or if the attempt involves any redirects
     to URIs that do not have the <span>same origin</span> as <var title="">url</var> (even if the final URI is at the <span>same
@@ -1564,9 +1566,8 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
 
     <p>If the <span>origin</span> of the resulting <span>absolute
     URL</span> is not the <span title="same origin">same</span> as the
-    origin of the <span title="concept-script">script</span> that
-    invoked the constructor, then throw a <span>security
-    exception</span>.</p>
+    origin of the <span>first script</span>, then throw a
+    <span>security exception</span>.</p>
 
     <p class="note">Thus, scripts must be external files with the same
     scheme as the original page: you can't load a script from a <code title="">data:</code> URL or <code title="">javascript:</code>
@@ -1641,8 +1642,9 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
     <p><a href="#run-a-worker">Run a worker</a> for the resulting <span>absolute
     URL</span>, with the <span>script browsing context</span> of the
     script that invoked the method as the <var title="">owner browsing
-    context</var>, and with <var title="">worker global scope</var> as
-    the global scope.</p>
+    context</var>, with the <span>origin</span> of the <span>first
+    script</span> as the <var title="">owner origin</var>, and with
+    <var title="">worker global scope</var> as the global scope.</p>
 
    </li>
 
@@ -1672,7 +1674,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
     <p>If the <span>origin</span> of <var title="">scriptURL</var> is
     not the <span title="same origin">same</span> as the origin of the
-    script that invoked the constructor, then throw a <span>security
+    <span>first script</span>, then throw a <span>security
     exception</span>.</p>
 
     <p class="note">Thus, scripts must be external files with the same
@@ -1834,8 +1836,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
     <p><a href="#run-a-worker">Run a worker</a> for <var title="">scriptURL</var>,
     with the <span>script browsing context</span> of the script that
     invoked the method as the <var title="">owner browsing
-    context</var>, and with <var title="">worker global scope</var> as
-    the global scope.</p>
+    context</var>, with the <span>origin</span> of the <span>first
+    script</span> as the <var title="">owner origin</var>, and with
+    <var title="">worker global scope</var> as the global scope.</p>
 
    </li>
 
@@ -1871,7 +1874,9 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    <li>
 
     <p>Attempt to <span>fetch</span> each resource identified by the
-    resulting <span title="absolute URLs">absolute URL</span>.</p>
+    resulting <span title="absolute URLs">absolute URL</span>, from
+    the <span>first script</span>'s <span>origin</span>.</p> <!-- not
+    http-origin privacy sensitive -->
 
    </li>
 
