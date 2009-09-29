@@ -169,7 +169,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-28-september-2009">Editor's Draft 28 September 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-29-september-2009">Editor's Draft 29 September 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -237,7 +237,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 28 September 2009 Editor's Draft.
+  This specification is the 29 September 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -324,8 +324,7 @@
 &lt;/html&gt;</pre><p>The <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> constructor call
   creates a worker and returns a <code><a href="#worker">Worker</a></code> object
   representing that worker, which is used to communicate with the
-  worker. That object's <code title="handler-Worker-onmessage"><a href="#handler-worker-onmessage">onmessage</a></code> event handler
-  attribute allows the code to receive messages from the worker.<p>The worker itself is as follows:<pre>var n = 1;
+  worker. That object's <code title="handler-Worker-onmessage"><a href="#handler-worker-onmessage">onmessage</a></code> event handler allows the code to receive messages from the worker.<p>The worker itself is as follows:<pre>var n = 1;
 search: while (true) {
   n += 1;
   for (var i = 2; i &lt;= Math.sqrt(n); i += 1)
@@ -1045,9 +1044,11 @@ function _decrypt(k, s) {
    <li><p>Disentangle all the ports in the list of <a href="#the-worker-s-ports">the worker's
    ports</a>.</li>
 
-  </ol><p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
-  that must be supported, as IDL attributes, by objects implementing
-  the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+  </ol><p>The following are the <span>event handlers</span> (and their
+  corresponding <span title="event handler event type">event handler
+  event types</span>) that must be supported, as IDL attributes, by
+  objects implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
+  interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><!-- v2-onclose    <tr><td><dfn title="handler-WorkerGlobalScope-onclose"><code>onclose</code></dfn> <td> <code title="event-close">close</code> --><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
   </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
 interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
@@ -1066,11 +1067,11 @@ interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> 
   <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects must act as if, when
   invoked, it<!--/they (startConversation)--> immediately invoked the
   method of the same name on the port, with the same arguments, and
-  returned the same return value.<p>The following are the <span>event handler attributes</span> (and
-  their corresponding <span title="event handler event type">event
-  handler event types</span>) that must be supported, as IDL
-  attributes, by objects implementing the
-  <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+  returned the same return value.<p>The following are the <span>event handlers</span> (and their
+  corresponding <span title="event handler event type">event handler
+  event types</span>) that must be supported, as IDL attributes, by
+  objects implementing the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>
+  interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
   </table><p>For the purposes of the <span>offline application cache</span>
   networking model, a dedicated worker is an extension of the
@@ -1085,11 +1086,11 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object was created by the
   "<a href="#run-a-worker">run a worker</a>" algorithm. Its value represents the name
   that can be used to obtain a reference to the worker using the
-  <code><a href="#sharedworker">SharedWorker</a></code> constructor.<p>The following are the <span>event handler attributes</span> (and
-  their corresponding <span title="event handler event type">event
-  handler event types</span>) that must be supported, as IDL
-  attributes, by objects implementing the
-  <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+  <code><a href="#sharedworker">SharedWorker</a></code> constructor.<p>The following are the <span>event handlers</span> (and their
+  corresponding <span title="event handler event type">event handler
+  event types</span>) that must be supported, as IDL attributes, by
+  objects implementing the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code>
+  interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect"><code>onconnect</code></dfn> <td> <code title="event-connect">connect</code>
   </table><p>For the purposes of the <span>offline application cache</span>
   networking model, a shared worker is its own <span>cache
@@ -1524,9 +1525,10 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
            attribute <span>Function</span> <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
 <!-- v2-onclose           attribute <span>Function</span> <span title="handler-AbstractWorker-onclose">onclose</span>; -->
 };
-<a href="#abstractworker">AbstractWorker</a> implements <span>EventTarget</span>;</pre><p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
-  that must be supported, as IDL attributes, by objects implementing
-  the <code><a href="#abstractworker">AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+<a href="#abstractworker">AbstractWorker</a> implements <span>EventTarget</span>;</pre><p>The following are the <span>event handlers</span> (and their
+  corresponding <span title="event handler event type">event handler
+  event types</span>) that must be supported, as IDL attributes, by
+  objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-abstractworker-onerror" title="handler-AbstractWorker-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
 <!-- v2-onclose    <tr><td><dfn title="handler-AbstractWorker-onclose"><code>onclose</code></dfn> <td> <code title="event-close">close</code> -->
   </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4><pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(in DOMString scriptURL)]
@@ -1550,9 +1552,10 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
   method<!--s (startConversation)--> on <code><a href="#worker">Worker</a></code> objects
   must act as if, when invoked, it<!--/they (startConversation)-->
   immediately invoked the method of the same name on the port, with
-  the same arguments, and returned the same return value.<p>The following are the <span>event handler attributes</span> (and their corresponding <span title="event handler event type">event handler event types</span>)
-  that must be supported, as IDL attributes, by objects implementing
-  the <code><a href="#worker">Worker</a></code> interface:<table><thead><tr><th><span title="event handler attributes">event handler attribute</span> <th><span>Event handler event type</span>
+  the same arguments, and returned the same return value.<p>The following are the <span>event handlers</span> (and their
+  corresponding <span title="event handler event type">event handler
+  event types</span>) that must be supported, as IDL attributes, by
+  objects implementing the <code><a href="#worker">Worker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-worker-onmessage" title="handler-Worker-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
   </table><hr><p>When the <dfn id="dom-worker" title="dom-Worker"><code>Worker(<var title="">scriptURL</var>)</code></dfn> constructor is invoked, the
   user agent must run the following steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument relative to the <span>first
