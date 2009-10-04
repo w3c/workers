@@ -1033,7 +1033,7 @@ function _decrypt(k, s) {
 
 <!-- v2-onclose
    <li><p><span>Queue a task</span> to <span>fire a simple
-   event</span> called <code title="event-close">close</code> at the
+   event</span> named <code title="event-close">close</code> at the
    <code>WorkerGlobalScope</code> object.</p></li>
 -->
 
@@ -1263,7 +1263,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
     each <code><a href="#worker">Worker</a></code> or <code><a href="#sharedworker">SharedWorker</a></code> object
     associated with <var title="">worker global scope</var>,
     <span>queue a task</span> to <span>fire a simple event</span>
-    called <code title="event-error">error</code> at that
+    named <code title="event-error">error</code> at that
     object. Abort these steps.</p>
 
     <p>If the attempt succeeds, then <a href="#decode-a-script-resource" title="decode a script
@@ -1312,7 +1312,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
     <a href="#permissible-worker">permissible worker</a>, <var title="">worker global
     scope</var>'s <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is set
     to true<!-- v2-onclose and <span title="queue a task">a task is
-    queued</span> to <span>fire a simple event</span> called <code
+    queued</span> to <span>fire a simple event</span> named <code
     title="event-close">close</code> at <var title="">worker global
     scope</var>-->.</p>
 
@@ -1418,7 +1418,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
     <p>For each <code>Worker</code> or <code>SharedWorker</code>
     object associated with <var title="">worker global scope</var>,
     <span>queue a task</span> to <span>fire a simple event</span>
-    called <code title="event-close">close</code> at that object.</p>
+    named <code title="event-close">close</code> at that object.</p>
 
    </li>
 -->
@@ -1428,7 +1428,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
    <li><p>If the worker's <code>WorkerGlobalScope</code> object's
    <span title="dom-WorkerGlobalScope-closing">closing</span> flag is
    false, <span>queue a task</span> to <span>fire a simple
-   event</span> called <code title="event-close">close</code> at the
+   event</span> named <code title="event-close">close</code> at the
    worker's <code>WorkerGlobalScope</code> object.</p></li>
 --><li><p>Set the worker's <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
    true.</li>
