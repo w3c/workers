@@ -276,16 +276,15 @@
      <li><a href="#dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</a></li>
      <li><a href="#shared-workers-and-the-sharedworkerglobalscope-inteface"><span class="secno">4.1.3 </span>Shared workers and the <code>SharedWorkerGlobalScope</code> inteface</a></ol></li>
    <li><a href="#origins-of-workers"><span class="secno">4.2 </span>Origins of workers</a></li>
-   <li><a href="#decoding-scripts"><span class="secno">4.3 </span>Decoding scripts</a></li>
-   <li><a href="#the-event-loop"><span class="secno">4.4 </span>The event loop</a></li>
-   <li><a href="#the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</a></li>
-   <li><a href="#processing-model"><span class="secno">4.6 </span>Processing model</a></li>
-   <li><a href="#runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</a></li>
-   <li><a href="#creating-workers"><span class="secno">4.8 </span>Creating workers</a>
+   <li><a href="#the-event-loop"><span class="secno">4.3 </span>The event loop</a></li>
+   <li><a href="#the-worker-s-lifetime"><span class="secno">4.4 </span>The worker's lifetime</a></li>
+   <li><a href="#processing-model"><span class="secno">4.5 </span>Processing model</a></li>
+   <li><a href="#runtime-script-errors"><span class="secno">4.6 </span>Runtime script errors</a></li>
+   <li><a href="#creating-workers"><span class="secno">4.7 </span>Creating workers</a>
     <ol>
-     <li><a href="#the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
-     <li><a href="#dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
-     <li><a href="#shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
+     <li><a href="#the-abstractworker-abstract-interface"><span class="secno">4.7.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
+     <li><a href="#dedicated-workers-and-the-worker-interface"><span class="secno">4.7.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
+     <li><a href="#shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
  <li><a href="#apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</a>
   <ol>
    <li><a href="#importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</a></li>
@@ -1103,74 +1102,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   origin</span> of scripts running in workers are the
   <span>origin</span> of the <span>absolute URL</span> given in that
   the worker's <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location">location</a></code> attribute
-  represents.<h3 id="decoding-scripts"><span class="secno">4.3 </span>Decoding scripts</h3><p>When a user agent is to <dfn id="decode-a-script-resource">decode a script resource</dfn> to
-  obtain its source in Unicode, it must run the following steps:<ol><li>
-
-    <p>Let <var title="">character encoding</var> be <i title="">unknown</i>.</p>
-
-   </li>
-
-   <li>
-
-    <p>For each of the rows in the following table, starting with the
-    first one and going down, if the resource has as many or more
-    bytes available than the number of bytes in the first column, and
-    the first bytes of the resource match the bytes given in the first
-    column, then let <var title="">character encoding</var> be the
-    encoding given in the cell in the second column of that row:</p>
-
-    <!-- this table is present in several forms in this file; keep them in sync -->
-    <table><thead><tr><th>Bytes in Hexadecimal
-       <th>Encoding
-     <tbody><!-- nobody uses this
-      <tr>
-       <td>00 00 FE FF
-       <td>UTF-32BE
-      <tr>
-       <td>FF FE 00 00
-       <td>UTF-32LE
---><tr><td>FE FF
-       <td>UTF-16BE
-      <tr><td>FF FE
-       <td>UTF-16LE
-      <tr><td>EF BB BF
-       <td>UTF-8
-<!-- nobody uses this
-      <tr>
-       <td>DD 73 66 73
-       <td>UTF-EBCDIC
--->
-    </table><p class="note">This step looks for Unicode Byte Order Marks
-    (BOMs).</p>
-
-   </li>
-
-   <li>
-
-    <p>If <var title="">character encoding</var> is still <i title="">unknown</i>, apply the <span>algorithm for extracting an
-    encoding from a Content-Type</span> to the resource's <span title="Content-Type">Content Type metadata</span>; if this returns
-    an encoding, and the user agent supports that encoding, then let
-    <var title="">character encoding</var> be that encoding.</p>
-
-   </li>
-
-   <li>
-
-    <p>If <var title="">character encoding</var> is still <i title="">unknown</i>, then let <var title="">character
-    encoding</var> be UTF-8.</p>
-
-   </li>
-
-   <li>
-
-    <p>Convert the resource to Unicode using the character encoding
-    given by <var title="">character encoding</var>.</p>
-
-    <p>Return the text that is so obtained.</p>
-
-   </li>
-
-  </ol><h3 id="the-event-loop"><span class="secno">4.4 </span>The event loop</h3><p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has an <span>event
+  represents.<h3 id="the-event-loop"><span class="secno">4.3 </span>The event loop</h3><p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has an <span>event
   loop</span> distinct from those defined for <span title="unit of
   related similar-origin browsing contexts">units of related
   similar-origin browsing contexts</span>. This <span>event
@@ -1186,7 +1118,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   already on the queue are unaffected except where otherwise
   specified). Effectively, once the <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is true,
   timers stop firing, notifications for all pending asynchronous
-  operations are dropped, etc.<h3 id="the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</h3><p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
+  operations are dropped, etc.<h3 id="the-worker-s-lifetime"><span class="secno">4.4 </span>The worker's lifetime</h3><p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
   <code>MessagePort</code> objects.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> <var title="">worker global
   scope</var> has a list of <dfn id="the-worker-s-ports">the worker's ports</dfn>, which
   consists of all the <code>MessagePort</code> objects that are
@@ -1233,7 +1165,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   of the <code>Document</code> objects in <a href="#the-worker-s-documents">the worker's
   <code>Document</code>s</a> are <span>fully active</span>.<p>A worker is said to be a <dfn id="suspendable-worker">suspendable worker</dfn> if it is
   not an <a href="#active-needed-worker">active needed worker</a> but it is a
-  <a href="#permissible-worker">permissible worker</a>.<h3 id="processing-model"><span class="secno">4.6 </span>Processing model</h3><p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with
+  <a href="#permissible-worker">permissible worker</a>.<h3 id="processing-model"><span class="secno">4.5 </span>Processing model</h3><p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with
   <span>URL</span> <var title="">url</var>, a browsing context <var title="">owner browsing context</var>, an origin <var title="">owner
   origin</var>, and with global scope <var title="">worker global
   scope</var>, it must run the following steps:<ol><li>
@@ -1267,8 +1199,8 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
     named <code title="event-error">error</code> at that
     object. Abort these steps.</p>
 
-    <p>If the attempt succeeds, then <a href="#decode-a-script-resource" title="decode a script
-    resource">decode the script resource</a> to obtain its <var title="">source</var>.</p>
+    <p>If the attempt succeeds, then convert the script resource to
+    Unicode by assuming it was encoded as UTF-8, to obtain its <var title="">source</var>.</p>
 
     <p>Let <var title="">language</var> be JavaScript.</p>
 
@@ -1487,7 +1419,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
    entangled with.</li>
 
   </ol><hr><p>The <span>task source</span> for the tasks mentioned above is the
-  <span>DOM manipulation task source</span>.<h3 id="runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</h3><p>Whenever an uncaught runtime script error occurs in one of the
+  <span>DOM manipulation task source</span>.<h3 id="runtime-script-errors"><span class="secno">4.6 </span>Runtime script errors</h3><p>Whenever an uncaught runtime script error occurs in one of the
   worker's scripts, if the error did not occur while handling a
   previous script error, the user agent must <span>report the
   error</span> using the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code>
@@ -1522,7 +1454,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   attribute represents the <span>absolute URL</span> of the script in
   which the error originally occurred.<p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
   attribute represents the line number where the error occurred in the
-  script.<h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">interface <dfn id="abstractworker">AbstractWorker</dfn> {
+  script.<h3 id="creating-workers"><span class="secno">4.7 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.7.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">interface <dfn id="abstractworker">AbstractWorker</dfn> {
            attribute <span>Function</span> <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
 <!-- v2-onclose           attribute <span>Function</span> <span title="handler-AbstractWorker-onclose">onclose</span>; -->
 };
@@ -1532,7 +1464,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-abstractworker-onerror" title="handler-AbstractWorker-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
 <!-- v2-onclose    <tr><td><dfn title="handler-AbstractWorker-onclose"><code>onclose</code></dfn> <td> <code title="event-close">close</code> -->
-  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4><pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(in DOMString scriptURL)]
+  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.7.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4><pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(in DOMString scriptURL)]
 interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
   void <a href="#dom-worker-terminate" title="dom-Worker-terminate">terminate</a>();
 
@@ -1654,7 +1586,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
 
   </ol><p>This constructor must be visible when the <span>script's global
   scope</span> is either a <code>Window</code> object or an object
-  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.<h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4><pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(in DOMString scriptURL, in optional DOMString name)]
+  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.<h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4><pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(in DOMString scriptURL, in optional DOMString name)]
 interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
   readonly attribute <span>MessagePort</span> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
 };</pre><p>The <dfn id="dom-sharedworker-port" title="dom-SharedWorker-port"><code>port</code></dfn>
@@ -1899,8 +1831,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
       <code>NETWORK_ERR</code> exception and abort all these
       steps.</p>
 
-      <p>If the attempt succeeds, then <a href="#decode-a-script-resource" title="decode a script
-      resource">decode the script resource</a> to obtain its <var title="">source</var>.</p>
+      <p>If the attempt succeeds, then convert the script resource to
+      Unicode by assuming it was encoded as UTF-8, to obtain its <var title="">source</var>.</p>
 
       <p>Let <var title="">language</var> be JavaScript.</p>
 
