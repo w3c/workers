@@ -170,7 +170,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-9-october-2009">Editor's Draft 9 October 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-14-october-2009">Editor's Draft 14 October 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -238,7 +238,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 9 October 2009 Editor's Draft.
+  This specification is the 14 October 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1571,7 +1571,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
     <p>If the <span>origin</span> of the resulting <span>absolute
     URL</span> is not the <span title="same origin">same</span> as the
     origin of the <span>first script</span>, then throw a
-    <span>security exception</span>.</p>
+    <code>SECURITY_ERR</code> exception.</p>
 
     <p class="note">Thus, scripts must be external files with the same
     scheme as the original page: you can't load a script from a <code title="">data:</code> URL or <code title="">javascript:</code>
@@ -1678,8 +1678,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
     <p>If the <span>origin</span> of <var title="">scriptURL</var> is
     not the <span title="same origin">same</span> as the origin of the
-    <span>first script</span>, then throw a <span>security
-    exception</span>.</p>
+    <span>first script</span>, then throw a <code>SECURITY_ERR</code>
+    exception.</p>
 
     <p class="note">Thus, scripts must be external files with the same
     scheme as the original page: you can't load a script from a <code title="">data:</code> URL or <code title="">javascript:</code>
@@ -1871,8 +1871,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    <li><p>If any of the resulting <span title="absolute URL">absolute
    URLs</span> have an <span>origin</span> that is not the <span
    title="same origin">same</span> as the origin of the script that
-   invoked the method, then throw a <span>security
-   exception</span>.</p></li>
+   invoked the method, then throw a <code>SECURITY_ERR</code>
+   exception.</p></li>
 -->
 
    <li>
