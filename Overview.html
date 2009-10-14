@@ -1854,7 +1854,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>(in DOMString... urls);
   readonly attribute <a href="#worker-navigator" title="worker-Navigator">Navigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
 };
-<a href="#workerutils">WorkerUtils</a> implement <span>WindowTimers</span>;</pre><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
+<a href="#workerutils">WorkerUtils</a> implements <span>WindowTimers</span>;</pre><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
   objects, etc) are not available to workers in this version of this
   specification.<h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3><p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user agent must run the
