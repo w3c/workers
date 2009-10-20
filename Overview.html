@@ -170,7 +170,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-18-october-2009">Editor's Draft 18 October 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-20-october-2009">Editor's Draft 20 October 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -238,7 +238,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 18 October 2009 Editor's Draft.
+  This specification is the 20 October 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1447,11 +1447,9 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   readonly attribute DOMString <a href="#dom-errorevent-filename" title="dom-ErrorEvent-filename">filename</a>;
   readonly attribute unsigned long <a href="#dom-errorevent-lineno" title="dom-ErrorEvent-lineno">lineno</a>;
   void <a href="#dom-errorevent-initerrorevent" title="dom-ErrorEvent-initErrorEvent">initErrorEvent</a>(in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in DOMString messageArg, in DOMString filenameArg, in unsigned long linenoArg);
-  void <a href="#dom-errorevent-initerroreventns" title="dom-ErrorEvent-initErrorEventNS">initErrorEventNS</a>(in DOMString namespaceURIArg, in DOMString typeArg, in boolean canBubbleArg, in boolean cancelableArg, in DOMString messageArg, in DOMString filenameArg, in unsigned long linenoArg);
 };</pre><p>The <dfn id="dom-errorevent-initerrorevent" title="dom-ErrorEvent-initErrorEvent"><code>initErrorEvent()</code></dfn>
-  and <dfn id="dom-errorevent-initerroreventns" title="dom-ErrorEvent-initErrorEventNS"><code>initErrorEventNS()</code></dfn>
-  methods must initialize the event in a manner analogous to the
-  similarly-named methods in the DOM Events interfaces. <a href="#refsDOMEVENTS">[DOMEVENTS]</a><p>The <dfn id="dom-errorevent-message" title="dom-ErrorEvent-message"><code>message</code></dfn>
+  method must initialize the event in a manner analogous to the
+  similarly-named method in the DOM Events interfaces. <a href="#refsDOMEVENTS">[DOMEVENTS]</a><p>The <dfn id="dom-errorevent-message" title="dom-ErrorEvent-message"><code>message</code></dfn>
   attribute represents the error message.<p>The <dfn id="dom-errorevent-filename" title="dom-ErrorEvent-filename"><code>filename</code></dfn>
   attribute represents the <span>absolute URL</span> of the script in
   which the error originally occurred.<p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
