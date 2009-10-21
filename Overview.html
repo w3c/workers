@@ -170,7 +170,7 @@
    <h1>Web Workers</h1>
    <!--ZZZ:-->
    <!--<h2 class="no-num no-toc">W3C Working Draft 23 April 2009</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-20-october-2009">Editor's Draft 20 October 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-21-october-2009">Editor's Draft 21 October 2009</h2>
    <!--:ZZZ-->
    <dl><!-- ZZZ: update the month/day (twice), (un)comment out
     <dt>This Version:</dt>
@@ -238,7 +238,7 @@
   specification's progress along the W3C Recommendation track.
   <!--ZZZ:-->
   <!--This specification is the 23 April 2009 Working Draft.-->
-  This specification is the 20 October 2009 Editor's Draft.
+  This specification is the 21 October 2009 Editor's Draft.
   <!--:ZZZ-->
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
@@ -1146,7 +1146,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   on making this sentence into understandable English --><p>Whenever a <code>Document</code> object is <span title="discard a
   Document">discarded</span>, it must be removed from the list of
   <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a> of each worker
-  whose list contains that <code>Document</code>.<p>Given a <span>script's global scope</span> <var title="">o</var>
+  whose list contains that <code>Document</code>.<p>Given a <span>script's global object</span> <var title="">o</var>
   when creating or obtaining a worker, the <dfn id="list-of-relevant-document-objects-to-add">list of relevant
   <code>Document</code> objects to add</dfn> depends on the type of
   <var title="">o</var>. If <var title="">o</var> is a
@@ -1520,8 +1520,8 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
    <var title="">worker global scope</var>. Let <var title="">worker</var> be this new object.</li>
 
    <li><p><span>Create a new <code>MessagePort</code> object</span>
-   owned by the <span title="script's global scope">global
-   scope</span> of the <span title="concept-script">script</span> that
+   owned by the <span title="script's global object">global
+   object</span> of the <span title="concept-script">script</span> that
    invoked the constructor. Let this be the <var title="">outside
    port</var>.</li>
 
@@ -1547,7 +1547,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
    <li>
 
     <p>Let <var title="">docs</var> be the <a href="#list-of-relevant-document-objects-to-add">list of relevant
-    <code>Document</code> objects to add</a> given the <span title="script's global scope">global scope</span> of the <span title="concept-script">script</span> that invoked the
+    <code>Document</code> objects to add</a> given the <span title="script's global object">global object</span> of the <span title="concept-script">script</span> that invoked the
     constructor.</p>
 
    </li>
@@ -1563,12 +1563,12 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
 
    <li>
 
-    <p>If the <span title="script's global scope">global scope</span>
+    <p>If the <span title="script's global object">global object</span>
     of the <span title="concept-script">script</span> that invoked the
     constructor is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object (i.e. we
     are creating a nested worker), add <var title="">worker global
     scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
-    <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span title="script's global scope">global scope</span> of the <span title="concept-script">script</span> that invoked the
+    <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span title="script's global object">global object</span> of the <span title="concept-script">script</span> that invoked the
     constructor.</p>
 
    </li>
@@ -1585,7 +1585,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
    </li>
 
   </ol><p>This constructor must be visible when the <span>script's global
-  scope</span> is either a <code>Window</code> object or an object
+  object</span> is either a <code>Window</code> object or an object
   implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.<h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4><pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(in DOMString scriptURL, in optional DOMString name)]
 interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
   readonly attribute <span>MessagePort</span> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
@@ -1623,7 +1623,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
    <li>
 
     <p>Let <var title="">docs</var> be the <a href="#list-of-relevant-document-objects-to-add">list of relevant
-    <code>Document</code> objects to add</a> given the <span title="script's global scope">global scope</span> of the <span title="concept-script">script</span> that invoked the
+    <code>Document</code> objects to add</a> given the <span title="script's global object">global object</span> of the <span title="concept-script">script</span> that invoked the
     constructor.</p>
 
    </li>
@@ -1637,8 +1637,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
      object. Let this <code><a href="#sharedworker">SharedWorker</a></code> object be <var title="">worker</var>.</li>
 
      <li><p><span>Create a new <code>MessagePort</code> object</span>
-     owned by the <span title="script's global scope">global
-     scope</span> of the script that invoked the method. Let this be
+     owned by the <span title="script's global object">global
+     object</span> of the script that invoked the method. Let this be
      the <var title="">outside port</var>.</li>
 
      <li><p>Assign <var title="">outside port</var> to the <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute of <var title="">worker</var>.</li>
@@ -1704,13 +1704,13 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
        <li>
 
-        <p>If the <span title="script's global scope">global
-        scope</span> of the <span title="concept-script">script</span>
+        <p>If the <span title="script's global object">global
+        object</span> of the <span title="concept-script">script</span>
         that invoked the constructor is a
         <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the
         worker's workers</a> of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
-        object that is the <span title="script's global scope">global
-        scope</span> of the <span title="concept-script">script</span>
+        object that is the <span title="script's global object">global
+        object</span> of the <span title="concept-script">script</span>
         that invoked the constructor.</p>
 
        </li>
@@ -1758,12 +1758,12 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
    <li>
 
-    <p>If the <span title="script's global scope">global scope</span>
+    <p>If the <span title="script's global object">global object</span>
     of the <span title="concept-script">script</span> that invoked the
     constructor is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the
     worker's workers</a> of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
-    object that is the <span title="script's global scope">global
-    scope</span> of the <span title="concept-script">script</span>
+    object that is the <span title="script's global object">global
+    object</span> of the <span title="concept-script">script</span>
     that invoked the constructor.</p>
 
    </li>
@@ -1780,7 +1780,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
    </li>
 
   </ol><p>This constructor must be visible when the <span>script's global
-  scope</span> is either a <code>Window</code> object or an object
+  object</span> is either a <code>Window</code> object or an object
   implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.<p>The <span>task source</span> for the tasks mentioned above is the
   <span>DOM manipulation task source</span>.<h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2><pre class="idl">[Supplemental, NoInterfaceObject]
 interface <dfn id="workerutils">WorkerUtils</dfn> {
@@ -1884,8 +1884,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   defined in the HTML specification.<h3 id="apis-defined-in-other-specifications"><span class="secno">5.3 </span>APIs defined in other specifications</h3><p>The <code title="dom-opendatabase">openDatabase()</code> and
   <code title="dom-opendatabase-sync">openDatabaseSync()</code>
   methods are defined in the Web Database specification. <a href="#refsWEBDATABASE">[WEBDATABASE]</a><h3 id="interface-objects-and-constructors"><span class="secno">5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
-  the global scope of scripts whose <span>script execution
-  context</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object except for
+  the global scope of scripts whose <span>script's global
+  object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object except for
   the following:<ul><li><p><code>XMLHttpRequest</code> and all interface objects and
    constructors defined by the XMLHttpRequest specifications, except
    that the <span>document response entity body</span> must always be
