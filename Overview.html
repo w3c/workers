@@ -701,10 +701,10 @@ function getMessage(event) {
   farmed out to ten subworkers.<p>The main page is as follows, it just reports the result:<pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
  &lt;head&gt;
-  &lt;title&gt;Worker example: One-core computation&lt;/title&gt;
+  &lt;title&gt;Worker example: Multicore computation&lt;/title&gt;
  &lt;/head&gt;
  &lt;body&gt;
-  &lt;p&gt;The highest prime number discovered so far is: &lt;output id="result"&gt;&lt;/output&gt;&lt;/p&gt;
+  &lt;p&gt;Result: &lt;output id="result"&gt;&lt;/output&gt;&lt;/p&gt;
   &lt;script&gt;
    var worker = new Worker('worker.js');
    worker.onmessage = function (event) {
