@@ -169,7 +169,7 @@
    <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
    <h1>Web Workers</h1>
 
-   <h2 class="no-num no-toc" id="editor-s-draft-1-december-2009">Editor's Draft 1 December 2009</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-2-december-2009">Editor's Draft 2 December 2009</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -236,7 +236,7 @@
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
 
-  This specification is the 1 December 2009 Editor's Draft.
+  This specification is the 2 December 2009 Editor's Draft.
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
   platform closely related to HTML5. It is defined in a separate
@@ -1422,9 +1422,17 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   worker's scripts, if the error did not occur while handling a
   previous script error, the user agent must <span>report the
   error</span> using the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code>
-  attribute. <a href="#refsHTML5">[HTML5]</a><p>For shared workers, if the error is still <i title="concept-error-nothandled">not handled</i> afterwards, or if
+  attribute.
+  
+  <a href="#refsHTML5">[HTML5]</a>
+  
+  <p>For shared workers, if the error is still <i title="concept-error-nothandled">not handled</i> afterwards, or if
   the error occurred while handling a previous script error, the error
-  should be reported to the user. <a href="#refsHTML5">[HTML5]</a><p>For dedicated workers, if the error is still <i title="concept-error-nothandled">not handled</i> afterwards, or if
+  should be reported to the user.
+  
+  <a href="#refsHTML5">[HTML5]</a>
+  
+  <p>For dedicated workers, if the error is still <i title="concept-error-nothandled">not handled</i> afterwards, or if
   the error occurred while handling a previous script error, the user
   agent must <span>queue a task</span> to <a href="#fire-a-worker-error-event">fire a worker error
   event</a> at the <code><a href="#worker">Worker</a></code> object associated with the
@@ -1879,7 +1887,11 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 <a href="#worker-navigator" title="worker-Navigator">Navigator</a> implements <span>NavigatorID</span>;
 <a href="#worker-navigator" title="worker-Navigator">Navigator</a> implements <span>NavigatorOnLine</span>;</pre><p>Objects implementing the <code title="worker-Navigator"><a href="#worker-navigator">Navigator</a></code> interface also implement
   the <code>NavigatorID</code> and <code>NavigatorOnLine</code>
-  interfaces. <a href="#refsHTML5">[HTML5]</a><p class="note">The <code title="worker-Navigator"><a href="#worker-navigator">Navigator</a></code>
+  interfaces.
+  
+  <a href="#refsHTML5">[HTML5]</a>
+  
+  <p class="note">The <code title="worker-Navigator"><a href="#worker-navigator">Navigator</a></code>
   interface defined in this specification is different than the one
   defined in the HTML specification.<h3 id="apis-defined-in-other-specifications"><span class="secno">5.3 </span>APIs defined in other specifications</h3><p>The <code title="dom-opendatabase">openDatabase()</code> and
   <code title="dom-opendatabase-sync">openDatabaseSync()</code>
@@ -1894,27 +1906,24 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    <span><code>XMLHttpRequest</code> origin</span> is the script's
    <span>origin</span>. <a href="#refsXHR">[XHR]</a></li>
 
-   <li><p>The <code>WebSocket</code> interface object and
-   constructor. 
-   
-   <a href="#refsWEBSOCKET">[WEBSOCKET]</a>
-   
-   </li>
+   <li><p>The interface objects and constructors defined by this
+   specification.</li>
 
-   <li><p>The <code>EventSource</code> interface object and
-   constructor.
-   
-   <a href="#refsEVENTSOURCE">[EVENTSOURCE]</a>
-   
-   </li>
+   <li><p>Constructors defined by specifications that explicitly say
+   that they should be visible when the <span>script's global
+   object</span> is a <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>, a
+   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code>, or an object implementing the
+   <code><a href="#workerutils">WorkerUtils</a></code> interface; the interfaces of any objects
+   with such constructors; and the interfaces of any objects made
+   accessible through APIs exposed by those constructors or made
+   accessible through interfaces to be implemented by any objects that
+   are themselves accessible to scripts whose <span>script's global
+   object</span> implements the <code><a href="#workerutils">WorkerUtils</a></code>
+   interface.</li>
 
-   <li><p>The <code>MessageChannel</code> interface object and
-   constructor. <a href="#refsHTML5">[HTML5]</a></li>
-
-   <li><p>The <code title="dom-Worker"><a href="#dom-worker">Worker</a></code> and <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker</a></code> interface objects and
-   constructors.</li>
-
-  </ul><h3 id="worker-locations"><span class="secno">5.5 </span>Worker locations</h3><pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
+  </ul><p class="note">These requirements do not override the requirements
+  defined by the Web IDL specification, in particular concerning the
+  visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.<h3 id="worker-locations"><span class="secno">5.5 </span>Worker locations</h3><pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
   readonly attribute DOMString <a href="#dom-workerlocation-href" title="dom-WorkerLocation-href">href</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-protocol" title="dom-WorkerLocation-protocol">protocol</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-host" title="dom-WorkerLocation-host">host</a>;
@@ -1937,7 +1946,11 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   <span>absolute URL</span> that the object represents (same as the
   <code title="dom-WorkerLocation-href"><a href="#dom-workerlocation-href">href</a></code> attribute), and
   the <span title="concept-uda-setter">common setter action</span>
-  being a no-op, since the attributes are defined to be readonly. <a href="#refsHTML5">[HTML5]</a></p><!--START vCard--><!--START vEvent--><h2 class="no-num" id="references">References</h2><!--REFS--><!--END vCard--><!--END vEvent--><p>All references are normative unless marked "Non-normative".</p><!--START vCard--><!--START vEvent--><dl><dt id="refsDOMCORE">[DOMCORE]</dt>
+  being a no-op, since the attributes are defined to be readonly.
+  
+  <a href="#refsHTML5">[HTML5]</a>
+  
+  </p><!--START vCard--><!--START vEvent--><h2 class="no-num" id="references">References</h2><!--REFS--><!--END vCard--><!--END vEvent--><p>All references are normative unless marked "Non-normative".</p><!--START vCard--><!--START vEvent--><dl><dt id="refsDOMCORE">[DOMCORE]</dt>
    <dd><cite><a href="http://www.w3.org/TR/DOM-Level-3-Core/">Document
    Object Model (DOM) Level 3 Core Specification</a></cite>, A. Le
    Hors, P. Le Hegaret, L. Wood, G. Nicol, J. Robie, M. Champion,
@@ -1962,14 +1975,6 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    <dt id="refsECMA262">[ECMA262]</dt>
    <dd><cite><a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMAScript
    Language Specification</a></cite>. ECMA, December 1999.</dd>
-
-   <dt id="refsEVENTSOURCE">[EVENTSOURCE]</dt>
-   <!--
-   <dd><cite><a href="http://www.w3.org/TR/eventsource/">Server-Sent
-   Events</a></cite>, I. Hickson. W3C, April 2009.</dd>
-   -->
-   <dd><cite><a href="http://dev.w3.org/html5/eventsource/">Server-Sent
-   Events</a></cite>, I. Hickson. W3C, July 2009.</dd>
 
    <dt id="refsHTML5">[HTML5]</dt>
    <!--
@@ -1998,16 +2003,6 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    -->
    <dd><cite><a href="http://dev.w3.org/2006/webapi/WebIDL/">Web
    IDL</a></cite>, C. McCormack. W3C, July 2009.</dd>
-
-   <dt id="refsWEBSOCKET">[WEBSOCKET]</dt>
-   <!--
-   <dd><cite><a href="http://www.w3.org/TR/websockets/">The Web Sockets
-   API</a></cite>, I. Hickson. W3C, April
-   2009.</dd>
-   -->
-   <dd><cite><a href="http://dev.w3.org/html5/websockets/">The Web Sockets
-   API</a></cite>, I. Hickson. W3C, August
-   2009.</dd>
 
    <dt id="refsXHR">[XHR]</dt>
    <!--
