@@ -1054,7 +1054,9 @@ function _decrypt(k, s) {
   objects implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
   interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><!-- v2-onclose    <tr><td><dfn title="handler-WorkerGlobalScope-onclose"><code>onclose</code></dfn> <td> <code title="event-close">close</code> --><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
-  </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
+  </table><hr><p>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface must not exist if
+  the interface's <span>relevant namespace object</span> is a
+  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
 interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(in any message, in optional <span>MessagePortArray</span> ports);<!--
   <span>MessagePort</span> <span title="dom-DedicatedWorkerGlobalScope-startConversation">startConversation</span>(in any message);-->
@@ -1899,7 +1901,10 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   
   <p class="note">The <code title="worker-Navigator"><a href="#worker-navigator">Navigator</a></code>
   interface defined in this specification is different than the one
-  defined in the HTML specification.<h3 id="apis-defined-in-other-specifications"><span class="secno">5.3 </span>APIs defined in other specifications</h3><p>The <code title="dom-opendatabase">openDatabase()</code> and
+  defined in the HTML specification.<p>This <code title="worker-Navigator"><a href="#worker-navigator">Navigator</a></code> interface
+  must not exist if the interface's <span>relevant namespace
+  object</span> is a <code>Window</code> object, where it would
+  otherwise clash with the other <code>Navigator</code> interface. <a href="#refsWEBIDL">[WEBIDL]</a><h3 id="apis-defined-in-other-specifications"><span class="secno">5.3 </span>APIs defined in other specifications</h3><p>The <code title="dom-opendatabase">openDatabase()</code> and
   <code title="dom-opendatabase-sync">openDatabaseSync()</code>
   methods are defined in the Web SQL Database specification. <a href="#refsWEBSQL">[WEBSQL]</a><h3 id="interface-objects-and-constructors"><span class="secno">5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
   the global scope of scripts whose <span>script's global
@@ -1956,7 +1961,9 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   
   <a href="#refsHTML5">[HTML5]</a>
   
-  </p><!--START vCard--><!--START vEvent--><h2 class="no-num" id="references">References</h2><!--REFS--><!--END vCard--><!--END vEvent--><p>All references are normative unless marked "Non-normative".</p><!--START vCard--><!--START vEvent--><dl><dt id="refsDOMCORE">[DOMCORE]</dt>
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must not exist if the
+  interface's <span>relevant namespace object</span> is a
+  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p><!--START vCard--><!--START vEvent--><h2 class="no-num" id="references">References</h2><!--REFS--><!--END vCard--><!--END vEvent--><p>All references are normative unless marked "Non-normative".</p><!--START vCard--><!--START vEvent--><dl><dt id="refsDOMCORE">[DOMCORE]</dt>
    <dd><cite><a href="http://www.w3.org/TR/DOM-Level-3-Core/">Document
    Object Model (DOM) Level 3 Core Specification</a></cite>, A. Le
    Hors, P. Le Hegaret, L. Wood, G. Nicol, J. Robie, M. Champion,
