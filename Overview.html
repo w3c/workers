@@ -1502,7 +1502,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
   objects implementing the <code><a href="#worker">Worker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-worker-onmessage" title="handler-Worker-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
   </table><hr><p>When the <dfn id="dom-worker" title="dom-Worker"><code>Worker(<var title="">scriptURL</var>)</code></dfn> constructor is invoked, the
-  user agent must run the following steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument relative to the <span>first
+  user agent must run the following steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument relative to the <span>entry
    script</span>'s <span title="script's base URL">base URL</span>,
    when the method is invoked.</li>
 
@@ -1513,7 +1513,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
 
     <p>If the <span>origin</span> of the resulting <span>absolute
     URL</span> is not the <span title="same origin">same</span> as the
-    origin of the <span>first script</span>, then throw a
+    origin of the <span>entry script</span>, then throw a
     <code>SECURITY_ERR</code> exception.</p>
 
     <p class="note">Thus, scripts must be external files with the same
@@ -1591,7 +1591,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
     <p><a href="#run-a-worker">Run a worker</a> for the resulting <span>absolute
     URL</span>, with the <span>script's browsing context</span> of the
     script that invoked the method as the <var title="">owner browsing
-    context</var>, with the <span>origin</span> of the <span>first
+    context</var>, with the <span>origin</span> of the <span>entry
     script</span> as the <var title="">owner origin</var>, and with
     <var title="">worker global scope</var> as the global scope.</p>
 
@@ -1623,7 +1623,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
     <p>If the <span>origin</span> of <var title="">scriptURL</var> is
     not the <span title="same origin">same</span> as the origin of the
-    <span>first script</span>, then throw a <code>SECURITY_ERR</code>
+    <span>entry script</span>, then throw a <code>SECURITY_ERR</code>
     exception.</p>
 
     <p class="note">Thus, scripts must be external files with the same
@@ -1786,7 +1786,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
     <p><a href="#run-a-worker">Run a worker</a> for <var title="">scriptURL</var>,
     with the <span>script's browsing context</span> of the script that
     invoked the method as the <var title="">owner browsing
-    context</var>, with the <span>origin</span> of the <span>first
+    context</var>, with the <span>origin</span> of the <span>entry
     script</span> as the <var title="">owner origin</var>, and with
     <var title="">worker global scope</var> as the global scope.</p>
 
@@ -1825,7 +1825,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
     <p>Attempt to <span>fetch</span> each resource identified by the
     resulting <span title="absolute URL">absolute URLs</span>, from
-    the <span>first script</span>'s <span>origin</span>.</p> <!-- not
+    the <span>entry script</span>'s <span>origin</span>.</p> <!-- not
     http-origin privacy sensitive -->
 
    </li>
