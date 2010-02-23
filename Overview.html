@@ -193,7 +193,7 @@
    <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
    <h1>Web Workers</h1>
 
-   <h2 class="no-num no-toc" id="editor-s-draft-22-february-2010">Editor's Draft 22 February 2010</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-23-february-2010">Editor's Draft 23 February 2010</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -254,7 +254,7 @@
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
 
-  This specification is the 22 February 2010 Editor's Draft.
+  This specification is the 23 February 2010 Editor's Draft.
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
   platform closely related to HTML5. It is defined in a separate
@@ -1195,9 +1195,12 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   <code>Document</code>s</a> are <span>fully active</span>.<p>A worker is said to be a <dfn id="suspendable-worker">suspendable worker</dfn> if it is
   not an <a href="#active-needed-worker">active needed worker</a> but it is a
   <a href="#permissible-worker">permissible worker</a>.<h3 id="processing-model"><span class="secno">4.5 </span>Processing model</h3><p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with
-  <span>URL</span> <var title="">url</var>, a browsing context <var title="">owner browsing context</var>, an origin <var title="">owner
-  origin</var>, and with global scope <var title="">worker global
-  scope</var>, it must run the following steps:<ol><li>
+  <span>URL</span> <var title="">url</var>, a <span>browsing
+  context</span> <var title="">owner browsing context</var>, a
+  <code>Document</code> <var title="">owner document</var>, an
+  <span>origin</span> <var title="">owner origin</var>, and with
+  global scope <var title="">worker global scope</var>, it must run
+  the following steps:<ol><li>
 
     <p>Create a completely separate and parallel execution environment
     (i.e. a separate thread or process or equivalent construct), and
@@ -1256,6 +1259,9 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
     <p>Set the <span>script's global object</span> to <var title="">worker global scope</var>.</p>
 
     <p>Set the <span>script's browsing context</span> to <var title="">owner browsing context</var>.</p>
+
+    <p>Set the <span>script's document</span> to <var title="">owner
+    document</var>.</p>
 
     <p>Set the <span>script's URL character encoding</span> to
     UTF-8. (This is just used for encoding non-ASCII characters in the
@@ -1616,7 +1622,9 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
     <p><a href="#run-a-worker">Run a worker</a> for the resulting <span>absolute
     URL</span>, with the <span>script's browsing context</span> of the
     script that invoked the method as the <var title="">owner browsing
-    context</var>, with the <span>origin</span> of the <span>entry
+    context</var>, with the <span>script's document</span> of the
+    script that invoked the method as the <var title="">owner
+    document</var>, with the <span>origin</span> of the <span>entry
     script</span> as the <var title="">owner origin</var>, and with
     <var title="">worker global scope</var> as the global scope.</p>
 
@@ -1811,7 +1819,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
     <p><a href="#run-a-worker">Run a worker</a> for <var title="">scriptURL</var>,
     with the <span>script's browsing context</span> of the script that
     invoked the method as the <var title="">owner browsing
-    context</var>, with the <span>origin</span> of the <span>entry
+    context</var>, with the <span>script's document</span> of the
+    script that invoked the method as the <var title="">owner
+    document</var>, with the <span>origin</span> of the <span>entry
     script</span> as the <var title="">owner origin</var>, and with
     <var title="">worker global scope</var> as the global scope.</p>
 
