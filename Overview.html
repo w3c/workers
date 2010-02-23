@@ -1483,7 +1483,7 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   event</a> at the <code><a href="#worker">Worker</a></code> object associated with
   <em>that</em> worker. Otherwise, then the error may be reported
   to the user.<p>The <span>task source</span> for the tasks mentioned above is the
-  <span>DOM manipulation task source</span>.<hr><pre class="idl">interface <dfn id="errorevent">ErrorEvent</dfn> : Event {
+  <span>DOM manipulation task source</span>.<hr><pre class="idl">interface <dfn id="errorevent">ErrorEvent</dfn> : <span>Event</span> {
   readonly attribute DOMString <a href="#dom-errorevent-message" title="dom-ErrorEvent-message">message</a>;
   readonly attribute DOMString <a href="#dom-errorevent-filename" title="dom-ErrorEvent-filename">filename</a>;
   readonly attribute unsigned long <a href="#dom-errorevent-lineno" title="dom-ErrorEvent-lineno">lineno</a>;
