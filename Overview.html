@@ -466,16 +466,76 @@ onmessage = function (event) {
   example. Shared workers use slightly different APIs, since each
   worker can have multiple connections.<p>This first example shows how you connect to a worker and how a
   worker can send a message back to the page when it connects to
-  it. Received messages are displayed in a log.<p>Here is the HTML page:<pre>EXAMPLE workers/shared/001/test.html</pre><p>Here is the JavaScript worker:<pre>EXAMPLE workers/shared/001/test.js</pre><hr><p>This second example extends the first one by changing two things:
+  it. Received messages are displayed in a log.<p>Here is the HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+&lt;title&gt;Shared workers: demo 1&lt;/title&gt;
+&lt;pre id="log"&gt;Log:&lt;/pre&gt;
+&lt;script&gt;
+  var worker = new SharedWorker('test.js');
+  var log = document.getElementById('log');
+  worker.port.onmessage = function(e) { // note: not worker.onmessage!
+    log.textContent += '\n' + e.data;
+  }
+&lt;/script&gt;
+</pre><p>Here is the JavaScript worker:<pre>onconnect = function(e) {
+  var port = e.ports[0];
+  port.postMessage('Hello World!');
+}
+</pre><hr><p>This second example extends the first one by changing two things:
   first, messages are received using <code title="">addEventListener()</code> instead of an <span title="event
   handler IDL attributes">event handler IDL attribute</span>, and
   second, a message is sent <em>to</em> the worker, causing the worker
   to send another message in return. Received messages are again
-  displayed in a lot.<p>Here is the HTML page:<pre>EXAMPLE workers/shared/001/test.html</pre><p>Here is the JavaScript worker:<pre>EXAMPLE workers/shared/001/test.js</pre><hr><p>Finally, the example is extended to show how two pages can
+  displayed in a log.<p>Here is the HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+&lt;title&gt;Shared workers: demo 1&lt;/title&gt;
+&lt;pre id="log"&gt;Log:&lt;/pre&gt;
+&lt;script&gt;
+  var worker = new SharedWorker('test.js');
+  var log = document.getElementById('log');
+  worker.port.onmessage = function(e) { // note: not worker.onmessage!
+    log.textContent += '\n' + e.data;
+  }
+&lt;/script&gt;
+</pre><p>Here is the JavaScript worker:<pre>onconnect = function(e) {
+  var port = e.ports[0];
+  port.postMessage('Hello World!');
+}
+</pre><hr><p>Finally, the example is extended to show how two pages can
   connect to the same worker; in this case, the second page is merely
   in an <code>iframe</code> on the first page, but the same principle
   would apply to an entirely separate page in a separate
-  <span>top-level browsing context</span>.<p>Here is the outer HTML page:<pre>EXAMPLE workers/shared/003/test.html</pre><p>Here is the inner HTML page:<pre>EXAMPLE workers/shared/003/inner.html</pre><p>Here is the JavaScript worker:<pre>EXAMPLE workers/shared/003/test.js</pre><h4 id="shared-state-using-a-shared-worker"><span class="secno">1.2.5 </span>Shared state using a shared worker</h4><p><i>This section is non-normative.</i><p>In this example, multiple windows (viewers) can be opened that
+  <span>top-level browsing context</span>.<p>Here is the outer HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+&lt;title&gt;Shared workers: demo 3&lt;/title&gt;
+&lt;pre id="log"&gt;Log:&lt;/pre&gt;
+&lt;script&gt;
+  var worker = new SharedWorker('test.js');
+  var log = document.getElementById('log');
+  worker.port.addEventListener('message', function(e) {
+    log.textContent += '\n' + e.data;
+  }, false);
+  worker.port.start();
+  worker.port.postMessage('ping');
+&lt;/script&gt;
+&lt;iframe src="inner.html"&gt;&lt;/iframe&gt;
+</pre><p>Here is the inner HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+&lt;title&gt;Shared workers: demo 3 inner frame&lt;/title&gt;
+&lt;pre id=log&gt;Inner log:&lt;/pre&gt;
+&lt;script&gt;
+  var worker = new SharedWorker('test.js');
+  var log = document.getElementById('log');
+  worker.port.onmessage = function(e) {
+   log.textContent += '\n' + e.data;
+  }
+&lt;/script&gt;
+</pre><p>Here is the JavaScript worker:<pre>var count = 0;
+onconnect = function(e) {
+  count += 1;
+  var port = e.ports[0];
+  port.postMessage('Hello World! You are connection #' + count);
+  port.onmessage = function(e) {
+    port.postMessage('pong');
+  }
+}
+</pre><h4 id="shared-state-using-a-shared-worker"><span class="secno">1.2.5 </span>Shared state using a shared worker</h4><p><i>This section is non-normative.</i><p>In this example, multiple windows (viewers) can be opened that
   are all viewing the same map. All the windows share the same map
   information, with a single worker coordinating all the viewers. Each
   viewer can move around independently, but if they set any data on
