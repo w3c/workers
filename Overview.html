@@ -486,18 +486,24 @@ onmessage = function (event) {
   second, a message is sent <em>to</em> the worker, causing the worker
   to send another message in return. Received messages are again
   displayed in a log.<p>Here is the HTML page:<pre>&lt;!DOCTYPE HTML&gt;
-&lt;title&gt;Shared workers: demo 1&lt;/title&gt;
+&lt;title&gt;Shared workers: demo 2&lt;/title&gt;
 &lt;pre id="log"&gt;Log:&lt;/pre&gt;
 &lt;script&gt;
   var worker = new SharedWorker('test.js');
   var log = document.getElementById('log');
-  worker.port.onmessage = function(e) { // note: not worker.onmessage!
+  worker.port.addEventListener('message', function(e) {
     log.textContent += '\n' + e.data;
-  }
+  }, false);
+  worker.port.start(); // note: need this when using addEventListener
+  worker.port.postMessage('ping');
 &lt;/script&gt;
 </pre><p>Here is the JavaScript worker:<pre>onconnect = function(e) {
   var port = e.ports[0];
   port.postMessage('Hello World!');
+  port.onmessage = function(e) {
+    port.postMessage('pong'); // not e.ports[0].postMessage!
+    // e.target.postMessage('pong'); would work also
+  }
 }
 </pre><hr><p>Finally, the example is extended to show how two pages can
   connect to the same worker; in this case, the second page is merely
