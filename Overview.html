@@ -1415,7 +1415,15 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
 
    <li>
 
-    <p>Remove the task run in the previous step, if any, from its
+    <p>If the <span>storage mutex</span> is now owned by the worker's
+    <span>event loop</span>, release it so that it is once again
+    free.</p>
+
+   </li>
+
+   <li>
+
+    <p>Remove the task just run in the earlier step, if any, from its
     <span>task queue</span>.</p>
 
    </li>
