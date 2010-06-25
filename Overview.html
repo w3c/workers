@@ -182,7 +182,7 @@
   </style><link href="http://www.w3.org/StyleSheets/TR/W3C-ED" rel="stylesheet" type="text/css"><div class="head">
    <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
    <h1>Web Workers</h1>
-   <h2 class="no-num no-toc" id="editor-s-draft-15-june-2010">Editor's Draft 15 June 2010</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-25-june-2010">Editor's Draft 25 June 2010</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -250,7 +250,7 @@
   </ul><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING LIST TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- status of document, group responsible (required) --><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Apps
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 15 June 2010 Editor's Draft.
+  This specification is the 25 June 2010 Editor's Draft.
   </p><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- relationship to other work (required) --><p>This specification is also being produced by the <a href="http://www.whatwg.org/">WHATWG</a>. The two specifications are
   identical from the table of contents onwards.</p><!-- UNDER NO CIRCUMSTANCES IS THE FOLLOWING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST --><!-- context and rationale (required) --><p>This specification is intended to specify a part of the Web
   platform closely related to HTML5. It is defined in a separate
@@ -1290,17 +1290,15 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
 
    <li>
 
-    <p>Attempt to <span>fetch</span> the resource identified by <var title="">url</var>, from the <var title="">owner origin</var>.</p>
-    <!-- not http-origin privacy sensitive -->
+    <p>Attempt to <span>fetch</span> the resource identified by <var title="">url</var>, from the <var title="">owner origin</var>,
+    with the <i>synchronous flag</i> set and the <i>force same-origin
+    flag</i> set.</p> <!-- not http-origin privacy sensitive (looking
+    forward to CORS) -->
 
-    <p>If the attempt fails, or if the attempt involves any redirects
-    to URIs that do not have the <span>same origin</span> as <var title="">url</var> (even if the final URI is at the <span>same
-    origin</span> as the original <var title="">url</var>), then for
-    each <code><a href="#worker">Worker</a></code> or <code><a href="#sharedworker">SharedWorker</a></code> object
-    associated with <var title="">worker global scope</var>,
-    <span>queue a task</span> to <span>fire a simple event</span>
-    named <code title="event-error">error</code> at that
-    object. Abort these steps.</p>
+    <p>If the attempt fails, then for each <code><a href="#worker">Worker</a></code> or
+    <code><a href="#sharedworker">SharedWorker</a></code> object associated with <var title="">worker global scope</var>, <span>queue a task</span> to
+    <span>fire a simple event</span> named <code title="event-error">error</code> at that object. Abort these
+    steps.</p>
 
     <p>If the attempt succeeds, then convert the script resource to
     Unicode by assuming it was encoded as UTF-8, to obtain its <var title="">source</var>.</p>
@@ -1948,8 +1946,9 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
     <p>Attempt to <span>fetch</span> each resource identified by the
     resulting <span title="absolute URL">absolute URLs</span>, from
-    the <span>entry script</span>'s <span>origin</span>.</p> <!-- not
-    http-origin privacy sensitive -->
+    the <span>entry script</span>'s <span>origin</span>, with the
+    <i>synchronous flag</i> set.</p> <!-- not http-origin privacy
+    sensitive -->
 
    </li>
 
