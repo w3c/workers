@@ -230,7 +230,7 @@
 
    <h1>Web Workers</h1>
    <!--<h2 class="no-num no-toc">(subtitle)</h2>-->
-   <h2 class="no-num no-toc" id="editor-s-draft-14-december-2010">Editor's Draft 14 December 2010</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-1-january-2011">Editor's Draft 1 January 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -325,7 +325,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 14 December 2010 Editor's Draft.
+  This specification is the 1 January 2011 Editor's Draft.
   </p><!-- required patent boilerplate --><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -373,9 +373,8 @@
   <ol>
    <li><a href="#importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</a></li>
    <li><a href="#the-workernavigator-object"><span class="secno">5.2 </span>The <code>WorkerNavigator</code> object</a></li>
-   <li><a href="#apis-defined-in-other-specifications"><span class="secno">5.3 </span>APIs defined in other specifications</a></li>
-   <li><a href="#interface-objects-and-constructors"><span class="secno">5.4 </span>Interface objects and constructors</a></li>
-   <li><a href="#worker-locations"><span class="secno">5.5 </span>Worker locations</a></ol></li>
+   <li><a href="#interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</a></li>
+   <li><a href="#worker-locations"><span class="secno">5.4 </span>Worker locations</a></ol></li>
  <li><a class="no-num" href="#references">References</a></li>
  <li><a class="no-num" href="#acknowledgements">Acknowledgements</a></ol>
 <!--end-toc--><hr><h2 id="introduction"><span class="secno">1 </span>Introduction</h2><h3 id="scope"><span class="secno">1.1 </span>Scope</h3><p><i>This section is non-normative.</i><p>This specification defines an API for running scripts in the
@@ -1518,16 +1517,6 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
 
    <li>
 
-    <p>If there are any outstanding transactions that have callbacks
-    that involve <span title="concept-script">scripts</span> whose
-    <span title="script's global object">global object</span> is the
-    <var title="">worker global scope</var>, roll them back (without
-    invoking any of the callbacks). <a href="#refsWEBSQL">[WEBSQL]</a></p>
-
-   </li>
-
-   <li>
-
     <p>Empty the <var title="">worker global scope</var>'s <span>list
     of active timeouts</span> and its <span>list of active
     intervals</span>.</p>
@@ -2104,9 +2093,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   
   <p>This <code><a href="#workernavigator">WorkerNavigator</a></code> interface must not exist if the
   interface's <span>relevant namespace object</span> is a
-  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h3 id="apis-defined-in-other-specifications"><span class="secno">5.3 </span>APIs defined in other specifications</h3><p>The <code title="dom-opendatabase">openDatabase()</code> and
-  <code title="dom-opendatabase-sync">openDatabaseSync()</code>
-  methods are defined in the Web SQL Database specification. <a href="#refsWEBSQL">[WEBSQL]</a><h3 id="interface-objects-and-constructors"><span class="secno">5.4 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
+  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h3 id="interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
   the global scope of scripts whose <span>script's global
   object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object except for
   the following:<ul><li><p><code>XMLHttpRequest</code> and all interface objects and
@@ -2134,7 +2121,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
   </ul><p class="note">These requirements do not override the requirements
   defined by the Web IDL specification, in particular concerning the
-  visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.<h3 id="worker-locations"><span class="secno">5.5 </span>Worker locations</h3><pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
+  visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.<h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3><pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
   // <span>URL decomposition IDL attributes</span>
   readonly attribute DOMString <a href="#dom-workerlocation-href" title="dom-WorkerLocation-href">href</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-protocol" title="dom-WorkerLocation-protocol">protocol</a>;
@@ -2203,10 +2190,6 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    -->
    <dd><cite><a href="http://dev.w3.org/2006/webapi/WebIDL/">Web
    IDL</a></cite>, C. McCormack. W3C.</dd>
-
-   <dt id="refsWEBSQL">[WEBSQL]</dt>
-   <dd><cite><a href="http://dev.w3.org/html5/webdatabase/">Web SQL
-   Database</a></cite>, I. Hickson. W3C.</dd>
 
    <dt id="refsXHR">[XHR]</dt>
    <!--
