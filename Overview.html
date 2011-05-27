@@ -211,7 +211,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-12-may-2011">Editor's Draft 12 May 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-27-may-2011">Editor's Draft 27 May 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -315,7 +315,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 12 May 2011 Editor's Draft.
+  This specification is the 27 May 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -1007,7 +1007,7 @@ function work() {
   the interface's <span>relevant namespace object</span> is a
   <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
 interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
-  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(in any message, in optional <span>MessagePortArray</span> ports);           attribute <span>Function</span> <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
+  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(in any message, in optional sequence&lt;<span>MessagePort</span>&gt; ports);           attribute <span>Function</span> <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
 };</pre><p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they
   had an implicit <code>MessagePort</code> associated with them. This
   port is part of a channel that is set up when the worker is created,
@@ -1383,7 +1383,7 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
 interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
   void <a href="#dom-worker-terminate" title="dom-Worker-terminate">terminate</a>();
 
-  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(in any message, in optional <span>MessagePortArray</span> ports);           attribute <span>Function</span> <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
+  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(in any message, in optional sequence&lt;<span>MessagePort</span>&gt; ports);           attribute <span>Function</span> <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
 };</pre><p>The <dfn id="dom-worker-terminate" title="dom-Worker-terminate"><code>terminate()</code></dfn> method,
   when invoked, must cause the "<a href="#terminate-a-worker">terminate a worker</a>"
   algorithm to be run on the worker with with the object is
@@ -1604,8 +1604,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
        interface, with the name <code title="event-connect">connect</code>, which does not bubble, is
        not cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
        is the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose
-       value is an array containing only the newly created port, and
-       <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
+       value is a <span title="dfn-read-only-array">read only</span>
+       array containing only the newly created port, and <span>queue a
+       task</span> to dispatch the event at <var title="">worker
+       global scope</var>.</li>
 
        <li>
 
@@ -1657,8 +1659,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
    interface, with the name <code title="event-connect">connect</code>, which does not bubble, is not
    cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value is
    the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value
-   is an array containing only the newly created port, and <span>queue
-   a task</span> to dispatch the event at <var title="">worker global
+   is a <span title="dfn-read-only-array">read only</span> array
+   containing only the newly created port, and <span>queue a
+   task</span> to dispatch the event at <var title="">worker global
    scope</var>.</li>
 
    <li>
