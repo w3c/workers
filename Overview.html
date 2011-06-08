@@ -211,7 +211,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-4-june-2011">Editor's Draft 4 June 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-8-june-2011">Editor's Draft 8 June 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -316,7 +316,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 4 June 2011 Editor's Draft.
+  This specification is the 8 June 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -980,6 +980,8 @@ function work() {
 
   void <a href="#dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close">close</a>();
            attribute <span>Function</span> <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
+           attribute <span>Function</span> <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
+           attribute <span>Function</span> <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
 };
 <a href="#workerglobalscope">WorkerGlobalScope</a> implements <a href="#workerutils">WorkerUtils</a>;
 <a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>EventTarget</span>;</pre><p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
@@ -1004,6 +1006,8 @@ function work() {
   objects implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
   interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
+    <tr><td><dfn id="handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline"><code>onoffline</code></dfn> <td> <code title="event-offline">offline</code> 
+    <tr><td><dfn id="handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline"><code>ononline</code></dfn> <td> <code title="event-online">online</code> 
   </table><hr><p>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface must not exist if
   the interface's <span>relevant namespace object</span> is a
   <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
