@@ -211,7 +211,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-8-june-2011">Editor's Draft 8 June 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-10-june-2011">Editor's Draft 10 June 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -316,7 +316,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 8 June 2011 Editor's Draft.
+  This specification is the 10 June 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -1711,7 +1711,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>(in DOMString... urls);
   readonly attribute <a href="#workernavigator">WorkerNavigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
 };
-<a href="#workerutils">WorkerUtils</a> implements <span>WindowTimers</span>;</pre><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
+<a href="#workerutils">WorkerUtils</a> implements <span>WindowTimers</span>;
+<a href="#workerutils">WorkerUtils</a> implements <span>WindowBase64</span>;</pre><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
   objects, etc) are not available to workers in this version of this
   specification.<h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3><p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user agent must run the
