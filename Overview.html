@@ -1578,7 +1578,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
      <li><p>Otherwise, if <var title="">name</var> is the empty string
      and there exists a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object
      whose <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a>
-     flag is false, and whose <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location">location</a></code> attribute
+     flag is false, whose <code title="dom-WorkerGlobalScope-name">name</code> attribute is the
+     empty string, and whose <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location">location</a></code> attribute
      represents an <span>absolute URL</span> that is exactly equal to
      <var title="">scriptURL</var>, then let <var title="">worker
      global scope</var> be that <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code>
