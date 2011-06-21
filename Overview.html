@@ -405,8 +405,9 @@ search: while (true) {
   // found a prime!
   postMessage(n);
 }</pre><p>The bulk of this code is simply an unoptimized search for a prime
-  number. To send a message back to the page, the <code title="dom-DedicatedWorkerGlobalScope-send">send()</code>
-  method is used to post a message when a prime is found.<p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this example online</a>.<h4 id="a-worker-for-updating-a-client-side-database"><span class="secno">1.2.2 </span>A worker for updating a client-side database</h4><p><i>This section is non-normative.</i><p>In this example, the main document spawns a worker whose only
+  number. The <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code>
+  method is used to send a message back to the page when a prime is
+  found.<p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this example online</a>.<h4 id="a-worker-for-updating-a-client-side-database"><span class="secno">1.2.2 </span>A worker for updating a client-side database</h4><p><i>This section is non-normative.</i><p>In this example, the main document spawns a worker whose only
   task is to listen for notifications from the server, and, when
   appropriate, either add or remove data from the client-side
   database.<p>Since no communication occurs between the worker and the main
