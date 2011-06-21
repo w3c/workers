@@ -1841,7 +1841,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   defined by the Web IDL specification, in particular concerning the
   visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.<h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3><pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
   // <span>URL decomposition IDL attributes</span>
-  readonly attribute DOMString <a href="#dom-workerlocation-href" title="dom-WorkerLocation-href">href</a>;
+  stringifier readonly attribute DOMString <a href="#dom-workerlocation-href" title="dom-WorkerLocation-href">href</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-protocol" title="dom-WorkerLocation-protocol">protocol</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-host" title="dom-WorkerLocation-host">host</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-hostname" title="dom-WorkerLocation-hostname">hostname</a>;
