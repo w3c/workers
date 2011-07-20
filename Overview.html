@@ -211,7 +211,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-7-july-2011">Editor's Draft 7 July 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-20-july-2011">Editor's Draft 20 July 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -318,7 +318,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 7 July 2011 Editor's Draft.
+  This specification is the 20 July 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -1713,7 +1713,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
   </ol><p>This constructor must be visible when the <span>script's global
   object</span> is either a <code>Window</code> object or an object
   implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.<p>The <span>task source</span> for the tasks mentioned above is the
-  <span>DOM manipulation task source</span>.<h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2><pre class="idl">[Supplemental, NoInterfaceObject]
+  <span>DOM manipulation task source</span>.<h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2><pre class="idl">[NoInterfaceObject]
 interface <dfn id="workerutils">WorkerUtils</dfn> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>(in DOMString... urls);
   readonly attribute <a href="#workernavigator">WorkerNavigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
