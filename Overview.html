@@ -981,7 +981,7 @@ function work() {
   workers. Shared workers, on the other hand, are named, and once
   created any script running in the same <span>origin</span> can
   obtain a reference to that worker and communicate with it.<h3 id="dependencies-0"><span class="secno">4.1 </span>Dependencies</h3><p>The <dfn id="messageport"><code>MessagePort</code></dfn> interface is defined in
-  the HTML specification. <a href="#refsHTML">[HTML]</a><h3 id="the-global-scope"><span class="secno">4.2 </span>The global scope</h3><p>The global scope is the "inside" of a worker.<h4 id="the-workerglobalscope-abstract-interface"><span class="secno">4.2.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> abstract interface</h4><pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> {
+  the HTML specification. <a href="#refsHTML">[HTML]</a><h3 id="the-global-scope"><span class="secno">4.2 </span>The global scope</h3><p>The global scope is the "inside" of a worker.<h4 id="the-workerglobalscope-abstract-interface"><span class="secno">4.2.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> abstract interface</h4><pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <a href="#workerglobalscope">WorkerGlobalScope</a> <a href="#dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self">self</a>;
   readonly attribute <a href="#workerlocation">WorkerLocation</a> <a href="#dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location">location</a>;
 
@@ -990,8 +990,7 @@ function work() {
            attribute <span>Function</span>? <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
            attribute <span>Function</span>? <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
 };
-<a href="#workerglobalscope">WorkerGlobalScope</a> implements <a href="#workerutils">WorkerUtils</a>;
-<a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>EventTarget</span>;</pre><p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
+<a href="#workerglobalscope">WorkerGlobalScope</a> implements <a href="#workerutils">WorkerUtils</a>;</pre><p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
   must return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.<p>The <dfn id="dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location"><code>location</code></dfn>
   attribute must return the <code><a href="#workerlocation">WorkerLocation</a></code> object created
   for the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object when the worker was
@@ -1386,10 +1385,9 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   which the error originally occurred.<p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
   attribute represents the line number where the error occurred in the
   script.<h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
-interface <dfn id="abstractworker">AbstractWorker</dfn> {
+interface <dfn id="abstractworker">AbstractWorker</dfn> : <span>EventTarget</span> {
            attribute <span>Function</span>? <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
-};
-<a href="#abstractworker">AbstractWorker</a> implements <span>EventTarget</span>;</pre><p>The following are the <span>event handlers</span> (and their
+};</pre><p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
   objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
