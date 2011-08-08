@@ -213,7 +213,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-5-august-2011">Editor's Draft 5 August 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-8-august-2011">Editor's Draft 8 August 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -320,7 +320,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 5 August 2011 Editor's Draft.
+  This specification is the 8 August 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -333,14 +333,19 @@
  <li><a href="#introduction"><span class="secno">1 </span>Introduction</a>
   <ol>
    <li><a href="#scope"><span class="secno">1.1 </span>Scope</a></li>
-   <li><a href="#tutorial"><span class="secno">1.2 </span>Tutorial</a>
+   <li><a href="#examples"><span class="secno">1.2 </span>Examples</a>
     <ol>
      <li><a href="#a-background-number-crunching-worker"><span class="secno">1.2.1 </span>A background number-crunching worker</a></li>
      <li><a href="#a-worker-for-updating-a-client-side-database"><span class="secno">1.2.2 </span>A worker for updating a client-side database</a></li>
      <li><a href="#worker-used-for-background-i-o"><span class="secno">1.2.3 </span>Worker used for background I/O</a></li>
      <li><a href="#shared-workers-introduction"><span class="secno">1.2.4 </span>Shared workers introduction</a></li>
      <li><a href="#shared-state-using-a-shared-worker"><span class="secno">1.2.5 </span>Shared state using a shared worker</a></li>
-     <li><a href="#delegation"><span class="secno">1.2.6 </span>Delegation</a></ol></ol></li>
+     <li><a href="#delegation"><span class="secno">1.2.6 </span>Delegation</a></ol></li>
+   <li><a href="#tutorials"><span class="secno">1.3 </span>Tutorials</a>
+    <ol>
+     <li><a href="#creating-a-dedicated-worker"><span class="secno">1.3.1 </span>Creating a dedicated worker</a></li>
+     <li><a href="#communicating-with-a-dedicated-worker"><span class="secno">1.3.2 </span>Communicating with a dedicated worker</a></li>
+     <li><a href="#shared-workers"><span class="secno">1.3.3 </span>Shared workers</a></ol></ol></li>
  <li><a href="#conformance-requirements"><span class="secno">2 </span>Conformance requirements</a>
   <ol>
    <li><a href="#dependencies"><span class="secno">2.1 </span>Dependencies</a></ol></li>
@@ -380,7 +385,7 @@
   numbers. For example, it would be inappropriate to launch one worker
   for each pixel of a four megapixel image. The examples below show
   some appropriate uses of workers.<p>Generally, workers are expected to be long-lived, have a high
-  start-up performance cost, and a high per-instance memory cost.<h3 id="tutorial"><span class="secno">1.2 </span>Tutorial</h3><p><i>This section is non-normative.</i><p>There are a variety of uses that workers can be put to. The
+  start-up performance cost, and a high per-instance memory cost.<h3 id="examples"><span class="secno">1.2 </span>Examples</h3><p><i>This section is non-normative.</i><p>There are a variety of uses that workers can be put to. The
   following subsections show various examples of this use.<h4 id="a-background-number-crunching-worker"><span class="secno">1.2.1 </span>A background number-crunching worker</h4><p><i>This section is non-normative.</i><p>The simplest use of workers is for performing a computationally
   expensive task without interrupting the user interface.<p>In this example, the main document spawns a worker to
   (na&iuml;vely) compute prime numbers, and progressively displays the
@@ -917,7 +922,55 @@ function work() {
   close();
 }</pre><p>They receive two numbers in two events, perform the computation
   for the range of numbers thus specified, and then report the result
-  back to the parent.<p><a href="http://www.whatwg.org/demos/workers/multicore/page.html">View this example online</a>.</p><h2 id="conformance-requirements"><span class="secno">2 </span>Conformance requirements</h2><p>All diagrams, examples, and notes in this specification are
+  back to the parent.<p><a href="http://www.whatwg.org/demos/workers/multicore/page.html">View this example online</a>.</p><h3 id="tutorials"><span class="secno">1.3 </span>Tutorials</h3><h4 id="creating-a-dedicated-worker"><span class="secno">1.3.1 </span>Creating a dedicated worker</h4><p><i>This section is non-normative.</i><p>Creating a worker requires a URL to a JavaScript file. The <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> constructor is invoked with the
+  URL to that file as its only argument; a worker is then created and
+  returned:<pre>var worker = new Worker('helper.js');</pre><h4 id="communicating-with-a-dedicated-worker"><span class="secno">1.3.2 </span>Communicating with a dedicated worker</h4><p><i>This section is non-normative.</i><p>Dedicated workers use <code><a href="#messageport">MessagePort</a></code> objects behind the
+  scenes, and thus support all the same features, such as sending
+  structured data, transferring binary data, and transferring other
+  ports.<p>To receive messages from a dedicated worker, use the <code title="handler-worker-onmessage"><a href="#handler-worker-onmessage">onmessage</a></code> <span title="event
+  handler IDL attributes">event handler IDL attribute</span> on the
+  <code><a href="#worker">Worker</a></code> object:<pre>worker.onmessage = function (event) { ... };</pre><p>You can also use the <code title="dom-EventTarget-addEventListener">addEventListener()</code> method.<p class="note">The implicit <code><a href="#messageport">MessagePort</a></code> used by
+  dedicated workers has its <span>port message queue</span> implicitly
+  enabled when it is created, so there is no equivanet to the
+  <code><a href="#messageport">MessagePort</a></code> interface's <code title="dom-MessagePort-start">start()</code> method on the
+  <code><a href="#worker">Worker</a></code> interface.<p>To <em>send</em> data to a worker, use the <code title="dom-Worker-postMessage"><a href="#dom-worker-postmessage">postMessage()</a></code> method.
+  Structured data can be sent over this communication channel. To send
+  <code>ArrayBuffer</code> objects efficiently (by transferring them
+  rather than cloning them), list them in an array in the second
+  argument.<pre>worker.postMessage({
+  operation: 'find-edges',
+  input: buffer, // an ArrayBuffer object
+  threshold: 0.6,
+}, [buffer]);</pre><p>To receive a message inside the worker, the <code title="handler-DedicatedWorkerGlobalScope-onmessage"><a href="#handler-dedicatedworkerglobalscope-onmessage">onmessage</a></code>
+  <span title="event handler IDL attributes">event handler IDL
+  attribute</span> is used.<pre>onmessage = function (event) { ... };</pre><p>You can again also use the <code title="dom-EventTarget-addEventListener">addEventListener()</code>
+  method.<p>In either case, the data is provided in the event object's <code title="dom-MessageEvent-data">data</code> attribute.<p>To send messages back, you again use <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code>.
+  It supports the structured data in the same manner.<pre>postMessage(event.data.input, [event.data.input]); // transfer the buffer back</pre><h4 id="shared-workers"><span class="secno">1.3.3 </span>Shared workers</h4><p><i>This section is non-normative.</i><p>Shared workers are identified in one of two ways: either by the
+  URL of the script used to create it, or by explicit name. When
+  created by name, the URL used by the first page to create the worker
+  with that name is the URL of the script that will be used for that
+  worker. This allows multiple applications on a domain to all use a
+  single shared worker to provide a common service, without the
+  applications having to keep track of a common URL for the script
+  used to provide the service.<p class="note">In either case, shared workers are scoped by
+  <span>origin</span>. Two different sites using the same names will
+  not collide.<p>Creating shared workers is done using the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor. This
+  constructor takes the URL to the script to use for its first
+  argument, and the name of the worker, if any, as the second
+  argument.<pre>var worker = new SharedWorker('service.js');</pre><p>Communicating with shared workers is done with explicit
+  <code><a href="#messageport">MessagePort</a></code> objects. The object returned by the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor holds a
+  reference to the port on its <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute.<pre>worker.port.onmessage = function (event) { ... };
+worker.port.postMessage('some message');
+worker.port.postMessage({ foo: 'structured'; bar: ['data', 'also', 'possible']});</pre><p>Inside the shared worker, new clients of the worker are announced
+  using the <code title="event-connect">connect</code> event. The port
+  for the new client is given by the event object's <code title="dom-messageevent-ports">ports</code> array as its first (and
+  only) value.<pre>onconnect = function (event) {
+  var newPort = event.ports[0];
+  // set up a listener
+  newPort.onmessage = function (event) { ... };
+  // send a message back to the port
+  newPort.postMessage('ready!'); // can also send structured data, of course
+};</pre><h2 id="conformance-requirements"><span class="secno">2 </span>Conformance requirements</h2><p>All diagrams, examples, and notes in this specification are
   non-normative, as are all sections explicitly marked non-normative.
   Everything else in this specification is normative.<p>The key words "MUST", "MUST NOT", "REQUIRED",  "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
   "OPTIONAL" in the normative parts of this document are to be
