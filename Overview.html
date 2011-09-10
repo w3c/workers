@@ -214,7 +214,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-17-august-2011">Editor's Draft 17 August 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-10-september-2011">Editor's Draft 10 September 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -321,7 +321,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 17 August 2011 Editor's Draft.
+  This specification is the 10 September 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -1412,11 +1412,11 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   the error occurred while handling a previous script error, the user
   agent must <span>queue a task</span> to fire an event that uses the
   <code><a href="#errorevent">ErrorEvent</a></code> interface, with the name <code title="event-error">error</code>, that doesn't bubble and is
-  cancelable, with its <code title="dom-ErrorEvent-message"><a href="#dom-errorevent-message">message</a></code>, <code title="dom-ErrorEvent-filename"><a href="#dom-errorevent-filename">filename</a></code>, and <code title="dom-ErrorEvent-lineno"><a href="#dom-errorevent-lineno">lineno</a></code> attributes set
+  cancelable, with its <code title="dom-ErrorEvent-message"><a href="#dom-errorevent-message">message</a></code>, <code title="dom-ErrorEvent-filename"><a href="#dom-errorevent-filename">filename</a></code>, and <code title="dom-ErrorEvent-lineno"><a href="#dom-errorevent-lineno">lineno</a></code> attributes initialized
   appropriately, at the <code><a href="#worker">Worker</a></code> object associated with the
-  worker. If the event is not canceled, the user agent must act as if the
-  uncaught runtime script error had occurred in the global scope that
-  the <code><a href="#worker">Worker</a></code> object is in, thus repeating the entire
+  worker. If the event is not canceled, the user agent must act as if
+  the uncaught runtime script error had occurred in the global scope
+  that the <code><a href="#worker">Worker</a></code> object is in, thus repeating the entire
   runtime script error reporting process one level up.<p>If the implicit port connecting the worker to its
   <code><a href="#worker">Worker</a></code> object has been disentangled (i.e. if the parent
   worker has been terminated), then the user agent must act as if the
@@ -1426,18 +1426,28 @@ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a h
   dedicated workers up to the original <code>Document</code>, even if
   some of the workers along this chain have been terminated and
   garbage collected.<p>The <span>task source</span> for the task mentioned above is the
-  <span>DOM manipulation task source</span>.<hr><pre class="idl">interface <dfn id="errorevent">ErrorEvent</dfn> : <span>Event</span> {
+  <span>DOM manipulation task source</span>.<hr><pre class="idl">[Constructor(DOMString type, optional <a href="#erroreventinit">ErrorEventInit</a> eventInitDict)]
+interface <dfn id="errorevent">ErrorEvent</dfn> : <span>Event</span> {
   readonly attribute DOMString <a href="#dom-errorevent-message" title="dom-ErrorEvent-message">message</a>;
   readonly attribute DOMString <a href="#dom-errorevent-filename" title="dom-ErrorEvent-filename">filename</a>;
   readonly attribute unsigned long <a href="#dom-errorevent-lineno" title="dom-ErrorEvent-lineno">lineno</a>;
-  void <a href="#dom-errorevent-initerrorevent" title="dom-ErrorEvent-initErrorEvent">initErrorEvent</a>(DOMString typeArg, boolean canBubbleArg, boolean cancelableArg, DOMString messageArg, DOMString filenameArg, unsigned long linenoArg);
-};</pre><p>The <dfn id="dom-errorevent-initerrorevent" title="dom-ErrorEvent-initErrorEvent"><code>initErrorEvent()</code></dfn>
-  method must initialize the event in a manner analogous to the
-  similarly-named method in the DOM Events interfaces. <a href="#refsDOMEVENTS">[DOMEVENTS]</a><p>The <dfn id="dom-errorevent-message" title="dom-ErrorEvent-message"><code>message</code></dfn>
-  attribute represents the error message.<p>The <dfn id="dom-errorevent-filename" title="dom-ErrorEvent-filename"><code>filename</code></dfn>
-  attribute represents the <span>absolute URL</span> of the script in
+};
+
+dictionary <dfn id="erroreventinit">ErrorEventInit</dfn> : <span>EventInit</span> {
+  DOMString message;
+  DOMString filename;
+  unsigned long lineno;
+};</pre><p>The <dfn id="dom-errorevent-message" title="dom-ErrorEvent-message"><code>message</code></dfn> attribute
+  must return the value it was initialized to. When the object is
+  created, this attribute must be initialized to the empty string. It
+  represents the error message.<p>The <dfn id="dom-errorevent-filename" title="dom-ErrorEvent-filename"><code>filename</code></dfn>
+  attribute must return the value it was initialized to. When the
+  object is created, this attribute must be initialized to the empty
+  string. It represents the <span>absolute URL</span> of the script in
   which the error originally occurred.<p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
-  attribute represents the line number where the error occurred in the
+  attribute must return the value it was initialized to. When the
+  object is created, this attribute must be initialized to zero. It
+  represents the line number where the error occurred in the
   script.<h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
 interface <dfn id="abstractworker">AbstractWorker</dfn> : <span>EventTarget</span> {
            attribute <span>Function</span>? <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
@@ -1671,11 +1681,11 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
        <li><p>Create an event that uses the <code>MessageEvent</code>
        interface, with the name <code title="event-connect">connect</code>, which does not bubble, is
        not cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
-       is the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose
-       value is a <span title="dfn-read-only-array">read only</span>
-       array containing only the newly created port, and <span>queue a
-       task</span> to dispatch the event at <var title="">worker
-       global scope</var>.</li>
+       is initialized to the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose
+       value is initialized to a <span title="dfn-read-only-array">read only</span> array containing
+       only the newly created port, and <span>queue a task</span> to
+       dispatch the event at <var title="">worker global
+       scope</var>.</li>
 
        <li>
 
@@ -1726,11 +1736,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
    <li><p>Create an event that uses the <code>MessageEvent</code>
    interface, with the name <code title="event-connect">connect</code>, which does not bubble, is not
    cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value is
-   the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value
-   is a <span title="dfn-read-only-array">read only</span> array
-   containing only the newly created port, and <span>queue a
-   task</span> to dispatch the event at <var title="">worker global
-   scope</var>.</li>
+   initialized to the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value
+   is initialized to a <span title="dfn-read-only-array">read
+   only</span> array containing only the newly created port, and
+   <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
 
    <li>
 
@@ -1930,11 +1939,6 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   interface's <span>relevant namespace object</span> is a
   <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h2 class="no-num" id="references">References</h2><p>All references are normative unless marked "Non-normative".</p><dl><dt id="refsDOMCORE">[DOMCORE]</dt>
    <dd><cite><a href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html">Web DOM Core</a></cite>, A. van Kesteren. W3C.</dd>
-
-   <dt id="refsDOMEVENTS">[DOMEVENTS]</dt>
-      <dd><cite><a href="http://dev.w3.org/2006/webapi/DOM-Level-3-Events/html/DOM3-Events.html">Document
-   Object Model (DOM) Level 3 Events Specification</a></cite>,
-   D. Schepers. W3C.</dd>
 
    <dt id="refsECMA262">[ECMA262]</dt>
    <dd><cite><a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">ECMAScript
