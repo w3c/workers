@@ -214,7 +214,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-10-september-2011">Editor's Draft 10 September 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-29-september-2011">Editor's Draft 29 September 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -321,7 +321,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 10 September 2011 Editor's Draft.
+  This specification is the 29 September 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -1040,9 +1040,9 @@ worker.port.postMessage({ foo: 'structured'; bar: ['data', 'also', 'possible']})
   readonly attribute <a href="#workerlocation">WorkerLocation</a> <a href="#dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location">location</a>;
 
   void <a href="#dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close">close</a>();
-           attribute <span>Function</span>? <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
-           attribute <span>Function</span>? <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
-           attribute <span>Function</span>? <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
+  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
+  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
+  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
 };
 <a href="#workerglobalscope">WorkerGlobalScope</a> implements <a href="#workerutils">WorkerUtils</a>;</pre><p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
   must return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.<p>The <dfn id="dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location"><code>location</code></dfn>
@@ -1072,7 +1072,7 @@ worker.port.postMessage({ foo: 'structured'; bar: ['data', 'also', 'possible']})
   the interface's <span>relevant namespace object</span> is a
   <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
 interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
-  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);           attribute <span>Function</span>? <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
+  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
 };</pre><p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they
   had an implicit <code><a href="#messageport">MessagePort</a></code> associated with them. This
   port is part of a channel that is set up when the worker is created,
@@ -1094,7 +1094,7 @@ interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> 
 interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   readonly attribute DOMString <a href="#dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name">name</a>;
   readonly attribute <span>ApplicationCache</span> <span title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>;
-           attribute <span>Function</span>? <a href="#handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect">onconnect</a>;
+  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect">onconnect</a>;
 };</pre><p>Shared workers receive message ports through <code title="event-WorkerGlobalScope-connect">connect</code> events on
   their global object for each connection.<p>The <dfn id="dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name"><code>name</code></dfn>
   attribute must return the value it was assigned when the
@@ -1450,7 +1450,7 @@ dictionary <dfn id="erroreventinit">ErrorEventInit</dfn> : <span>EventInit</span
   represents the line number where the error occurred in the
   script.<h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">[Supplemental, NoInterfaceObject]
 interface <dfn id="abstractworker">AbstractWorker</dfn> : <span>EventTarget</span> {
-           attribute <span>Function</span>? <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
+  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
 };</pre><p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
@@ -1460,7 +1460,7 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> : <span>EventTarget</spa
 interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWorker</a> {
   void <a href="#dom-worker-terminate" title="dom-Worker-terminate">terminate</a>();
 
-  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);           attribute <span>Function</span>? <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
+  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
 };</pre><p>The <dfn id="dom-worker-terminate" title="dom-Worker-terminate"><code>terminate()</code></dfn> method,
   when invoked, must cause the "<a href="#terminate-a-worker">terminate a worker</a>"
   algorithm to be run on the worker with with the object is
