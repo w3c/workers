@@ -214,7 +214,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-29-september-2011">Editor's Draft 29 September 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-30-september-2011">Editor's Draft 30 September 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -321,7 +321,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 29 September 2011 Editor's Draft.
+  This specification is the 30 September 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -1482,7 +1482,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
    script</span>'s <span title="script's base URL">base URL</span>,
    when the method is invoked.</li>
 
-   <li><p>If this fails, throw a <code>SYNTAX_ERR</code>
+   <li><p>If this fails, throw a <code>SyntaxError</code>
    exception.</li>
 
    <li>
@@ -1490,7 +1490,7 @@ interface <dfn id="worker">Worker</dfn> : <a href="#abstractworker">AbstractWork
     <p>If the <span>origin</span> of the resulting <span>absolute
     URL</span> is not the <span title="same origin">same</span> as the
     origin of the <span>entry script</span>, then throw a
-    <code>SECURITY_ERR</code> exception.</p>
+    <code>SecurityError</code> exception.</p>
 
     <p class="note">Thus, scripts must be external files with the same
     scheme as the original page: you can't load a script from a <span title="data protocol"><code title="">data:</code> URL</span> or
@@ -1584,7 +1584,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
   constructor is invoked, the user agent must run the following
   steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument.</li>
 
-   <li><p>If this fails, throw a <code>SYNTAX_ERR</code>
+   <li><p>If this fails, throw a <code>SyntaxError</code>
    exception.</li>
 
    <li><p>Otherwise, let <var title="">scriptURL</var> be the
@@ -1598,7 +1598,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
 
     <p>If the <span>origin</span> of <var title="">scriptURL</var> is
     not the <span title="same origin">same</span> as the origin of the
-    <span>entry script</span>, then throw a <code>SECURITY_ERR</code>
+    <span>entry script</span>, then throw a <code>SecurityError</code>
     exception.</p>
 
     <p class="note">Thus, scripts must be external files with the same
@@ -1662,7 +1662,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <a href="#abstractworker">
       <ol><li><p>If <var title="">worker global scope</var>'s <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location">location</a></code>
        attribute represents an <span>absolute URL</span> that is not
        exactly equal to <var title="">scriptURL</var>, then throw a
-       <code>URL_MISMATCH_ERR</code> exception and abort all these
+       <code>URLMismatchError</code> exception and abort all these
        steps.</li>
 
        <li><p>Associate <var title="">worker</var> with <var title="">worker global scope</var>.</li>
@@ -1795,7 +1795,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    <li><p><span title="resolve a url">Resolve</span> each
    argument.</li>
 
-   <li><p>If any fail, throw a <code>SYNTAX_ERR</code>
+   <li><p>If any fail, throw a <code>SyntaxError</code>
    exception.</li>
 
 
@@ -1818,7 +1818,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
       to complete.</p>
 
       <p>If the fetching attempt failed, throw a
-      <code>NETWORK_ERR</code> exception and abort all these
+      <code>NetworkError</code> exception and abort all these
       steps.</p>
 
       <p>If the attempt succeeds, then let <var title="">source</var> be
