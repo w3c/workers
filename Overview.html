@@ -215,7 +215,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-4-october-2011">Editor's Draft 4 October 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-5-october-2011">Editor's Draft 5 October 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -322,7 +322,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 4 October 2011 Editor's Draft.
+  This specification is the 5 October 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -963,7 +963,7 @@ function work() {
   <code><a href="#messageport">MessagePort</a></code> objects. The object returned by the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor holds a
   reference to the port on its <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute.<pre>worker.port.onmessage = function (event) { ... };
 worker.port.postMessage('some message');
-worker.port.postMessage({ foo: 'structured'; bar: ['data', 'also', 'possible']});</pre><p>Inside the shared worker, new clients of the worker are announced
+worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']});</pre><p>Inside the shared worker, new clients of the worker are announced
   using the <code title="event-connect">connect</code> event. The port
   for the new client is given by the event object's <code title="dom-messageevent-ports">ports</code> array as its first (and
   only) value.<pre>onconnect = function (event) {
