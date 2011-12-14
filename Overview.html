@@ -215,11 +215,12 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-9-december-2011">Editor's Draft 9 December 2011</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-14-december-2011">Editor's Draft 14 December 2011</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
     <dd><a class="latest-link" href="http://dev.w3.org/html5/workers/">http://dev.w3.org/html5/workers/</a></dd>
+
 
     <dt>Previous Versions:</dt>
     <dd><a href="http://www.w3.org/TR/2011/WD-workers-20110310/">http://www.w3.org/TR/2011/WD-workers-20110310/</a></dd>
@@ -322,7 +323,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 9 December 2011 Editor's Draft.
+  This specification is the 14 December 2011 Editor's Draft.
   </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -331,6 +332,7 @@
   individual believes contains <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
   Claim(s)</a> must disclose the information in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
   6 of the W3C Patent Policy</a>.<h2 class="no-num no-toc" id="contents">Table of Contents</h2>
+
 <ol class="toc">
  <li><a href="#introduction"><span class="secno">1 </span>Introduction</a>
   <ol>
@@ -1058,6 +1060,7 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
    queue">task queues</span>.</p>
 
 
+
    <li><p>Set the worker's <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's
    <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
    true. (This prevents any further tasks from being queued.)</li>
@@ -1071,7 +1074,8 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
     <tr><td><dfn id="handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline"><code>onoffline</code></dfn> <td> <code title="event-offline">offline</code> 
     <tr><td><dfn id="handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline"><code>ononline</code></dfn> <td> <code title="event-online">online</code> 
   </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> {
-  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
+  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
+  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
 };
 <a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a> implements <a href="#workerglobalscope">WorkerGlobalScope</a>;</pre><p>The <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface must not
   exist if the interface's <span>relevant namespace object</span> is
@@ -1080,7 +1084,8 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
   port is part of a channel that is set up when the worker is created,
   but it is not exposed. This object must never be garbage collected
   before the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.<p>All messages received by that port must immediately be retargeted
-  at the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.<p>The <dfn id="dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage"><code>postMessage()</code></dfn>  method on
+  at the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.<p>The <dfn id="dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage"><code>postMessage()</code></dfn>
+  method on
   <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects must act as if, when
   invoked, it immediately invoked the
   method of the same name on the port, with the same arguments, and
@@ -1206,6 +1211,7 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
     <p>Attempt to <span>fetch</span> the resource identified by <var title="">url</var>, from the <var title="">owner origin</var>,
     with the <i>synchronous flag</i> set and the <i>force same-origin
     flag</i> set.</p> 
+
     <p>If the attempt fails, then for each <code><a href="#worker">Worker</a></code> or
     <code><a href="#sharedworker">SharedWorker</a></code> object associated with <var title="">worker global scope</var>, <span>queue a task</span> to
     <span>fire a simple event</span> named <code title="event-error">error</code> at that object. Abort these
@@ -1291,6 +1297,7 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
     algorithms defined below.</p>
 
 
+
    </li>
 
    <li><p>If <var title="">worker global scope</var> is actually a
@@ -1358,15 +1365,18 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
 
    </li>
 
+
   </ol><hr><p>When a user agent is to <dfn id="kill-a-worker">kill a worker</dfn> it must
   run the following steps in parallel with the worker's main loop (the
   "<a href="#run-a-worker">run a worker</a>" processing model defined above):<ol><li><p>Set the worker's <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
    true.</li>
 
 
+
    <li><p>If there are any <span title="concept-task">tasks</span>
    queued in the <span>event loop</span>'s <span title="task
    queue">task queues</span>, discard them without processing them.</li>
+
 
 
    <li><p>Wait a user-agent-defined amount of time.</li>
@@ -1457,16 +1467,19 @@ dictionary <dfn id="erroreventinit">ErrorEventInit</dfn> : <span>EventInit</span
   script.<h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">[NoInterfaceObject]
 interface <dfn id="abstractworker">AbstractWorker</dfn> {
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
+
 };</pre><p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
   objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-abstractworker-onerror" title="handler-AbstractWorker-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
+
   </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4><pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL)]
 interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   void <a href="#dom-worker-terminate" title="dom-Worker-terminate">terminate</a>();
 
-  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
+  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
+  [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
 };
 <a href="#worker">Worker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre><p>The <dfn id="dom-worker-terminate" title="dom-Worker-terminate"><code>terminate()</code></dfn> method,
   when invoked, must cause the "<a href="#terminate-a-worker">terminate a worker</a>"
@@ -1476,7 +1489,8 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   a channel that is set up when the worker is created, but it is not
   exposed. This object must never be garbage collected before the
   <code><a href="#worker">Worker</a></code> object.<p>All messages received by that port must immediately be retargeted
-  at the <code><a href="#worker">Worker</a></code> object.<p>The <dfn id="dom-worker-postmessage" title="dom-Worker-postMessage"><code>postMessage()</code></dfn>  method on <code><a href="#worker">Worker</a></code> objects
+  at the <code><a href="#worker">Worker</a></code> object.<p>The <dfn id="dom-worker-postmessage" title="dom-Worker-postMessage"><code>postMessage()</code></dfn>
+  method on <code><a href="#worker">Worker</a></code> objects
   must act as if, when invoked, it
   immediately invoked the method of the same name on the port, with
   the same arguments, and returned the same return value.<p>The following are the <span>event handlers</span> (and their
@@ -1532,6 +1546,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
    <li><p>Return <var title="">worker</var>, and run the following
    steps asynchronously.</li>
+
 
 
    <li><p>Enable <var title="">outside port</var>'s <span>port message
@@ -1825,12 +1840,14 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    exception.</li>
 
 
+
    <li>
 
     <p>Attempt to <span>fetch</span> each resource identified by the
     resulting <span title="absolute URL">absolute URLs</span>, from
     the <span>entry script</span>'s <span>origin</span>, with the
     <i>synchronous flag</i> set.</p> 
+
    </li>
 
    <li>
@@ -1981,11 +1998,13 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    RFCs to Indicate Requirement Levels</a></cite>, S. Bradner. IETF.</dd>
 
    <dt id="refsWEBIDL">[WEBIDL]</dt>
-      <dd><cite><a href="http://dev.w3.org/2006/webapi/WebIDL/">Web
+   
+   <dd><cite><a href="http://dev.w3.org/2006/webapi/WebIDL/">Web
    IDL</a></cite>, C. McCormack. W3C.</dd>
 
    <dt id="refsXHR">[XHR]</dt>
-      <dd><cite><a href="http://dev.w3.org/2006/webapi/XMLHttpRequest-2/"><code>XMLHttpRequest</code></a></cite>,
+   
+   <dd><cite><a href="http://dev.w3.org/2006/webapi/XMLHttpRequest-2/"><code>XMLHttpRequest</code></a></cite>,
    A. van Kesteren. W3C.</dd>
 
   </dl><h2 class="no-num" id="acknowledgements">Acknowledgements</h2><!-- ACKS --><p>Thanks to
