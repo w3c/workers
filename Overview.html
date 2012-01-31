@@ -1383,9 +1383,10 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
   worker's scripts, if the error did not occur while handling a
   previous script error, the user agent must <span>report the
   error</span> at the <span>URL</span> of the resource that contained
-  the script, with the line number where the error occurred, in the
-  <span>origin</span> of the scripts running in the worker, using the
-  <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code> attribute.
+  the script, with the position (line number and column number) where
+  the error occurred, in the <span>origin</span> of the scripts
+  running in the worker, using the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
+  object's <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code> attribute.
   
   <a href="#refsHTML">[HTML]</a>
   
