@@ -340,11 +340,10 @@
    <li><a href="#examples"><span class="secno">1.2 </span>Examples</a>
     <ol>
      <li><a href="#a-background-number-crunching-worker"><span class="secno">1.2.1 </span>A background number-crunching worker</a></li>
-     <li><a href="#a-worker-for-updating-a-client-side-database"><span class="secno">1.2.2 </span>A worker for updating a client-side database</a></li>
-     <li><a href="#worker-used-for-background-i-o"><span class="secno">1.2.3 </span>Worker used for background I/O</a></li>
-     <li><a href="#shared-workers-introduction"><span class="secno">1.2.4 </span>Shared workers introduction</a></li>
-     <li><a href="#shared-state-using-a-shared-worker"><span class="secno">1.2.5 </span>Shared state using a shared worker</a></li>
-     <li><a href="#delegation"><span class="secno">1.2.6 </span>Delegation</a></ol></li>
+     <li><a href="#worker-used-for-background-i-o"><span class="secno">1.2.2 </span>Worker used for background I/O</a></li>
+     <li><a href="#shared-workers-introduction"><span class="secno">1.2.3 </span>Shared workers introduction</a></li>
+     <li><a href="#shared-state-using-a-shared-worker"><span class="secno">1.2.4 </span>Shared state using a shared worker</a></li>
+     <li><a href="#delegation"><span class="secno">1.2.5 </span>Delegation</a></ol></li>
    <li><a href="#tutorials"><span class="secno">1.3 </span>Tutorials</a>
     <ol>
      <li><a href="#creating-a-dedicated-worker"><span class="secno">1.3.1 </span>Creating a dedicated worker</a></li>
@@ -421,35 +420,7 @@ search: while (true) {
 }</pre><p>The bulk of this code is simply an unoptimized search for a prime
   number. The <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code>
   method is used to send a message back to the page when a prime is
-  found.<p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this example online</a>.<h4 id="a-worker-for-updating-a-client-side-database"><span class="secno">1.2.2 </span>A worker for updating a client-side database</h4><p><i>This section is non-normative.</i><p>In this example, the main document spawns a worker whose only
-  task is to listen for notifications from the server, and, when
-  appropriate, either add or remove data from the client-side
-  database.<p>Since no communication occurs between the worker and the main
-  page, the main page can start the worker by just doing:<pre>&lt;script&gt;
- new Worker('worker.js');
-&lt;/script&gt;</pre><p>The worker itself is as follows:<pre>var server = new WebSocket('ws://whatwg.org/database');
-var database = openDatabase('demobase', '1.0', 'Demo Database', 10240);
-server.onmessage = function (event) {
-  // data is in the format "command key value"
-  var data = event.data.split(' ');
-  switch (data[0]) {
-    case '+':
-     database.transaction(function(tx) {
-       tx.executeSql('INSERT INTO pairs (key, value) VALUES (?, ?)', data[1], data[2]);
-     });
-    case '-':
-     database.transaction(function(tx) {
-       tx.executeSql('DELETE FROM pairs WHERE key=? AND value=?', data[1], data[2]);
-     });
-  }
-};</pre><p>This connects to the server using the <code>WebSocket</code>
-  mechanism and opens the local database (which, we presume, has been
-  created earlier). The worker then just listens for messages from the
-  server and acts on them as appropriate, forever (or until the main
-  page is closed).<p><a href="http://www.whatwg.org/demos/workers/database-updater/page.html">View
-  this example online</a>. (This example will not actually function,
-  since the server does not actually exist and the database is not
-  created by this sample code.)<h4 id="worker-used-for-background-i-o"><span class="secno">1.2.3 </span>Worker used for background I/O</h4><p><i>This section is non-normative.</i><p>In this example, the main document uses two workers, one for
+  found.<p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this example online</a>.<h4 id="worker-used-for-background-i-o"><span class="secno">1.2.2 </span>Worker used for background I/O</h4><p><i>This section is non-normative.</i><p>In this example, the main document uses two workers, one for
   fetching stock updates for at regular intervals, and one for
   fetching performing search queries that the user requests.<p>The main page is as follows:<pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
@@ -531,7 +502,7 @@ onmessage = function (event) {
 };</pre><p>The search query worker is as follows:<pre>importScripts('io.js');
 onmessage = function (event) {
   postMessage(get('search.cgi?' + event.data));
-};</pre><p><a href="http://www.whatwg.org/demos/workers/stocks/page.html">View this example online</a>.<h4 id="shared-workers-introduction"><span class="secno">1.2.4 </span>Shared workers introduction</h4><p><i>This section is non-normative.</i><p>This section introduces shared workers using a Hello World
+};</pre><p><a href="http://www.whatwg.org/demos/workers/stocks/page.html">View this example online</a>.<h4 id="shared-workers-introduction"><span class="secno">1.2.3 </span>Shared workers introduction</h4><p><i>This section is non-normative.</i><p>This section introduces shared workers using a Hello World
   example. Shared workers use slightly different APIs, since each
   worker can have multiple connections.<p>This first example shows how you connect to a worker and how a
   worker can send a message back to the page when it connects to
@@ -610,7 +581,7 @@ onconnect = function(e) {
     port.postMessage('pong');
   }
 }
-</pre><p><a href="http://www.whatwg.org/demos/workers/shared/003/test.html">View this example online</a>.<h4 id="shared-state-using-a-shared-worker"><span class="secno">1.2.5 </span>Shared state using a shared worker</h4><p><i>This section is non-normative.</i><p>In this example, multiple windows (viewers) can be opened that
+</pre><p><a href="http://www.whatwg.org/demos/workers/shared/003/test.html">View this example online</a>.<h4 id="shared-state-using-a-shared-worker"><span class="secno">1.2.4 </span>Shared state using a shared worker</h4><p><i>This section is non-normative.</i><p>In this example, multiple windows (viewers) can be opened that
   are all viewing the same map. All the windows share the same map
   information, with a single worker coordinating all the viewers. Each
   viewer can move around independently, but if they set any data on
@@ -863,7 +834,7 @@ function getMessage(event) {
   "msg" message from one viewer naming another viewer, it sets up a
   direct connection between the two, so that the two viewers can
   communicate directly without the worker having to proxy all the
-  messages.<p><a href="http://www.whatwg.org/demos/workers/multiviewer/page.html">View this example online</a>.<h4 id="delegation"><span class="secno">1.2.6 </span>Delegation</h4><p><i>This section is non-normative.</i><p>With multicore CPUs becoming prevalent, one way to obtain better
+  messages.<p><a href="http://www.whatwg.org/demos/workers/multiviewer/page.html">View this example online</a>.<h4 id="delegation"><span class="secno">1.2.5 </span>Delegation</h4><p><i>This section is non-normative.</i><p>With multicore CPUs becoming prevalent, one way to obtain better
   performance is to split computationally expensive tasks amongst
   multiple workers. In this example, a computationally expensive task
   that is to be performed for every number from 1 to 10,000,000 is
