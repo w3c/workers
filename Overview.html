@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><html lang="en-US-x-Hixie"><title>Web Workers</title><style type="text/css">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html lang="en-US-x-Hixie"><title>Web Workers</title><style type="text/css">
    pre { margin-left: 2em; white-space: pre-wrap; }
    h2 { margin: 3em 0 1em 0; }
    h3 { margin: 2.5em 0 1em 0; }
@@ -210,12 +210,13 @@
      }
      return null;
    }
-  </script><div class="head" id="head">
+  </script><body>
+  <div class="head" id="head">
    <p><a href="http://www.w3.org/"><img alt="W3C" height="48" src="http://www.w3.org/Icons/w3c_home" width="72"></a></p>
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-9-february-2012">Editor's Draft 9 February 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-13-march-2012">Editor's Draft 13 March 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -248,20 +249,38 @@
    <!-- UNDER NO CIRCUMSTANCES IS THE PRECEDING PARAGRAPH TO BE REMOVED OR EDITED WITHOUT TALKING TO IAN FIRST -->
 
 
-  </div><hr class="top"><h2 class="no-num no-toc" id="abstract">Abstract</h2><p>This specification defines an API that allows Web application
+  </div>
+
+  <hr class="top"><h2 class="no-num no-toc" id="abstract">Abstract</h2>
+
+  <p>This specification defines an API that allows Web application
   authors to spawn background workers running scripts in parallel to
   their main page. This allows for thread-like operation with
-  message-passing as the coordination mechanism.<h2 class="no-num no-toc" id="status-of-this-document">Status of This document</h2><p><em>This section describes the status of this document at the
+  message-passing as the coordination mechanism.</p>
+
+  <h2 class="no-num no-toc" id="status-of-this-document">Status of This document</h2>
+
+  
+  
+
+  <p><em>This section describes the status of this document at the
   time of its publication. Other documents may supersede this
   document. A list of current W3C publications and the
 
   most recently formally published <!-- DO NOT CHANGE THIS BACK TO THE STANDARD BOILERPLATE, AS IT IS INACCURATE -->
 
   revision of this technical report can be found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a> at
-  http://www.w3.org/TR/.</em></p><p>If you wish to make comments regarding this document in a manner
+  http://www.w3.org/TR/.</em></p>
+
+
+  
+
+  <p>If you wish to make comments regarding this document in a manner
   that is tracked by the W3C, please submit them via using <a href="http://www.w3.org/Bugs/Public/enter_bug.cgi?product=HTML%20WG">our
   public bug database</a>. If you do not have an account then you can
-  enter feedback using this form:<form action="http://www.whatwg.org/specs/web-apps/current-work/file-spam.cgi" method="post">
+  enter feedback using this form:</p>
+
+  <form action="http://www.whatwg.org/specs/web-apps/current-work/file-spam.cgi" method="post">
    <fieldset><legend>Feedback Comments</legend>
     <input name="id" type="hidden" value="top"><input name="component" type="hidden" value="Web Workers (editor: Ian Hickson)"><input name="response" type="hidden" value="html"><p><label for="feedbackBox">Please enter your feedback, carefully
     indicating the title of the section for which you are submitting
@@ -293,18 +312,28 @@
     </script><p>
      <input onclick="return checkFeedbackForm(form)" type="submit" value="Submit feedback"><small>(Note: Your IP address and user agent will be publicly recorded for spam prevention purposes.)</small>
     </p>
-   </fieldset></form><p>You can also e-mail feedback to <a href="mailto:public-webapps@w3.org">public-webapps@w3.org</a> (<a href="mailto:public-webapps-request@w3.org?subject=subscribe">subscribe</a>,
+   </fieldset></form>
+
+  
+  <p>You can also e-mail feedback to <a href="mailto:public-webapps@w3.org">public-webapps@w3.org</a> (<a href="mailto:public-webapps-request@w3.org?subject=subscribe">subscribe</a>,
   <a href="http://lists.w3.org/Archives/Public/public-webapps/">archives</a>),
   or <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a> (<a href="http://lists.whatwg.org/listinfo.cgi/whatwg-whatwg.org">subscribe</a>,
   <a href="http://lists.whatwg.org/pipermail/whatwg-whatwg.org/">archives</a>).
-  All feedback is welcome.</p><p>Implementors should be aware that this specification is not
+  All feedback is welcome.</p>
+
+  
+  <p>Implementors should be aware that this specification is not
   stable. <strong>Implementors who are not taking part in the
   discussions are likely to find the specification changing out from
   under them in incompatible ways.</strong> Vendors interested in
   implementing this specification before it eventually reaches the
   Candidate Recommendation stage should join the aforementioned
-  mailing lists and take part in the discussions.<div id="multipage-common">
-  </div><p>The latest
+  mailing lists and take part in the discussions.</p>
+
+  <div id="multipage-common">
+  </div>
+
+   <p>The latest
   stable version of the editor's draft of this specification is always
   available on <a href="http://dev.w3.org/html5/workers/">the W3C CVS server</a>
   and in the <a href="http://svn.whatwg.org/webapps/">WHATWG
@@ -312,9 +341,12 @@
   editor's working copy</a> (which may contain unfinished text in the
   process of being prepared) contains the latest draft text of this
   specification (amongst others). For more details, please see the <a href="http://wiki.whatwg.org/wiki/FAQ#What_are_the_various_versions_of_the_spec.3F">WHATWG
-  FAQ</a>.<p>Notifications of changes to this specification are sent along
+  FAQ</a>.</p>
+
+  <p>Notifications of changes to this specification are sent along
   with notifications of changes to related specifications using the
-  following mechanisms:<dl><dt>E-mail notifications of changes</dt>
+  following mechanisms:</p>
+  <dl><dt>E-mail notifications of changes</dt>
    <dd>Commit-Watchers mailing list (complete source diffs): <a href="http://lists.whatwg.org/listinfo.cgi/commit-watchers-whatwg.org">http://lists.whatwg.org/listinfo.cgi/commit-watchers-whatwg.org</a></dd>
    <dt>Browsable version-control record of all changes:</dt>
    <dd>CVSWeb interface with side-by-side diffs: <a href="http://dev.w3.org/cvsweb/html5/">http://dev.w3.org/cvsweb/html5/</a></dd>
@@ -323,15 +355,23 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 9 February 2012 Editor's Draft.
-  </p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
+  This specification is the 13 March 2012 Editor's Draft.
+  </p>
+
+  
+  
+  <p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
   of the group; that page also includes instructions for disclosing a
   patent. An individual who has actual knowledge of a patent which the
   individual believes contains <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
   Claim(s)</a> must disclose the information in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
-  6 of the W3C Patent Policy</a>.<h2 class="no-num no-toc" id="contents">Table of Contents</h2>
+  6 of the W3C Patent Policy</a>.</p>
+
+
+  <h2 class="no-num no-toc" id="contents">Table of Contents</h2>
+  
 
 <ol class="toc">
  <li><a href="#introduction"><span class="secno">1 </span>Introduction</a>
@@ -379,20 +419,52 @@
    <li><a href="#worker-locations"><span class="secno">5.4 </span>Worker locations</a></ol></li>
  <li><a class="no-num" href="#references">References</a></li>
  <li><a class="no-num" href="#acknowledgements">Acknowledgements</a></ol>
-<hr><h2 id="introduction"><span class="secno">1 </span>Introduction</h2><h3 id="scope"><span class="secno">1.1 </span>Scope</h3><p><i>This section is non-normative.</i><p>This specification defines an API for running scripts in the
-  background independently of any user interface scripts.<p>This allows for long-running scripts that are not interrupted by
+
+  <hr><h2 id="introduction"><span class="secno">1 </span>Introduction</h2>
+
+  <h3 id="scope"><span class="secno">1.1 </span>Scope</h3>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>This specification defines an API for running scripts in the
+  background independently of any user interface scripts.</p>
+
+  <p>This allows for long-running scripts that are not interrupted by
   scripts that respond to clicks or other user interactions, and
   allows long tasks to be executed without yielding to keep the page
-  responsive.<p>Workers (as these background scripts are called herein) are
+  responsive.</p>
+
+  <p>Workers (as these background scripts are called herein) are
   relatively heavy-weight, and are not intended to be used in large
   numbers. For example, it would be inappropriate to launch one worker
   for each pixel of a four megapixel image. The examples below show
-  some appropriate uses of workers.<p>Generally, workers are expected to be long-lived, have a high
-  start-up performance cost, and a high per-instance memory cost.<h3 id="examples"><span class="secno">1.2 </span>Examples</h3><p><i>This section is non-normative.</i><p>There are a variety of uses that workers can be put to. The
-  following subsections show various examples of this use.<h4 id="a-background-number-crunching-worker"><span class="secno">1.2.1 </span>A background number-crunching worker</h4><p><i>This section is non-normative.</i><p>The simplest use of workers is for performing a computationally
-  expensive task without interrupting the user interface.<p>In this example, the main document spawns a worker to
+  some appropriate uses of workers.</p>
+
+  <p>Generally, workers are expected to be long-lived, have a high
+  start-up performance cost, and a high per-instance memory cost.</p>
+
+
+  <h3 id="examples"><span class="secno">1.2 </span>Examples</h3>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>There are a variety of uses that workers can be put to. The
+  following subsections show various examples of this use.</p>
+
+  <h4 id="a-background-number-crunching-worker"><span class="secno">1.2.1 </span>A background number-crunching worker</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>The simplest use of workers is for performing a computationally
+  expensive task without interrupting the user interface.</p>
+
+  <p>In this example, the main document spawns a worker to
   (na&iuml;vely) compute prime numbers, and progressively displays the
-  most recently found prime number.<p>The main page is as follows:<pre>&lt;!DOCTYPE HTML&gt;
+  most recently found prime number.</p>
+
+  <p>The main page is as follows:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
  &lt;head&gt;
   &lt;title&gt;Worker example: One-core computation&lt;/title&gt;
@@ -406,10 +478,16 @@
    };
   &lt;/script&gt;
  &lt;/body&gt;
-&lt;/html&gt;</pre><p>The <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> constructor call
+&lt;/html&gt;</pre>
+
+  <p>The <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> constructor call
   creates a worker and returns a <code><a href="#worker">Worker</a></code> object
   representing that worker, which is used to communicate with the
-  worker. That object's <code title="handler-Worker-onmessage"><a href="#handler-worker-onmessage">onmessage</a></code> event handler allows the code to receive messages from the worker.<p>The worker itself is as follows:<pre>var n = 1;
+  worker. That object's <code title="handler-Worker-onmessage"><a href="#handler-worker-onmessage">onmessage</a></code> event handler allows the code to receive messages from the worker.</p>
+
+  <p>The worker itself is as follows:</p>
+
+  <pre>var n = 1;
 search: while (true) {
   n += 1;
   for (var i = 2; i &lt;= Math.sqrt(n); i += 1)
@@ -417,12 +495,29 @@ search: while (true) {
      continue search;
   // found a prime!
   postMessage(n);
-}</pre><p>The bulk of this code is simply an unoptimized search for a prime
+}</pre>
+
+  <p>The bulk of this code is simply an unoptimized search for a prime
   number. The <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code>
   method is used to send a message back to the page when a prime is
-  found.<p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this example online</a>.<h4 id="worker-used-for-background-i-o"><span class="secno">1.2.2 </span>Worker used for background I/O</h4><p><i>This section is non-normative.</i><p>In this example, the main document uses two workers, one for
+  found.</p>
+
+  <p><a href="http://www.whatwg.org/demos/workers/primes/page.html">View this example online</a>.</p>
+
+
+
+
+  <h4 id="worker-used-for-background-i-o"><span class="secno">1.2.2 </span>Worker used for background I/O</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>In this example, the main document uses two workers, one for
   fetching stock updates for at regular intervals, and one for
-  fetching performing search queries that the user requests.<p>The main page is as follows:<pre>&lt;!DOCTYPE HTML&gt;
+  fetching performing search queries that the user requests.</p>
+
+  <p>The main page is as follows:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
  &lt;head&gt;
   &lt;title&gt;Worker example: Stock ticker&lt;/title&gt;
@@ -477,8 +572,12 @@ search: while (true) {
   &lt;/script&gt;
   &lt;p&gt;(The data in this example is not real. Try searching for "Google" or "Apple".)&lt;/p&gt;
  &lt;/body&gt;
-&lt;/html&gt;</pre><p>The two workers use a common library for performing the actual
-  network calls. This library is as follows:<pre>function get(url) {
+&lt;/html&gt;</pre>
+
+  <p>The two workers use a common library for performing the actual
+  network calls. This library is as follows:</p>
+
+  <pre>function get(url) {
   try {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, false);
@@ -487,7 +586,11 @@ search: while (true) {
   } catch (e) {
     return ''; // turn all errors into empty results
   }
-}</pre><p>The stock updater worker is as follows:<pre>importScripts('io.js');
+}</pre>
+
+  <p>The stock updater worker is as follows:</p>
+
+  <pre>importScripts('io.js');
 var timer;
 var symbol;
 function update() {
@@ -499,14 +602,33 @@ onmessage = function (event) {
     clearTimeout(timer);
   symbol = event.data;
   update();
-};</pre><p>The search query worker is as follows:<pre>importScripts('io.js');
+};</pre>
+
+  <p>The search query worker is as follows:</p>
+
+  <pre>importScripts('io.js');
 onmessage = function (event) {
   postMessage(get('search.cgi?' + event.data));
-};</pre><p><a href="http://www.whatwg.org/demos/workers/stocks/page.html">View this example online</a>.<h4 id="shared-workers-introduction"><span class="secno">1.2.3 </span>Shared workers introduction</h4><p><i>This section is non-normative.</i><p>This section introduces shared workers using a Hello World
+};</pre>
+
+  <p><a href="http://www.whatwg.org/demos/workers/stocks/page.html">View this example online</a>.</p>
+
+
+  <h4 id="shared-workers-introduction"><span class="secno">1.2.3 </span>Shared workers introduction</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>This section introduces shared workers using a Hello World
   example. Shared workers use slightly different APIs, since each
-  worker can have multiple connections.<p>This first example shows how you connect to a worker and how a
+  worker can have multiple connections.</p>
+
+  <p>This first example shows how you connect to a worker and how a
   worker can send a message back to the page when it connects to
-  it. Received messages are displayed in a log.<p>Here is the HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+  it. Received messages are displayed in a log.</p>
+
+  <p>Here is the HTML page:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;title&gt;Shared workers: demo 1&lt;/title&gt;
 &lt;pre id="log"&gt;Log:&lt;/pre&gt;
 &lt;script&gt;
@@ -516,16 +638,28 @@ onmessage = function (event) {
     log.textContent += '\n' + e.data;
   }
 &lt;/script&gt;
-</pre><p>Here is the JavaScript worker:<pre>onconnect = function(e) {
+</pre>
+
+  <p>Here is the JavaScript worker:</p>
+
+  <pre>onconnect = function(e) {
   var port = e.ports[0];
   port.postMessage('Hello World!');
 }
-</pre><p><a href="http://www.whatwg.org/demos/workers/shared/001/test.html">View this example online</a>.<hr><p>This second example extends the first one by changing two things:
+</pre>
+
+  <p><a href="http://www.whatwg.org/demos/workers/shared/001/test.html">View this example online</a>.</p>
+
+  <hr><p>This second example extends the first one by changing two things:
   first, messages are received using <code title="">addEventListener()</code> instead of an <span title="event
   handler IDL attributes">event handler IDL attribute</span>, and
   second, a message is sent <em>to</em> the worker, causing the worker
   to send another message in return. Received messages are again
-  displayed in a log.<p>Here is the HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+  displayed in a log.</p>
+
+  <p>Here is the HTML page:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;title&gt;Shared workers: demo 2&lt;/title&gt;
 &lt;pre id="log"&gt;Log:&lt;/pre&gt;
 &lt;script&gt;
@@ -537,7 +671,11 @@ onmessage = function (event) {
   worker.port.start(); // note: need this when using addEventListener
   worker.port.postMessage('ping');
 &lt;/script&gt;
-</pre><p>Here is the JavaScript worker:<pre>onconnect = function(e) {
+</pre>
+
+  <p>Here is the JavaScript worker:</p>
+
+  <pre>onconnect = function(e) {
   var port = e.ports[0];
   port.postMessage('Hello World!');
   port.onmessage = function(e) {
@@ -545,11 +683,19 @@ onmessage = function (event) {
     // e.target.postMessage('pong'); would work also
   }
 }
-</pre><p><a href="http://www.whatwg.org/demos/workers/shared/002/test.html">View this example online</a>.<hr><p>Finally, the example is extended to show how two pages can
+</pre>
+
+  <p><a href="http://www.whatwg.org/demos/workers/shared/002/test.html">View this example online</a>.</p>
+
+  <hr><p>Finally, the example is extended to show how two pages can
   connect to the same worker; in this case, the second page is merely
   in an <code>iframe</code> on the first page, but the same principle
   would apply to an entirely separate page in a separate
-  <span>top-level browsing context</span>.<p>Here is the outer HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+  <span>top-level browsing context</span>.</p>
+
+  <p>Here is the outer HTML page:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;title&gt;Shared workers: demo 3&lt;/title&gt;
 &lt;pre id="log"&gt;Log:&lt;/pre&gt;
 &lt;script&gt;
@@ -562,7 +708,11 @@ onmessage = function (event) {
   worker.port.postMessage('ping');
 &lt;/script&gt;
 &lt;iframe src="inner.html"&gt;&lt;/iframe&gt;
-</pre><p>Here is the inner HTML page:<pre>&lt;!DOCTYPE HTML&gt;
+</pre>
+
+  <p>Here is the inner HTML page:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;title&gt;Shared workers: demo 3 inner frame&lt;/title&gt;
 &lt;pre id=log&gt;Inner log:&lt;/pre&gt;
 &lt;script&gt;
@@ -572,7 +722,11 @@ onmessage = function (event) {
    log.textContent += '\n' + e.data;
   }
 &lt;/script&gt;
-</pre><p>Here is the JavaScript worker:<pre>var count = 0;
+</pre>
+
+  <p>Here is the JavaScript worker:</p>
+
+  <pre>var count = 0;
 onconnect = function(e) {
   count += 1;
   var port = e.ports[0];
@@ -581,12 +735,25 @@ onconnect = function(e) {
     port.postMessage('pong');
   }
 }
-</pre><p><a href="http://www.whatwg.org/demos/workers/shared/003/test.html">View this example online</a>.<h4 id="shared-state-using-a-shared-worker"><span class="secno">1.2.4 </span>Shared state using a shared worker</h4><p><i>This section is non-normative.</i><p>In this example, multiple windows (viewers) can be opened that
+</pre>
+
+  <p><a href="http://www.whatwg.org/demos/workers/shared/003/test.html">View this example online</a>.</p>
+
+
+  <h4 id="shared-state-using-a-shared-worker"><span class="secno">1.2.4 </span>Shared state using a shared worker</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>In this example, multiple windows (viewers) can be opened that
   are all viewing the same map. All the windows share the same map
   information, with a single worker coordinating all the viewers. Each
   viewer can move around independently, but if they set any data on
-  the map, all the viewers are updated.<p>The main page isn't interesting, it merely provides a way to open
-  the viewers:<pre>&lt;!DOCTYPE HTML&gt;
+  the map, all the viewers are updated.</p>
+
+  <p>The main page isn't interesting, it merely provides a way to open
+  the viewers:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
  &lt;head&gt;
   &lt;title&gt;Workers example: Multiviewer&lt;/title&gt;
@@ -602,7 +769,11 @@ onconnect = function(e) {
   &lt;p&gt;Each viewer opens in a new window. You can have as many viewers
   as you like, they all view the same data.&lt;/p&gt;
  &lt;/body&gt;
-&lt;/html&gt;</pre><p>The viewer is more involved:<pre>&lt;!DOCTYPE HTML&gt;
+&lt;/html&gt;</pre>
+
+  <p>The viewer is more involved:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
  &lt;head&gt;
   &lt;title&gt;Workers example: Multiviewer viewer&lt;/title&gt;
@@ -727,18 +898,28 @@ onconnect = function(e) {
   &lt;ul id="private"&gt;&lt;/ul&gt;
  &lt;/body&gt;
 &lt;/html&gt;
-</pre><p>There are several key things worth noting about the way the
-  viewer is written.<p><strong>Multiple listeners</strong>. Instead of a single message
+</pre>
+
+  <p>There are several key things worth noting about the way the
+  viewer is written.</p>
+
+  <p><strong>Multiple listeners</strong>. Instead of a single message
   processing function, the code here attaches multiple event
   listeners, each one performing a quick check to see if it is
   relevant for the message. In this example it doesn't make much
   difference, but if multiple authors wanted to collaborate using a
   single port to communicate with a worker, it would allow for
   independent code instead of changes having to all be made to a
-  single event handling function.<p>Registering event listeners in this way also allows you to
+  single event handling function.</p>
+
+  <p>Registering event listeners in this way also allows you to
   unregister specific listeners when you are done with them, as is
   done with the <code title="">configure()</code> method in this
-  example.<p>Finally, the worker:<pre>
+  example.</p>
+
+  <p>Finally, the worker:</p>
+
+  <pre>
 var nextName = 0;
 function getNextName() {
   // this could use more friendly names
@@ -828,17 +1009,34 @@ function getMessage(event) {
       }
       break;
   }
-}</pre><p><strong>Connecting to multiple pages</strong>. The script uses
+}</pre>
+
+  <p><strong>Connecting to multiple pages</strong>. The script uses
   the <code title="handler-SharedWorkerGlobalScope-onconnect"><a href="#handler-sharedworkerglobalscope-onconnect">onconnect</a></code>
-  event listener to listen for multiple connections.<p><strong>Direct channels</strong>. When the worker receives a
+  event listener to listen for multiple connections.</p>
+
+  <p><strong>Direct channels</strong>. When the worker receives a
   "msg" message from one viewer naming another viewer, it sets up a
   direct connection between the two, so that the two viewers can
   communicate directly without the worker having to proxy all the
-  messages.<p><a href="http://www.whatwg.org/demos/workers/multiviewer/page.html">View this example online</a>.<h4 id="delegation"><span class="secno">1.2.5 </span>Delegation</h4><p><i>This section is non-normative.</i><p>With multicore CPUs becoming prevalent, one way to obtain better
+  messages.</p>
+
+  <p><a href="http://www.whatwg.org/demos/workers/multiviewer/page.html">View this example online</a>.</p>
+
+
+  <h4 id="delegation"><span class="secno">1.2.5 </span>Delegation</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>With multicore CPUs becoming prevalent, one way to obtain better
   performance is to split computationally expensive tasks amongst
   multiple workers. In this example, a computationally expensive task
   that is to be performed for every number from 1 to 10,000,000 is
-  farmed out to ten subworkers.<p>The main page is as follows, it just reports the result:<pre>&lt;!DOCTYPE HTML&gt;
+  farmed out to ten subworkers.</p>
+
+  <p>The main page is as follows, it just reports the result:</p>
+
+  <pre>&lt;!DOCTYPE HTML&gt;
 &lt;html&gt;
  &lt;head&gt;
   &lt;title&gt;Worker example: Multicore computation&lt;/title&gt;
@@ -852,7 +1050,11 @@ function getMessage(event) {
    };
   &lt;/script&gt;
  &lt;/body&gt;
-&lt;/html&gt;</pre><p>The worker itself is as follows:<pre>// settings
+&lt;/html&gt;</pre>
+
+  <p>The worker itself is as follows:</p>
+
+  <pre>// settings
 var num_workers = 10;
 var items_per_worker = 1000000;
 
@@ -872,8 +1074,14 @@ function storeResult(event) {
   pending_workers -= 1;
   if (pending_workers &lt;= 0)
     postMessage(result); // finished!
-}</pre><p>It consists of a loop to start the subworkers, and then a handler
-  that waits for all the subworkers to respond.<p>The subworkers are implemented as follows:<pre>var start;
+}</pre>
+
+  <p>It consists of a loop to start the subworkers, and then a handler
+  that waits for all the subworkers to respond.</p>
+
+  <p>The subworkers are implemented as follows:</p>
+
+  <pre>var start;
 onmessage = getStart;
 function getStart(event) {
   start = 1*event.data;
@@ -895,76 +1103,168 @@ function work() {
   }
   postMessage(result);
   close();
-}</pre><p>They receive two numbers in two events, perform the computation
+}</pre>
+
+  <p>They receive two numbers in two events, perform the computation
   for the range of numbers thus specified, and then report the result
-  back to the parent.<p><a href="http://www.whatwg.org/demos/workers/multicore/page.html">View this example online</a>.</p><h3 id="tutorials"><span class="secno">1.3 </span>Tutorials</h3><h4 id="creating-a-dedicated-worker"><span class="secno">1.3.1 </span>Creating a dedicated worker</h4><p><i>This section is non-normative.</i><p>Creating a worker requires a URL to a JavaScript file. The <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> constructor is invoked with the
+  back to the parent.</p>
+
+  <p><a href="http://www.whatwg.org/demos/workers/multicore/page.html">View this example online</a>.</p>
+
+
+
+
+  <h3 id="tutorials"><span class="secno">1.3 </span>Tutorials</h3>
+
+  <h4 id="creating-a-dedicated-worker"><span class="secno">1.3.1 </span>Creating a dedicated worker</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>Creating a worker requires a URL to a JavaScript file. The <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> constructor is invoked with the
   URL to that file as its only argument; a worker is then created and
-  returned:<pre>var worker = new Worker('helper.js');</pre><h4 id="communicating-with-a-dedicated-worker"><span class="secno">1.3.2 </span>Communicating with a dedicated worker</h4><p><i>This section is non-normative.</i><p>Dedicated workers use <code><a href="#messageport">MessagePort</a></code> objects behind the
+  returned:</p>
+
+  <pre>var worker = new Worker('helper.js');</pre>
+
+
+  <h4 id="communicating-with-a-dedicated-worker"><span class="secno">1.3.2 </span>Communicating with a dedicated worker</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>Dedicated workers use <code><a href="#messageport">MessagePort</a></code> objects behind the
   scenes, and thus support all the same features, such as sending
   structured data, transferring binary data, and transferring other
-  ports.<p>To receive messages from a dedicated worker, use the <code title="handler-worker-onmessage"><a href="#handler-worker-onmessage">onmessage</a></code> <span title="event
+  ports.</p>
+
+  <p>To receive messages from a dedicated worker, use the <code title="handler-worker-onmessage"><a href="#handler-worker-onmessage">onmessage</a></code> <span title="event
   handler IDL attributes">event handler IDL attribute</span> on the
-  <code><a href="#worker">Worker</a></code> object:<pre>worker.onmessage = function (event) { ... };</pre><p>You can also use the <code title="dom-EventTarget-addEventListener">addEventListener()</code> method.<p class="note">The implicit <code><a href="#messageport">MessagePort</a></code> used by
+  <code><a href="#worker">Worker</a></code> object:</p>
+
+  <pre>worker.onmessage = function (event) { ... };</pre>
+
+  <p>You can also use the <code title="dom-EventTarget-addEventListener">addEventListener()</code> method.</p>
+
+  <p class="note">The implicit <code><a href="#messageport">MessagePort</a></code> used by
   dedicated workers has its <span>port message queue</span> implicitly
   enabled when it is created, so there is no equivanet to the
   <code><a href="#messageport">MessagePort</a></code> interface's <code title="dom-MessagePort-start">start()</code> method on the
-  <code><a href="#worker">Worker</a></code> interface.<p>To <em>send</em> data to a worker, use the <code title="dom-Worker-postMessage"><a href="#dom-worker-postmessage">postMessage()</a></code> method.
+  <code><a href="#worker">Worker</a></code> interface.</p>
+
+  <p>To <em>send</em> data to a worker, use the <code title="dom-Worker-postMessage"><a href="#dom-worker-postmessage">postMessage()</a></code> method.
   Structured data can be sent over this communication channel. To send
   <code>ArrayBuffer</code> objects efficiently (by transferring them
   rather than cloning them), list them in an array in the second
-  argument.<pre>worker.postMessage({
+  argument.</p>
+
+  <pre>worker.postMessage({
   operation: 'find-edges',
   input: buffer, // an ArrayBuffer object
   threshold: 0.6,
-}, [buffer]);</pre><p>To receive a message inside the worker, the <code title="handler-DedicatedWorkerGlobalScope-onmessage"><a href="#handler-dedicatedworkerglobalscope-onmessage">onmessage</a></code>
+}, [buffer]);</pre>
+
+  <p>To receive a message inside the worker, the <code title="handler-DedicatedWorkerGlobalScope-onmessage"><a href="#handler-dedicatedworkerglobalscope-onmessage">onmessage</a></code>
   <span title="event handler IDL attributes">event handler IDL
-  attribute</span> is used.<pre>onmessage = function (event) { ... };</pre><p>You can again also use the <code title="dom-EventTarget-addEventListener">addEventListener()</code>
-  method.<p>In either case, the data is provided in the event object's <code title="dom-MessageEvent-data">data</code> attribute.<p>To send messages back, you again use <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code>.
-  It supports the structured data in the same manner.<pre>postMessage(event.data.input, [event.data.input]); // transfer the buffer back</pre><h4 id="shared-workers"><span class="secno">1.3.3 </span>Shared workers</h4><p><i>This section is non-normative.</i><p>Shared workers are identified in one of two ways: either by the
+  attribute</span> is used.</p>
+
+  <pre>onmessage = function (event) { ... };</pre>
+
+  <p>You can again also use the <code title="dom-EventTarget-addEventListener">addEventListener()</code>
+  method.</p>
+
+  <p>In either case, the data is provided in the event object's <code title="dom-MessageEvent-data">data</code> attribute.</p>
+
+  <p>To send messages back, you again use <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code>.
+  It supports the structured data in the same manner.</p>
+
+  <pre>postMessage(event.data.input, [event.data.input]); // transfer the buffer back</pre>
+
+
+  <h4 id="shared-workers"><span class="secno">1.3.3 </span>Shared workers</h4>
+
+  <p><i>This section is non-normative.</i></p>
+
+  <p>Shared workers are identified in one of two ways: either by the
   URL of the script used to create it, or by explicit name. When
   created by name, the URL used by the first page to create the worker
   with that name is the URL of the script that will be used for that
   worker. This allows multiple applications on a domain to all use a
   single shared worker to provide a common service, without the
   applications having to keep track of a common URL for the script
-  used to provide the service.<p class="note">In either case, shared workers are scoped by
+  used to provide the service.</p>
+
+  <p class="note">In either case, shared workers are scoped by
   <span>origin</span>. Two different sites using the same names will
-  not collide.<p>Creating shared workers is done using the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor. This
+  not collide.</p>
+
+  <p>Creating shared workers is done using the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor. This
   constructor takes the URL to the script to use for its first
   argument, and the name of the worker, if any, as the second
-  argument.<pre>var worker = new SharedWorker('service.js');</pre><p>Communicating with shared workers is done with explicit
+  argument.</p>
+
+  <pre>var worker = new SharedWorker('service.js');</pre>
+
+  <p>Communicating with shared workers is done with explicit
   <code><a href="#messageport">MessagePort</a></code> objects. The object returned by the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor holds a
-  reference to the port on its <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute.<pre>worker.port.onmessage = function (event) { ... };
+  reference to the port on its <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute.</p>
+
+  <pre>worker.port.onmessage = function (event) { ... };
 worker.port.postMessage('some message');
-worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']});</pre><p>Inside the shared worker, new clients of the worker are announced
+worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']});</pre>
+
+  <p>Inside the shared worker, new clients of the worker are announced
   using the <code title="event-connect">connect</code> event. The port
   for the new client is given by the event object's <code title="dom-messageevent-ports">ports</code> array as its first (and
-  only) value.<pre>onconnect = function (event) {
+  only) value.</p>
+
+  <pre>onconnect = function (event) {
   var newPort = event.ports[0];
   // set up a listener
   newPort.onmessage = function (event) { ... };
   // send a message back to the port
   newPort.postMessage('ready!'); // can also send structured data, of course
-};</pre><h2 id="conformance-requirements"><span class="secno">2 </span>Conformance requirements</h2><p>All diagrams, examples, and notes in this specification are
+};</pre>
+
+
+
+
+  
+
+  <h2 id="conformance-requirements"><span class="secno">2 </span>Conformance requirements</h2>
+
+  <p>All diagrams, examples, and notes in this specification are
   non-normative, as are all sections explicitly marked non-normative.
-  Everything else in this specification is normative.<p>The key words "MUST", "MUST NOT", "REQUIRED",  "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+  Everything else in this specification is normative.</p>
+
+  <p>The key words "MUST", "MUST NOT", "REQUIRED",  "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
   "OPTIONAL" in the normative parts of this document are to be
   interpreted as described in RFC2119. For readability, these words do
-  not appear in all uppercase letters in this specification. <a href="#refsRFC2119">[RFC2119]</a><p>Requirements phrased in the imperative as part of algorithms
+  not appear in all uppercase letters in this specification. <a href="#refsRFC2119">[RFC2119]</a></p>
+
+  <p>Requirements phrased in the imperative as part of algorithms
   (such as "strip any leading space characters" or "return false and
   abort these steps") are to be interpreted with the meaning of the
   key word ("must", "should", "may", etc) used in introducing the
-  algorithm.<p>Some conformance requirements are phrased as requirements on
+  algorithm.</p>
+
+  <p>Some conformance requirements are phrased as requirements on
   attributes, methods or objects. Such requirements are to be
-  interpreted as requirements on user agents.<p>Conformance requirements phrased as algorithms or specific steps
+  interpreted as requirements on user agents.</p>
+
+  <p>Conformance requirements phrased as algorithms or specific steps
   may be implemented in any manner, so long as the end result is
   equivalent. (In particular, the algorithms defined in this
   specification are intended to be easy to follow, and not intended to
-  be performant.)<p>The only conformance class defined by this specification is user
-  agents.<p>User agents may impose implementation-specific limits on
+  be performant.)</p>
+
+  <p>The only conformance class defined by this specification is user
+  agents.</p>
+
+  <p>User agents may impose implementation-specific limits on
   otherwise unconstrained inputs, e.g. to prevent denial of service
   attacks, to guard against running out of memory, or to work around
-  platform-specific limitations.<p>When support for a feature is disabled (e.g. as an emergency
+  platform-specific limitations.</p>
+
+  <p>When support for a feature is disabled (e.g. as an emergency
   measure to mitigate a security problem, or to aid in development, or
   for performance reasons), user agents must act as if they had no
   support for the feature whatsoever, and as if the feature was not
@@ -972,8 +1272,15 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   feature is accessed via an attribute in a Web IDL interface, the
   attribute itself would be omitted from the objects that implement
   that interface &mdash; leaving the attribute on the object but
-  making it return null or throw an exception is insufficient.<h3 id="dependencies"><span class="secno">2.1 </span>Dependencies</h3><p>This specification relies on several other underlying
-  specifications.<dl><dt>HTML</dt>
+  making it return null or throw an exception is insufficient.</p>
+
+
+  <h3 id="dependencies"><span class="secno">2.1 </span>Dependencies</h3>
+
+  <p>This specification relies on several other underlying
+  specifications.</p>
+
+  <dl><dt>HTML</dt>
 
    <dd>
 
@@ -991,25 +1298,54 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
    </dd>
 
-  </dl><h2 id="terminology"><span class="secno">3 </span>Terminology</h2><p>The construction "a <code title="">Foo</code> object", where
+  </dl><h2 id="terminology"><span class="secno">3 </span>Terminology</h2>
+
+  <p>The construction "a <code title="">Foo</code> object", where
   <code title="">Foo</code> is actually an interface, is sometimes
   used instead of the more accurate "an object implementing the
-  interface <code title="">Foo</code>".<p>The term DOM is used to refer to the API set made available to
+  interface <code title="">Foo</code>".</p>
+
+  <p>The term DOM is used to refer to the API set made available to
   scripts in Web applications, and does not necessarily imply the
   existence of an actual <code>Document</code> object or of any other
   <code>Node</code> objects as defined in the DOM Core
-  specifications. <a href="#refsDOMCORE">[DOMCORE]</a><p>An IDL attribute is said to be <em>getting</em> when its value is
+  specifications. <a href="#refsDOMCORE">[DOMCORE]</a></p>
+
+  <p>An IDL attribute is said to be <em>getting</em> when its value is
   being retrieved (e.g. by author script), and is said to be
-  <em>setting</em> when a new value is assigned to it.<p>The term "JavaScript" is used to refer to ECMA262, rather than
+  <em>setting</em> when a new value is assigned to it.</p>
+
+  
+  <p>The term "JavaScript" is used to refer to ECMA262, rather than
   the official term ECMAScript, since the term JavaScript is more
-  widely known. <a href="#refsECMA262">[ECMA262]</a><h2 id="infrastructure"><span class="secno">4 </span>Infrastructure</h2><p>There are two kinds of workers; dedicated workers, and shared
+  widely known. <a href="#refsECMA262">[ECMA262]</a></p>
+
+
+
+  <h2 id="infrastructure"><span class="secno">4 </span>Infrastructure</h2>
+
+  <p>There are two kinds of workers; dedicated workers, and shared
   workers. Dedicated workers, once created, and are linked to their
   creator; but message ports can be used to communicate from a
   dedicated worker to multiple other browsing contexts or
   workers. Shared workers, on the other hand, are named, and once
   created any script running in the same <span>origin</span> can
-  obtain a reference to that worker and communicate with it.<h3 id="dependencies-0"><span class="secno">4.1 </span>Dependencies</h3><p>The <dfn id="messageport"><code>MessagePort</code></dfn> interface is defined in
-  the HTML specification. <a href="#refsHTML">[HTML]</a><h3 id="the-global-scope"><span class="secno">4.2 </span>The global scope</h3><p>The global scope is the "inside" of a worker.<h4 id="the-workerglobalscope-common-interface"><span class="secno">4.2.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> common interface</h4><pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarget</span> {
+  obtain a reference to that worker and communicate with it.</p>
+
+  
+  <h3 id="dependencies-0"><span class="secno">4.1 </span>Dependencies</h3>
+  <p>The <dfn id="messageport"><code>MessagePort</code></dfn> interface is defined in
+  the HTML specification. <a href="#refsHTML">[HTML]</a></p>
+  
+
+
+  <h3 id="the-global-scope"><span class="secno">4.2 </span>The global scope</h3>
+
+  <p>The global scope is the "inside" of a worker.</p>
+
+  <h4 id="the-workerglobalscope-common-interface"><span class="secno">4.2.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> common interface</h4>
+
+  <pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <a href="#workerglobalscope">WorkerGlobalScope</a> <a href="#dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self">self</a>;
   readonly attribute <a href="#workerlocation">WorkerLocation</a> <a href="#dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location">location</a>;
 
@@ -1018,14 +1354,22 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
 };
-<a href="#workerglobalscope">WorkerGlobalScope</a> implements <a href="#workerutils">WorkerUtils</a>;</pre><p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
-  must return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.<p>The <dfn id="dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location"><code>location</code></dfn>
+<a href="#workerglobalscope">WorkerGlobalScope</a> implements <a href="#workerutils">WorkerUtils</a>;</pre>
+
+  <p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
+  must return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.</p>
+
+  <p>The <dfn id="dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location"><code>location</code></dfn>
   attribute must return the <code><a href="#workerlocation">WorkerLocation</a></code> object created
   for the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object when the worker was
   created. It represents the <span>absolute URL</span> of the script
-  that was used to initialize the worker, after any redirects.<hr><p>When a script invokes the <dfn id="dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close"><code>close()</code></dfn>
+  that was used to initialize the worker, after any redirects.</p>
+
+  <hr><p>When a script invokes the <dfn id="dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close"><code>close()</code></dfn>
   method on a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user agent
-  must run the following steps (atomically):<ol><li><p>Discard any <span title="concept-task">tasks</span> that
+  must run the following steps (atomically):</p>
+
+  <ol><li><p>Discard any <span title="concept-task">tasks</span> that
    have been added to the <span>event loop</span>'s <span title="task
    queue">task queues</span>.</p>
 
@@ -1039,61 +1383,106 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
   objects implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
-  interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
+  interface:</p>
+
+  <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
     <tr><td><dfn id="handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline"><code>onoffline</code></dfn> <td> <code title="event-offline">offline</code> 
     <tr><td><dfn id="handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline"><code>ononline</code></dfn> <td> <code title="event-online">online</code> 
-  </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4><pre class="idl">interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
+  </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
+
+  <pre class="idl">interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
-};</pre><p>The <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface must not
+};</pre>
+
+  <p>The <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface must not
   exist if the interface's <span>relevant namespace object</span> is
-  not a <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object. <a href="#refsWEBIDL">[WEBIDL]</a><p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they
+  not a <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+
+  <p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they
   had an implicit <code><a href="#messageport">MessagePort</a></code> associated with them. This
   port is part of a channel that is set up when the worker is created,
   but it is not exposed. This object must never be garbage collected
-  before the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.<p>All messages received by that port must immediately be retargeted
-  at the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.<p>The <dfn id="dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage"><code>postMessage()</code></dfn>
+  before the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.</p>
+
+  <p>All messages received by that port must immediately be retargeted
+  at the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.</p>
+
+  <p>The <dfn id="dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage"><code>postMessage()</code></dfn>
   method on
   <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects must act as if, when
   invoked, it immediately invoked the
   method of the same name on the port, with the same arguments, and
-  returned the same return value.<p>The following are the <span>event handlers</span> (and their
+  returned the same return value.</p>
+
+  <p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
   objects implementing the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>
-  interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
+  interface:</p>
+
+  <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
   </table><p>For the purposes of the <span>application cache</span> networking
   model, a dedicated worker is an extension of the <span>cache
-  host</span> from which it was created.<h4 id="shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.2.3 </span>Shared workers and the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface</h4><pre class="idl">interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
+  host</span> from which it was created.</p>
+
+
+
+  <h4 id="shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.2.3 </span>Shared workers and the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface</h4>
+
+  <pre class="idl">interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   readonly attribute DOMString <a href="#dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name">name</a>;
   readonly attribute <span>ApplicationCache</span> <span title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>;
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect">onconnect</a>;
-};</pre><p>The <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface must not
+};</pre>
+
+  <p>The <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface must not
   exist if the interface's <span>relevant namespace object</span> is
-  not a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object. <a href="#refsWEBIDL">[WEBIDL]</a><p>Shared workers receive message ports through <code title="event-WorkerGlobalScope-connect">connect</code> events on
-  their global object for each connection.<p>The <dfn id="dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name"><code>name</code></dfn>
+  not a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+
+  <p>Shared workers receive message ports through <code title="event-WorkerGlobalScope-connect">connect</code> events on
+  their global object for each connection.</p>
+
+  <p>The <dfn id="dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name"><code>name</code></dfn>
   attribute must return the value it was assigned when the
   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object was created by the
   "<a href="#run-a-worker">run a worker</a>" algorithm. Its value represents the name
   that can be used to obtain a reference to the worker using the
-  <code><a href="#sharedworker">SharedWorker</a></code> constructor.<p>The following are the <span>event handlers</span> (and their
+  <code><a href="#sharedworker">SharedWorker</a></code> constructor.</p>
+
+  <p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
   objects implementing the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code>
-  interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
+  interface:</p>
+
+  <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect"><code>onconnect</code></dfn> <td> <code title="event-connect">connect</code>
   </table><p>For the purposes of the <span>application cache</span> networking
   model, a shared worker is its own <span>cache host</span>. The
   <a href="#run-a-worker">run a worker</a> algorithm takes care of associating the
-  worker with an <span>application cache</span>.<p class="note">The <code title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</code>
+  worker with an <span>application cache</span>.</p>
+
+  <p class="note">The <code title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</code>
   attribute returns the <code>ApplicationCache</code> object for the
-  worker.</p><h3 id="origins-of-workers"><span class="secno">4.3 </span>Origins of workers</h3><p>Both the <span>origin</span> and <span>effective script
+  worker.</p>
+
+
+  <h3 id="origins-of-workers"><span class="secno">4.3 </span>Origins of workers</h3>
+
+  <p>Both the <span>origin</span> and <span>effective script
   origin</span> of scripts running in workers are the
   <span>origin</span> of the <span>absolute URL</span> given in that
   the worker's <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location">location</a></code> attribute
-  represents.<h3 id="the-event-loop"><span class="secno">4.4 </span>The event loop</h3><p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has an <span>event
+  represents.</p>
+
+
+
+  <h3 id="the-event-loop"><span class="secno">4.4 </span>The event loop</h3>
+
+  <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has an <span>event
   loop</span> distinct from those defined for <span title="unit of
   related similar-origin browsing contexts">units of related
   similar-origin browsing contexts</span>. This <span>event
@@ -1101,36 +1490,58 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <span title="task queue">task queues</span> only have events,
   callbacks, and networking activity as <span title="concept-task">tasks</span>. The processing model of these
   <span title="event loop">event loops</span> is defined below in the
-  <a href="#run-a-worker">run a worker</a> algorithm.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object also has a <dfn id="dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</dfn> flag, which must
+  <a href="#run-a-worker">run a worker</a> algorithm.</p>
+
+  <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object also has a <dfn id="dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</dfn> flag, which must
   initially be false, but which can get set to true by the algorithms
-  in the processing model section below.<p>Once the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>'s <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is set to
+  in the processing model section below.</p>
+
+  <p>Once the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>'s <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is set to
   true, the <span>event loop</span>'s <span title="task queue">task
   queues</span> must discard any further <span title="concept-task">tasks</span> that would be added to them (tasks
   already on the queue are unaffected except where otherwise
   specified). Effectively, once the <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is true,
   timers stop firing, notifications for all pending asynchronous
-  operations are dropped, etc.<h3 id="the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</h3><p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
-  <code><a href="#messageport">MessagePort</a></code> objects.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> <var title="">worker global
+  operations are dropped, etc.</p>
+
+
+
+  <h3 id="the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</h3>
+
+  <p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
+  <code><a href="#messageport">MessagePort</a></code> objects.</p>
+
+  <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> <var title="">worker global
   scope</var> has a list of <dfn id="the-worker-s-ports">the worker's ports</dfn>, which
   consists of all the <code><a href="#messageport">MessagePort</a></code> objects that are
   entangled with another port and that have one (but only one) port
   owned by <var title="">worker global scope</var>. This list includes
    the implicit
-  <code><a href="#messageport">MessagePort</a></code> in the case of <a href="#dedicatedworkerglobalscope" title="DedicatedWorkerGlobalScope">dedicated workers</a>.<p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of <dfn id="the-worker-s-workers">the
+  <code><a href="#messageport">MessagePort</a></code> in the case of <a href="#dedicatedworkerglobalscope" title="DedicatedWorkerGlobalScope">dedicated workers</a>.</p>
+
+  <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of <dfn id="the-worker-s-workers">the
   worker's workers</dfn>. Initially this list is empty; it is
-  populated when the worker creates or obtains further workers.<p>Finally, each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of
+  populated when the worker creates or obtains further workers.</p>
+
+  <p>Finally, each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of
   <dfn id="the-worker-s-documents">the worker's <code>Document</code>s</dfn>. Initially this list
-  is empty; it is populated when the worker is created.<p>Whenever a <code>Document</code> <var title="">d</var> is <dfn id="add-a-document-to-the-worker-s-documents" title="add a document to the worker's documents">added to the
+  is empty; it is populated when the worker is created.</p>
+
+  <p>Whenever a <code>Document</code> <var title="">d</var> is <dfn id="add-a-document-to-the-worker-s-documents" title="add a document to the worker's documents">added to the
   worker's <code>Document</code>s</dfn>, the user agent must, for each
   worker <var title="">q</var> in the list of <a href="#the-worker-s-workers">the worker's
   workers</a> whose list of <a href="#the-worker-s-documents">the worker's
   <code>Document</code>s</a> does not contain <var title="">d</var>, <a href="#add-a-document-to-the-worker-s-documents" title="add a document to the worker's
   documents">add <var title="">d</var> to <var title="">q</var>'s
   <code>WorkerGlobalScope</code> owner's list of <span>the worker's
-  <code>Document</code>s</span></a>.</p><p>Whenever a <code>Document</code> object is <span title="discard a
+  <code>Document</code>s</span></a>.</p> 
+
+  <p>Whenever a <code>Document</code> object is <span title="discard a
   Document">discarded</span>, it must be removed from the list of
   <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a> of each worker
-  whose list contains that <code>Document</code>.<p>Given a <span>script's global object</span> <var title="">o</var>
+  whose list contains that <code>Document</code>.</p>
+
+  <p>Given a <span>script's global object</span> <var title="">o</var>
   when creating or obtaining a worker, the <dfn id="list-of-relevant-document-objects-to-add">list of relevant
   <code>Document</code> objects to add</dfn> depends on the type of
   <var title="">o</var>. If <var title="">o</var> is a
@@ -1139,25 +1550,40 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <code>Document</code>s that are in <var title="">o</var>'s own list
   of <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a>. Otherwise, <var title="">o</var> is a <code>Window</code> object, and the relevant
   <code>Document</code> is just the <code>Document</code> that is the
-  <span>active document</span> of the <code>Window</code> object <var title="">o</var>.<hr><p>A worker is said to be a <dfn id="permissible-worker">permissible worker</dfn> if its
+  <span>active document</span> of the <code>Window</code> object <var title="">o</var>.</p>
+
+  <hr><p>A worker is said to be a <dfn id="permissible-worker">permissible worker</dfn> if its
   list of <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a> is not
-  empty.<p>A worker is said to be a <dfn id="protected-worker">protected worker</dfn> if it is a
+  empty.</p>
+
+  <p>A worker is said to be a <dfn id="protected-worker">protected worker</dfn> if it is a
   <a href="#permissible-worker">permissible worker</a> and either it has outstanding
   timers, database transactions, or network connections, or its list
   of <a href="#the-worker-s-ports">the worker's ports</a> is not empty, or its
   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> is actually a
   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object (i.e. the worker is a
-  shared worker).<p>A worker is said to be an <dfn id="active-needed-worker">active needed worker</dfn> if any
+  shared worker).</p>
+
+  <p>A worker is said to be an <dfn id="active-needed-worker">active needed worker</dfn> if any
   of the <code>Document</code> objects in <a href="#the-worker-s-documents">the worker's
-  <code>Document</code>s</a> are <span>fully active</span>.<p>A worker is said to be a <dfn id="suspendable-worker">suspendable worker</dfn> if it is
+  <code>Document</code>s</a> are <span>fully active</span>.</p>
+
+  <p>A worker is said to be a <dfn id="suspendable-worker">suspendable worker</dfn> if it is
   not an <a href="#active-needed-worker">active needed worker</a> but it is a
-  <a href="#permissible-worker">permissible worker</a>.<h3 id="processing-model"><span class="secno">4.6 </span>Processing model</h3><p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with
+  <a href="#permissible-worker">permissible worker</a>.</p>
+
+
+  <h3 id="processing-model"><span class="secno">4.6 </span>Processing model</h3>
+
+  <p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with
   <span>URL</span> <var title="">url</var>, a <span>browsing
   context</span> <var title="">owner browsing context</var>, a
   <code>Document</code> <var title="">owner document</var>, an
   <span>origin</span> <var title="">owner origin</var>, and with
   global scope <var title="">worker global scope</var>, it must run
-  the following steps:<ol><li>
+  the following steps:</p>
+
+  <ol><li>
 
     <p>Create a separate parallel execution environment (i.e. a
     separate thread or process or equivalent construct), and run the
@@ -1336,7 +1762,9 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   </ol><hr><p>When a user agent is to <dfn id="kill-a-worker">kill a worker</dfn> it must
   run the following steps in parallel with the worker's main loop (the
-  "<a href="#run-a-worker">run a worker</a>" processing model defined above):<ol><li><p>Set the worker's <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
+  "<a href="#run-a-worker">run a worker</a>" processing model defined above):</p>
+
+  <ol><li><p>Set the worker's <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
    true.</li>
 
 
@@ -1356,9 +1784,13 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   requests, in response to CPU quota management, or when a worker
   stops being an <a href="#active-needed-worker">active needed worker</a> if the worker
   continues executing even after its <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag was
-  set to true.<hr><p>When a user agent is to <dfn id="terminate-a-worker">terminate a worker</dfn> it must run
+  set to true.</p>
+
+  <hr><p>When a user agent is to <dfn id="terminate-a-worker">terminate a worker</dfn> it must run
   the following steps in parallel with the worker's main loop (the
-  "<a href="#run-a-worker">run a worker</a>" processing model defined above):<ol><li><p>Set the worker's <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's
+  "<a href="#run-a-worker">run a worker</a>" processing model defined above):</p>
+
+  <ol><li><p>Set the worker's <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's
    <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
    true.</li>
 
@@ -1376,7 +1808,12 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
    entangled with.</li>
 
   </ol><hr><p>The <span>task source</span> for the tasks mentioned above is the
-  <span>DOM manipulation task source</span>.<h3 id="runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</h3><p>Whenever an uncaught runtime script error occurs in one of the
+  <span>DOM manipulation task source</span>.</p>
+
+
+  <h3 id="runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</h3>
+
+  <p>Whenever an uncaught runtime script error occurs in one of the
   worker's scripts, if the error did not occur while handling a
   previous script error, the user agent must <span>report the
   error</span> at the <span>URL</span> of the resource that contained
@@ -1387,12 +1824,16 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   
   <a href="#refsHTML">[HTML]</a>
   
+  </p>
+
   <p>For shared workers, if the error is still <i title="concept-error-nothandled">not handled</i> afterwards, or if
   the error occurred while handling a previous script error, the error
   may be reported to the user.
   
   <a href="#refsHTML">[HTML]</a>
   
+  </p>
+
   <p>For dedicated workers, if the error is still <i title="concept-error-nothandled">not handled</i> afterwards, or if
   the error occurred while handling a previous script error, the user
   agent must <span>queue a task</span> to fire an event that uses the
@@ -1402,16 +1843,24 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   worker. If the event is not canceled, the user agent must act as if
   the uncaught runtime script error had occurred in the global scope
   that the <code><a href="#worker">Worker</a></code> object is in, thus repeating the entire
-  runtime script error reporting process one level up.<p>If the implicit port connecting the worker to its
+  runtime script error reporting process one level up.</p>
+
+  <p>If the implicit port connecting the worker to its
   <code><a href="#worker">Worker</a></code> object has been disentangled (i.e. if the parent
   worker has been terminated), then the user agent must act as if the
   <code><a href="#worker">Worker</a></code> object had no <code title="event-error">error</code> event handler and as if that
   worker's <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code> attribute
-  was null, but must otherwise act as described above.<p class="note">Thus, error reports proagate up to the chain of
+  was null, but must otherwise act as described above.</p>
+
+  <p class="note">Thus, error reports proagate up to the chain of
   dedicated workers up to the original <code>Document</code>, even if
   some of the workers along this chain have been terminated and
-  garbage collected.<p>The <span>task source</span> for the task mentioned above is the
-  <span>DOM manipulation task source</span>.<hr><pre class="idl">[Constructor(DOMString type, optional <a href="#erroreventinit">ErrorEventInit</a> eventInitDict)]
+  garbage collected.</p>
+
+  <p>The <span>task source</span> for the task mentioned above is the
+  <span>DOM manipulation task source</span>.</p>
+
+  <hr><pre class="idl">[Constructor(DOMString type, optional <a href="#erroreventinit">ErrorEventInit</a> eventInitDict)]
 interface <dfn id="errorevent">ErrorEvent</dfn> : <span>Event</span> {
   readonly attribute DOMString <a href="#dom-errorevent-message" title="dom-ErrorEvent-message">message</a>;
   readonly attribute DOMString <a href="#dom-errorevent-filename" title="dom-ErrorEvent-filename">filename</a>;
@@ -1422,60 +1871,96 @@ dictionary <dfn id="erroreventinit">ErrorEventInit</dfn> : <span>EventInit</span
   DOMString message;
   DOMString filename;
   unsigned long lineno;
-};</pre><p>The <dfn id="dom-errorevent-message" title="dom-ErrorEvent-message"><code>message</code></dfn> attribute
+};</pre>
+
+  <p>The <dfn id="dom-errorevent-message" title="dom-ErrorEvent-message"><code>message</code></dfn> attribute
   must return the value it was initialized to. When the object is
   created, this attribute must be initialized to the empty string. It
-  represents the error message.<p>The <dfn id="dom-errorevent-filename" title="dom-ErrorEvent-filename"><code>filename</code></dfn>
+  represents the error message.</p>
+
+  <p>The <dfn id="dom-errorevent-filename" title="dom-ErrorEvent-filename"><code>filename</code></dfn>
   attribute must return the value it was initialized to. When the
   object is created, this attribute must be initialized to the empty
   string. It represents the <span>absolute URL</span> of the script in
-  which the error originally occurred.<p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
+  which the error originally occurred.</p>
+
+  <p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
   attribute must return the value it was initialized to. When the
   object is created, this attribute must be initialized to zero. It
   represents the line number where the error occurred in the
-  script.<h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3><h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4><pre class="idl">[NoInterfaceObject]
+  script.</p>
+
+
+
+  <h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3>
+
+  <h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4>
+
+  <pre class="idl">[NoInterfaceObject]
 interface <dfn id="abstractworker">AbstractWorker</dfn> {
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
 
-};</pre><p>The following are the <span>event handlers</span> (and their
+};</pre>
+
+  <p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
-  objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
+  objects implementing the <code><a href="#abstractworker">AbstractWorker</a></code> interface:</p>
+
+  <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-abstractworker-onerror" title="handler-AbstractWorker-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
 
-  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4><pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL)]
+  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4>
+
+  <pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL)]
 interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   void <a href="#dom-worker-terminate" title="dom-Worker-terminate">terminate</a>();
 
   void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
 };
-<a href="#worker">Worker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre><p>The <dfn id="dom-worker-terminate" title="dom-Worker-terminate"><code>terminate()</code></dfn> method,
+<a href="#worker">Worker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre>
+
+  <p>The <dfn id="dom-worker-terminate" title="dom-Worker-terminate"><code>terminate()</code></dfn> method,
   when invoked, must cause the "<a href="#terminate-a-worker">terminate a worker</a>"
   algorithm to be run on the worker with with the object is
-  associated.<p><code><a href="#worker">Worker</a></code> objects act as if they had an implicit
+  associated.</p>
+
+  <p><code><a href="#worker">Worker</a></code> objects act as if they had an implicit
   <code><a href="#messageport">MessagePort</a></code> associated with them. This port is part of
   a channel that is set up when the worker is created, but it is not
   exposed. This object must never be garbage collected before the
-  <code><a href="#worker">Worker</a></code> object.<p>All messages received by that port must immediately be retargeted
-  at the <code><a href="#worker">Worker</a></code> object.<p>The <dfn id="dom-worker-postmessage" title="dom-Worker-postMessage"><code>postMessage()</code></dfn>
+  <code><a href="#worker">Worker</a></code> object.</p>
+
+  <p>All messages received by that port must immediately be retargeted
+  at the <code><a href="#worker">Worker</a></code> object.</p>
+
+  <p>The <dfn id="dom-worker-postmessage" title="dom-Worker-postMessage"><code>postMessage()</code></dfn>
   method on <code><a href="#worker">Worker</a></code> objects
   must act as if, when invoked, it
   immediately invoked the method of the same name on the port, with
-  the same arguments, and returned the same return value.<div class="example">
+  the same arguments, and returned the same return value.</p>
+
+  <div class="example">
 
    <p>The <code title="dom-Worker-postMessage"><a href="#dom-worker-postmessage">postMessage()</a></code>
    method's first argument can be structured data:</p>
 
    <pre>worker.postMessage({opcode: 'activate', device: 1938, parameters: [23, 102]});</pre>
 
-  </div><p>The following are the <span>event handlers</span> (and their
+  </div>
+
+  <p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
-  objects implementing the <code><a href="#worker">Worker</a></code> interface:<table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
+  objects implementing the <code><a href="#worker">Worker</a></code> interface:</p>
+
+  <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-worker-onmessage" title="handler-Worker-onmessage"><code>onmessage</code></dfn> <td> <code title="event-message">message</code>
   </table><hr><p>When the <dfn id="dom-worker" title="dom-Worker"><code>Worker(<var title="">scriptURL</var>)</code></dfn> constructor is invoked, the
-  user agent must run the following steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument relative to the <span>entry
+  user agent must run the following steps:</p>
+
+  <ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument relative to the <span>entry
    script</span>'s <span title="script's base URL">base URL</span>,
    when the method is invoked.</li>
 
@@ -1572,16 +2057,27 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
   </ol><p>This constructor must be visible when the <span>script's global
   object</span> is either a <code>Window</code> object or an object
-  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.<h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4><pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(DOMString scriptURL, optional DOMString name)]
+  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.</p>
+
+
+  <h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
+
+  <pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(DOMString scriptURL, optional DOMString name)]
 interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
   readonly attribute <a href="#messageport">MessagePort</a> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
 };
-<a href="#sharedworker">SharedWorker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre><p>The <dfn id="dom-sharedworker-port" title="dom-SharedWorker-port"><code>port</code></dfn>
+<a href="#sharedworker">SharedWorker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre>
+
+  <p>The <dfn id="dom-sharedworker-port" title="dom-SharedWorker-port"><code>port</code></dfn>
   attribute must return the value it was assigned by the object's
   constructor. It represents the <code><a href="#messageport">MessagePort</a></code> for
-  communicating with the shared worker.<p>When the <dfn id="dom-sharedworker" title="dom-SharedWorker"><code>SharedWorker(<var title="">scriptURL</var>, <var title="">name</var>)</code></dfn>
+  communicating with the shared worker.</p>
+
+  <p>When the <dfn id="dom-sharedworker" title="dom-SharedWorker"><code>SharedWorker(<var title="">scriptURL</var>, <var title="">name</var>)</code></dfn>
   constructor is invoked, the user agent must run the following
-  steps:<ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument.</li>
+  steps:</p>
+
+  <ol><li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument.</li>
 
    <li><p>If this fails, throw a <code>SyntaxError</code>
    exception.</li>
@@ -1794,19 +2290,40 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
   </ol><p>This constructor must be visible when the <span>script's global
   object</span> is either a <code>Window</code> object or an object
-  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.<p>The <span>task source</span> for the tasks mentioned above is the
-  <span>DOM manipulation task source</span>.<h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2><pre class="idl">[NoInterfaceObject]
+  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.</p>
+
+  <p>The <span>task source</span> for the tasks mentioned above is the
+  <span>DOM manipulation task source</span>.</p>
+
+
+
+  <h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2>
+
+  <pre class="idl">[NoInterfaceObject]
 interface <dfn id="workerutils">WorkerUtils</dfn> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>(DOMString... urls);
   readonly attribute <a href="#workernavigator">WorkerNavigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
 };
 <a href="#workerutils">WorkerUtils</a> implements <span>WindowTimers</span>;
-<a href="#workerutils">WorkerUtils</a> implements <span>WindowBase64</span>;</pre><p>The <code>WindowTimers</code> and <code>WindowBase64</code>
-  interfaces are defined in the HTML specification. <a href="#refsHTML">[HTML]</a><p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
+<a href="#workerutils">WorkerUtils</a> implements <span>WindowBase64</span>;</pre>
+
+  
+  <p>The <code>WindowTimers</code> and <code>WindowBase64</code>
+  interfaces are defined in the HTML specification. <a href="#refsHTML">[HTML]</a></p>
+  
+
+  <p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
   objects, etc) are not available to workers in this version of this
-  specification.<h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3><p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
+  specification.</p>
+
+
+  <h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3>
+
+  <p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
   <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user agent must run the
-  following steps:<ol><li><p>If there are no arguments, return without doing
+  following steps:</p>
+
+  <ol><li><p>If there are no arguments, return without doing
    anything. Abort these steps.</li>
 
    <li><p><span title="resolve a url">Resolve</span> each
@@ -1887,23 +2404,40 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
     </ol></li>
 
-  </ol><h3 id="the-workernavigator-object"><span class="secno">5.2 </span>The <code><a href="#workernavigator">WorkerNavigator</a></code> object</h3><p>The <dfn id="dom-worker-navigator" title="dom-worker-navigator"><code>navigator</code></dfn> attribute
+  </ol><h3 id="the-workernavigator-object"><span class="secno">5.2 </span>The <code><a href="#workernavigator">WorkerNavigator</a></code> object</h3>
+
+  <p>The <dfn id="dom-worker-navigator" title="dom-worker-navigator"><code>navigator</code></dfn> attribute
   of the <code><a href="#workerutils">WorkerUtils</a></code> interface must return an instance of
   the <code><a href="#workernavigator">WorkerNavigator</a></code> interface, which represents the
-  identity and state of the user agent (the client):<pre class="idl">interface <dfn id="workernavigator">WorkerNavigator</dfn> {};
+  identity and state of the user agent (the client):</p>
+
+  <pre class="idl">interface <dfn id="workernavigator">WorkerNavigator</dfn> {};
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorID</span>;
-<a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorOnLine</span>;</pre><p>Objects implementing the <code><a href="#workernavigator">WorkerNavigator</a></code> interface
+<a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorOnLine</span>;</pre>
+
+  <p>Objects implementing the <code><a href="#workernavigator">WorkerNavigator</a></code> interface
   also implement the <code>NavigatorID</code> and
   <code>NavigatorOnLine</code> interfaces.
   
   <a href="#refsHTML">[HTML]</a>
   
+  </p>
+
   <p>This <code><a href="#workernavigator">WorkerNavigator</a></code> interface must not exist if the
   interface's <span>relevant namespace object</span> is a
-  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h3 id="interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</h3><p>There must be no interface objects and constructors available in
+  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+
+
+
+
+  <h3 id="interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</h3>
+
+  <p>There must be no interface objects and constructors available in
   the global scope of scripts whose <span>script's global
   object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object except for
-  the following:<ul><li><p><code>XMLHttpRequest</code> and all interface objects and
+  the following:</p>
+
+  <ul><li><p><code>XMLHttpRequest</code> and all interface objects and
    constructors defined by the XMLHttpRequest specifications, except
    that the <span>document response entity body</span> must always be
    null. The <span><code>XMLHttpRequest</code> base URL</span> is the
@@ -1928,7 +2462,12 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
   </ul><p class="note">These requirements do not override the requirements
   defined by the Web IDL specification, in particular concerning the
-  visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.<h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3><pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
+  visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.</p>
+
+
+  <h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3>
+
+  <pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
   // <span>URL decomposition IDL attributes</span>
   stringifier readonly attribute DOMString <a href="#dom-workerlocation-href" title="dom-WorkerLocation-href">href</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-protocol" title="dom-WorkerLocation-protocol">protocol</a>;
@@ -1938,10 +2477,16 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   readonly attribute DOMString <a href="#dom-workerlocation-pathname" title="dom-WorkerLocation-pathname">pathname</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-search" title="dom-WorkerLocation-search">search</a>;
   readonly attribute DOMString <a href="#dom-workerlocation-hash" title="dom-WorkerLocation-hash">hash</a>;
-};</pre><p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute
-  URL</span> set at its creation.<p>The <dfn id="dom-workerlocation-href" title="dom-WorkerLocation-href"><code>href</code></dfn>
+};</pre>
+
+  <p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute
+  URL</span> set at its creation.</p>
+
+  <p>The <dfn id="dom-workerlocation-href" title="dom-WorkerLocation-href"><code>href</code></dfn>
   attribute must return the <span>absolute URL</span> that the object
-  represents.<p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface also has the complement
+  represents.</p>
+
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface also has the complement
   of <span>URL decomposition IDL attributes</span>, <dfn id="dom-workerlocation-protocol" title="dom-WorkerLocation-protocol"><code>protocol</code></dfn>,
   <dfn id="dom-workerlocation-host" title="dom-WorkerLocation-host"><code>host</code></dfn>, <dfn id="dom-workerlocation-port" title="dom-WorkerLocation-port"><code>port</code></dfn>, <dfn id="dom-workerlocation-hostname" title="dom-WorkerLocation-hostname"><code>hostname</code></dfn>,
   <dfn id="dom-workerlocation-pathname" title="dom-WorkerLocation-pathname"><code>pathname</code></dfn>,
@@ -1955,9 +2500,24 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   
   <a href="#refsHTML">[HTML]</a>
   
+  </p>
+
   <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must not exist if the
   interface's <span>relevant namespace object</span> is a
-  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a><h2 class="no-num" id="references">References</h2><p>All references are normative unless marked "Non-normative".</p><dl><dt id="refsDOMCORE">[DOMCORE]</dt>
+  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+
+
+
+
+
+
+  <h2 class="no-num" id="references">References</h2>
+
+  <p>All references are normative unless marked "Non-normative".</p>
+
+  
+
+  <dl><dt id="refsDOMCORE">[DOMCORE]</dt>
    <dd><cite><a href="http://dvcs.w3.org/hg/domcore/raw-file/tip/Overview.html">Web DOM Core</a></cite>, A. van Kesteren. W3C.</dd>
 
    <dt id="refsECMA262">[ECMA262]</dt>
@@ -1983,7 +2543,9 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    <dd><cite><a href="http://dev.w3.org/2006/webapi/XMLHttpRequest-2/"><code>XMLHttpRequest</code></a></cite>,
    A. van Kesteren. W3C.</dd>
 
-  </dl><h2 class="no-num" id="acknowledgements">Acknowledgements</h2><!-- ACKS --><p>Thanks to
+  </dl><h2 class="no-num" id="acknowledgements">Acknowledgements</h2> <!-- ACKS -->
+
+  <p>Thanks to
 
   Aaron Boodman,
   &#1040;&#1083;&#1077;&#1082;&#1089;&#1077;&#1081; &#1055;&#1088;&#1086;&#1089;&#1082;&#1091;&#1088;&#1103;&#1082;&#1086;&#1074; (Alexey Proskuryakov),
@@ -2003,6 +2565,10 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
   Philip Taylor
 
-  for their useful and substantial comments.<p>Huge thanks to the whole Gears team, who pioneered this
+  for their useful and substantial comments.</p>
+
+  <p>Huge thanks to the whole Gears team, who pioneered this
   technology and whose experience has been a huge influence on this
-  specification.
+  specification.</p>
+
+ 
