@@ -1332,7 +1332,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h4 id="the-workerglobalscope-common-interface"><span class="secno">4.2.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> common interface</h4>
 
-  <pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarget</span> {
+  <pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span><a href="http://www.w3.org/TR/domcore/#interface-eventtarget">EventTarget</a></span> {
   readonly attribute <a href="#workerglobalscope">WorkerGlobalScope</a> <a href="#dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self">self</a>;
   readonly attribute <a href="#workerlocation">WorkerLocation</a> <a href="#dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location">location</a>;
 
@@ -1379,7 +1379,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
 
   <pre class="idl">interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
-  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
+  void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span><a href="http://www.w3.org/TR/html5/common-dom-interfaces.html#transferable-objects">Transferable</a></span>&gt; transfer);
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
 };</pre>
 
@@ -1900,10 +1900,10 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
   </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4>
 
   <pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL)]
-interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
+interface <dfn id="worker">Worker</dfn> : <span><a href="http://www.w3.org/TR/domcore/#interface-eventtarget">EventTarget</a></span> {
   void <a href="#dom-worker-terminate" title="dom-Worker-terminate">terminate</a>();
 
-  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
+  void <a href="#dom-worker-postmessage" title="dom-Worker-postMessage">postMessage</a>(any message, optional sequence&lt;<span><a href="http://www.w3.org/TR/html5/common-dom-interfaces.html#transferable-objects">Transferable</a></span>&gt; transfer);
   [TreatNonCallableAsNull] attribute <span>Function</span>? <a href="#handler-worker-onmessage" title="handler-Worker-onmessage">onmessage</a>;
 };
 <a href="#worker">Worker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre>
@@ -2050,7 +2050,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   <h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
 
   <pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(DOMString scriptURL, optional DOMString name)]
-interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
+interface <dfn id="sharedworker">SharedWorker</dfn> : <span><a href="http://www.w3.org/TR/domcore/#interface-eventtarget">EventTarget</a></span> {
   readonly attribute <a href="#messageport">MessagePort</a> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
 };
 <a href="#sharedworker">SharedWorker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre>
@@ -2512,7 +2512,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    Language Specification</a></cite>. ECMA.</dd>
 
    <dt id="refsHTML">[HTML]</dt>
-   <dd><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/">HTML5</a></cite>,
+   <dd><cite><a href="http://dev.w3.org/html5/spec/">HTML5</a></cite>,
    I. Hickson. W3C.</dd>
 
 
@@ -2522,7 +2522,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
    <dt id="refsWEBIDL">[WEBIDL]</dt>
    
-   <dd><cite><a href="http://dev.w3.org/2006/webapi/WebIDL/">Web
+   <dd><cite><a href="http://www.w3.org/TR/WebIDL/">Web
    IDL</a></cite>, C. McCormack. W3C.</dd>
 
    <dt id="refsXHR">[XHR]</dt>
