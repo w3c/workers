@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-24-april-2012">Editor's Draft 24 April 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-1-june-2012">Editor's Draft 1 June 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -355,7 +355,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 24 April 2012 Editor's Draft.
+  This specification is the 1 June 2012 Editor's Draft.
   </p>
 
   
@@ -1213,11 +1213,10 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <p>Inside the shared worker, new clients of the worker are announced
   using the <code title="event-connect">connect</code> event. The port
-  for the new client is given by the event object's <code title="dom-messageevent-ports">ports</code> array as its first (and
-  only) value.</p>
+  for the new client is given by the event object's <code title="dom-messageevent-source">source</code> attribute.</p>
 
   <pre>onconnect = function (event) {
-  var newPort = event.ports[0];
+  var newPort = event.source;
   // set up a listener
   newPort.onmessage = function (event) { ... };
   // send a message back to the port
@@ -2194,11 +2193,12 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
        <li><p>Create an event that uses the <code>MessageEvent</code>
        interface, with the name <code title="event-connect">connect</code>, which does not bubble, is
        not cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
-       is initialized to the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose
+       is initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose
        value is initialized to a <span title="dfn-read-only-array">read only</span> array containing
-       only the newly created port, and <span>queue a task</span> to
-       dispatch the event at <var title="">worker global
-       scope</var>.</li>
+       only the newly created port, and has a <code title="dom-MessageEvent-source">source</code> attribute whose
+       value is initialized to the newly created port, and <span>queue
+       a task</span> to dispatch the event at <var title="">worker
+       global scope</var>.</li>
 
        <li>
 
@@ -2249,10 +2249,13 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li><p>Create an event that uses the <code>MessageEvent</code>
    interface, with the name <code title="event-connect">connect</code>, which does not bubble, is not
    cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value is
-   initialized to the empty string and has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value
+   initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value
    is initialized to a <span title="dfn-read-only-array">read
-   only</span> array containing only the newly created port, and
-   <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
+   only</span> array containing only the newly created port, and has a
+   <code title="dom-MessageEvent-source">source</code> attribute whose
+   value is initialized to the newly created port, and <span>queue a
+   task</span> to dispatch the event at <var title="">worker global
+   scope</var>.</li>
 
    <li>
 
