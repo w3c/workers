@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-26-june-2012">Editor's Draft 26 June 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-17-july-2012">Editor's Draft 17 July 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -355,7 +355,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 26 June 2012 Editor's Draft.
+  This specification is the 17 July 2012 Editor's Draft.
   </p>
 
   
@@ -1472,10 +1472,18 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <h3 id="origins-of-workers"><span class="secno">4.3 </span>Origins of workers</h3>
 
   <p>Both the <span>origin</span> and <span>effective script
-  origin</span> of scripts running in workers are the
-  <span>origin</span> of the <span>absolute URL</span> given in that
-  the worker's <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location">location</a></code> attribute
-  represents.</p>
+  origin</span> of scripts running in a worker are the
+  <span>origin</span> of the <span>absolute URL</span> that was
+  obtained after <span title="resolve a URL">resolving</span> the
+  argument to the <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> or <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor that
+  initially created the worker, in the algorithm for that
+  constructor.</p>
+
+  <p class="note">For <span title="data protocol"><code title="">data:</code> URLs</span>, this is the <span>origin</span>
+  of the <span>entry script</span> that called the constructor. For
+  other <span title="URL">URLs</span>, this is the
+  <span>origin</span> of the value of the <span>absolute URL</span>
+  given in the worker's <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location"></a></code> attribute.</p>
 
 
 
@@ -1972,8 +1980,10 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
     origin of the <span>entry script</span>, then throw a
     <code>SecurityError</code> exception.</p>
 
-    <p class="note">Thus, scripts must be external files with the same
-    scheme as the original page: you can't load a script from a <span title="data protocol"><code title="">data:</code> URL</span> or
+    <p class="note">Thus, scripts must either be external files with
+    the same scheme, host, and port as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span> (the
+    latter are special-cases in the definition of
+    <span>origin</span>). For example, you can't load a script from a
     <span title="javascript protocol"><code title="">javascript:</code> URL</span>, and an <code>https:</code>
     page couldn't start workers using scripts with <code>http:</code>
     URLs.</p>
@@ -2094,8 +2104,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
     <span>entry script</span>, then throw a <code>SecurityError</code>
     exception.</p>
 
-    <p class="note">Thus, scripts must be external files with the same
-    scheme as the original page: you can't load a script from a <span title="data protocol"><code title="">data:</code> URL</span> or
+    <p class="note">Thus, scripts must either be external files with
+    the same scheme, host, and port as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span> (the
+    latter are special-cases in the definition of
+    <span>origin</span>). For example, you can't load a script from a
     <span title="javascript protocol"><code title="">javascript:</code> URL</span>, and an <code>https:</code>
     page couldn't start workers using scripts with <code>http:</code>
     URLs.</p>
