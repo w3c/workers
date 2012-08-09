@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-27-july-2012">Editor's Draft 27 July 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-9-august-2012">Editor's Draft 9 August 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -355,7 +355,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 27 July 2012 Editor's Draft.
+  This specification is the 9 August 2012 Editor's Draft.
   </p>
 
   
@@ -1395,9 +1395,10 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
            attribute <span>EventHandler</span> <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
 };</pre>
 
-  <p>The <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface must not
-  exist if the interface's <span>relevant namespace object</span> is
-  not a <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+  <p>The <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface must only
+  be <span title="expose">exposed</span> if the <span>JavaScript
+  global environment</span> is a <span>dedicated worker
+  environment</span>.</p>
 
   <p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they
   had an implicit <code><a href="#messageport">MessagePort</a></code> associated with them. This
@@ -1437,9 +1438,9 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
            attribute <span>EventHandler</span> <a href="#handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect">onconnect</a>;
 };</pre>
 
-  <p>The <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface must not
-  exist if the interface's <span>relevant namespace object</span> is
-  not a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+  <p>The <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface must only be
+  <span title="expose">exposed</span> if the <span>JavaScript global
+  environment</span> is a <span>shared worker environment</span>.</p>
 
   <p>Shared workers receive message ports through <code title="event-WorkerGlobalScope-connect">connect</code> events on
   their global object for each connection.</p>
@@ -1634,6 +1635,15 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
     assumed to be JavaScript.</p>
 
    </li>
+
+   <li><p>In the newly created execution environment, create a
+   <span>JavaScript global environment</span> whose <i>global
+   object</i> is <var title="">worker global scope</var>. If <var title="">worker global scope</var> is a
+   <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object, then this is a
+   <span>dedicated worker environment</span>. Otherwise, <var title="">worker global scope</var> is a
+   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object, and this is a
+   <span>shared worker environment</span>. (In either case, by
+   definition, it is a <span>worker environment</span>.)</li>
 
    <li>
 
@@ -2437,19 +2447,17 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   
   </p>
 
-  <p>This <code><a href="#workernavigator">WorkerNavigator</a></code> interface must not exist if the
-  interface's <span>relevant namespace object</span> is a
-  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+  <p>The <code><a href="#workernavigator">WorkerNavigator</a></code> interface must only be <span title="expose">exposed</span> if the <span>JavaScript global
+  environment</span> is a <span>worker environment</span>.</p>
 
 
 
 
   <h3 id="interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</h3>
 
-  <p>There must be no interface objects and constructors available in
-  the global scope of scripts whose <span>script's global
-  object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object except for
-  the following:</p>
+  <p>Nothing must be <span title="expose">exposed</span> when the
+  <span>JavaScript global environment</span> is a <span>worker
+  environment</span> except for the following:</p>
 
   <ul><li><p><code>XMLHttpRequest</code> and all interface objects and
    constructors defined by the XMLHttpRequest specifications, except
@@ -2460,19 +2468,12 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    <span>origin</span>. <a href="#refsXHR">[XHR]</a></li>
 
    <li><p>The interface objects and constructors defined by this
-   specification.</li>
+   specification, except where is further restricted by explicit
+   requirements in this specification.</li>
 
-   <li><p>Constructors defined by specifications that explicitly say
-   that they should be visible when the <span>script's global
-   object</span> is a <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>, a
-   <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code>, or an object implementing the
-   <code><a href="#workerutils">WorkerUtils</a></code> interface; the interfaces of any objects
-   with such constructors; and the interfaces of any objects made
-   accessible through APIs exposed by those constructors or made
-   accessible through interfaces to be implemented by any objects that
-   are themselves accessible to scripts whose <span>script's global
-   object</span> implements the <code><a href="#workerutils">WorkerUtils</a></code>
-   interface.</li>
+   <li><p>The interface objects of any objects made accessible through
+   interfaces implemented by any objects that are themselves <span title="expose">exposed</span> (i.e. this requirement is
+   transitive).</li>
 
   </ul><p class="note">These requirements do not override the requirements
   defined by the Web IDL specification, in particular concerning the
@@ -2516,9 +2517,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   
   </p>
 
-  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must not exist if the
-  interface's <span>relevant namespace object</span> is a
-  <code>Window</code> object. <a href="#refsWEBIDL">[WEBIDL]</a></p>
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must only be <span title="expose">exposed</span> if the <span>JavaScript global
+  environment</span> is a <span>worker environment</span>.</p>
 
 
 
