@@ -401,16 +401,15 @@
      <li><a href="#the-workerglobalscope-common-interface"><span class="secno">4.2.1 </span>The <code>WorkerGlobalScope</code> common interface</a></li>
      <li><a href="#dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</a></li>
      <li><a href="#shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.2.3 </span>Shared workers and the <code>SharedWorkerGlobalScope</code> interface</a></ol></li>
-   <li><a href="#origins-of-workers"><span class="secno">4.3 </span>Origins of workers</a></li>
-   <li><a href="#the-event-loop"><span class="secno">4.4 </span>The event loop</a></li>
-   <li><a href="#the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</a></li>
-   <li><a href="#processing-model"><span class="secno">4.6 </span>Processing model</a></li>
-   <li><a href="#runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</a></li>
-   <li><a href="#creating-workers"><span class="secno">4.8 </span>Creating workers</a>
+   <li><a href="#the-event-loop"><span class="secno">4.3 </span>The event loop</a></li>
+   <li><a href="#the-worker-s-lifetime"><span class="secno">4.4 </span>The worker's lifetime</a></li>
+   <li><a href="#processing-model"><span class="secno">4.5 </span>Processing model</a></li>
+   <li><a href="#runtime-script-errors"><span class="secno">4.6 </span>Runtime script errors</a></li>
+   <li><a href="#creating-workers"><span class="secno">4.7 </span>Creating workers</a>
     <ol>
-     <li><a href="#the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
-     <li><a href="#dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
-     <li><a href="#shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
+     <li><a href="#the-abstractworker-abstract-interface"><span class="secno">4.7.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
+     <li><a href="#dedicated-workers-and-the-worker-interface"><span class="secno">4.7.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
+     <li><a href="#shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
  <li><a href="#apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</a>
   <ol>
    <li><a href="#importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</a></li>
@@ -1378,7 +1377,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
    <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag to
    true. (This prevents any further tasks from being queued.)</li>
 
-  </ol><p>The following are the <span>event handlers</span> (and their
+  </ol><hr><p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
   event types</span>) that must be supported, as IDL attributes, by
   objects implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
@@ -1388,7 +1387,18 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
    <tbody><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
     <tr><td><dfn id="handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline"><code>onoffline</code></dfn> <td> <code title="event-offline">offline</code> 
     <tr><td><dfn id="handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline"><code>ononline</code></dfn> <td> <code title="event-online">online</code> 
-  </table><h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
+  </table><hr><p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has a <dfn id="worker-origin">worker
+  origin</dfn> that is set when the object is created.</p>
+
+  <p class="note">For <span title="data protocol"><code title="">data:</code> URLs</span>, this is the <span>origin</span>
+  of the <span>entry script</span> that called the constructor. For
+  other <span title="URL">URLs</span>, this is the <span>origin</span>
+  of the value of the <span>absolute URL</span> given in the worker's
+  <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location"></a></code> attribute.</p>
+
+
+
+  <h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
 
   <pre class="idl">interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
@@ -1470,25 +1480,8 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   worker.</p>
 
 
-  <h3 id="origins-of-workers"><span class="secno">4.3 </span>Origins of workers</h3>
 
-  <p>Both the <span>origin</span> and <span>effective script
-  origin</span> of scripts running in a worker are the
-  <span>origin</span> of the <span>absolute URL</span> that was
-  obtained after <span title="resolve a URL">resolving</span> the
-  argument to the <code title="dom-Worker"><a href="#dom-worker">Worker()</a></code> or <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor that
-  initially created the worker, in the algorithm for that
-  constructor.</p>
-
-  <p class="note">For <span title="data protocol"><code title="">data:</code> URLs</span>, this is the <span>origin</span>
-  of the <span>entry script</span> that called the constructor. For
-  other <span title="URL">URLs</span>, this is the
-  <span>origin</span> of the value of the <span>absolute URL</span>
-  given in the worker's <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location"></a></code> attribute.</p>
-
-
-
-  <h3 id="the-event-loop"><span class="secno">4.4 </span>The event loop</h3>
+  <h3 id="the-event-loop"><span class="secno">4.3 </span>The event loop</h3>
 
   <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has an <span>event
   loop</span> distinct from those defined for <span title="unit of
@@ -1514,7 +1507,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
 
 
-  <h3 id="the-worker-s-lifetime"><span class="secno">4.5 </span>The worker's lifetime</h3>
+  <h3 id="the-worker-s-lifetime"><span class="secno">4.4 </span>The worker's lifetime</h3>
 
   <p>Workers communicate with other workers and with <span title="browsing context">browsing contexts</span> through <span title="channel messaging">message channels</span> and their
   <code><a href="#messageport">MessagePort</a></code> objects.</p>
@@ -1581,7 +1574,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <a href="#permissible-worker">permissible worker</a>.</p>
 
 
-  <h3 id="processing-model"><span class="secno">4.6 </span>Processing model</h3>
+  <h3 id="processing-model"><span class="secno">4.5 </span>Processing model</h3>
 
   <p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with
   <span>URL</span> <var title="">url</var>, a <span>browsing
@@ -1827,7 +1820,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <span>DOM manipulation task source</span>.</p>
 
 
-  <h3 id="runtime-script-errors"><span class="secno">4.7 </span>Runtime script errors</h3>
+  <h3 id="runtime-script-errors"><span class="secno">4.6 </span>Runtime script errors</h3>
 
   <p>Whenever an uncaught runtime script error occurs in one of the
   worker's scripts, if the error did not occur while handling a
@@ -1908,9 +1901,9 @@ dictionary <dfn id="erroreventinit">ErrorEventInit</dfn> : <span>EventInit</span
 
 
 
-  <h3 id="creating-workers"><span class="secno">4.8 </span>Creating workers</h3>
+  <h3 id="creating-workers"><span class="secno">4.7 </span>Creating workers</h3>
 
-  <h4 id="the-abstractworker-abstract-interface"><span class="secno">4.8.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4>
+  <h4 id="the-abstractworker-abstract-interface"><span class="secno">4.7.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4>
 
   <pre class="idl">[NoInterfaceObject]
 interface <dfn id="abstractworker">AbstractWorker</dfn> {
@@ -1926,7 +1919,7 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
   <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-abstractworker-onerror" title="handler-AbstractWorker-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
 
-  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.8.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4>
+  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.7.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4>
 
   <pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL)]
 interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
@@ -1985,24 +1978,25 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
    <li>
 
-    <p>If the <span>origin</span> of the resulting <span>absolute
-    URL</span> is not the <span title="same origin">same</span> as the
-    origin of the <span>entry script</span>, then throw a
-    <code>SecurityError</code> exception.</p>
+    <p>If the <span title="url-scheme">&lt;scheme&gt;</span> component of
+    the resulting <span>absolute URL</span> is not "<code title="data-protocol">data</code>", and the <span>origin</span> of
+    the resulting <span>absolute URL</span> is not the <span title="same origin">same</span> as the origin of the <span>entry
+    script</span>, then throw a <code>SecurityError</code> exception
+    and abort these steps.</p>
 
     <p class="note">Thus, scripts must either be external files with
-    the same scheme, host, and port as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span> (the
-    latter are special-cases in the definition of
-    <span>origin</span>). For example, you can't load a script from a
-    <span title="javascript protocol"><code title="">javascript:</code> URL</span>, and an <code>https:</code>
-    page couldn't start workers using scripts with <code>http:</code>
-    URLs.</p>
+    the same scheme, host, and port as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span>. For
+    example, you can't load a script from a <span title="javascript
+    protocol"><code title="">javascript:</code> URL</span>, and an
+    <code>https:</code> page couldn't start workers using scripts with
+    <code>http:</code> URLs.</p>
 
    </li>
 
-   <li><p>Create a new <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code>
-   object. Let <var title="">worker global scope</var> be this new
-   object.</li>
+   <li><p>Create a new <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object
+   whose <a href="#worker-origin">worker origin</a> is the origin of the <span>entry
+   script</span>. Let <var title="">worker global scope</var> be this
+   new object.</li>
 
    <li><p>Create a new <code><a href="#worker">Worker</a></code> object, associated with
    <var title="">worker global scope</var>. Let <var title="">worker</var> be this new object.</li>
@@ -2078,7 +2072,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.</p>
 
 
-  <h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.8.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
+  <h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
 
   <pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(DOMString scriptURL, optional DOMString name)]
 interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
@@ -2109,18 +2103,19 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
    <li>
 
-    <p>If the <span>origin</span> of <var title="">scriptURL</var> is
-    not the <span title="same origin">same</span> as the origin of the
-    <span>entry script</span>, then throw a <code>SecurityError</code>
-    exception.</p>
+    <p>If the <span title="url-scheme">&lt;scheme&gt;</span> component of
+    <var title="">scriptURL</var> is not "<code title="data-protocol">data</code>", and the <span>origin</span> of
+    <var title="">scriptURL</var> is not the <span title="same
+    origin">same</span> as the origin of the <span>entry
+    script</span>, then throw a <code>SecurityError</code> exception
+    and abort these steps.</p>
 
     <p class="note">Thus, scripts must either be external files with
-    the same scheme, host, and port as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span> (the
-    latter are special-cases in the definition of
-    <span>origin</span>). For example, you can't load a script from a
-    <span title="javascript protocol"><code title="">javascript:</code> URL</span>, and an <code>https:</code>
-    page couldn't start workers using scripts with <code>http:</code>
-    URLs.</p>
+    the same scheme, host, and port as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span>. For
+    example, you can't load a script from a <span title="javascript
+    protocol"><code title="">javascript:</code> URL</span>, and an
+    <code>https:</code> page couldn't start workers using scripts with
+    <code>http:</code> URLs.</p>
 
    </li>
 
@@ -2155,10 +2150,11 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
       <p>If <var title="">name</var> is not the empty string and there
       exists a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object whose <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is
       false, whose <code title="dom-WorkerGlobalScope-name">name</code> attribute is
-      exactly equal to <var title="">name</var>, and whose <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location">location</a></code> attribute
-      represents an <span>absolute URL</span> with the <span>same
-      origin</span> as <var title="">scriptURL</var>, then let <var title="">worker global scope</var> be that
-      <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object.</p>
+      exactly equal to <var title="">name</var>, and whose
+      <a href="#worker-origin">worker origin</a> is the <span>same origin</span> as
+      <var title="">scriptURL</var>, then let <var title="">worker
+      global scope</var> be that <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code>
+      object.</p>
 
       <p>Otherwise, if <var title="">name</var> is the empty string
       and there exists a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object
@@ -2247,9 +2243,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
       </ol></li>
 
-     <li><p>Create a new <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code>
-     object. Let <var title="">worker global scope</var> be this new
-     object.</li>
+     <li><p>Create a new <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object
+     whose <a href="#worker-origin">worker origin</a> is the origin of the <span>entry
+     script</span>. Let <var title="">worker global scope</var> be
+     this new object.</li>
 
      <li><p>Associate <var title="">worker</var> with <var title="">worker global scope</var>.</li>
 
@@ -2355,8 +2352,6 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
    <li><p>If any fail, throw a <code>SyntaxError</code>
    exception.</li>
-
-
 
    <li>
 
