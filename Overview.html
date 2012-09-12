@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-26-august-2012">Editor's Draft 26 August 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-12-september-2012">Editor's Draft 12 September 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -355,7 +355,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 26 August 2012 Editor's Draft.
+  This specification is the 12 September 2012 Editor's Draft.
   </p>
 
   
@@ -1603,9 +1603,11 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
    <li>
 
-    <p>Attempt to <span>fetch</span> the resource identified by <var title="">url</var>, from the <var title="">owner origin</var>,
-    with the <i>synchronous flag</i> set and the <i>force same-origin
-    flag</i> set.</p> 
+    <p>Attempt to <span>fetch</span> the resource
+    identified by <var title="">url</var>, from the <var title="">owner origin</var>, using <var title="">owner
+    document</var> as the <span>referrer source</span>, with the
+    <i>synchronous flag</i> set and the <i>force same-origin flag</i>
+    set.</p> 
 
     <p>If the attempt fails, then for each <code><a href="#worker">Worker</a></code> or
     <code><a href="#sharedworker">SharedWorker</a></code> object associated with <var title="">worker global scope</var>, <span>queue a task</span> to
@@ -1657,6 +1659,8 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
     <p>Set the <span>script's document</span> to <var title="">owner
     document</var>.</p>
+
+    <p>Set the <span>script's referrer source</span> to <var title="">url</var>.</p>
 
     <p>Set the <span>script's URL character encoding</span> to
     UTF-8. (This is just used for encoding non-ASCII characters in the
@@ -2355,10 +2359,11 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
    <li>
 
-    <p>Attempt to <span>fetch</span> each resource identified by the
-    resulting <span title="absolute URL">absolute URLs</span>, from
-    the <span>entry script</span>'s <span>origin</span>, with the
-    <i>synchronous flag</i> set.</p> 
+    <p>Attempt to <span>fetch</span> each resource
+    identified by the resulting <span title="absolute URL">absolute
+    URLs</span>, from the <span>entry script</span>'s
+    <span>origin</span>, using the <span>entry script</span>'s <span title="script's referrer source">referrer source</span>, and with
+    the <i>synchronous flag</i> set.</p> 
 
    </li>
 
@@ -2396,8 +2401,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
       <p><span>Create a script</span>, using <var title="">source</var> as the script source, the <span>URL</span>
       from which <var title="">source</var> was obtained, and <var title="">language</var> as the scripting language, using the
-      same global object, browsing context, URL character encoding,
-      base URL, and script group as the <span title="concept-script">script</span> that was created by the
+      same global object, browsing context, document, referrer source,
+      URL character encoding, and base URL as the <span title="concept-script">script</span> that was created by the
       worker's <a href="#run-a-worker">run a worker</a> algorithm.</p>
 
       <p>Let the newly created <span title="concept-script">script</span> run until it either
@@ -2460,7 +2465,9 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
    null. The <span><code>XMLHttpRequest</code> base URL</span> is the
    <span>script's base URL</span>; the
    <span><code>XMLHttpRequest</code> origin</span> is the script's
-   <span>origin</span>. <a href="#refsXHR">[XHR]</a></li>
+   <span>origin</span>, and the <span><code>XMLHttpRequest</code>
+   referrer source</span> is the <span>script's referrer
+   source</span>. <a href="#refsXHR">[XHR]</a></li>
 
    <li><p>The interface objects and constructors defined by this
    specification, except where is further restricted by explicit
