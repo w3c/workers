@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-21-september-2012">Editor's Draft 21 September 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-6-october-2012">Editor's Draft 6 October 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -355,7 +355,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 21 September 2012 Editor's Draft.
+  This specification is the 6 October 2012 Editor's Draft.
   </p>
 
   
@@ -2219,15 +2219,13 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
        <li><p>Return <var title="">worker</var> and perform the next
        step asynchronously.</li>
 
-       <li><p>Create an event that uses the <code>MessageEvent</code>
-       interface, with the name <code title="event-connect">connect</code>, which does not bubble, is
-       not cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
-       is initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose
-       value is initialized to a <span title="dfn-read-only-array">read only</span> array containing
-       only the newly created port, and has a <code title="dom-MessageEvent-source">source</code> attribute whose
-       value is initialized to the newly created port, and <span>queue
-       a task</span> to dispatch the event at <var title="">worker
-       global scope</var>.</li>
+       <li><p>Create a <span title="concept-events-trusted">trusted</span> event that uses the
+       <code>MessageEvent</code> interface, with the name <code title="event-connect">connect</code>, which does not bubble, is not cancelable, has no
+       default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
+       is initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code>
+       attribute whose value is initialized to a <span title="dfn-read-only-array">read only</span>
+       array containing only the newly created port, and has a <code title="dom-MessageEvent-source">source</code> attribute whose value is initialized to the
+       newly created port, and <span>queue a task</span> to dispatch the event at <var title="">worker global scope</var>.</li>
 
        <li>
 
@@ -2276,16 +2274,14 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li><p>Return <var title="">worker</var> and perform the remaining
    steps asynchronously.</li>
 
-   <li><p>Create an event that uses the <code>MessageEvent</code>
-   interface, with the name <code title="event-connect">connect</code>, which does not bubble, is not
-   cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value is
-   initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value
-   is initialized to a <span title="dfn-read-only-array">read
-   only</span> array containing only the newly created port, and has a
-   <code title="dom-MessageEvent-source">source</code> attribute whose
-   value is initialized to the newly created port, and <span>queue a
-   task</span> to dispatch the event at <var title="">worker global
-   scope</var>.</li>
+   <li><p>Create a <span title="concept-events-trusted">trusted</span> event that uses the
+   <code>MessageEvent</code> interface, with the name <code title="event-connect">connect</code>,
+   which does not bubble, is not cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value is initialized to the empty
+   string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value is
+   initialized to a <span title="dfn-read-only-array">read only</span> array containing only the
+   newly created port, and has a <code title="dom-MessageEvent-source">source</code> attribute whose
+   value is initialized to the newly created port, and <span>queue a task</span> to dispatch the
+   event at <var title="">worker global scope</var>.</li>
 
    <li>
 
