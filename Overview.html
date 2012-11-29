@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-25-november-2012">Editor's Draft 25 November 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-29-november-2012">Editor's Draft 29 November 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 25 November 2012 Editor's Draft.
+  This specification is the 29 November 2012 Editor's Draft.
   </p>
 
   
@@ -1823,14 +1823,11 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h3 id="runtime-script-errors"><span class="secno">4.6 </span>Runtime script errors</h3>
 
-  <p>Whenever an uncaught runtime script error occurs in one of the
-  worker's scripts, if the error did not occur while handling a
-  previous script error, the user agent must <span>report the
-  error</span> at the <span>URL</span> of the resource that contained
-  the script, with the position (line number and column number) where
-  the error occurred, in the <span>origin</span> of the scripts
-  running in the worker, using the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
-  object's <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code> attribute.
+  <p>Whenever an uncaught runtime script error occurs in one of the worker's scripts, if the error
+  did not occur while handling a previous script error, the user agent must <span>report the
+  error</span> for that <span title="concept-script">script</span>, with the position (line number
+  and column number) where the error occurred, using the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's
+  <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code> attribute.
   
   <a href="#refsHTML">[HTML]</a>
   
@@ -2413,6 +2410,10 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
       same global object, browsing context, document, referrer source,
       URL character encoding, and base URL as the <span title="concept-script">script</span> that was created by the
       worker's <a href="#run-a-worker">run a worker</a> algorithm.</p>
+
+      <p>If the script came from a resource whose <span>URL</span> does not have the <span>same
+      origin</span> as the <a href="#worker-origin">worker origin</a>, then pass the <var title="">muted
+      errors</var> flag to the <span>create a script from a node</span> algorithm.</p>
 
       <p>Let the newly created <span title="concept-script">script</span> run until it either
       returns, fails to parse, fails to catch an exception, or gets
