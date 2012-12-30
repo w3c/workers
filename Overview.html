@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-4-december-2012">Editor's Draft 4 December 2012</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-29-december-2012">Editor's Draft 29 December 2012</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 4 December 2012 Editor's Draft.
+  This specification is the 29 December 2012 Editor's Draft.
   </p>
 
   
@@ -2446,15 +2446,8 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
 
   <pre class="idl">interface <dfn id="workernavigator">WorkerNavigator</dfn> {};
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorID</span>;
+<a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorLanguage</span>;
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorOnLine</span>;</pre>
-
-  <p>Objects implementing the <code><a href="#workernavigator">WorkerNavigator</a></code> interface
-  also implement the <code>NavigatorID</code> and
-  <code>NavigatorOnLine</code> interfaces.
-  
-  <a href="#refsHTML">[HTML]</a>
-  
-  </p>
 
   <p>The <code><a href="#workernavigator">WorkerNavigator</a></code> interface must only be <span title="expose">exposed</span> if the <span>JavaScript global
   environment</span> is a <span>worker environment</span>.</p>
