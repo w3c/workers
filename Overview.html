@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-24-january-2013">Editor's Draft 24 January 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-29-january-2013">Editor's Draft 29 January 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 24 January 2013 Editor's Draft.
+  This specification is the 29 January 2013 Editor's Draft.
   </p>
 
   
@@ -1179,18 +1179,12 @@ function work() {
 
   <p><i>This section is non-normative.</i></p>
 
-  <p>Shared workers are identified in one of two ways: either by the
-  URL of the script used to create it, or by explicit name. When
-  created by name, the URL used by the first page to create the worker
-  with that name is the URL of the script that will be used for that
-  worker. This allows multiple applications on a domain to all use a
-  single shared worker to provide a common service, without the
-  applications having to keep track of a common URL for the script
-  used to provide the service.</p>
+  <p>Shared workers are identified by the URL of the script used to create it, optionally with an
+  explicit name. The name allows multiple instances of a particular shared worker to be started.</p>
 
-  <p class="note">In either case, shared workers are scoped by
-  <span>origin</span>. Two different sites using the same names will
-  not collide.</p>
+  <p>Shared workers are scoped by <span>origin</span>. Two different sites using the same names will
+  not collide. However, if a page tries to use the same shared worker name as another page on the
+  same site, but with a different script URL, it will fail.</p>
 
   <p>Creating shared workers is done using the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor. This
   constructor takes the URL to the script to use for its first
