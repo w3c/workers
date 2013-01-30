@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-29-january-2013">Editor's Draft 29 January 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-30-january-2013">Editor's Draft 30 January 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 29 January 2013 Editor's Draft.
+  This specification is the 30 January 2013 Editor's Draft.
   </p>
 
   
@@ -1341,8 +1341,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
            attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
            attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
            attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
-};
-<a href="#workerglobalscope">WorkerGlobalScope</a> implements <a href="#workerutils">WorkerUtils</a>;</pre>
+};</pre>
 
   <p>The <dfn id="dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self"><code>self</code></dfn> attribute
   must return the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object itself.</p>
@@ -2071,7 +2070,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
   </ol><p>This constructor must be visible when the <span>script's global
   object</span> is either a <code>Window</code> object or an object
-  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.</p>
+  implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface.</p>
 
 
   <h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
@@ -2314,7 +2313,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
   </ol><p>This constructor must be visible when the <span>script's global
   object</span> is either a <code>Window</code> object or an object
-  implementing the <code><a href="#workerutils">WorkerUtils</a></code> interface.</p>
+  implementing the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface.</p>
 
   <p>The <span>task source</span> for the tasks mentioned above is the
   <span>DOM manipulation task source</span>.</p>
@@ -2324,12 +2323,12 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
   <h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2>
 
   <pre class="idl">[NoInterfaceObject]
-interface <dfn id="workerutils">WorkerUtils</dfn> {
+partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>(DOMString... urls);
   readonly attribute <a href="#workernavigator">WorkerNavigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
 };
-<a href="#workerutils">WorkerUtils</a> implements <span>WindowTimers</span>;
-<a href="#workerutils">WorkerUtils</a> implements <span>WindowBase64</span>;</pre>
+<a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>WindowTimers</span>;
+<a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>WindowBase64</span>;</pre>
 
   
   <p>The <code>WindowTimers</code> and <code>WindowBase64</code>
@@ -2434,7 +2433,7 @@ interface <dfn id="workerutils">WorkerUtils</dfn> {
   </ol><h3 id="the-workernavigator-object"><span class="secno">5.2 </span>The <code><a href="#workernavigator">WorkerNavigator</a></code> object</h3>
 
   <p>The <dfn id="dom-worker-navigator" title="dom-worker-navigator"><code>navigator</code></dfn> attribute
-  of the <code><a href="#workerutils">WorkerUtils</a></code> interface must return an instance of
+  of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface must return an instance of
   the <code><a href="#workernavigator">WorkerNavigator</a></code> interface, which represents the
   identity and state of the user agent (the client):</p>
 
