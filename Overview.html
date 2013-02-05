@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-4-february-2013">Editor's Draft 4 February 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-5-february-2013">Editor's Draft 5 February 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 4 February 2013 Editor's Draft.
+  This specification is the 5 February 2013 Editor's Draft.
   </p>
 
   
@@ -1386,7 +1386,6 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location"></a></code> attribute.</p>
 
 
-
   <h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
 
   <pre class="idl">interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
@@ -1409,11 +1408,11 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   at the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.</p>
 
   <p>The <dfn id="dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage"><code>postMessage()</code></dfn>
-  method on
-  <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects must act as if, when
-  invoked, it immediately invoked the
-  method of the same name on the port, with the same arguments, and
-  returned the same return value.</p>
+  method on <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects must act as if, when invoked, it
+  immediately invoked <span title="dom-MessagePort-postMessage">the method of the same name</span>
+  on the port, with the same arguments, and returned the same return value.</p>
+
+
 
   <p>The following are the <span>event handlers</span> (and their
   corresponding <span title="event handler event type">event handler
@@ -1941,11 +1940,11 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   <p>All messages received by that port must immediately be retargeted
   at the <code><a href="#worker">Worker</a></code> object.</p>
 
-  <p>The <dfn id="dom-worker-postmessage" title="dom-Worker-postMessage"><code>postMessage()</code></dfn>
-  method on <code><a href="#worker">Worker</a></code> objects
-  must act as if, when invoked, it
-  immediately invoked the method of the same name on the port, with
-  the same arguments, and returned the same return value.</p>
+  <p>The <dfn id="dom-worker-postmessage" title="dom-Worker-postMessage"><code>postMessage()</code></dfn> method on
+  <code><a href="#worker">Worker</a></code> objects must act as if, when invoked, it immediately invoked <span title="dom-MessagePort-postMessage">the method of the same name</span> on the port, with the same
+  arguments, and returned the same return value.</p>
+
+
 
   <div class="example">
 
