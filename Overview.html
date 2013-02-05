@@ -2449,21 +2449,18 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> {
 
   <h3 id="interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</h3>
 
-  <p>Nothing must be <span title="expose">exposed</span> when the
-  <span>JavaScript global environment</span> is a <span>worker
-  environment</span> except for the following:</p>
+  <p>Nothing must be <span title="expose">exposed</span> when the <span>JavaScript global
+  environment</span> is a <span>worker environment</span> except for the following:</p>
 
-  <ul><li><p>The interface objects and constructors defined by this
-   specification, except where is further restricted by explicit
-   requirements in this specification.</li>
+  <ul><li><p>The interface objects and constructors defined by this specification, except where is
+   further restricted by explicit requirements in this specification.</li>
 
-   <li><p>The interface objects of any objects made accessible through
-   interfaces implemented by any objects that are themselves <span title="expose">exposed</span> (i.e. this requirement is
+   <li><p>The interface objects of any objects made accessible through interfaces implemented by any
+   objects that are themselves <span title="expose">exposed</span> (i.e. this requirement is
    transitive).</li>
 
-  </ul><p class="note">These requirements do not override the requirements
-  defined by the Web IDL specification, in particular concerning the
-  visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.</p>
+  </ul><p class="note">These requirements do not override the requirements defined by the Web IDL
+  specification, in particular concerning the visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.</p>
 
 
   <h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3>
@@ -2480,31 +2477,25 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> {
   readonly attribute DOMString <a href="#dom-workerlocation-hash" title="dom-WorkerLocation-hash">hash</a>;
 };</pre>
 
-  <p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute
-  URL</span> set at its creation.</p>
+  <p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute URL</span> set at its
+  creation.</p>
 
-  <p>The <dfn id="dom-workerlocation-href" title="dom-WorkerLocation-href"><code>href</code></dfn>
-  attribute must return the <span>absolute URL</span> that the object
-  represents.</p>
+  <p>The <dfn id="dom-workerlocation-href" title="dom-WorkerLocation-href"><code>href</code></dfn> attribute must return the
+  <span>absolute URL</span> that the object represents.</p>
 
-  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface also has the complement
-  of <span>URL decomposition IDL attributes</span>, <dfn id="dom-workerlocation-protocol" title="dom-WorkerLocation-protocol"><code>protocol</code></dfn>,
-  <dfn id="dom-workerlocation-host" title="dom-WorkerLocation-host"><code>host</code></dfn>, <dfn id="dom-workerlocation-port" title="dom-WorkerLocation-port"><code>port</code></dfn>, <dfn id="dom-workerlocation-hostname" title="dom-WorkerLocation-hostname"><code>hostname</code></dfn>,
-  <dfn id="dom-workerlocation-pathname" title="dom-WorkerLocation-pathname"><code>pathname</code></dfn>,
-  <dfn id="dom-workerlocation-search" title="dom-WorkerLocation-search"><code>search</code></dfn>,
-  and <dfn id="dom-workerlocation-hash" title="dom-WorkerLocation-hash"><code>hash</code></dfn>.
-  These must follow the rules given for <span>URL decomposition IDL
-  attributes</span>, with the <span title="concept-uda-input">input</span> being the <span>absolute
-  URL</span> that the object represents (same as the <code title="dom-WorkerLocation-href"><a href="#dom-workerlocation-href">href</a></code> attribute), and the
-  <span title="concept-uda-setter">common setter action</span> being a
-  no-op, since the attributes are defined to be readonly.
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface also has the complement of <span>URL decomposition
+  IDL attributes</span>, <dfn id="dom-workerlocation-protocol" title="dom-WorkerLocation-protocol"><code>protocol</code></dfn>, <dfn id="dom-workerlocation-host" title="dom-WorkerLocation-host"><code>host</code></dfn>, <dfn id="dom-workerlocation-port" title="dom-WorkerLocation-port"><code>port</code></dfn>, <dfn id="dom-workerlocation-hostname" title="dom-WorkerLocation-hostname"><code>hostname</code></dfn>, <dfn id="dom-workerlocation-pathname" title="dom-WorkerLocation-pathname"><code>pathname</code></dfn>, <dfn id="dom-workerlocation-search" title="dom-WorkerLocation-search"><code>search</code></dfn>, and <dfn id="dom-workerlocation-hash" title="dom-WorkerLocation-hash"><code>hash</code></dfn>. These must follow the rules given for
+  <span>URL decomposition IDL attributes</span>, with the <span title="concept-uda-input">input</span> being the <span>absolute URL</span> that the object
+  represents (same as the <code title="dom-WorkerLocation-href"><a href="#dom-workerlocation-href">href</a></code> attribute), and the
+  <span title="concept-uda-setter">common setter action</span> being a no-op, since the attributes
+  are defined to be readonly.
   
   <a href="#refsHTML">[HTML]</a>
   
   </p>
 
-  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must only be <span title="expose">exposed</span> if the <span>JavaScript global
-  environment</span> is a <span>worker environment</span>.</p>
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must only be <span title="expose">exposed</span> if
+  the <span>JavaScript global environment</span> is a <span>worker environment</span>.</p>
 
 
 
