@@ -2169,7 +2169,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
   <h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2>
 
   <pre class="idl">[NoInterfaceObject]
-partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> {
+partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">WorkerGlobalScope</a> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>(DOMString... urls);
   readonly attribute <a href="#workernavigator">WorkerNavigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
 };
