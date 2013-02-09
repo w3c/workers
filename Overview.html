@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-7-february-2013">Editor's Draft 7 February 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-9-february-2013">Editor's Draft 9 February 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 7 February 2013 Editor's Draft.
+  This specification is the 9 February 2013 Editor's Draft.
   </p>
 
   
@@ -1887,8 +1887,8 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
    <li>
 
-    <p>If the <span title="url-scheme">&lt;scheme&gt;</span> component of
-    the resulting <span>absolute URL</span> is not "<code title="data-protocol">data</code>", and the <span>origin</span> of
+    <p>If the <span title="concept-url-scheme">scheme</span> component of
+    the resulting <span>parsed URL</span> is not "<code title="data-protocol">data</code>", and the <span>origin</span> of
     the resulting <span>absolute URL</span> is not the <span title="same origin">same</span> as the origin of the <span>entry
     script</span>, then throw a <code>SecurityError</code> exception
     and abort these steps.</p>
@@ -2008,7 +2008,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    exception.</li>
 
    <li><p>Otherwise, let <var title="">scriptURL</var> be the
-   resulting <span>absolute URL</span>.</li>
+   resulting <span>absolute URL</span> and <var title="">parsed scriptURL</var> be the
+   resulting <span>parsed URL</span>.</li>
 
    <li><p>Let <var title="">name</var> be the value of the second
    argument, or the empty string if the second argument was
@@ -2016,8 +2017,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
    <li>
 
-    <p>If the <span title="url-scheme">&lt;scheme&gt;</span> component of
-    <var title="">scriptURL</var> is not "<code title="data-protocol">data</code>", and the <span>origin</span> of
+    <p>If the <span title="concept-url-scheme">scheme</span> component of
+    <var title="">parsed scriptURL</var> is not "<code title="data-protocol">data</code>", and the <span>origin</span> of
     <var title="">scriptURL</var> is not the <span title="same
     origin">same</span> as the origin of the <span>entry
     script</span>, then throw a <code>SecurityError</code> exception
@@ -2375,16 +2376,9 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> {
   <h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3>
 
   <pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> {
-  // <span>URL decomposition IDL attributes</span>
   stringifier readonly attribute DOMString <a href="#dom-workerlocation-href" title="dom-WorkerLocation-href">href</a>;
-  readonly attribute DOMString <a href="#dom-workerlocation-protocol" title="dom-WorkerLocation-protocol">protocol</a>;
-  readonly attribute DOMString <a href="#dom-workerlocation-host" title="dom-WorkerLocation-host">host</a>;
-  readonly attribute DOMString <a href="#dom-workerlocation-hostname" title="dom-WorkerLocation-hostname">hostname</a>;
-  readonly attribute DOMString <a href="#dom-workerlocation-port" title="dom-WorkerLocation-port">port</a>;
-  readonly attribute DOMString <a href="#dom-workerlocation-pathname" title="dom-WorkerLocation-pathname">pathname</a>;
-  readonly attribute DOMString <a href="#dom-workerlocation-search" title="dom-WorkerLocation-search">search</a>;
-  readonly attribute DOMString <a href="#dom-workerlocation-hash" title="dom-WorkerLocation-hash">hash</a>;
-};</pre>
+};
+<a href="#workerlocation">WorkerLocation</a> implements <span>URLUtilsReadOnly</span>;</pre>
 
   <p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute URL</span> set at its
   creation.</p>
@@ -2392,16 +2386,10 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> {
   <p>The <dfn id="dom-workerlocation-href" title="dom-WorkerLocation-href"><code>href</code></dfn> attribute must return the
   <span>absolute URL</span> that the object represents.</p>
 
-  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface also has the complement of <span>URL decomposition
-  IDL attributes</span>, <dfn id="dom-workerlocation-protocol" title="dom-WorkerLocation-protocol"><code>protocol</code></dfn>, <dfn id="dom-workerlocation-host" title="dom-WorkerLocation-host"><code>host</code></dfn>, <dfn id="dom-workerlocation-port" title="dom-WorkerLocation-port"><code>port</code></dfn>, <dfn id="dom-workerlocation-hostname" title="dom-WorkerLocation-hostname"><code>hostname</code></dfn>, <dfn id="dom-workerlocation-pathname" title="dom-WorkerLocation-pathname"><code>pathname</code></dfn>, <dfn id="dom-workerlocation-search" title="dom-WorkerLocation-search"><code>search</code></dfn>, and <dfn id="dom-workerlocation-hash" title="dom-WorkerLocation-hash"><code>hash</code></dfn>. These must follow the rules given for
-  <span>URL decomposition IDL attributes</span>, with the <span title="concept-uda-input">input</span> being the <span>absolute URL</span> that the object
-  represents (same as the <code title="dom-WorkerLocation-href"><a href="#dom-workerlocation-href">href</a></code> attribute), and the
-  <span title="concept-uda-setter">common setter action</span> being a no-op, since the attributes
-  are defined to be readonly.
-  
-  <a href="#refsHTML">[HTML]</a>
-  
-  </p>
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface also supports the <code>URLUtilsReadOnly</code>
+  interface. The <span title="concept-uu-input">input</span> is the <span>absolute URL</span> that
+  the object represents (same as the <code title="dom-WorkerLocation-href"><a href="#dom-workerlocation-href">href</a></code>
+  attribute). <a href="#refsURL">[URL]</a></p>
 
   <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must only be <span title="expose">exposed</span> if
   the <span>JavaScript global environment</span> is a <span>worker environment</span>.</p>
@@ -2426,6 +2414,9 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> {
 
    <dt id="refsRFC2119">[RFC2119]</dt>
    <dd><cite><a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a></cite>, S. Bradner. IETF.</dd>
+
+   <dt id="refsURL">[URL]</dt>
+   <dd><cite><a href="http://url.spec.whatwg.org/">URL</a></cite>, A. van Kestern. WHATWG.</dd>
 
    <dt id="refsWEBIDL">[WEBIDL]</dt>
    <dd><cite><a href="http://dev.w3.org/2006/webapi/WebIDL/">Web IDL</a></cite>, C. McCormack. W3C.</dd>
