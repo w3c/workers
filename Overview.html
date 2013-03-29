@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-5-march-2013">Editor's Draft 5 March 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-29-march-2013">Editor's Draft 29 March 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 5 March 2013 Editor's Draft.
+  This specification is the 29 March 2013 Editor's Draft.
   </p>
 
   
@@ -1570,12 +1570,8 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
     a simple event</span> named <code title="event-error">error</code> at that object. Abort these
     steps.</p>
 
-    <p>If the attempt succeeds, then let <var title="">source</var> be the script resource
-    <span>decoded as UTF-8, with error handling</span>.
-    
-    <a href="#refsHTML">[HTML]</a>
-    
-    </p>
+    <p>If the attempt succeeds, then let <var title="">source</var> be the result of running the
+    <span>UTF-8 decode</span> algorithm on the script resource.</p>
 
     <p>Let <var title="">language</var> be JavaScript.</p>
 
@@ -2225,13 +2221,8 @@ partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">Wo
       <code>NetworkError</code> exception and abort all these
       steps.</p>
 
-      <p>If the attempt succeeds, then let <var title="">source</var> be
-      the script resource <span>decoded as UTF-8, with error
-      handling</span>.
-      
-      <a href="#refsHTML">[HTML]</a>
-      
-      </p>
+      <p>If the attempt succeeds, then let <var title="">source</var> be the result of running the
+      <span>UTF-8 decode</span> algorithm on the script resource.</p>
 
       <p>Let <var title="">language</var> be JavaScript.</p>
 
