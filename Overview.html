@@ -1874,7 +1874,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
    relative to the <span>entry script</span>'s <span title="script's base URL">base URL</span>, when
    the method is invoked.</li>
 
-   <li><p>If this fails, throw a <code>SyntaxError</code> exception.</li>
+   <li><p>If this fails, throw a <code>SyntaxError</code> exception and abort these steps.</li>
 
    <li>
 
@@ -1978,10 +1978,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var>
    argument.</li>
 
-   <li><p>If this fails, throw a <code>SyntaxError</code> exception.</li>
+   <li><p>If this fails, throw a <code>SyntaxError</code> exception and abort these steps.</li>
 
-   <li><p>Otherwise, let <var title="">scriptURL</var> be the resulting <span>absolute URL</span>
-   and <var title="">parsed scriptURL</var> be the resulting <span>parsed URL</span>.</li>
+   <li><p>Let <var title="">scriptURL</var> be the resulting <span>absolute URL</span> and <var title="">parsed scriptURL</var> be the resulting <span>parsed URL</span>.</li>
 
    <li><p>Let <var title="">name</var> be the value of the second argument, or the empty string if
    the second argument was omitted.</li>
