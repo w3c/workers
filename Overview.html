@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-10-april-2013">Editor's Draft 10 April 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-13-april-2013">Editor's Draft 13 April 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 10 April 2013 Editor's Draft.
+  This specification is the 13 April 2013 Editor's Draft.
   </p>
 
   
@@ -779,7 +779,7 @@ onconnect = function(e) {
    // CONFIGURATION
    function configure(event) {
      if (event.data.substr(0, 4) != 'cfg ') return;
-     var name = event.data.substr(4).split(' ', 1);
+     var name = event.data.substr(4).split(' ', 1)[0];
      // update display to mention our name is name
      document.getElementsByTagName('h1')[0].textContent += ' ' + name;
      // no longer need this listener
@@ -801,7 +801,7 @@ onconnect = function(e) {
            context.fillStyle = 'green';
          else 
            context.fillStyle = 'maroon';
-         fillRect(x * 50, y * 50, 50, 50);
+         context.fillRect(x * 50, y * 50, 50, 50);
        }
      }
    }
@@ -810,23 +810,26 @@ onconnect = function(e) {
    // PUBLIC CHAT
    function updatePublicChat(event) {
      if (event.data.substr(0, 4) != 'txt ') return;
-     var name = event.data.substr(4).split(' ', 1);
-     var message = event.data.substr(4 + length(name) + 1);
+     var name = event.data.substr(4).split(' ', 1)[0];
+     var message = event.data.substr(4 + name.length + 1);
      // display "&lt;name&gt; message" in public chat
-     var dialog = document.getElementById('public');
-     var dt = document.createElement('dt');
-     dt.textContent = name;
-     dialog.appendChild(dt);
-     var dd = document.createElement('dd');
-     dd.textContent = message;
-     dialog.appendChild(dd);
+     var public = document.getElementById('public');
+     var p = document.createElement('p');
+     var n = document.createElement('button');
+     n.textContent = '&lt;' + name + '&gt; ';
+     n.onclick = function () { worker.port.postMessage('msg ' + name); };
+     p.appendChild(n);
+     var m = document.createElement('span');
+     m.textContent = message;
+     p.appendChild(m);
+     public.appendChild(p);
    }
    worker.port.addEventListener('message', updatePublicChat, false);
 
    // PRIVATE CHAT
    function startPrivateChat(event) {
      if (event.data.substr(0, 4) != 'msg ') return;
-     var name = event.data.substr(4).split(' ', 1);
+     var name = event.data.substr(4).split(' ', 1)[0];
      var port = event.ports[0];
      // display a private chat UI
      var ul = document.getElementById('private');
@@ -834,19 +837,21 @@ onconnect = function(e) {
      var h3 = document.createElement('h3');
      h3.textContent = 'Private chat with ' + name;
      li.appendChild(h3);
-     var dialog = document.createElement('dialog');
+     var div = document.createElement('div');
      var addMessage = function(name, message) {
-       var dt = document.createElement('dt');
-       dt.textContent = name;
-       dialog.appendChild(dt);
-       var dd = document.createElement('dd');
-       dd.textContent = message;
-       dialog.appendChild(dd);
+       var p = document.createElement('p');
+       var n = document.createElement('strong');
+       n.textContent = '&lt;' + name + '&gt; ';
+       p.appendChild(n);
+       var t = document.createElement('span');
+       t.textContent = message;
+       p.appendChild(t);
+       div.appendChild(p);
      };
      port.onmessage = function (event) {
        addMessage(name, event.data);
      };
-     li.appendChild(dialog);
+     li.appendChild(div);
      var form = document.createElement('form');
      var p = document.createElement('p');
      var input = document.createElement('input');
@@ -864,6 +869,7 @@ onconnect = function(e) {
      };
      form.appendChild(p);
      li.appendChild(form);
+     ul.appendChild(li);
    }
    worker.port.addEventListener('message', startPrivateChat, false);
 
@@ -883,7 +889,7 @@ onconnect = function(e) {
    &lt;button type=button onclick="worker.port.postMessage('set 1')"&gt;Set 1&lt;/button&gt;
   &lt;/p&gt;
   &lt;h2&gt;Public Chat&lt;/h2&gt;
-  &lt;dialog id="public"&gt;&lt;/dialog&gt;
+  &lt;div id="public"&gt;&lt;/div&gt;
   &lt;form onsubmit="worker.port.postMessage('txt ' + message.value); message.value = ''; return false;"&gt;
    &lt;p&gt;
     &lt;input type="text" name="message" size="50"&gt;
@@ -945,26 +951,34 @@ function wrapY(y) {
   return y;
 }
 
-function sendMapData(callback) {
+function wrap(val, min, max) {
+  if (val &lt; min)
+    return val + (max-min)+1;
+  if (val &gt; max)
+    return val - (max-min)-1;
+  return val;
+}
+
+function sendMapData(viewer) {
   var data = '';
   for (var y = viewer.y-1; y &lt;= viewer.y+1; y += 1) {
     for (var x = viewer.x-1; x &lt;= viewer.x+1; x += 1) {
       if (data != '')
         data += ',';
-      data += map[y][x];
+      data += map[wrap(y, 0, map[0].length-1)][wrap(x, 0, map.length-1)];
     }
   }
-  callback('map ' + data);
+  viewer.port.postMessage('map ' + data);
 }
 
 var viewers = {};
 onconnect = function (event) {
-  event.ports[0]._name = getNextName();
-  event.ports[0]._data = { port: event.port, x: 0, y: 0, };
-  viewers[event.ports[0]._name] = event.port._data;
+  var name = getNextName();
+  event.ports[0]._data = { port: event.ports[0], name: name, x: 0, y: 0, };
+  viewers[name] = event.ports[0]._data;
   event.ports[0].postMessage('cfg ' + name);
   event.ports[0].onmessage = getMessage;
-  sendMapData(event.ports[0].postMessage);
+  sendMapData(event.ports[0]._data);
 };
 
 function getMessage(event) {
@@ -981,23 +995,23 @@ function getMessage(event) {
       }
       event.target._data.x = wrapX(event.target._data.x + dx);
       event.target._data.y = wrapY(event.target._data.y + dy);
-      sendMapData(event.target.postMessage);
+      sendMapData(event.target._data);
       break;
     case 'set ':
       var value = event.data.substr(4);
       map[event.target._data.y][event.target._data.x] = value;
       for (var viewer in viewers)
-        sendMapData(viewers[viewer].port.postMessage);
+        sendMapData(viewers[viewer]._data);
       break;
     case 'txt ':
-      var name = event.target._name;
+      var name = event.target._data.name;
       var message = event.data.substr(4);
       for (var viewer in viewers)
         viewers[viewer].port.postMessage('txt ' + name + ' ' + message);
       break;
     case 'msg ':
-      var party1 = event._data;
-      var party2 = viewers[event.data.substr(4).split(' ', 1)];
+      var party1 = event.target._data;
+      var party2 = viewers[event.data.substr(4).split(' ', 1)[0]];
       if (party2) {
         var channel = new MessageChannel();
         party1.port.postMessage('msg ' + party2.name, [channel.port1]);
