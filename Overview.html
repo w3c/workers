@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-19-april-2013">Editor's Draft 19 April 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-23-april-2013">Editor's Draft 23 April 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 19 April 2013 Editor's Draft.
+  This specification is the 23 April 2013 Editor's Draft.
   </p>
 
   
@@ -1404,7 +1404,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 };</pre>
 
   <p>The <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface must only
-  be <span title="expose">exposed</span> if the <span>JavaScript
+  be <span>exposed to JavaScript</span> if the <span>JavaScript
   global environment</span> is a <span>dedicated worker
   environment</span>.</p>
 
@@ -1447,7 +1447,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 };</pre>
 
   <p>The <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface must only be
-  <span title="expose">exposed</span> if the <span>JavaScript global
+  <span>exposed to JavaScript</span> if the <span>JavaScript global
   environment</span> is a <span>shared worker environment</span>.</p>
 
   <p>Shared workers receive message ports through <code title="event-WorkerGlobalScope-connect">connect</code> events on
@@ -2189,7 +2189,7 @@ partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">Wo
   
 
   <p>The DOM APIs &mdash; specifically, all the interfaces defind in the DOM specification other
-  than exceptions &mdash; must not be <span title="expose">exposed</span> if the <span>JavaScript
+  than exceptions &mdash; must not be <span>exposed to JavaScript</span> if the <span>JavaScript
   global environment</span> is a <span>worker environment</span>. <a href="#refsDOM">[DOM]</a></p>
 
 
@@ -2291,7 +2291,8 @@ partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">Wo
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorLanguage</span>;
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorOnLine</span>;</pre>
 
-  <p>The <code><a href="#workernavigator">WorkerNavigator</a></code> interface must only be <span title="expose">exposed</span> if the <span>JavaScript global
+  <p>The <code><a href="#workernavigator">WorkerNavigator</a></code> interface must only be <span>exposed
+  to JavaScript</span> if the <span>JavaScript global
   environment</span> is a <span>worker environment</span>.</p>
 
 
@@ -2299,15 +2300,19 @@ partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">Wo
 
   <h3 id="interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</h3>
 
-  <p>Nothing must be <span title="expose">exposed</span> when the <span>JavaScript global
+  <p>Nothing must be <span>exposed to JavaScript</span> when the <span>JavaScript global
   environment</span> is a <span>worker environment</span> except for the following:</p>
 
-  <ul><li><p>The interface objects and constructors defined by this specification, except where is
-   further restricted by explicit requirements in this specification.</li>
+  <ul><li><p>The interfaces and exceptions defined by this specification, except where is further
+   restricted by explicit requirements in this specification.</li>
 
-   <li><p>The interface objects of any objects made accessible through interfaces implemented by any
-   objects that are themselves <span title="expose">exposed</span> (i.e. this requirement is
-   transitive).</li>
+   <li><p>Any interfaces and exceptions defined by a specification that explicitly specifies that
+   they are <span>exposed to JavaScript</span> when the <span>JavaScript global environment</span>
+   is a <span>worker environment</span>.</li>
+
+   <li><p>The interfaces of any objects made accessible through, and the exceptions thrown by any,
+   interfaces implemented by any interfaces or objects of interfaces that are themselves
+   <span>exposed to JavaScript</span> (i.e. this requirement is transitive).</li>
 
   </ul><p class="note">These requirements do not override the requirements defined by the Web IDL
   specification, in particular concerning the visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.</p>
@@ -2331,7 +2336,7 @@ partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">Wo
 
   <p>The element's <code>URLUtilsReadOnly</code> interface's <span title="concept-uu-get-the-base">get the base</span> algorithm must return null.</p>
 
-  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must only be <span title="expose">exposed</span> if
+  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must only be <span>exposed to JavaScript</span> if
   the <span>JavaScript global environment</span> is a <span>worker environment</span>.</p>
 
 
