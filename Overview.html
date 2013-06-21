@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-11-june-2013">Editor's Draft 11 June 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-21-june-2013">Editor's Draft 21 June 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 11 June 2013 Editor's Draft.
+  This specification is the 21 June 2013 Editor's Draft.
   </p>
 
   
@@ -1352,7 +1352,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   readonly attribute <a href="#workerlocation">WorkerLocation</a> <a href="#dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location">location</a>;
 
   void <a href="#dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close">close</a>();
-           attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
+           attribute <span>OnErrorEventHandler</span> <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
            attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
            attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
 };</pre>
@@ -1741,26 +1741,24 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <p>Whenever an uncaught runtime script error occurs in one of the worker's scripts, if the error
   did not occur while handling a previous script error, the user agent must <span>report the
   error</span> for that <span title="concept-script">script</span>, with the position (line number
-  and column number) where the error occurred, using the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object's
-  <code title="handler-WorkerGlobalScope-onerror"><a href="#handler-workerglobalscope-onerror">onerror</a></code> attribute.
+  and column number) where the error occurred, using the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object as the target.
   
   <a href="#refsHTML">[HTML]</a>
   
   </p>
 
   <p>For shared workers, if the error is still <i title="concept-error-nothandled">not handled</i>
-  afterwards, or if the error occurred while handling a previous script error, the error may be
-  reported to the user.
+  afterwards, the error may be reported to the user.
   
   <a href="#refsHTML">[HTML]</a>
   
   </p>
 
   <p>For dedicated workers, if the error is still <i title="concept-error-nothandled">not
-  handled</i> afterwards, or if the error occurred while handling a previous script error, the user
-  agent must <span>queue a task</span> to <span title="concept-event-fire">fire</span> a <span title="concept-events-trusted">trusted</span> event that uses the <code><a href="#errorevent">ErrorEvent</a></code>
+  handled</i> afterwards, the user
+  agent must <span>queue a task</span> to <span title="concept-event-fire">fire</span> a <span title="concept-events-trusted">trusted</span> event that uses the <code>ErrorEvent</code>
   interface, with the name <code title="event-error">error</code>, that doesn't bubble and is
-  cancelable, with its <code title="dom-ErrorEvent-message"><a href="#dom-errorevent-message">message</a></code>, <code title="dom-ErrorEvent-filename"><a href="#dom-errorevent-filename">filename</a></code>, <code title="dom-ErrorEvent-lineno"><a href="#dom-errorevent-lineno">lineno</a></code>, and <code title="dom-ErrorEvent-column"><a href="#dom-errorevent-column">column</a></code>
+  cancelable, with its <code title="dom-ErrorEvent-message">message</code>, <code title="dom-ErrorEvent-filename">filename</code>, <code title="dom-ErrorEvent-lineno">lineno</code>, and <code title="dom-ErrorEvent-column">column</code>
   attributes initialized appropriately, at the <code><a href="#worker">Worker</a></code> object associated with the
   worker. If the event is not canceled, the user agent must act as if the uncaught runtime script
   error had occurred in the global scope that the <code><a href="#worker">Worker</a></code> object is in, thus repeating
@@ -1778,45 +1776,6 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <p>The <span>task source</span> for the task mentioned above is the <span>DOM manipulation task
   source</span>.</p>
-
-  <hr><pre class="idl">[Constructor(DOMString type, optional <a href="#erroreventinit">ErrorEventInit</a> eventInitDict)]
-interface <dfn id="errorevent">ErrorEvent</dfn> : <span>Event</span> {
-  readonly attribute DOMString <a href="#dom-errorevent-message" title="dom-ErrorEvent-message">message</a>;
-  readonly attribute DOMString <a href="#dom-errorevent-filename" title="dom-ErrorEvent-filename">filename</a>;
-  readonly attribute unsigned long <a href="#dom-errorevent-lineno" title="dom-ErrorEvent-lineno">lineno</a>;
-  readonly attribute unsigned long <a href="#dom-errorevent-column" title="dom-ErrorEvent-column">column</a>;
-};
-
-dictionary <dfn id="erroreventinit">ErrorEventInit</dfn> : <span>EventInit</span> {
-  DOMString message;
-  DOMString filename;
-  unsigned long lineno;
-  unsigned long column;
-};</pre>
-
-  <p>The <dfn id="dom-errorevent-message" title="dom-ErrorEvent-message"><code>message</code></dfn> attribute
-  must return the value it was initialized to. When the object is
-  created, this attribute must be initialized to the empty string. It
-  represents the error message.</p>
-
-  <p>The <dfn id="dom-errorevent-filename" title="dom-ErrorEvent-filename"><code>filename</code></dfn>
-  attribute must return the value it was initialized to. When the
-  object is created, this attribute must be initialized to the empty
-  string. It represents the <span>absolute URL</span> of the script in
-  which the error originally occurred.</p>
-
-  <p>The <dfn id="dom-errorevent-lineno" title="dom-ErrorEvent-lineno"><code>lineno</code></dfn>
-  attribute must return the value it was initialized to. When the
-  object is created, this attribute must be initialized to zero. It
-  represents the line number where the error occurred in the
-  script.</p>
-
-  <p>The <dfn id="dom-errorevent-column" title="dom-ErrorEvent-column"><code>column</code></dfn>
-  attribute must return the value it was initialized to. When the
-  object is created, this attribute must be initialized to zero. It
-  represents the column number where the error occurred in the
-  script.</p>
-
 
 
   <h3 id="creating-workers"><span class="secno">4.7 </span>Creating workers</h3>
