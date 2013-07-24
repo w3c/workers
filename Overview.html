@@ -1760,8 +1760,10 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   handled</i> afterwards, the user
   agent must <span>queue a task</span> to <span title="concept-event-fire">fire</span> a <span title="concept-events-trusted">trusted</span> event that uses the <code>ErrorEvent</code>
   interface, with the name <code title="event-error">error</code>, that doesn't bubble and is
-  cancelable, with its <code title="dom-ErrorEvent-message">message</code>, <code title="dom-ErrorEvent-filename">filename</code>, <code title="dom-ErrorEvent-lineno">lineno</code>, and <code title="dom-ErrorEvent-column">column</code>
-  attributes initialized appropriately, at the <code><a href="#worker">Worker</a></code> object associated with the
+  cancelable, with its <code title="dom-ErrorEvent-message">message</code>, <code title="dom-ErrorEvent-filename">filename</code>, <code title="dom-ErrorEvent-lineno">lineno</code>, <code title="dom-ErrorEvent-column">column</code>,
+  attributes initialized appropriately,
+  and with the <code title="dom-ErrorEvent-error">error</code> attribute initialized to null,
+  at the <code><a href="#worker">Worker</a></code> object associated with the
   worker. If the event is not canceled, the user agent must act as if the uncaught runtime script
   error had occurred in the global scope that the <code><a href="#worker">Worker</a></code> object is in, thus repeating
   the entire runtime script error reporting process one level up.</p>
