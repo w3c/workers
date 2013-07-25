@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-24-july-2013">Editor's Draft 24 July 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-25-july-2013">Editor's Draft 25 July 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 24 July 2013 Editor's Draft.
+  This specification is the 25 July 2013 Editor's Draft.
   </p>
 
   
@@ -1760,7 +1760,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   handled</i> afterwards, the user
   agent must <span>queue a task</span> to <span title="concept-event-fire">fire</span> a <span title="concept-events-trusted">trusted</span> event that uses the <code>ErrorEvent</code>
   interface, with the name <code title="event-error">error</code>, that doesn't bubble and is
-  cancelable, with its <code title="dom-ErrorEvent-message">message</code>, <code title="dom-ErrorEvent-filename">filename</code>, <code title="dom-ErrorEvent-lineno">lineno</code>, <code title="dom-ErrorEvent-column">column</code>,
+  cancelable, with its <code title="dom-ErrorEvent-message">message</code>, <code title="dom-ErrorEvent-filename">filename</code>, <code title="dom-ErrorEvent-lineno">lineno</code>, <code title="dom-ErrorEvent-colno">colno</code>,
   attributes initialized appropriately,
   and with the <code title="dom-ErrorEvent-error">error</code> attribute initialized to null,
   at the <code><a href="#worker">Worker</a></code> object associated with the
