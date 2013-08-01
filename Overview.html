@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-26-july-2013">Editor's Draft 26 July 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-1-august-2013">Editor's Draft 1 August 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 26 July 2013 Editor's Draft.
+  This specification is the 1 August 2013 Editor's Draft.
   </p>
 
   
@@ -1878,8 +1878,8 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
    <li><p>Create a new <code><a href="#worker">Worker</a></code> object, associated with <var title="">worker global
    scope</var>. Let <var title="">worker</var> be this new object.</li>
 
-   <li><p><span>Create a new <code><a href="#messageport">MessagePort</a></code> object</span> owned by the <span title="script's global object">global object</span> of the <span>incumbent script</span>.
-   Let this be the <var title="">outside port</var>.</li>
+   <li><p><span>Create a new <code><a href="#messageport">MessagePort</a></code> object</span> owned by the <span title="script's global object">global object</span> of the <span>incumbent script</span>. Let
+   this be the <var title="">outside port</var>.</li>
 
    <li><p>Associate the <var title="">outside port</var> with <var title="">worker</var>.</li>
 
@@ -1901,8 +1901,8 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
    <li>
 
     <p>Let <var title="">docs</var> be the <a href="#list-of-relevant-document-objects-to-add">list of relevant <code>Document</code> objects to
-    add</a> given the <span title="script's global object">global object</span> of the <span>incumbent
-    script</span>.</p>
+    add</a> given the <span title="script's global object">global object</span> of the
+    <span>incumbent script</span>.</p>
 
    </li>
 
@@ -1917,10 +1917,10 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
    <li>
 
     <p>If the <span title="script's global object">global object</span> of the <span>incumbent
-    script</span> is a
-    <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object (i.e. we are creating a nested worker), add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
-    <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span title="script's global object">global
-    object</span> of the <span>incumbent script</span>.</p>
+    script</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object (i.e. we are creating a nested worker),
+    add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of
+    the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span title="script's global
+    object">global object</span> of the <span>incumbent script</span>.</p>
 
    </li>
 
@@ -1928,8 +1928,9 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
     <p><a href="#run-a-worker">Run a worker</a> for the resulting <span>absolute URL</span>, with the
     <span>script's browsing context</span> of the <span>incumbent script</span> as the <var title="">owner browsing context</var>, with the <span>script's document</span> of the
-    <span>incumbent script</span> as the <var title="">owner document</var>, with the <span>origin</span>
-    of the <span>entry script</span> as the <var title="">owner origin</var>, and with <var title="">worker global scope</var> as the global scope.</p>
+    <span>incumbent script</span> as the <var title="">owner document</var>, with the
+    <span>origin</span> of the <span>entry script</span> as the <var title="">owner origin</var>,
+    and with <var title="">worker global scope</var> as the global scope.</p>
 
    </li>
 
@@ -1980,8 +1981,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li>
 
     <p>Let <var title="">docs</var> be the <a href="#list-of-relevant-document-objects-to-add">list of relevant <code>Document</code> objects to
-    add</a> given the <span title="script's global object">global object</span> of the <span>incumbent
-    script</span>.</p>
+    add</a> given the <span title="script's global object">global object</span> of the
+    <span>incumbent script</span>.</p>
 
    </li>
 
@@ -2015,9 +2016,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
      <li>
 
       <p>If <var title="">worker global scope</var> is not null, but the user agent has been
-      configured to disallow communication between the <span>incumbent script</span>
-      and the worker represented by the <var title="">worker global
-      scope</var>, then set <var title="">worker global scope</var> to null.</p>
+      configured to disallow communication between the <span>incumbent script</span> and the worker
+      represented by the <var title="">worker global scope</var>, then set <var title="">worker
+      global scope</var> to null.</p>
 
       <p class="note">For example, a user agent could have a development mode that isolates a
       particular <span>top-level browsing context</span> from all other pages, and scripts in that
@@ -2062,11 +2063,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
        <li>
 
         <p>If the <span title="script's global object">global object</span> of the <span>incumbent
-        script</span> is a
-        <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the
-        list of <a href="#the-worker-s-workers">the worker's workers</a> of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that
-        is the <span title="script's global object">global object</span> of the <span>incumbent
-        script</span>.</p>
+        script</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global
+        scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
+        <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span title="script's global
+        object">global object</span> of the <span>incumbent script</span>.</p>
 
        </li>
 
@@ -2113,10 +2113,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li>
 
     <p>If the <span title="script's global object">global object</span> of the <span>incumbent
-    script</span> that invoked the constructor is a
-    <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list
-    of <a href="#the-worker-s-workers">the worker's workers</a> of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the
-    <span title="script's global object">global object</span> of the <span>incumbent script</span>.</p>
+    script</span> that invoked the constructor is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
+    <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span title="script's global object">global
+    object</span> of the <span>incumbent script</span>.</p>
 
    </li>
 
@@ -2124,8 +2123,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
     <p><a href="#run-a-worker">Run a worker</a> for <var title="">scriptURL</var>, with the <span>script's browsing
     context</span> of the <span>incumbent script</span> as the <var title="">owner browsing
-    context</var>, with the <span>script's document</span> of the <span>incumbent script</span>
-    the <var title="">owner document</var>, with the <span>origin</span> of the <span>entry
+    context</var>, with the <span>script's document</span> of the <span>incumbent script</span> the
+    <var title="">owner document</var>, with the <span>origin</span> of the <span>entry
     script</span> as the <var title="">owner origin</var>, and with <var title="">worker global
     scope</var> as the global scope.</p>
 
@@ -2158,83 +2157,69 @@ partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">Wo
 
   <h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3>
 
+  <p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user
+  agent must run the following steps:</p>
 
-  <p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a
-  <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user agent must run the
-  following steps:</p>
+  <ol><li><p>If there are no arguments, return without doing anything. Abort these steps.</li>
 
-  <ol><li><p>If there are no arguments, return without doing
-   anything. Abort these steps.</li>
+   <li><p><span title="resolve a url">Resolve</span> each argument.</li>
 
-   <li><p><span title="resolve a url">Resolve</span> each
-   argument.</li>
-
-   <li><p>If any fail, throw a <code>SyntaxError</code>
-   exception and abort these steps.</li>
+   <li><p>If any fail, throw a <code>SyntaxError</code> exception and abort these steps.</li>
 
    <li>
 
-    <p>Attempt to <span>fetch</span> each resource
-    identified by the resulting <span title="absolute URL">absolute
-    URLs</span>, from the <span>entry script</span>'s
-    <span>origin</span>, using the <span>entry script</span>'s <span title="script's referrer source">referrer source</span>, and with
-    the <i>synchronous flag</i> set.</p> 
+    <p>Attempt to <span>fetch</span> each resource identified by the resulting <span title="absolute URL">absolute URLs</span>, from the <span>entry script</span>'s
+    <span>origin</span>, using the <span>entry script</span>'s <span title="script's referrer
+    source">referrer source</span>, and with the <i>synchronous flag</i> set.</p> 
 
    </li>
 
    <li>
 
-    <p>For each argument in turn, in the order given, starting with
-    the first one, run these substeps:</p>
+    <p>For each argument in turn, in the order given, starting with the first one, run these
+    substeps:</p>
 
     <ol><li>
 
-      <p>Wait for the fetching attempt for the corresponding resource
-      to complete.</p>
+      <p>Wait for the fetching attempt for the corresponding resource to complete.</p>
 
-      <p>If the fetching attempt failed, throw a
-      <code>NetworkError</code> exception and abort all these
-      steps.</p>
+      <p>If the fetching attempt failed, throw a <code>NetworkError</code> exception and abort all
+      these steps.</p>
 
       <p>If the attempt succeeds, then let <var title="">source</var> be the result of running the
       <span>UTF-8 decode</span> algorithm on the script resource.</p>
 
       <p>Let <var title="">language</var> be JavaScript.</p>
 
-      <p class="note">As with the worker's script, the script here is
-      always assumed to be JavaScript, regardless of the MIME
-      type.</p>
+      <p class="note">As with the worker's script, the script here is always assumed to be
+      JavaScript, regardless of the MIME type.</p>
 
      </li>
 
      <li>
 
-      <p><span>Create a script</span>, using <var title="">source</var> as the script source, the <span>URL</span>
-      from which <var title="">source</var> was obtained, and <var title="">language</var> as the scripting language, using the
-      same global object, browsing context, document, referrer source,
-      URL character encoding, and base URL as the <span title="concept-script">script</span> that was created by the
-      worker's <a href="#run-a-worker">run a worker</a> algorithm.</p>
+      <p><span>Create a script</span>, using <var title="">source</var> as the script source, the
+      <span>URL</span> from which <var title="">source</var> was obtained, and <var title="">language</var> as the scripting language, using the same global object, browsing
+      context, document, referrer source, URL character encoding, and base URL as the <span title="concept-script">script</span> that was created by the worker's <a href="#run-a-worker">run a
+      worker</a> algorithm.</p>
 
       <p>If the script came from a resource whose <span>URL</span> does not have the <span>same
       origin</span> as the <a href="#worker-origin">worker origin</a>, then pass the <var title="">muted
       errors</var> flag to the <span>create a script from a node</span> algorithm.</p>
 
       <p>Let the newly created <span title="concept-script">script</span> run until it either
-      returns, fails to parse, fails to catch an exception, or gets
-      prematurely aborted by the "<a href="#kill-a-worker">kill a worker</a>" or
-      "<a href="#terminate-a-worker">terminate a worker</a>" algorithms defined above.</p>
+      returns, fails to parse, fails to catch an exception, or gets prematurely aborted by the
+      "<a href="#kill-a-worker">kill a worker</a>" or "<a href="#terminate-a-worker">terminate a worker</a>" algorithms defined
+      above.</p>
 
-      <p>If it failed to parse, then throw an ECMAScript
-      <code title="js-SyntaxError">SyntaxError</code> exception and abort all these
-      steps. <a href="#refsECMA262">[ECMA262]</a></p>
+      <p>If it failed to parse, then throw an ECMAScript <code title="js-SyntaxError">SyntaxError</code> exception and abort all these steps. <a href="#refsECMA262">[ECMA262]</a></p>
 
-      <p>If an exception was thrown or if the script was prematurely
-      aborted, then abort all these steps, letting the exception or
-      aborting continue to be processed by the <span>incumbent script</span>.</p>
+      <p>If an exception was thrown or if the script was prematurely aborted, then abort all these
+      steps, letting the exception or aborting continue to be processed by the <span>incumbent
+      script</span>.</p>
 
-      <p>If the "<a href="#kill-a-worker">kill a worker</a>" or "<a href="#terminate-a-worker">terminate a
-      worker</a>" algorithms abort the script then abort all these
-      steps.</p>
+      <p>If the "<a href="#kill-a-worker">kill a worker</a>" or "<a href="#terminate-a-worker">terminate a worker</a>" algorithms abort
+      the script then abort all these steps.</p>
 
      </li>
 
