@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-18-october-2013">Editor's Draft 18 October 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-23-october-2013">Editor's Draft 23 October 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 18 October 2013 Editor's Draft.
+  This specification is the 23 October 2013 Editor's Draft.
   </p>
 
   
@@ -393,21 +393,20 @@
  <li><a href="#terminology"><span class="secno">3 </span>Terminology</a></li>
  <li><a href="#infrastructure"><span class="secno">4 </span>Infrastructure</a>
   <ol>
-   <li><a href="#dependencies-0"><span class="secno">4.1 </span>Dependencies</a></li>
-   <li><a href="#the-global-scope"><span class="secno">4.2 </span>The global scope</a>
+   <li><a href="#the-global-scope"><span class="secno">4.1 </span>The global scope</a>
     <ol>
-     <li><a href="#the-workerglobalscope-common-interface"><span class="secno">4.2.1 </span>The <code>WorkerGlobalScope</code> common interface</a></li>
-     <li><a href="#dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</a></li>
-     <li><a href="#shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.2.3 </span>Shared workers and the <code>SharedWorkerGlobalScope</code> interface</a></ol></li>
-   <li><a href="#the-event-loop"><span class="secno">4.3 </span>The event loop</a></li>
-   <li><a href="#the-worker-s-lifetime"><span class="secno">4.4 </span>The worker's lifetime</a></li>
-   <li><a href="#processing-model"><span class="secno">4.5 </span>Processing model</a></li>
-   <li><a href="#runtime-script-errors"><span class="secno">4.6 </span>Runtime script errors</a></li>
-   <li><a href="#creating-workers"><span class="secno">4.7 </span>Creating workers</a>
+     <li><a href="#the-workerglobalscope-common-interface"><span class="secno">4.1.1 </span>The <code>WorkerGlobalScope</code> common interface</a></li>
+     <li><a href="#dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</a></li>
+     <li><a href="#shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.1.3 </span>Shared workers and the <code>SharedWorkerGlobalScope</code> interface</a></ol></li>
+   <li><a href="#the-event-loop"><span class="secno">4.2 </span>The event loop</a></li>
+   <li><a href="#the-worker-s-lifetime"><span class="secno">4.3 </span>The worker's lifetime</a></li>
+   <li><a href="#processing-model"><span class="secno">4.4 </span>Processing model</a></li>
+   <li><a href="#runtime-script-errors"><span class="secno">4.5 </span>Runtime script errors</a></li>
+   <li><a href="#creating-workers"><span class="secno">4.6 </span>Creating workers</a>
     <ol>
-     <li><a href="#the-abstractworker-abstract-interface"><span class="secno">4.7.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
-     <li><a href="#dedicated-workers-and-the-worker-interface"><span class="secno">4.7.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
-     <li><a href="#shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
+     <li><a href="#the-abstractworker-abstract-interface"><span class="secno">4.6.1 </span>The <code>AbstractWorker</code> abstract interface</a></li>
+     <li><a href="#dedicated-workers-and-the-worker-interface"><span class="secno">4.6.2 </span>Dedicated workers and the <code>Worker</code> interface</a></li>
+     <li><a href="#shared-workers-and-the-sharedworker-interface"><span class="secno">4.6.3 </span>Shared workers and the <code>SharedWorker</code> interface</a></ol></ol></li>
  <li><a href="#apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</a>
   <ol>
    <li><a href="#importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</a></li>
@@ -1119,7 +1118,7 @@ function work() {
 
   <p><i>This section is non-normative.</i></p>
 
-  <p>Dedicated workers use <code><a href="#messageport">MessagePort</a></code> objects behind the scenes, and thus support all
+  <p>Dedicated workers use <code>MessagePort</code> objects behind the scenes, and thus support all
   the same features, such as sending structured data, transferring binary data, and transferring
   other ports.</p>
 
@@ -1131,9 +1130,9 @@ function work() {
   <p>You can also use the <code title="dom-EventTarget-addEventListener">addEventListener()</code>
   method.</p>
 
-  <p class="note">The implicit <code><a href="#messageport">MessagePort</a></code> used by dedicated workers has its <span>port
+  <p class="note">The implicit <code>MessagePort</code> used by dedicated workers has its <span>port
   message queue</span> implicitly enabled when it is created, so there is no equivalent to the
-  <code><a href="#messageport">MessagePort</a></code> interface's <code title="dom-MessagePort-start">start()</code> method on
+  <code>MessagePort</code> interface's <code title="dom-MessagePort-start">start()</code> method on
   the <code><a href="#worker">Worker</a></code> interface.</p>
 
   <p>To <em>send</em> data to a worker, use the <code title="dom-Worker-postMessage"><a href="#dom-worker-postmessage">postMessage()</a></code> method. Structured data can be sent over this
@@ -1178,7 +1177,7 @@ function work() {
 
   <pre>var worker = new SharedWorker('service.js');</pre>
 
-  <p>Communicating with shared workers is done with explicit <code><a href="#messageport">MessagePort</a></code> objects. The
+  <p>Communicating with shared workers is done with explicit <code>MessagePort</code> objects. The
   object returned by the <code title="dom-SharedWorker"><a href="#dom-sharedworker">SharedWorker()</a></code> constructor holds a
   reference to the port on its <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute.</p>
 
@@ -1302,18 +1301,12 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   hand, are named, and once created any script running in the same <span>origin</span> can obtain a
   reference to that worker and communicate with it.</p>
 
-  
-  <h3 id="dependencies-0"><span class="secno">4.1 </span>Dependencies</h3>
-  <p>The <dfn id="messageport"><code>MessagePort</code></dfn> interface is defined in
-  the HTML specification. <a href="#refsHTML">[HTML]</a></p>
-  
 
-
-  <h3 id="the-global-scope"><span class="secno">4.2 </span>The global scope</h3>
+  <h3 id="the-global-scope"><span class="secno">4.1 </span>The global scope</h3>
 
   <p>The global scope is the "inside" of a worker.</p>
 
-  <h4 id="the-workerglobalscope-common-interface"><span class="secno">4.2.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> common interface</h4>
+  <h4 id="the-workerglobalscope-common-interface"><span class="secno">4.1.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> common interface</h4>
 
   <pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <a href="#workerglobalscope">WorkerGlobalScope</a> <a href="#dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self">self</a>;
@@ -1363,7 +1356,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <span>absolute URL</span> given in the worker's <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location"></a></code> attribute.</p>
 
 
-  <h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.2.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
+  <h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
 
   <pre class="idl">[Global]
 /*sealed*/ interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
@@ -1376,7 +1369,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   environment</span>.</p>
 
   <p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they had an implicit
-  <code><a href="#messageport">MessagePort</a></code> associated with them. This port is part of a channel that is set up when
+  <code>MessagePort</code> associated with them. This port is part of a channel that is set up when
   the worker is created, but it is not exposed. This object must never be garbage collected before
   the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object.</p>
 
@@ -1402,7 +1395,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
 
 
-  <h4 id="shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.2.3 </span>Shared workers and the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface</h4>
+  <h4 id="shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.1.3 </span>Shared workers and the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface</h4>
 
   <pre class="idl">[Global]
 /*sealed*/ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
@@ -1439,7 +1432,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
 
 
-  <h3 id="the-event-loop"><span class="secno">4.3 </span>The event loop</h3>
+  <h3 id="the-event-loop"><span class="secno">4.2 </span>The event loop</h3>
 
   <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has a distinct <span>event loop</span>, separate
   from those used by <span title="unit of related similar-origin browsing contexts">units of related
@@ -1457,16 +1450,16 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
 
 
-  <h3 id="the-worker-s-lifetime"><span class="secno">4.4 </span>The worker's lifetime</h3>
+  <h3 id="the-worker-s-lifetime"><span class="secno">4.3 </span>The worker's lifetime</h3>
 
   <p>Workers communicate with other workers and with <span title="browsing context">browsing
   contexts</span> through <span title="channel messaging">message channels</span> and their
-  <code><a href="#messageport">MessagePort</a></code> objects.</p>
+  <code>MessagePort</code> objects.</p>
 
   <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> <var title="">worker global scope</var> has a list of
-  <dfn id="the-worker-s-ports">the worker's ports</dfn>, which consists of all the <code><a href="#messageport">MessagePort</a></code> objects that are
+  <dfn id="the-worker-s-ports">the worker's ports</dfn>, which consists of all the <code>MessagePort</code> objects that are
   entangled with another port and that have one (but only one) port owned by <var title="">worker
-  global scope</var>. This list includes  the implicit <code><a href="#messageport">MessagePort</a></code> in the case of <a href="#dedicatedworkerglobalscope" title="DedicatedWorkerGlobalScope">dedicated workers</a>.</p>
+  global scope</var>. This list includes  the implicit <code>MessagePort</code> in the case of <a href="#dedicatedworkerglobalscope" title="DedicatedWorkerGlobalScope">dedicated workers</a>.</p>
 
   <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> also has a list of <dfn id="the-worker-s-workers">the worker's workers</dfn>.
   Initially this list is empty; it is populated when the worker creates or obtains further
@@ -1510,7 +1503,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   worker</a> but it is a <a href="#permissible-worker">permissible worker</a>.</p>
 
 
-  <h3 id="processing-model"><span class="secno">4.5 </span>Processing model</h3>
+  <h3 id="processing-model"><span class="secno">4.4 </span>Processing model</h3>
 
   <p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with <span>URL</span> <var title="">url</var>, a <span>browsing context</span> <var title="">owner browsing context</var>, a
   <code>Document</code> <var title="">owner document</var>, an <span>origin</span> <var title="">owner origin</var>, and with global scope <var title="">worker global scope</var>, it
@@ -1695,7 +1688,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   source</span>.</p>
 
 
-  <h3 id="runtime-script-errors"><span class="secno">4.6 </span>Runtime script errors</h3>
+  <h3 id="runtime-script-errors"><span class="secno">4.5 </span>Runtime script errors</h3>
 
   <p>Whenever an uncaught runtime script error occurs in one of the worker's scripts, if the error
   did not occur while handling a previous script error, the user agent must <span>report the
@@ -1739,9 +1732,9 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   source</span>.</p>
 
 
-  <h3 id="creating-workers"><span class="secno">4.7 </span>Creating workers</h3>
+  <h3 id="creating-workers"><span class="secno">4.6 </span>Creating workers</h3>
 
-  <h4 id="the-abstractworker-abstract-interface"><span class="secno">4.7.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4>
+  <h4 id="the-abstractworker-abstract-interface"><span class="secno">4.6.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4>
 
   <pre class="idl">[NoInterfaceObject]
 interface <dfn id="abstractworker">AbstractWorker</dfn> {
@@ -1757,7 +1750,7 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
   <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-abstractworker-onerror" title="handler-AbstractWorker-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
 
-  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.7.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4>
+  </table><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.6.2 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4>
 
   <pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL)]
 interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
@@ -1772,7 +1765,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   cause the "<a href="#terminate-a-worker">terminate a worker</a>" algorithm to be run on the worker with which the object
   is associated.</p>
 
-  <p><code><a href="#worker">Worker</a></code> objects act as if they had an implicit <code><a href="#messageport">MessagePort</a></code> associated
+  <p><code><a href="#worker">Worker</a></code> objects act as if they had an implicit <code>MessagePort</code> associated
   with them. This port is part of a channel that is set up when the worker is created, but it is not
   exposed. This object must never be garbage collected before the <code><a href="#worker">Worker</a></code> object.</p>
 
@@ -1835,12 +1828,12 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
    <li><p>Create a new <code><a href="#worker">Worker</a></code> object, associated with <var title="">worker global
    scope</var>. Let <var title="">worker</var> be this new object.</li>
 
-   <li><p><span>Create a new <code><a href="#messageport">MessagePort</a></code> object</span> owned by the <span title="script's global object">global object</span> of the <span>incumbent script</span>. Let
+   <li><p><span>Create a new <code>MessagePort</code> object</span> owned by the <span title="script's global object">global object</span> of the <span>incumbent script</span>. Let
    this be the <var title="">outside port</var>.</li>
 
    <li><p>Associate the <var title="">outside port</var> with <var title="">worker</var>.</li>
 
-   <li><p><span>Create a new <code><a href="#messageport">MessagePort</a></code> object</span> owned by <var title="">worker
+   <li><p><span>Create a new <code>MessagePort</code> object</span> owned by <var title="">worker
    global scope</var>. Let <var title="">inside port</var> be this new object.</li>
 
    <li><p>Associate <var title="">inside port</var> with <var title="">worker global
@@ -1891,16 +1884,16 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
    </li>
 
-  </ol><h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.7.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
+  </ol><h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.6.3 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
 
   <pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(DOMString scriptURL, optional DOMString name)]
 interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
-  readonly attribute <a href="#messageport">MessagePort</a> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
+  readonly attribute <span>MessagePort</span> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
 };
 <a href="#sharedworker">SharedWorker</a> implements <a href="#abstractworker">AbstractWorker</a>;</pre>
 
   <p>The <dfn id="dom-sharedworker-port" title="dom-SharedWorker-port"><code>port</code></dfn> attribute must return the value
-  it was assigned by the object's constructor. It represents the <code><a href="#messageport">MessagePort</a></code> for
+  it was assigned by the object's constructor. It represents the <code>MessagePort</code> for
   communicating with the shared worker.</p>
 
   <p>When the <dfn id="dom-sharedworker" title="dom-SharedWorker"><code>SharedWorker(<var title="">scriptURL</var>, <var title="">name</var>)</code></dfn> constructor is invoked, the user agent must run the following
@@ -1950,7 +1943,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
     <ol><li><p>Create a new <code><a href="#sharedworker">SharedWorker</a></code> object, which will shortly be associated with a
      <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object. Let this <code><a href="#sharedworker">SharedWorker</a></code> object be <var title="">worker</var>.</li>
 
-     <li><p><span>Create a new <code><a href="#messageport">MessagePort</a></code> object</span> owned by the <span title="script's global object">global object</span> of the <span>incumbent script</span>. Let
+     <li><p><span>Create a new <code>MessagePort</code> object</span> owned by the <span title="script's global object">global object</span> of the <span>incumbent script</span>. Let
      this be the <var title="">outside port</var>.</li>
 
      <li><p>Assign <var title="">outside port</var> to the <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute of <var title="">worker</var>.</li>
@@ -1995,7 +1988,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
        <li><p>Associate <var title="">worker</var> with <var title="">worker global
        scope</var>.</li>
 
-       <li><p><span>Create a new <code><a href="#messageport">MessagePort</a></code> object</span> owned by <var title="">worker global scope</var>. Let this be the <var title="">inside port</var>.</li>
+       <li><p><span>Create a new <code>MessagePort</code> object</span> owned by <var title="">worker global scope</var>. Let this be the <var title="">inside port</var>.</li>
 
        <li><p><span>Entangle</span> <var title="">outside port</var>
        and <var title="">inside port</var>.</li>
@@ -2040,7 +2033,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
      <li><p>Set the <code title="dom-SharedWorkerGlobalScope-name"><a href="#dom-sharedworkerglobalscope-name">name</a></code> attribute of <var title="">worker global scope</var> to <var title="">name</var>.</li>
 
-     <li><p><span>Create a new <code><a href="#messageport">MessagePort</a></code> object</span> owned by <var title="">worker
+     <li><p><span>Create a new <code>MessagePort</code> object</span> owned by <var title="">worker
      global scope</var>. Let <var title="">inside port</var> be this new object.</li>
 
      <li><p><span>Entangle</span> <var title="">outside port</var> and <var title="">inside
