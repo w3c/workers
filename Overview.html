@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-30-october-2013">Editor's Draft 30 October 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-8-november-2013">Editor's Draft 8 November 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 30 October 2013 Editor's Draft.
+  This specification is the 8 November 2013 Editor's Draft.
   </p>
 
   
@@ -1348,11 +1348,8 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
    <tbody><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
     <tr><td><dfn id="handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline"><code>onoffline</code></dfn> <td> <code title="event-offline">offline</code> 
     <tr><td><dfn id="handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline"><code>ononline</code></dfn> <td> <code title="event-online">online</code> 
-  </table><hr><p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has a <dfn id="worker-origin">worker origin</dfn> that is set when the
-  object is created.</p>
-
-  <p class="note">For <span title="data protocol"><code title="">data:</code> URLs</span>, this is
-  the <span>origin</span> of the <span>entry script</span> when the constructor was called. For
+  </table><hr><p class="note">For <span title="data protocol"><code title="">data:</code> URLs</span>, this is
+  the <span>origin</span> specified by the <span>entry settings object</span> when the constructor was called. For
   other <span title="URL">URLs</span>, this is the <span>origin</span> of the value of the
   <span>absolute URL</span> given in the worker's <code title="dom-WorkerGlobalScope-location"><a href="#dom-workerglobalscope-location"></a></code> attribute.</p>
 
@@ -1508,8 +1505,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <h3 id="processing-model"><span class="secno">4.4 </span>Processing model</h3>
 
 
-  <p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with <span>URL</span> <var title="">url</var>, a <span>script settings object</span> <var title="">settings object</var>,
-  and an <span>origin</span> <var title="">owner origin</var>, it
+  <p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with <span>URL</span> <var title="">url</var> and a <span>script settings object</span> <var title="">settings object</var>, it
   must run the following steps:</p>
 
   <ol><li id="worker-processing-model-top">
@@ -1536,9 +1532,11 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
    <li>
 
+
     <p>Attempt to <span>fetch</span> the resource identified by <var title="">url</var>,
-    from the <var title="">owner origin</var>, using the <span>responsible document</span> specified by <var title="">settings object</var> as the
-    <span>referrer source</span> (not the specified <span>API referrer source</span>!), with the <i>synchronous flag</i> set and the <i>force same-origin
+    from the <span>origin</span> specified
+    by <var title="">settings object</var>, using the <span>responsible document</span> specified by <var title="">settings object</var> as the
+    <span>referrer source</span> (not the specified <span>API referrer source</span>!), and with the <i>synchronous flag</i> set and the <i>force same-origin
     flag</i> set.</p> 
 
     <p>If the attempt fails, then for each <code><a href="#worker">Worker</a></code> or <code><a href="#sharedworker">SharedWorker</a></code> object
@@ -1751,12 +1749,16 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
   <var title="">worker global scope</var>, it must run the following steps:</p>
 
   <ol><li><p>Let <var title="">inherited responsible browsing context</var> be the <span>responsible
-   browsing context</span> specified by the <span>incumbent script</span>'s <span>settings
+   browsing context</span> specified by the <span>incumbent settings
    object</span>.</li>
 
+
    <li><p>Let <var title="">inherited responsible document</var> be the <span>responsible
-   document</span> specified by the <span>incumbent script</span>'s <span>settings
+   document</span> specified by the <span>incumbent settings
    object</span>.</li>
+
+   <li><p>Let <var title="">inherited origin</var> be the <span>origin</span> specified by the
+   <span>incumbent settings object</span>.</li>
 
    <li><p>Let <var title="">worker event loop</var> be a newly created <span>event
    loop</span>.</li>
@@ -1831,6 +1833,13 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
 
      </dd>
 
+     <dt>The <span>origin</span> and <span>effective script origin</span></dt>
+     <dd>
+
+      <p>Return <var title="">inherited origin</var>.</p>
+
+     </dd>
+
     </dl></li>
 
    <li><p>Return <var title="">settings object</var>.</li>
@@ -1887,7 +1896,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
 
    <li><p><span title="resolve a url">Resolve</span> the <var title="">scriptURL</var> argument
-   relative to the <span>API base URL</span> specified by the <span>entry script</span>'s <span>settings object</span> when
+   relative to the <span>API base URL</span> specified by the <span>entry settings object</span> when
    the method was invoked.</li>
 
    <li><p>If this fails, throw a <code>SyntaxError</code> exception and abort these steps.</li>
@@ -1900,7 +1909,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
     <p>If the <span title="concept-url-scheme">scheme</span> component of <var title="">worker URL</var>
     is not "<code title="data-protocol">data</code>", and the <span>origin</span> of <var title="">worker URL</var>
     is not the <span title="same origin">same</span> as the
-    origin of the <span>entry script</span>, then throw a <code>SecurityError</code> exception and
+    <span>origin</span> specified by the <span>incumbent settings object</span>, then throw a <code>SecurityError</code> exception and
     abort these steps.</p>
 
     <p class="note">Thus, scripts must either be external files with the same scheme, host, and port
@@ -1910,8 +1919,8 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
    </li>
 
-   <li><p>Create a new <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object whose <a href="#worker-origin">worker
-   origin</a> is the origin of the <span>entry script</span>. Let <var title="">worker global
+
+   <li><p>Create a new <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object. Let <var title="">worker global
    scope</var> be this new object.</li>
 
    <li><p><a href="#set-up-a-worker-script-settings-object">Set up a worker script settings object</a> with <var title="">worker global
@@ -1922,7 +1931,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
 
    <li><p><span>Create a new <code>MessagePort</code> object</span> whose <span title="concept-port-owner">owner</span>
-   is the <span>settings object</span> of the <span>incumbent script</span>. Let
+   is the <span>incumbent settings object</span>. Let
    this be the <var title="">outside port</var>.</li>
 
    <li><p>Associate the <var title="">outside port</var> with <var title="">worker</var>.</li>
@@ -1947,8 +1956,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
 
     <p>Let <var title="">docs</var> be the <a href="#list-of-relevant-document-objects-to-add">list of relevant <code>Document</code> objects to
-    add</a> given the <span>settings object</span> of the
-    <span>incumbent script</span>.</p>
+    add</a> given the <span>incumbent settings object</span>.</p>
 
    </li>
 
@@ -1964,18 +1972,17 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
 
     <p>If the <span>global object</span> specified by the <span>incumbent
-    script</span>'s <span>settings object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object (i.e. we are creating a nested worker),
+    settings object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object (i.e. we are creating a nested worker),
     add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of
-    the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span>global object</span> of the <span>incumbent script</span>'s <span>settings object</span>.</p>
+    the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span>global object</span> specified by the <span>incumbent settings object</span>.</p>
 
    </li>
 
    <li>
 
+
     <p><a href="#run-a-worker">Run a worker</a> for the script with <span>URL</span> <var title="">worker
-    URL</var>, the <span>script settings object</span> <var title="">settings object</var>, and the
-    <span>origin</span> of the <span>entry script</span> as the <var title="">owner
-    origin</var>.</p>
+    URL</var> and the <span>script settings object</span> <var title="">settings object</var>.</p>
 
    </li>
 
@@ -2010,10 +2017,11 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
    <li>
 
+
     <p>If the <span title="concept-url-scheme">scheme</span> component of <var title="">parsed
     scriptURL</var> is not "<code title="data-protocol">data</code>", and the <span>origin</span> of
-    <var title="">scriptURL</var> is not the <span title="same origin">same</span> as the origin of
-    the <span>entry script</span>, then throw a <code>SecurityError</code> exception and abort these
+    <var title="">scriptURL</var> is not the <span title="same origin">same</span> as the <span>origin</span> specified by
+    the <span>incumbent settings object</span>, then throw a <code>SecurityError</code> exception and abort these
     steps.</p>
 
     <p class="note">Thus, scripts must either be external files with the same scheme, host, and port
@@ -2026,8 +2034,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li>
 
     <p>Let <var title="">docs</var> be the <a href="#list-of-relevant-document-objects-to-add">list of relevant <code>Document</code> objects to
-    add</a> given the <span>settings object</span> of the
-    <span>incumbent script</span>.</p>
+    add</a> given the <span>incumbent settings object</span>.</p>
 
    </li>
 
@@ -2040,7 +2047,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
 
      <li><p><span>Create a new <code>MessagePort</code> object</span> whose <span title="concept-port-owner">owner</span>
-     is the <span>settings object</span> of the <span>incumbent script</span>. Let
+     is the <span>incumbent settings object</span>. Let
      this be the <var title="">outside port</var>.</li>
 
      <li><p>Assign <var title="">outside port</var> to the <code title="dom-SharedWorker-port"><a href="#dom-sharedworker-port">port</a></code> attribute of <var title="">worker</var>.</li>
@@ -2049,8 +2056,11 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
      <li>
 
+
       <p>If <var title="">name</var> is not the empty string and there exists a
-      <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object whose <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is false, whose <code title="dom-WorkerGlobalScope-name">name</code> attribute is exactly equal to <var title="">name</var>, and whose <a href="#worker-origin">worker origin</a> is the <span>same origin</span> as
+      <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object whose <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is false, whose <code title="dom-WorkerGlobalScope-name">name</code> attribute is exactly equal to <var title="">name</var>, and that is the <span>global object</span> specified by a
+      <span>script settings object</span> that specifies as its <span>origin</span> the
+      <span>same origin</span> as the <span>origin</span> of
       <var title="">scriptURL</var>, then let <var title="">worker global scope</var> be that
       <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object.</p>
 
@@ -2062,9 +2072,11 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
      <li>
 
+
       <p>If <var title="">worker global scope</var> is not null, but the user agent has been
-      configured to disallow communication between the <span>incumbent script</span> and the worker
-      represented by the <var title="">worker global scope</var>, then set <var title="">worker
+      configured to disallow communication between the worker
+      represented by the <var title="">worker global scope</var> and the <span title="concept-script">scripts</span>
+      whose <span title="settings object">settings objects</span> are the <span>incumbent settings object</span>, then set <var title="">worker
       global scope</var> to null.</p>
 
       <p class="note">For example, a user agent could have a development mode that isolates a
@@ -2116,10 +2128,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
 
         <p>If the <span>global object</span> specified by the <span>incumbent
-        script</span>'s <span>settings object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global
+        settings object</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global
         scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
         <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span>global
-        object</span> specified by the <span>incumbent script</span>'s <span>settings object</span>.</p>
+        object</span> specified by the <span>incumbent settings object</span>.</p>
 
        </li>
 
@@ -2129,8 +2141,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
      <!-- OTHERWISE: -->
 
-     <li><p>Create a new <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object whose <a href="#worker-origin">worker
-     origin</a> is the origin of the <span>entry script</span>. Let <var title="">worker global
+
+     <li><p>Create a new <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object. Let <var title="">worker global
      scope</var> be this new object.</li>
 
      <li><p><a href="#set-up-a-worker-script-settings-object">Set up a worker script settings object</a> with <var title="">worker global
@@ -2172,17 +2184,18 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li>
 
 
-    <p>If the <span>global object</span> specified by the <span>settings object</span> of the <span>incumbent
-    script</span> is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
+    <p>If the <span>global object</span> specified by the <span>incumbent settings object</span>
+    is a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, add <var title="">worker global scope</var> to the list of <a href="#the-worker-s-workers">the worker's workers</a> of the
     <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object that is the <span>global
-    object</span> specified by the <span>incumbent script</span>'s <span>settings object</span>.</p>
+    object</span> specified by the <span>incumbent settings object</span>.</p>
 
    </li>
 
    <li>
 
-    <p><a href="#run-a-worker">Run a worker</a> for the script with <span>URL</span> <var title="">scriptURL</var>, the <span>script settings object</span> <var title="">settings
-    object</var>, and the <span>origin</span> of the <span>entry script</span> as the <var title="">owner origin</var>.</p>
+
+    <p><a href="#run-a-worker">Run a worker</a> for the script with <span>URL</span> <var title="">scriptURL</var> and the <span>script settings object</span> <var title="">settings
+    object</var>.</p>
 
    </li>
 
@@ -2217,8 +2230,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
   <ol><li><p>If there are no arguments, return without doing anything. Abort these steps.</li>
 
-   <li><p>Let <var title="">settings object</var> be the <span>script settings object</span> of the
-   <span>incumbent script</span>.</li>
+
+   <li><p>Let <var title="">settings object</var> be the
+   <span>incumbent settings object</span>.</li>
 
    <li><p><span title="resolve a url">Resolve</span> each argument.</li>
 
@@ -2227,8 +2241,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li>
 
 
-    <p>Attempt to <span>fetch</span> each resource identified by the resulting <span title="absolute URL">absolute URLs</span>, from the <span>entry script</span>'s
-    <span>origin</span>, using the <span>API referrer source</span> specified by <var title="">settings
+    <p>Attempt to <span>fetch</span> each resource identified by the resulting <span title="absolute URL">absolute URLs</span>, from the <span>origin</span> specified by <var title="">settings object</var>,
+    using the <span>API referrer source</span> specified by <var title="">settings
     object</var>, and with the <i>synchronous flag</i> set.</p> 
 
    </li>
@@ -2261,8 +2275,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
       <span>URL</span> from which <var title="">source</var> was obtained, <var title="">language</var> as the scripting language, and <var title="">settings object</var> as
       the <span>script settings object</span>.</p>
 
+
       <p>If the script came from a resource whose <span>URL</span> does not have the <span>same
-      origin</span> as the <a href="#worker-origin">worker origin</a>, then pass the <var title="">muted
+      origin</span> as the <span>origin</span> specified by the <span>incumbent settings object</span>, then pass the <var title="">muted
       errors</var> flag to the <span>create a script</span> algorithm as well.</p>
 
       <p>Let the newly created <span title="concept-script">script</span> run until it either
@@ -2272,9 +2287,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
       <p>If it failed to parse, then throw an ECMAScript <code title="js-SyntaxError">SyntaxError</code> exception and abort all these steps. <a href="#refsECMA262">[ECMA262]</a></p>
 
+
       <p>If an exception was thrown or if the script was prematurely aborted, then abort all these
-      steps, letting the exception or aborting continue to be processed by the <span>incumbent
-      script</span>.</p>
+      steps, letting the exception or aborting continue to be processed by the calling <span title="concept-script">script</span>.</p>
 
       <p>If the "<a href="#kill-a-worker">kill a worker</a>" or "<a href="#terminate-a-worker">terminate a worker</a>" algorithms abort
       the script then abort all these steps.</p>
