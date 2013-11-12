@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-8-november-2013">Editor's Draft 8 November 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-12-november-2013">Editor's Draft 12 November 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 8 November 2013 Editor's Draft.
+  This specification is the 12 November 2013 Editor's Draft.
   </p>
 
   
@@ -1745,8 +1745,9 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
 
   </table><h4 id="script-settings-for-workers"><span class="secno">4.6.2 </span>Script settings for workers</h4>
 
+
   <p>When the user agent is required to <dfn id="set-up-a-worker-script-settings-object">set up a worker script settings object</dfn>, given a
-  <var title="">worker global scope</var>, it must run the following steps:</p>
+  <var title="">worker global scope</var> and a <span>URL</span> <var title="">script address</var>, it must run the following steps:</p>
 
   <ol><li><p>Let <var title="">inherited responsible browsing context</var> be the <span>responsible
    browsing context</span> specified by the <span>incumbent settings
@@ -1814,8 +1815,7 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
      <dt>The <span>API referrer source</span></dt>
      <dd>
 
-      <p>Return the <code>Document</code> with which the <code>Window</code> is currently
-      associated.</p>
+      <p>Return <var title="">script address</var>.</p>
 
      </dd>
 
@@ -1923,8 +1923,9 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
    <li><p>Create a new <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object. Let <var title="">worker global
    scope</var> be this new object.</li>
 
+
    <li><p><a href="#set-up-a-worker-script-settings-object">Set up a worker script settings object</a> with <var title="">worker global
-   scope</var>, and let <var title="">settings object</var> be the result.</li>
+   scope</var> and <var title="">worker URL</var>, and let <var title="">settings object</var> be the result.</li>
 
    <li><p>Create a new <code><a href="#worker">Worker</a></code> object, associated with <var title="">worker global
    scope</var>. Let <var title="">worker</var> be this new object.</li>
@@ -2145,8 +2146,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
      <li><p>Create a new <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object. Let <var title="">worker global
      scope</var> be this new object.</li>
 
+
      <li><p><a href="#set-up-a-worker-script-settings-object">Set up a worker script settings object</a> with <var title="">worker global
-     scope</var>, and let <var title="">settings object</var> be the result.</li>
+     scope</var> and <var title="">scriptURL</var>, and let <var title="">settings object</var> be the result.</li>
 
      <li><p>Associate <var title="">worker</var> with <var title="">worker global
      scope</var>.</li>
