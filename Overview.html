@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-12-november-2013">Editor's Draft 12 November 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-15-november-2013">Editor's Draft 15 November 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 12 November 2013 Editor's Draft.
+  This specification is the 15 November 2013 Editor's Draft.
   </p>
 
   
@@ -1912,9 +1912,10 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
     <span>origin</span> specified by the <span>incumbent settings object</span>, then throw a <code>SecurityError</code> exception and
     abort these steps.</p>
 
+
     <p class="note">Thus, scripts must either be external files with the same scheme, host, and port
     as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span>.
-    For example, you can't load a script from a <span title="javascript protocol"><code title="">javascript:</code> URL</span>, and an <code>https:</code> page couldn't start workers
+    For example, an <code>https:</code> page couldn't start workers
     using scripts with <code>http:</code> URLs.</p>
 
    </li>
@@ -2025,9 +2026,10 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
     the <span>incumbent settings object</span>, then throw a <code>SecurityError</code> exception and abort these
     steps.</p>
 
+
     <p class="note">Thus, scripts must either be external files with the same scheme, host, and port
     as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span>.
-    For example, you can't load a script from a <span title="javascript protocol"><code title="">javascript:</code> URL</span>, and an <code>https:</code> page couldn't start workers
+    For example, and an <code>https:</code> page couldn't start workers
     using scripts with <code>http:</code> URLs.</p>
 
    </li>
