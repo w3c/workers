@@ -1490,13 +1490,14 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <hr><p>A worker is said to be a <dfn id="permissible-worker">permissible worker</dfn> if its list of <a href="#the-worker-s-documents">the worker's
   <code>Document</code>s</a> is not empty.</p>
 
-  <p>A worker is said to be a <dfn id="protected-worker">protected worker</dfn> if it is a <a href="#permissible-worker">permissible worker</a>
+  <p>A worker is said to be an <dfn id="active-needed-worker">active needed worker</dfn> if any of the <code>Document</code>
+  objects in <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a> are <span>fully active</span>.</p>
+
+
+  <p>A worker is said to be a <dfn id="protected-worker">protected worker</dfn> if it is an <a href="#active-needed-worker">active needed worker</a>
   and either it has outstanding timers, database transactions, or network connections, or its list
   of <a href="#the-worker-s-ports">the worker's ports</a> is not empty, or its <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> is actually
   a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object (i.e. the worker is a shared worker).</p>
-
-  <p>A worker is said to be an <dfn id="active-needed-worker">active needed worker</dfn> if any of the <code>Document</code>
-  objects in <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a> are <span>fully active</span>.</p>
 
   <p>A worker is said to be a <dfn id="suspendable-worker">suspendable worker</dfn> if it is not an <a href="#active-needed-worker">active needed
   worker</a> but it is a <a href="#permissible-worker">permissible worker</a>.</p>
@@ -1582,7 +1583,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
 
     <p><strong>Closing orphan workers</strong>: Start monitoring the worker such that no sooner than
-    it stops being either a <a href="#protected-worker">protected worker</a>, and
+    it stops being a <a href="#protected-worker">protected worker</a>, and
     no later than it stops being a <a href="#permissible-worker">permissible worker</a>, <var title="">worker global
     scope</var>'s <a href="#dom-workerglobalscope-closing" title="dom-WorkerGlobalScope-closing">closing</a> flag is set to true.</p>
 
@@ -1638,6 +1639,14 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
    </li>
 
+
+
+   <li>
+   
+    
+    <p>Empty the worker's list of <a href="#the-worker-s-documents">the worker's <code>Document</code>s</a>.</p>
+
+   </li>
 
   </ol><hr><p>When a user agent is to <dfn id="kill-a-worker">kill a worker</dfn> it must run the following steps in parallel
   with the worker's main loop (the "<a href="#run-a-worker">run a worker</a>" processing model defined above):</p>
