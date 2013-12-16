@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-3-december-2013">Editor's Draft 3 December 2013</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-16-december-2013">Editor's Draft 16 December 2013</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 3 December 2013 Editor's Draft.
+  This specification is the 16 December 2013 Editor's Draft.
   </p>
 
   
@@ -1572,7 +1572,9 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
     <p>Parse/compile/initialize <var title="">source</var> using that <span>script execution
     environment</span>, as appropriate for <var title="">language</var>, and thus obtain a
-    <span>code entry-point</span>.</p>
+    <span>code entry-point</span>. If the script was not compiled successfully, let the <span>code
+    entry-point</span> be a no-op script, and act as if a corresponding uncaught script error had
+    occurred.</p>
 
     <p>Let <var title="">script</var>'s <span>settings object</span> be <var title="">settings
     object</var>.</p>
