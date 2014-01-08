@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-4-january-2014">Editor's Draft 4 January 2014</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-8-january-2014">Editor's Draft 8 January 2014</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 4 January 2014 Editor's Draft.
+  This specification is the 8 January 2014 Editor's Draft.
   </p>
 
   
@@ -1186,7 +1186,8 @@ function work() {
 worker.port.postMessage('some message');
 worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']});</pre>
 
-  <p>Inside the shared worker, new clients of the worker are announced using the <code title="event-connect">connect</code> event. The port for the new client is given by the event
+
+  <p>Inside the shared worker, new clients of the worker are announced using the <code title="event-WorkerGlobalScope-connect">connect</code> event. The port for the new client is given by the event
   object's <code title="dom-messageevent-source">source</code> attribute.</p>
 
   <pre>onconnect = function (event) {
@@ -1420,7 +1421,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   interface:</p>
 
   <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
-   <tbody><tr><td><dfn id="handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect"><code>onconnect</code></dfn> <td> <code title="event-connect">connect</code>
+   <tbody><tr><td><dfn id="handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect"><code>onconnect</code></dfn> <td> <code title="event-WorkerGlobalScope-connect">connect</code>
   </table><p>For the purposes of the <span>application cache</span> networking model, a shared worker is its
   own <span>cache host</span>. The <a href="#run-a-worker">run a worker</a> algorithm takes care of associating the
   worker with an <span>application cache</span>.</p>
@@ -2122,8 +2123,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
        <li><p><span>Entangle</span> <var title="">outside port</var>
        and <var title="">inside port</var>.</li>
 
+
        <li><p>Create a <span title="concept-events-trusted">trusted</span> event that uses the
-       <code>MessageEvent</code> interface, with the name <code title="event-connect">connect</code>, which does not bubble, is not cancelable, has no
+       <code>MessageEvent</code> interface, with the name <code title="event-WorkerGlobalScope-connect">connect</code>, which does not bubble, is not cancelable, has no
        default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value
        is initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code>
        attribute whose value is initialized to a <span title="dfn-read-only-array">read only</span>
@@ -2180,8 +2182,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
    <li><p>Return <var title="">worker</var> and perform the remaining steps asynchronously.</li>
 
+
    <li><p>Create a <span title="concept-events-trusted">trusted</span> event that uses the
-   <code>MessageEvent</code> interface, with the name <code title="event-connect">connect</code>,
+   <code>MessageEvent</code> interface, with the name <code title="event-WorkerGlobalScope-connect">connect</code>,
    which does not bubble, is not cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code> attribute whose value is initialized to the empty
    string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value is
    initialized to a <span title="dfn-read-only-array">read only</span> array containing only the
