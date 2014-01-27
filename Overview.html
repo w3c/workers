@@ -1309,7 +1309,8 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h4 id="the-workerglobalscope-common-interface"><span class="secno">4.1.1 </span>The <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> common interface</h4>
 
-  <pre class="idl">interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarget</span> {
+  <pre class="idl">[Exposed=Worker] 
+interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarget</span> {
   readonly attribute <a href="#workerglobalscope">WorkerGlobalScope</a> <a href="#dom-workerglobalscope-self" title="dom-WorkerGlobalScope-self">self</a>;
   readonly attribute <a href="#workerlocation">WorkerLocation</a> <a href="#dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location">location</a>;
 
@@ -1354,7 +1355,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h4 id="dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface</h4>
 
-  <pre class="idl">[Global]
+  <pre class="idl">[Global=Worker,DedicatedWorker]
 /*sealed*/ interface <dfn id="dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   void <a href="#dom-dedicatedworkerglobalscope-postmessage" title="dom-DedicatedWorkerGlobalScope-postMessage">postMessage</a>(any message, optional sequence&lt;<span>Transferable</span>&gt; transfer);
            attribute <span>EventHandler</span> <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
@@ -1393,7 +1394,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h4 id="shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.1.3 </span>Shared workers and the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface</h4>
 
-  <pre class="idl">[Global]
+  <pre class="idl">[Global=Worker,SharedWorker]
 /*sealed*/ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   readonly attribute DOMString <a href="#dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name">name</a>;
   readonly attribute <span>ApplicationCache</span> <span title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>;
@@ -1726,7 +1727,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h4 id="the-abstractworker-abstract-interface"><span class="secno">4.6.1 </span>The <code><a href="#abstractworker">AbstractWorker</a></code> abstract interface</h4>
 
-  <pre class="idl">[NoInterfaceObject]
+  <pre class="idl">[NoInterfaceObject, Exposed=Window,Worker]
 interface <dfn id="abstractworker">AbstractWorker</dfn> {
            attribute <span>EventHandler</span> <a href="#handler-abstractworker-onerror" title="handler-AbstractWorker-onerror">onerror</a>;
 };</pre>
@@ -1838,7 +1839,7 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
 
   </ol><h4 id="dedicated-workers-and-the-worker-interface"><span class="secno">4.6.3 </span>Dedicated workers and the <code><a href="#worker">Worker</a></code> interface</h4>
 
-  <pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL)]
+  <pre class="idl">[<a href="#dom-worker" title="dom-Worker">Constructor</a>(DOMString scriptURL), Exposed=Window,Worker]
 interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
   void <a href="#dom-worker-terminate" title="dom-Worker-terminate">terminate</a>();
 
@@ -1956,7 +1957,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
 
   </ol><h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.6.4 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
 
-  <pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(DOMString scriptURL, optional DOMString name)]
+  <pre class="idl">[<a href="#dom-sharedworker" title="dom-SharedWorker">Constructor</a>(DOMString scriptURL, optional DOMString name), Exposed=Window,Worker]
 interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
   readonly attribute <span>MessagePort</span> <a href="#dom-sharedworker-port" title="dom-SharedWorker-port">port</a>;
 };
@@ -2159,7 +2160,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
   <h2 id="apis-available-to-workers"><span class="secno">5 </span>APIs available to workers</h2>
 
-  <pre class="idl">partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">WorkerGlobalScope</a> {
+  <pre class="idl">[Exposed=Worker]
+partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">WorkerGlobalScope</a> {
   void <a href="#dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts">importScripts</a>(DOMString... urls);
   readonly attribute <a href="#workernavigator">WorkerNavigator</a> <a href="#dom-worker-navigator" title="dom-worker-navigator">navigator</a>;
 };
@@ -2248,7 +2250,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
   the <code><a href="#workernavigator">WorkerNavigator</a></code> interface, which represents the
   identity and state of the user agent (the client):</p>
 
-  <pre class="idl">interface <dfn id="workernavigator">WorkerNavigator</dfn> {};
+  <pre class="idl">[Exposed=Worker]
+interface <dfn id="workernavigator">WorkerNavigator</dfn> {};
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorID</span>;
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorLanguage</span>;
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorOnLine</span>;</pre>
@@ -2279,7 +2282,8 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
   <h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3>
 
-  <pre class="idl">interface <dfn id="workerlocation">WorkerLocation</dfn> { };
+  <pre class="idl">[Exposed=Worker]
+interface <dfn id="workerlocation">WorkerLocation</dfn> { };
 <a href="#workerlocation">WorkerLocation</a> implements <span>URLUtilsReadOnly</span>;</pre>
 
   <p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute URL</span> set at its
