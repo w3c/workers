@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-17-january-2014">Editor's Draft 17 January 2014</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-27-january-2014">Editor's Draft 27 January 2014</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 17 January 2014 Editor's Draft.
+  This specification is the 27 January 2014 Editor's Draft.
   </p>
 
   
@@ -398,7 +398,7 @@
      <li><a href="#the-workerglobalscope-common-interface"><span class="secno">4.1.1 </span>The <code>WorkerGlobalScope</code> common interface</a></li>
      <li><a href="#dedicated-workers-and-the-dedicatedworkerglobalscope-interface"><span class="secno">4.1.2 </span>Dedicated workers and the <code>DedicatedWorkerGlobalScope</code> interface</a></li>
      <li><a href="#shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.1.3 </span>Shared workers and the <code>SharedWorkerGlobalScope</code> interface</a></ol></li>
-   <li><a href="#the-event-loop"><span class="secno">4.2 </span>The event loop</a></li>
+   <li><a href="#worker-event-loop"><span class="secno">4.2 </span>The event loop</a></li>
    <li><a href="#the-worker-s-lifetime"><span class="secno">4.3 </span>The worker's lifetime</a></li>
    <li><a href="#processing-model"><span class="secno">4.4 </span>Processing model</a></li>
    <li><a href="#runtime-script-errors"><span class="secno">4.5 </span>Runtime script errors</a></li>
@@ -1428,7 +1428,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
 
 
-  <h3 id="the-event-loop"><span class="secno">4.2 </span>The event loop</h3>
+  <h3 id="worker-event-loop"><span class="secno">4.2 </span>The event loop</h3>
 
   <p>Each <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object has a distinct <span>event loop</span>, separate
   from those used by <span title="unit of related similar-origin browsing contexts">units of related
