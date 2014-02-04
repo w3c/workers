@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-27-january-2014">Editor's Draft 27 January 2014</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-4-february-2014">Editor's Draft 4 February 2014</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 27 January 2014 Editor's Draft.
+  This specification is the 4 February 2014 Editor's Draft.
   </p>
 
   
@@ -1316,6 +1316,7 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
 
   void <a href="#dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close">close</a>();
            attribute <span>OnErrorEventHandler</span> <a href="#handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror">onerror</a>;
+           attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-onlanguagechange" title="handler-WorkerGlobalScope-onlanguagechange">onlanguagechange</a>;
            attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline">onoffline</a>;
            attribute <span>EventHandler</span> <a href="#handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline">ononline</a>;
 };</pre>
@@ -1345,6 +1346,7 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
 
   <table><thead><tr><th><span title="event handlers">Event handler</span> <th><span>Event handler event type</span>
    <tbody><tr><td><dfn id="handler-workerglobalscope-onerror" title="handler-WorkerGlobalScope-onerror"><code>onerror</code></dfn> <td> <code title="event-error">error</code>
+    <tr><td><dfn id="handler-workerglobalscope-onlanguagechange" title="handler-WorkerGlobalScope-onlanguagechange"><code>onlanguagechange</code></dfn> <td> <code title="event-languagechange">languagechange</code> 
     <tr><td><dfn id="handler-workerglobalscope-onoffline" title="handler-WorkerGlobalScope-onoffline"><code>onoffline</code></dfn> <td> <code title="event-offline">offline</code> 
     <tr><td><dfn id="handler-workerglobalscope-ononline" title="handler-WorkerGlobalScope-ononline"><code>ononline</code></dfn> <td> <code title="event-online">online</code> 
   </table><hr><p class="note">For <span title="data protocol"><code title="">data:</code> URLs</span>, this is
