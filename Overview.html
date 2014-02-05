@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-4-february-2014">Editor's Draft 4 February 2014</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-5-february-2014">Editor's Draft 5 February 2014</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 4 February 2014 Editor's Draft.
+  This specification is the 5 February 2014 Editor's Draft.
   </p>
 
   
@@ -412,8 +412,7 @@
   <ol>
    <li><a href="#importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</a></li>
    <li><a href="#the-workernavigator-object"><span class="secno">5.2 </span>The <code>WorkerNavigator</code> object</a></li>
-   <li><a href="#interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</a></li>
-   <li><a href="#worker-locations"><span class="secno">5.4 </span>Worker locations</a></ol></li>
+   <li><a href="#worker-locations"><span class="secno">5.3 </span>Worker locations</a></ol></li>
  <li><a href="#references" class="no-num">References</a></li>
  <li><a href="#acknowledgements" class="no-num">Acknowledgements</a></ol>
 
@@ -1363,10 +1362,6 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
            attribute <span>EventHandler</span> <a href="#handler-dedicatedworkerglobalscope-onmessage" title="handler-DedicatedWorkerGlobalScope-onmessage">onmessage</a>;
 };</pre>
 
-  <p>The <code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> interface must only be <span>exposed to
-  JavaScript</span> if the <span>JavaScript global environment</span> is a <span>dedicated worker
-  environment</span>.</p>
-
   <p><code><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> objects act as if they had an implicit
   <code>MessagePort</code> associated with them. This port is part of a channel that is set up when
   the worker is created, but it is not exposed. This object must never be garbage collected before
@@ -1402,10 +1397,6 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
   readonly attribute <span>ApplicationCache</span> <span title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>;
            attribute <span>EventHandler</span> <a href="#handler-sharedworkerglobalscope-onconnect" title="handler-SharedWorkerGlobalScope-onconnect">onconnect</a>;
 };</pre>
-
-  <p>The <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface must only be <span>exposed to
-  JavaScript</span> if the <span>JavaScript global environment</span> is a <span>shared worker
-  environment</span>.</p>
 
   <p>Shared workers receive message ports through <code title="event-WorkerGlobalScope-connect">connect</code> events on their <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object for each
   connection.</p>
@@ -2170,10 +2161,6 @@ partial interface <a href="#workerglobalscope" id="WorkerGlobalScope-partial">Wo
 <a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>WindowTimers</span>;
 <a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>WindowBase64</span>;</pre>
 
-  <p>The DOM APIs &mdash; specifically, all the interfaces defined in the DOM specification other
-  than exceptions &mdash; must not be <span>exposed to JavaScript</span> if the <span>JavaScript
-  global environment</span> is a <span>worker environment</span>. <a href="#refsDOM">[DOM]</a></p>
-
 
   <h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3>
 
@@ -2258,31 +2245,10 @@ interface <dfn id="workernavigator">WorkerNavigator</dfn> {};
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorLanguage</span>;
 <a href="#workernavigator">WorkerNavigator</a> implements <span>NavigatorOnLine</span>;</pre>
 
-  <p>The <code><a href="#workernavigator">WorkerNavigator</a></code> interface must only be <span>exposed
-  to JavaScript</span> if the <span>JavaScript global
-  environment</span> is a <span>worker environment</span>.</p>
 
 
 
-
-  <h3 id="interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</h3>
-
-  <p>Nothing must be <span>exposed to JavaScript</span> when the <span>JavaScript global
-  environment</span> is a <span>worker environment</span> except for the following:</p>
-
-  <ul><li><p>Any interfaces and exceptions defined by a specification that explicitly specifies that
-   they are <span>exposed to JavaScript</span> when the <span>JavaScript global environment</span>
-   is a <span>worker environment</span>.</li>
-
-   <li><p>The interfaces of any objects made accessible through, and the exceptions thrown by any,
-   interfaces or objects of interfaces that are themselves
-   <span>exposed to JavaScript</span> (i.e. this requirement is transitive).</li>
-
-  </ul><p class="note">These requirements do not override the requirements defined by the Web IDL
-  specification, in particular concerning the visibility of interfaces annotated with the <code title="">[NoInterfaceObject]</code> extended attribute.</p>
-
-
-  <h3 id="worker-locations"><span class="secno">5.4 </span>Worker locations</h3>
+  <h3 id="worker-locations"><span class="secno">5.3 </span>Worker locations</h3>
 
   <pre class="idl">[Exposed=Worker]
 interface <dfn id="workerlocation">WorkerLocation</dfn> { };
@@ -2300,9 +2266,6 @@ interface <dfn id="workerlocation">WorkerLocation</dfn> { };
   object represents as the given value.</p>
 
   <p>The element's <code>URLUtilsReadOnly</code> interface's <span title="concept-uu-get-the-base">get the base</span> algorithm must return null.</p>
-
-  <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface must only be <span>exposed to JavaScript</span> if
-  the <span>JavaScript global environment</span> is a <span>worker environment</span>.</p>
 
 
 
