@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-5-march-2014">Editor's Draft 5 March 2014</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-17-march-2014">Editor's Draft 17 March 2014</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 5 March 2014 Editor's Draft.
+  This specification is the 17 March 2014 Editor's Draft.
   </p>
 
   
@@ -1895,11 +1895,10 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
     <span>origin</span> specified by the <span>incumbent settings object</span>, then throw a
     <code>SecurityError</code> exception and abort these steps.</p>
 
-
-    <p class="note">Thus, scripts must either be external files with the same scheme, host, and port
-    as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span>.
-    For example, an <code>https:</code> page couldn't start workers using scripts with
-    <code>http:</code> URLs.</p>
+    <p class="note">For example, scripts can be external files with the same scheme, host, and port
+    as the original page, or <span title="data protocol"><code title="">data:</code> URLs</span>,
+    or same-origin <code title="">blob:</code> URLs. Thus, an <code>https:</code> page couldn't
+    start workers using scripts with <code>http:</code> URLs. <a href="#refsFILEAPI">[FILEAPI]</a>.</p>
 
    </li>
 
@@ -2280,6 +2279,9 @@ interface <dfn id="workerlocation">WorkerLocation</dfn> { };
 
    <dt id="refsECMA262">[ECMA262]</dt>
    <dd><cite><a href="http://people.mozilla.org/~jorendorff/es6-draft.html">ECMAScript Language Specification</a></cite>. ECMA.</dd>
+
+   <dt id="refsFILEAPI">[FILEAPI]</dt>
+   <dd><cite><a href="http://dev.w3.org/2006/webapi/FileUpload/publish/FileAPI.html">File API</a></cite>, A. Ranganathan. W3C.</dd>
 
    <dt id="refsHTML">[HTML]</dt>
    <dd><cite><a href="http://www.whatwg.org/specs/web-apps/current-work/">HTML</a></cite>, I. Hickson. WHATWG.</dd>
