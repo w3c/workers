@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html lang="en-US-x-Hixie"><title>Web Workers</title><style type="text/css">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html lang="en-GB-x-Hixie"><title>Web Workers</title><style type="text/css">
    pre { margin-left: 2em; white-space: pre-wrap; }
    h2 { margin: 3em 0 1em 0; }
    h3 { margin: 2.5em 0 1em 0; }
@@ -216,7 +216,7 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="editor-s-draft-28-april-2014">Editor's Draft 28 April 2014</h2>
+   <h2 class="no-num no-toc" id="editor-s-draft-14-may-2014">Editor's Draft 14 May 2014</h2>
    <dl><dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -353,7 +353,7 @@
   </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
   Working Group</a> is the W3C working group responsible for this
   specification's progress along the W3C Recommendation track.
-  This specification is the 28 April 2014 Editor's Draft.
+  This specification is the 14 May 2014 Editor's Draft.
   </p>
 
   
@@ -490,7 +490,7 @@ search: while (true) {
   postMessage(n);
 }</pre>
 
-  <p>The bulk of this code is simply an unoptimized search for a prime number. The <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code> method is used to send a
+  <p>The bulk of this code is simply an unoptimised search for a prime number. The <code title="dom-DedicatedWorkerGlobalScope-postMessage"><a href="#dom-dedicatedworkerglobalscope-postmessage">postMessage()</a></code> method is used to send a
   message back to the page when a prime is found.</p>
 
   <p><a href="//www.whatwg.org/demos/workers/primes/page.html">View this example online</a>.</p>
@@ -1295,7 +1295,6 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h2 id="infrastructure"><span class="secno">4 </span>Infrastructure</h2>
 
-
   <p>There are two kinds of workers; dedicated workers, and shared workers. Dedicated workers, once
   created, are linked to their creator; but message ports can be used to communicate from a
   dedicated worker to multiple other browsing contexts or workers. Shared workers, on the other
@@ -1327,7 +1326,7 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
   <p>The <dfn id="dom-workerglobalscope-location" title="dom-WorkerGlobalScope-location"><code>location</code></dfn> attribute must
   return the <code><a href="#workerlocation">WorkerLocation</a></code> object created for the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
   object when the worker was created. It represents the <span>absolute URL</span> of the script that
-  was used to initialize the worker, after any redirects.</p>
+  was used to initialise the worker, after any redirects.</p>
 
   <hr><p>When a script invokes the <dfn id="dom-workerglobalscope-close" title="dom-WorkerGlobalScope-close"><code>close()</code></dfn>
   method on a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user agent must run the following steps
@@ -1560,7 +1559,7 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
     <p>Obtain the appropriate <span>script execution environment</span> for the scripting language
     <var title="">language</var> from <var title="">settings object</var>.</p>
 
-    <p>Parse/compile/initialize <var title="">source</var> using that <span>script execution
+    <p>Parse/compile/initialise <var title="">source</var> using that <span>script execution
     environment</span>, as appropriate for <var title="">language</var>, and thus obtain a
     <span>code entry-point</span>. If the script was not compiled successfully, let the <span>code
     entry-point</span> be a no-op script, and act as if a corresponding uncaught script error had
@@ -1696,8 +1695,8 @@ interface <dfn id="workerglobalscope">WorkerGlobalScope</dfn> : <span>EventTarge
   agent must <span>queue a task</span> to <span title="concept-event-fire">fire</span> a <span title="concept-events-trusted">trusted</span> event that uses the <code>ErrorEvent</code>
   interface, with the name <code title="event-error">error</code>, that doesn't bubble and is
   cancelable, with its <code title="dom-ErrorEvent-message">message</code>, <code title="dom-ErrorEvent-filename">filename</code>, <code title="dom-ErrorEvent-lineno">lineno</code>, <code title="dom-ErrorEvent-colno">colno</code>,
-  attributes initialized appropriately,
-  and with the <code title="dom-ErrorEvent-error">error</code> attribute initialized to null,
+  attributes initialised appropriately,
+  and with the <code title="dom-ErrorEvent-error">error</code> attribute initialised to null,
   at the <code><a href="#worker">Worker</a></code> object associated with the
   worker. If the event is not canceled, the user agent must act as if the uncaught runtime script
   error had occurred in the global scope that the <code><a href="#worker">Worker</a></code> object is in, thus repeating
@@ -2064,9 +2063,9 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
        <li><p>Create a <span title="concept-events-trusted">trusted</span> event that uses the
        <code>MessageEvent</code> interface, with the name <code title="event-WorkerGlobalScope-connect">connect</code>, which does not bubble, is not
        cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code>
-       attribute whose value is initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value is initialized to a <span title="dfn-read-only-array">read only</span> array containing only the newly created port,
+       attribute whose value is initialised to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value is initialised to a <span title="dfn-read-only-array">read only</span> array containing only the newly created port,
        and has a <code title="dom-MessageEvent-source">source</code> attribute whose value is
-       initialized to the newly created port, and <span>queue a task</span> to <span title="concept-event-dispatch">dispatch</span> the event at <var title="">worker global
+       initialised to the newly created port, and <span>queue a task</span> to <span title="concept-event-dispatch">dispatch</span> the event at <var title="">worker global
        scope</var>.</li>
 
        <li>
@@ -2117,7 +2116,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
    <li><p>Create a <span title="concept-events-trusted">trusted</span> event that uses the
    <code>MessageEvent</code> interface, with the name <code title="event-WorkerGlobalScope-connect">connect</code>, which does not bubble, is not
    cancelable, has no default action, has a <code title="dom-MessageEvent-data">data</code>
-   attribute whose value is initialized to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value is initialized to a <span title="dfn-read-only-array">read only</span> array containing only the newly created port, and
+   attribute whose value is initialised to the empty string, has a <code title="dom-MessageEvent-ports">ports</code> attribute whose value is initialised to a <span title="dfn-read-only-array">read only</span> array containing only the newly created port, and
    has a <code title="dom-MessageEvent-source">source</code> attribute whose value is initialized
    to the newly created port, and <span>queue a task</span> to <span title="concept-event-dispatch">dispatch</span> the event at <var title="">worker global
    scope</var>.</li>
