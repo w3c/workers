@@ -1256,12 +1256,11 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   newPort.postMessage('ready!'); // can also send structured data, of course
 };</pre>
 
-<h4 id="at-risk-features"><span class="secno">1.4 </span>"At-risk" Features</h4>
+<h3 id="at-risk-features"><span class="secno">1.4 </span>"At-risk" Features</h4>
 <p>The following features are at risk and may be removed due to lack of implementation.<p>
   <ul>
     <li>Base URL in workers. See Bug <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=28835">28835</a>.</li>
     <li>SharedWorkers in Workers. See Bug <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=28504">28504</a>.</li>
-    <li>Shared workers and the SharedWorker interface. See <a href="https://w3c.github.io/test-results/workers/less-than-2.html">"Less Than 2 Passes" </a> in the test report for details.</li>
   </ul>
 
   <h2 id="conformance-requirements"><span class="secno">2 </span>Conformance requirements</h2>
@@ -1572,7 +1571,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <p>A worker is said to be a <dfn id="protected-worker">protected worker</dfn> if it is an <a href="#active-needed-worker">active needed
   worker</a> and either it has outstanding timers, database transactions, or network connections,
-  or its list of <a href="#the-worker-s-ports">the worker's ports</a> is not empty, or its <code><a href=#workerglobalscope>WorkerGlobalScope</a></code>
+  or its list of <a href="#the-worker-s-ports">the worker's ports</a> is not empty, or its <code><a href="#workerglobalscope>WorkerGlobalScope</a></code>
   is actually a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object (i.e. the worker is a shared
   worker).</p>
 
@@ -1607,7 +1606,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
    <li>
 
     <p>Let <var>request</var> be a new <a href="https://fetch.spec.whatwg.org/#concept-request" id="processing-model-10:concept-request">request</a> whose
-   <a href="https://fetch.spec.whatwg.org/#concept-request-url" id="processing-model-10:concept-request-url" data-x-internal="concept-request-url">url</a> is <var>url</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-client" id="processing-model-10:concept-request-client" data-x-internal="concept-request-client">client</a> is <var>settings object</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-type" id="processing-model-10:concept-request-type" data-x-internal="concept-request-type">type</a> is "<code>script</code>", <a href="https://fetch.spec.whatwg.org/#concept-request-destination" id="processing-model-10:concept-request-destination" data-x-internal="concept-request-destination">destination</a> is "<code>worker</code>" if
+   <a href="https://fetch.spec.whatwg.org/#concept-request-url" id="processing-model-10:concept-request-url">url</a> is <var>url</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-client" id="processing-model-10:concept-request-client" data-x-internal="concept-request-client">client</a> is <var>settings object</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-type" id="processing-model-10:concept-request-type" data-x-internal="concept-request-type">type</a> is "<code>script</code>", <a href="https://fetch.spec.whatwg.org/#concept-request-destination" id="processing-model-10:concept-request-destination" data-x-internal="concept-request-destination">destination</a> is "<code>worker</code>" if
    <var>worker global scope</var> is a <code id="processing-model-10:dedicatedworkerglobalscope"><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object and "<code>sharedworker</code>" otherwise, <a href="https://fetch.spec.whatwg.org/#concept-request-referrer" id="processing-model-10:concept-request-referrer" data-x-internal="concept-request-referrer">referrer</a>
    is <var>referrer</var>, <a id="processing-model-10:synchronous-flag" href="https://fetch.spec.whatwg.org/#synchronous-flag" data-x-internal="synchronous-flag">synchronous flag</a> is set, <a href="https://fetch.spec.whatwg.org/#concept-request-mode" id="processing-model-10:concept-request-mode" data-x-internal="concept-request-mode">mode</a> is "<code>same-origin</code>", <a href="https://fetch.spec.whatwg.org/#concept-request-credentials-mode" id="processing-model-10:concept-request-credentials-mode" data-x-internal="concept-request-credentials-mode">credentials mode</a> is "<code>same-origin</code>", and whose <a id="processing-model-10:use-url-credentials-flag" href="https://fetch.spec.whatwg.org/#use-url-credentials-flag" data-x-internal="use-url-credentials-flag">use-URL-credentials flag</a> is set.</p> 
  </li>
@@ -2293,7 +2292,7 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> { // not ob
       <p>If it failed to parse, then throw an ECMAScript <code><a href="http://www.w3.org/TR/html5/infrastructure.html#js-syntaxerror">SyntaxError</a></code> exception and abort all these steps. <a href="#references.html#refsECMA262">[ECMA262]</a></p>
 
       <p>If an exception was thrown or if the script was prematurely aborted, then abort all these
-      steps, letting the exception or aborting continue to be processed by the calling <span>script</a>.</span></p>
+      steps, letting the exception or aborting continue to be processed by the calling <span>script</span>.</p>
 
       <p>If the "<a href="#kill-a-worker">kill a worker</a>" or "<a href="#terminate-a-worker">terminate a worker</a>" algorithms abort
       the script then abort all these steps.</p>
