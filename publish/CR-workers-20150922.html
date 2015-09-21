@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html lang="en-US-x-Hixie"><title>Web Workers</title><style type="text/css">
+<!DOCTYPE html><html lang="en-US-x-Hixie"><title>Web Workers</title><style type="text/css">
    pre { margin-left: 2em; white-space: pre-wrap; }
    h2 { margin: 3em 0 1em 0; }
    h3 { margin: 2.5em 0 1em 0; }
@@ -1256,7 +1256,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   newPort.postMessage('ready!'); // can also send structured data, of course
 };</pre>
 
-<h3 id="at-risk-features"><span class="secno">1.4 </span>"At-risk" Features</h4>
+<h3 id="at-risk-features"><span class="secno">1.4 </span>"At-risk" Features</h3>
 <p>The following features are at risk and may be removed due to lack of implementation.<p>
   <ul>
     <li>Base URL in workers. See Bug <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=28835">28835</a>.</li>
@@ -1571,7 +1571,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <p>A worker is said to be a <dfn id="protected-worker">protected worker</dfn> if it is an <a href="#active-needed-worker">active needed
   worker</a> and either it has outstanding timers, database transactions, or network connections,
-  or its list of <a href="#the-worker-s-ports">the worker's ports</a> is not empty, or its <code><a href="#workerglobalscope>WorkerGlobalScope</a></code>
+  or its list of <a href="#the-worker-s-ports">the worker's ports</a> is not empty, or its <code><a href="#workerglobalscope">WorkerGlobalScope</a></code>
   is actually a <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> object (i.e. the worker is a shared
   worker).</p>
 
@@ -2289,7 +2289,7 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> { // not ob
       "<a href="#kill-a-worker">kill a worker</a>" or "<a href="#terminate-a-worker">terminate a worker</a>" algorithms defined
       above.</p>
 
-      <p>If it failed to parse, then throw an ECMAScript <code><a href="http://www.w3.org/TR/html5/infrastructure.html#js-syntaxerror">SyntaxError</a></code> exception and abort all these steps. <a href="#references.html#refsECMA262">[ECMA262]</a></p>
+      <p>If it failed to parse, then throw an ECMAScript <code><a href="http://www.w3.org/TR/html5/infrastructure.html#js-syntaxerror">SyntaxError</a></code> exception and abort all these steps. <a href="#refsECMA262">[ECMA262]</a></p>
 
       <p>If an exception was thrown or if the script was prematurely aborted, then abort all these
       steps, letting the exception or aborting continue to be processed by the calling <span>script</span>.</p>
@@ -2301,7 +2301,7 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> { // not ob
 
    </ol>
 
-  <p class="note">The <cite>Service Workers</cite> specification is an example of a specification that runs this algorithm with its own options for the hooks. <a href="#references.html#refsSW">[SW]</a></p>
+  <p class="note">The <cite>Service Workers</cite> specification is an example of a specification that runs this algorithm with its own options for the hooks. <a href="#refsSW">[SW]</a></p>
 
 
   <h3 id="the-workernavigator-object">5.2 The <code><a href="#workernavigator">WorkerNavigator</a></code> object</h3>
@@ -2357,10 +2357,14 @@ interface <dfn id="workerlocation">WorkerLocation</dfn> { };
    <dt id="refsWEBIDL">[WEBIDL]</dt>
    <dd>Cameron McCormack; Boris Zbarsky; Yves Lafon; Travis Leithead. <a href="http://www.w3.org/TR/WebIDL-1/"><cite>WebIDL Level 1</cite></a>. 04 August 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/WebIDL-1/">http://www.w3.org/TR/WebIDL-1/</a>
 
-   <dt id="refsXHR">[XHR]</dt>
+  <dt id="refsXHR">[XHR]</dt>
    
    <dd>(Non-normative) <cite><a href="https://xhr.spec.whatwg.org/">XMLHttpRequest</a></cite>,
    Living Standard. WHATWG.</dd>
+
+   <dt id="refsSW">[SW]</dt>
+   
+   <dd>Alex Russell; Jungkee Song; Jake Archibald. (Non-normative) <cite><a href="http://www.w3.org/TR/service-workers/">Service Workers</a></cite>, 25 June 2015. W3C Working Draft.</dd>
 
   </dl>
   <h2 class="no-num" id="acknowledgements">Acknowledgements</h2> <!-- ACKS -->
