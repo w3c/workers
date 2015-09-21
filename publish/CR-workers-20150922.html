@@ -216,10 +216,10 @@
 
    <h1>Web Workers</h1>
    
-   <h2 class="no-num no-toc" id="cr-26-september-2015">W3C Candidate Recommendation xx September 2015</h2>
+   <h2 class="no-num no-toc" id="cr-22-september-2015">W3C Candidate Recommendation 22 September 2015</h2>
    <dl>
     <dt>This Version:</dt>
-    <dd><a href="http://www.w3.org/TR/2015/CR-workers-201509xx/">http://www.w3.org/TR/2015/CR-workers-201509xx/</a></dd>
+    <dd><a href="http://www.w3.org/TR/2015/CR-workers-20150922/">http://www.w3.org/TR/2015/CR-workers-20150922/</a></dd>
     <dt>Latest Published Version:</dt>
     <dd><a href="http://www.w3.org/TR/workers/">http://www.w3.org/TR/workers/</a></dd>
     <dt>Latest Editor's Draft:</dt>
@@ -272,14 +272,19 @@
   message-passing as the coordination mechanism.</p>
 
 
-  <h2 class="no-num no-toc" id="status-of-this-document">Status of This document</h2><p><em>This section describes the status of this document at the
+  <h2 class="no-num no-toc" id="status-of-this-document">Status of This document</h2>
+  <p><em>This section describes the status of this document at the
   time of its publication. Other documents may supersede this
   document. A list of current W3C publications and the
 
   latest <!-- DO NOT CHANGE THIS BACK TO THE STANDARD BOILERPLATE, AS IT IS INACCURATE -->
 
   revision of this technical report can be found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a> at
-  http://www.w3.org/TR/.</em></p><p>If you wish to make comments regarding this document in a manner
+  http://www.w3.org/TR/.</em></p>
+
+  <p>Publication as a Candidate Recommendation does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.</p>
+
+  <p>If you wish to make comments regarding this document in a manner
   that is tracked by the W3C, please submit them via using <a href="http://www.w3.org/Bugs/Public/enter_bug.cgi?product=HTML%20WG">our
   public bug database</a>. If you do not have an account then you can
   enter feedback using this form:<form action="http://www.whatwg.org/specs/web-apps/current-work/file-spam.cgi" method="post">
@@ -328,12 +333,34 @@
    <dd>CVSWeb interface with side-by-side diffs: <a href="http://dev.w3.org/cvsweb/html5/">http://dev.w3.org/cvsweb/html5/</a></dd>
    <dd>Annotated summary with unified diffs: <a href="http://html5.org/tools/web-apps-tracker">http://html5.org/tools/web-apps-tracker</a></dd>
    <dd>Raw Subversion interface: <code>svn checkout http://svn.whatwg.org/webapps/</code></dd>
-  </dl><p>The W3C <a href="http://www.w3.org/2008/webapps/">Web Applications
-  Working Group</a> is the W3C working group responsible for this
-  specification's progress along the W3C Recommendation track.
-  This specification is the xx September 2015 Candidate Recommendation. 
-  Comments for the 13 March 2012 Last Call Working Draft are tracked in the
-  <a href="http://www.w3.org/2008/webapps/wiki/WebWorkers-Comments-LC-13Mar2012">comment tracking document</a>.</p>
+  </dl>
+  <p>The W3C
+<a href="http://www.w3.org/2008/webapps/">Web Applications Working Group</a> is the W3C working group responsible for this
+specification's progress along the W3C Recommendation track. The Working
+Group expects to advance this specification to Recommendation status.</p>
+
+  <p>This specification is expected to advance to Proposed Recommendation by 20 October 2015. To exit the Candidate Recommendation stage, the Web Applications Working Group will need to document a sufficient level of user-agent conformance with the requirements in the specification, as measured through the 
+  <a href="https://github.com/w3c/web-platform-tests/tree/master/workers">Test Suite</a> for this spec.
+  </p>
+
+  <p>The following changes were made to this specification after Web Workers was published as <a href="http://www.w3.org/TR/2012/CR-workers-20120501/">a W3C Candidate Recommendation on 01 May 2012</a>:</p>
+   <ul>
+    <li>Update to match Web IDL: remove [TreatNonCallableAsNull] from the <a href="#the-workerglobalscope-common-interface">WorkerGlobalScope interface</a>. </li>
+    <li>"languagechange" was added as another Event handler type that must be supported to the<a href="#the-workerglobalscope-common-interface">WorkerGlobalScope interface</a>.</li>
+    <li>Extended the definition of <a href="#permissible-worker">permissible worker</a>.</li>
+    <li>Updated the <a href="#processing-model">Processing model</a>.
+    </li>
+    <li>The <a href="#the-abstractworker-abstract-interface">AbstractWorker interface</a> have Exposed=(Window,Worker). </li>
+    <li>Clearly defined the <a href="#script-settings-for-workers">script settings for workers</a>.</li>
+    <li>The <a href="#worker-locations">WorkerLocation interface</a> now supports the URLUtilsReadOnly interface.</li>
+    <li>
+      Updated the <a href="#references">References</a> section.
+    </li>
+   </ul> 
+  <p>
+
+  <p>We expect the functionality specified in this CR (and the future PR/REC) will not be affected by changes to <a href="#refsDOM">DOM4</a> or <a href="#refsWEBIDL">Web IDL</a> as those specifications proceed to Recommendation.</p>
+
   <p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5
   February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of
   any patent disclosures</a> made in connection with the deliverables
@@ -341,7 +368,9 @@
   patent. An individual who has actual knowledge of a patent which the
   individual believes contains <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
   Claim(s)</a> must disclose the information in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
-  6 of the W3C Patent Policy</a>.
+  6 of the W3C Patent Policy</a>.</p>
+
+  <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.</p>
 
 <h3 class="no-num no-toc" id="crec">Candidate Recommendation Exit Criteria</h3>
 
@@ -359,7 +388,7 @@ must have been met:
  implementation report (hosted together with the test suite).
 
  <li>A minimum of three months of the CR stage will have elapsed (i.e. not
- until after xx November 2015). This is to ensure that enough time is given
+ until after 20 October 2015). This is to ensure that enough time is given
  for any remaining major errors to be caught. The CR period will be extended
  if implementations are slow to appear.
 </ol>
@@ -383,7 +412,10 @@ must have been met:
     <ol>
      <li><a href="#creating-a-dedicated-worker"><span class="secno">1.3.1 </span>Creating a dedicated worker</a></li>
      <li><a href="#communicating-with-a-dedicated-worker"><span class="secno">1.3.2 </span>Communicating with a dedicated worker</a></li>
-     <li><a href="#shared-workers"><span class="secno">1.3.3 </span>Shared workers</a></ol></ol></li>
+     <li><a href="#shared-workers"><span class="secno">1.3.3 </span>Shared workers</a></ol>
+  <li><a href="#at-risk-features"><span class="secno">1.4 </span>"At-risk" Features</a>
+ </li>
+</ol></li>
  <li><a href="#conformance-requirements"><span class="secno">2 </span>Conformance requirements</a>
   <ol>
    <li><a href="#dependencies"><span class="secno">2.1 </span>Dependencies</a></ol></li>
@@ -409,8 +441,7 @@ must have been met:
   <ol>
    <li><a href="#importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</a></li>
    <li><a href="#the-workernavigator-object"><span class="secno">5.2 </span>The <code>WorkerNavigator</code> object</a></li>
-   <li><a href="#interface-objects-and-constructors"><span class="secno">5.3 </span>Interface objects and constructors</a></li>
-   <li><a href="#worker-locations"><span class="secno">5.4 </span>Worker locations</a></ol></li>
+   <li><a href="#worker-locations"><span class="secno">5.3 </span>Worker locations</a></ol></li>
  <li><a class="no-num" href="#references">References</a></li>
  <li><a class="no-num" href="#acknowledgements">Acknowledgements</a></ol>
 
@@ -1225,10 +1256,11 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   newPort.postMessage('ready!'); // can also send structured data, of course
 };</pre>
 
-
-
-
-  
+<h4 id="at-risk-features"><span class="secno">1.4 </span>"At-risk" Features</h4>
+<p>The following features are at risk and may be removed due to lack of implementation.<p>
+  <ul>
+    <li>Base URL in workers. See Bug <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=28835">28835</a>.</li>
+  </ul>
 
   <h2 id="conformance-requirements"><span class="secno">2 </span>Conformance requirements</h2>
 
@@ -1425,7 +1457,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
   <h4 id="shared-workers-and-the-sharedworkerglobalscope-interface"><span class="secno">4.1.3 </span>Shared workers and the <code><a href="#sharedworkerglobalscope">SharedWorkerGlobalScope</a></code> interface</h4>
 
-  <pre class="idl">[Global=(Worker,DedicatedWorker),Exposed=SharedWorker]
+  <pre class="idl">[Global=(Worker,SharedWorker),Exposed=SharedWorker]
 /*sealed*/ interface <dfn id="sharedworkerglobalscope">SharedWorkerGlobalScope</dfn> : <a href="#workerglobalscope">WorkerGlobalScope</a> {
   readonly attribute DOMString <a href="#dom-sharedworkerglobalscope-name" title="dom-SharedWorkerGlobalScope-name">name</a>;
   readonly attribute <span>ApplicationCache</span> <span title="dom-SharedWorkerGlobalScope-applicationCache">applicationCache</span>;
@@ -1550,7 +1582,7 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
   <h3 id="processing-model"><span class="secno">4.4 </span>Processing model</h3>
 
   <p>When a user agent is to <dfn id="run-a-worker">run a worker</dfn> for a script with <a href="http://www.w3.org/TR/html5/infrastructure.html#urls">URL</a>
-  <var>url</var>, an <span>environment settings object</span> <var>settings object</var>, and a <span>referrer source</span> <var>parent referrer source</var> it must run
+  <var>url</var>, an <span>environment settings object</span> <var>settings object</var>, and a <a href="http://www.w3.org/TR/html5/infrastructure.html#urls">URL</a> referrer it must run
   the following steps:</p>
 
   <ol>
@@ -1572,26 +1604,29 @@ worker.port.postMessage({ foo: 'structured', bar: ['data', 'also', 'possible']})
 
    <li>
 
-    <p>Attempt to <a href="http://www.w3.org/TR/html5/infrastructure.html#fetch">fetch</a> the resource identified by <var>url</var>, from the
-    <a href="http://www.w3.org/TR/html5/browsers.html#origin">origin</a> specified by <var>settings object</var>, using <var>parent referrer source</var> as the <i>referrer source</i> (not using
-    the <span>referrer source</span> specified by <var>settings object</var>!), and with the <i>blocking flag</i> set and
-    the <i>force same-origin flag</i> set.</p> 
-
-    <p>If the attempt fails, then for each <code><a href="#worker">Worker</a></code> or <code><a href="#sharedworker">SharedWorker</a></code> object
-    associated with <var title="">worker global scope</var>, <span>queue a task</span> to
-    <span>fire a simple event</span> named <code title="event-error">error</code> at that object.
-    Abort these steps.</p>
-
-    <p>If the attempt succeeds, then let <var title="">source</var> be the result of running the
-    <span>UTF-8 decode</span> algorithm on the script resource.</p>
+    <p>Let <var>request</var> be a new <a href="https://fetch.spec.whatwg.org/#concept-request" id="processing-model-10:concept-request" data-x-internal="concept-request">request</a> whose
+   <a href="https://fetch.spec.whatwg.org/#concept-request-url" id="processing-model-10:concept-request-url" data-x-internal="concept-request-url">url</a> is <var>url</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-client" id="processing-model-10:concept-request-client" data-x-internal="concept-request-client">client</a> is <var>settings object</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-type" id="processing-model-10:concept-request-type" data-x-internal="concept-request-type">type</a> is "<code>script</code>", <a href="https://fetch.spec.whatwg.org/#concept-request-destination" id="processing-model-10:concept-request-destination" data-x-internal="concept-request-destination">destination</a> is "<code>worker</code>" if
+   <var>worker global scope</var> is a <code id="processing-model-10:dedicatedworkerglobalscope"><a href="#dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</a></code> object and "<code>sharedworker</code>" otherwise, <a href="https://fetch.spec.whatwg.org/#concept-request-referrer" id="processing-model-10:concept-request-referrer" data-x-internal="concept-request-referrer">referrer</a>
+   is <var>referrer</var>, <a id="processing-model-10:synchronous-flag" href="https://fetch.spec.whatwg.org/#synchronous-flag" data-x-internal="synchronous-flag">synchronous flag</a> is set, <a href="https://fetch.spec.whatwg.org/#concept-request-mode" id="processing-model-10:concept-request-mode" data-x-internal="concept-request-mode">mode</a> is "<code>same-origin</code>", <a href="https://fetch.spec.whatwg.org/#concept-request-credentials-mode" id="processing-model-10:concept-request-credentials-mode" data-x-internal="concept-request-credentials-mode">credentials mode</a> is "<code>same-origin</code>", and whose <a id="processing-model-10:use-url-credentials-flag" href="https://fetch.spec.whatwg.org/#use-url-credentials-flag" data-x-internal="use-url-credentials-flag">use-URL-credentials flag</a> is set.</p> 
+ </li>
+ <li>
+    <p>Let <var>response</var> be the result of <a href="https://fetch.spec.whatwg.org/#concept-fetch" id="processing-model-10:concept-fetch" data-x-internal="concept-fetch">fetching</a> <var>request</var>.</p>
+  </li>
+  <li>
+    <p>If <var>response</var> <var>response</var>'s <a href="https://fetch.spec.whatwg.org/#concept-response-status" id="processing-model-10:concept-response-status" data-x-internal="concept-response-status">status</a> is an <a id="processing-model-10:ok-status" href="https://fetch.spec.whatwg.org/#ok-status" data-x-internal="ok-status">ok status</a>, then let
+    <var>source</var> be the result of running the <a id="processing-model-10:utf-8-decode" href="infrastructure.html#utf-8-decode">UTF-8 decode</a> algorithm on
+    <var>response</var>'s <a href="https://fetch.spec.whatwg.org/#concept-response-body" id="processing-model-10:concept-response-body" data-x-internal="concept-response-body">body</a>.</p>
 
     <p>Let <var title="">language</var> be JavaScript.</p>
 
     <p class="note">As with <code>script</code> elements, the MIME type of the script is ignored.
     Unlike with <code>script</code> elements, there is no way to override the type. It's always
     assumed to be JavaScript.</p>
-
    </li>
+  <li><p>Otherwise, then for each <code id="processing-model-10:worker"><a href="#worker">Worker</a></code> or <code id="processing-model-10:sharedworker"><a href="#sharedworker">SharedWorker</a></code> object
+   associated with <var>worker global scope</var>, <a id="processing-model-10:queue-a-task" href="webappapis.html#queue-a-task">queue a task</a> to <a id="processing-model-10:fire-a-simple-event" href="webappapis.html#fire-a-simple-event">fire a simple
+   event</a> named <code id="processing-model-10:event-error"><a href="indices.html#event-error">error</a></code> at that object. Abort these
+   steps.</p></li>
 
    <li><p>In the newly created execution environment, create a <span>JavaScript global
    environment</span> whose <i>global object</i> is <var title="">worker global scope</var>. If
@@ -1834,12 +1869,6 @@ interface <dfn id="abstractworker">AbstractWorker</dfn> {
 
      <p>Not applicable (the <span>responsible event loop</span> is not a <a href="http://www.w3.org/TR/html5/browsers.html#browsing-context">browsing context</a> <span>event loop</span>).</p>
 
-    <dt>The <span>referrer source</span><dd>
-
-      <p>Return <var title="">script address</var>.</p>
-
-     </dd>
-
      <dt>The <span>API URL character encoding</span></dt>
      <dd>
 
@@ -1984,8 +2013,7 @@ interface <dfn id="worker">Worker</dfn> : <span>EventTarget</span> {
    <span>incumbent settings object</span>.</li>
 
    <li><p><a href="#run-a-worker">Run a worker</a> for the script with <span>URL</span> <var>worker URL</var>,
-   the <span>environment settings object</span> <var>settings object</var>, and with the
-   <span>referrer source</span> specified by the <span>incumbent settings object</span>.</li>
+   the <span>environment settings object</span> <var>settings object</var>, and with incumbent settings object's creation <span>URL</span>.</li>
 
   </ol><h4 id="shared-workers-and-the-sharedworker-interface"><span class="secno">4.6.4 </span>Shared workers and the <code><a href="#sharedworker">SharedWorker</a></code> interface</h4>
 
@@ -2182,7 +2210,7 @@ interface <dfn id="sharedworker">SharedWorker</dfn> : <span>EventTarget</span> {
 
     <p><a href="#run-a-worker">Run a worker</a> for the script with <span>URL</span> <var>scriptURL</var>,
     the <span>environment settings object</span> <var>settings object</var>, and with the
-    <span>referrer source</span> specified by the <span>incumbent settings object</span>.</p>
+    incumbent settings object's creation <span>URL</span>.</p>
 
    </li>
 
@@ -2199,15 +2227,6 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> { // not ob
 <a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>WindowTimers</span>;
 <a href="#workerglobalscope">WorkerGlobalScope</a> implements <span>WindowBase64</span>;</pre>
 
-  
-  <p>The <code>WindowTimers</code> and <code>WindowBase64</code>
-  interfaces are defined in the HTML specification. <a href="#refsHTML">[HTML]</a></p>
-  
-
-  <p>The DOM APIs (<code>Node</code> objects, <code>Document</code>
-  objects, etc) are not available to workers in this version of this
-  specification.</p>
-
   <h3 id="importing-scripts-and-libraries"><span class="secno">5.1 </span>Importing scripts and libraries</h3>
 
   <p>When a script invokes the <dfn id="dom-workerglobalscope-importscripts" title="dom-WorkerGlobalScope-importScripts"><code>importScripts(<var title="">urls</var>)</code></dfn> method on a <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> object, the user
@@ -2219,11 +2238,16 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> { // not ob
 
    <li>
 
-    <p>To <span>get a fetch result</span>, the user agent must attempt to <a href="http://www.w3.org/TR/html5/infrastructure.html#fetch">fetch</a> <var>url</var>, from the <a href="http://www.w3.org/TR/html5/browsers.html#origin">origin</a> specified by <var>settings object</var>, using the <span>referrer source</span> specified by <var>settings object</var>, and with the <i>blocking flag</i> set.</p> 
+    <p>To <a href="#get-a-fetch-result" id="importing-scripts-and-libraries:get-a-fetch-result">get a fetch result</a>, the user agent must run these steps:
 
-   <li>
+    </p><ol><li><p>Let <var>request</var> be a new <a href="https://fetch.spec.whatwg.org/#concept-request" id="importing-scripts-and-libraries:concept-request" data-x-internal="concept-request">request</a> whose
+     <a href="https://fetch.spec.whatwg.org/#concept-request-url" id="importing-scripts-and-libraries:concept-request-url" data-x-internal="concept-request-url">url</a> is <var>url</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-client" id="importing-scripts-and-libraries:concept-request-client" data-x-internal="concept-request-client">client</a> is <var>settings object</var>, <a href="https://fetch.spec.whatwg.org/#concept-request-type" id="importing-scripts-and-libraries:concept-request-type" data-x-internal="concept-request-type">type</a> is "<code>script</code>", <a href="https://fetch.spec.whatwg.org/#concept-request-destination" id="importing-scripts-and-libraries:concept-request-destination" data-x-internal="concept-request-destination">destination</a> is "<code>subresource</code>", <a id="importing-scripts-and-libraries:synchronous-flag" href="https://fetch.spec.whatwg.org/#synchronous-flag" data-x-internal="synchronous-flag">synchronous flag</a> is set, <a href="https://fetch.spec.whatwg.org/#concept-request-credentials-mode" id="importing-scripts-and-libraries:concept-request-credentials-mode" data-x-internal="concept-request-credentials-mode">credentials mode</a> is "<code>include</code>", and whose <a id="importing-scripts-and-libraries:use-url-credentials-flag" href="https://fetch.spec.whatwg.org/#use-url-credentials-flag" data-x-internal="use-url-credentials-flag">use-URL-credentials flag</a> is set.</p></li><li><p>Return the result of <a href="https://fetch.spec.whatwg.org/#concept-fetch" id="importing-scripts-and-libraries:concept-fetch" data-x-internal="concept-fetch">fetching</a>
+     <var>request</var>.
+    </p></li></ol>
 
-    <p>To <span>postprocess the fetch result</span>, the user agent must throw a <code><a href="http://www.w3.org/TR/html5/infrastructure.html#networkerror">NetworkError</a></code> exception and abort all these steps if the fetching attempt failed (e.g. the server returned a 4xx or 5xx status code <a href="http://www.w3.org/TR/html5/infrastructure.html#concept-http-equivalent-codes">or equivalent</a>, or there was a DNS error).</p>
+   </li>
+
+    <p>To <span>postprocess the fetch result</span>, the user agent must throw a <code><a href="http://www.w3.org/TR/html5/infrastructure.html#networkerror">NetworkError</a></code> exception and abort all these steps if the fetching attempt failed (e.g. the server returned a 4xx or 5xx status, or there was a DNS error).</p>
 
    </ul>
 
@@ -2277,7 +2301,7 @@ partial interface <a href="#workerglobalscope">WorkerGlobalScope</a> { // not ob
   <p class="note">The <cite>Service Workers</cite> specification is an example of a specification that runs this algorithm with its own options for the hooks. <a href="#references.html#refsSW">[SW]</a></p>
 
 
-  <h4 id="the-workernavigator-object">10.3.2 The <code><a href="#workernavigator">WorkerNavigator</a></code> object</h4>
+  <h3 id="the-workernavigator-object">5.2 The <code><a href="#workernavigator">WorkerNavigator</a></code> object</h3>
 
   <p>The <dfn id="dom-worker-navigator"><code>navigator</code></dfn> attribute
   of the <code><a href="#workerglobalscope">WorkerGlobalScope</a></code> interface must return an instance of
@@ -2296,8 +2320,7 @@ interface <dfn id="workernavigator">WorkerNavigator</dfn> {};
 interface <dfn id="workerlocation">WorkerLocation</dfn> { };
 <a href="#workerlocation">WorkerLocation</a> implements <span>URLUtilsReadOnly</span>;</pre>
 
-  <p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute URL</span> set at its
-  creation.</p>
+<p>A <code><a href="#workerlocation">WorkerLocation</a></code> object represents an <span>absolute URL</span> set at its creation.</p>
 
   <p>The <code><a href="#workerlocation">WorkerLocation</a></code> interface supports the <code>URLUtilsReadOnly</code>
   interface. <a href="#refsURL">[URL]</a></p>
@@ -2333,7 +2356,7 @@ interface <dfn id="workerlocation">WorkerLocation</dfn> { };
 
    <dt id="refsXHR">[XHR]</dt>
    
-   <dd><cite><a href="https://xhr.spec.whatwg.org/"><code>XMLHttpRequest</code></a></cite>,
+   <dd>(Non-normative) <cite><a href="https://xhr.spec.whatwg.org/">XMLHttpRequest</a></cite>,
    Living Standard. WHATWG.</dd>
 
   </dl><h2 class="no-num" id="acknowledgements">Acknowledgements</h2> <!-- ACKS -->
