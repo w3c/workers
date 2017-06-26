@@ -2056,12 +2056,12 @@ The hash attribute's getter must run these steps:
  2. If fragment is either null or the empty string, return the empty string.
  3. Return "#", followed by fragment.
 
-## Security Considerations {#security-considerations}
+## Security Considerations ## {#security-considerations}
 
 There are no known security implications directly related to this standard as
 of today.
 
-## Privacy Considerations {#privacy-considerations}
+## Privacy Considerations ## {#privacy-considerations}
 
 The {{NavigatorConcurrentHardware}} mechanism can be used to fingerprint
 users. User agents may choose to provide a mechanism to not disclose this
